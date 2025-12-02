@@ -1,21 +1,24 @@
 {
   "name": "react-ui-suite",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist", "README.md", "LICENSE"],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsup",
+    "dev": "tsup --watch"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nruimveld7/react-ui-suite.git"
+  "peerDependencies": {
+    "react": "^18",
+    "react-dom": "^18"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/nruimveld7/react-ui-suite/issues"
+  "dependencies": {
+    "tailwind-merge": "^2.3.0"
   },
-  "homepage": "https://github.com/nruimveld7/react-ui-suite#readme"
+  "devDependencies": {
+    "tsup": "^8.1.0",
+    "typescript": "^5.3.3"
+  }
 }

@@ -1,0 +1,10 @@
+node_modules/
+demo/node_modules/
+dist/
+.DS_Store
+*.log
+*.tsbuildinfo
+artifacts/
+npm-debug.log*
+yarn-error.log*
+.tsbuild/

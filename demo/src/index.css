@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+/* Combobox dropdown scrollbar styling */
+.combobox-scrollbar {
+  scrollbar-width: none; /* Firefox */
+}
+
+.combobox-scrollbar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.table-scrollbar {
+  scrollbar-width: none; /* hide native */
+}
+
+.table-scrollbar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.textarea-scrollbar {
+  scrollbar-width: none;
+}
+
+.textarea-scrollbar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* Utility: clamp text to three lines with ellipsis */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
