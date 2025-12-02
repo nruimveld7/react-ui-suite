@@ -2,6 +2,8 @@
 
 `react-ui-suite` is a collection of production-ready React components built with Tailwind-friendly class names and ergonomic APIs. The library ships as a lightweight ESM bundle (via `tsup`) while a separate Vite demo app showcases every component with rich previews.
 
+> **ESM-only:** The npm package only publishes ES modules and type declarations under `dist/`. Tools that still require CommonJS entry points must add an extra build step (e.g., `tsup --format cjs`) before consumption.
+
 ## Packages
 
 | Folder | Description |
@@ -51,9 +53,11 @@ Every component (and its related types) is exported from `src/index.ts`, so tree
 ```bash
 npm install          # installs dev-only build tooling (tsup + typescript)
 npm run build        # emits ESM + d.ts files to dist/
+npm test             # runs Vitest against the component suite
+npm run lint         # lints src/ and demo/ via ESLint
 ```
 
-`tsup` cleans the `dist/` folder automatically and marks `react` / `react-dom` as externals so the published artifacts only contain the suite’s code.
+`tsup` cleans the `dist/` folder automatically and marks `react` / `react-dom` as externals so the published artifacts only contain the suite's code. Linting and tests provide fast feedback before shipping any new component primitives.
 
 ### Run the local demo gallery
 
@@ -67,4 +71,4 @@ The Vite app aliases `react-ui-suite` to `../src`, so you always preview the lat
 
 ## Publishing
 
-`package.json` limits the published files to `dist/`, `README.md`, and `LICENSE` so neither the demo app nor the raw source ship to npm. Run `npm publish --dry-run` to verify the payload before releasing.
+`package.json` limits the published files to `dist/`, `README.md`, and `LICENSE` so neither the demo app nor the raw source ship to npm. The `prepublishOnly` script automatically runs `build`, `test`, and `lint` so the release payload is always in a healthy state. Once the API begins to stabilize, consider layering in release tooling such as [Changesets](https://github.com/changesets/changesets) or `semantic-release` to track versions/CHANGELOG entries from tagged commits.
