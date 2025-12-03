@@ -277,13 +277,13 @@ export const ColorPicker = React.forwardRef<HTMLInputElement, ColorPickerProps>(
 
   const generatedId = React.useId();
   const inputId = id ?? generatedId;
-  const inputRef = React.useRef<HTMLInputElement>(null);
-  const triggerRef = React.useRef<HTMLButtonElement>(null);
-  const panelRef = React.useRef<HTMLDivElement>(null);
-  const gradientRef = React.useRef<HTMLDivElement>(null);
-  const hueRef = React.useRef<HTMLDivElement>(null);
-  const gradientDragCleanupRef = React.useRef<(() => void) | null>(null);
-  const hueDragCleanupRef = React.useRef<(() => void) | null>(null);
+  const inputRef: React.MutableRefObject<HTMLInputElement | null> = React.useRef(null);
+  const triggerRef: React.MutableRefObject<HTMLButtonElement | null> = React.useRef(null);
+  const panelRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
+  const gradientRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
+  const hueRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
+  const gradientDragCleanupRef: React.MutableRefObject<(() => void) | null> = React.useRef(null);
+  const hueDragCleanupRef: React.MutableRefObject<(() => void) | null> = React.useRef(null);
   const [isOpen, setIsOpen] = React.useState(false);
 
   const mergedRef = React.useCallback(

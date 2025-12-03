@@ -15,8 +15,8 @@ export type DialogProps = {
 };
 
 export function Dialog({ open, onClose, title, description, children, footer, modal = true, draggable = true }: DialogProps) {
-  const overlayRef = React.useRef<HTMLDivElement>(null);
-  const dialogRef = React.useRef<HTMLDivElement>(null);
+  const overlayRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
+  const dialogRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
   const dragState = React.useRef<{
     startX: number;
     startY: number;

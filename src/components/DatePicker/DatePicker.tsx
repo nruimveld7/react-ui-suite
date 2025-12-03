@@ -117,11 +117,11 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
     return { year: base.getFullYear(), month: base.getMonth() };
   });
   const [viewMode, setViewMode] = React.useState<ViewMode>("day");
-  const dropdownRef = React.useRef<HTMLDivElement>(null);
-  const toggleRef = React.useRef<HTMLButtonElement>(null);
-  const inputInnerRef = React.useRef<HTMLInputElement>(null);
+  const dropdownRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
+  const toggleRef: React.MutableRefObject<HTMLButtonElement | null> = React.useRef(null);
+  const inputInnerRef: React.MutableRefObject<HTMLInputElement | null> = React.useRef(null);
   const suppressToggleRef = React.useRef(false);
-  const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
+  const canvasRef: React.MutableRefObject<HTMLCanvasElement | null> = React.useRef(null);
   const [useShortLabel, setUseShortLabel] = React.useState(false);
   const id = React.useId();
   const popoverId = `${id}-popover`;

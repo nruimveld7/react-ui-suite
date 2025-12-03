@@ -1,4 +1,4 @@
-import type React from "react";
+import type { ReactNode } from "react";
 
 export type ComboboxOption<T = unknown> = {
   id: string;        // unique, stable id
@@ -25,8 +25,8 @@ export type ComboboxProps<T = unknown> = {
   listClassName?: string;   // popup list container
   inputClassName?: string;  // text input
 
-  emptyState?: React.ReactNode; // when no results
-  renderOption?: (opt: ComboboxOption<T>, state: ComboboxRenderState) => React.ReactNode;
+  emptyState?: ReactNode; // when no results
+  renderOption?: (opt: ComboboxOption<T>, state: ComboboxRenderState) => ReactNode;
   filter?: (opt: ComboboxOption<T>, query: string) => boolean; // custom filter; default label.includes
 
   openOnFocus?: boolean; // default true

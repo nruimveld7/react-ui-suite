@@ -108,10 +108,10 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(function S
   });
   const inputId = id ?? React.useId();
 
-  const inputRef = React.useRef<HTMLInputElement>(null);
-  const interactionRef = React.useRef<HTMLDivElement>(null);
-  const trackContainerRef = React.useRef<HTMLDivElement>(null);
-  const trackRef = React.useRef<HTMLDivElement>(null);
+  const inputRef: React.MutableRefObject<HTMLInputElement | null> = React.useRef(null);
+  const interactionRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
+  const trackContainerRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
+  const trackRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
   const mergedRef = React.useCallback(
     (node: HTMLInputElement | null) => {
       inputRef.current = node;

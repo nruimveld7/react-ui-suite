@@ -151,7 +151,7 @@ export function Table<T extends Record<string, any>>({
   scrollAreaStyle,
   style,
 }: TableProps<T>) {
-  const scrollRef = React.useRef<HTMLDivElement>(null);
+  const scrollRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
   const [padRight, setPadRight] = React.useState(0);
   const [padBottom, setPadBottom] = React.useState(0);
 

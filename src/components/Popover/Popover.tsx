@@ -157,7 +157,7 @@ export type PopoverProps = {
 };
 
 export function Popover({ className, children }: PopoverProps) {
-  const scrollRef = React.useRef<HTMLUListElement>(null);
+  const scrollRef: React.MutableRefObject<HTMLUListElement | null> = React.useRef(null);
 
   return (
     <div

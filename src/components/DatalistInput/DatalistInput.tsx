@@ -17,9 +17,9 @@ export const DatalistInput = React.forwardRef<HTMLInputElement, DatalistInputPro
   const generatedId = React.useId();
   const inputId = id ?? generatedId;
   const descriptionId = React.useId();
-  const dropdownRef = React.useRef<HTMLDivElement>(null);
-  const listboxRef = React.useRef<HTMLUListElement>(null);
-  const inputRef = React.useRef<HTMLInputElement>(null);
+  const dropdownRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
+  const listboxRef: React.MutableRefObject<HTMLUListElement | null> = React.useRef(null);
+  const inputRef: React.MutableRefObject<HTMLInputElement | null> = React.useRef(null);
   const mergedRef = React.useCallback(
     (node: HTMLInputElement | null) => {
       inputRef.current = node;
@@ -59,7 +59,7 @@ export const DatalistInput = React.forwardRef<HTMLInputElement, DatalistInputPro
     [rest]
   );
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (!open && (e.key === "ArrowDown" || e.key === "ArrowUp")) {
       setOpen(true);
       setActiveIndex(0);

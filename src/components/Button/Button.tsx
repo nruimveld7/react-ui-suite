@@ -1,8 +1,8 @@
-import React from "react";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 
-export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  children: React.ReactNode; // label or JSX inside the button
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  children: ReactNode; // label or JSX inside the button
 };
 
 export default function Button({

@@ -26,9 +26,9 @@ function InnerCombobox<T>(
   }: ComboboxProps<T>,
   forwardedRef: React.ForwardedRef<HTMLInputElement>
 ) {
-  const inputRef = React.useRef<HTMLInputElement>(null);
-  const containerRef = React.useRef<HTMLDivElement>(null);
-  const chevronRef = React.useRef<HTMLButtonElement>(null);
+  const inputRef: React.MutableRefObject<HTMLInputElement | null> = React.useRef(null);
+  const containerRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
+  const chevronRef: React.MutableRefObject<HTMLButtonElement | null> = React.useRef(null);
   const outsideClickRefs = React.useMemo(
     () => [containerRef as unknown as React.RefObject<HTMLElement | null>],
     [containerRef]
@@ -178,7 +178,7 @@ function InnerCombobox<T>(
     }
   }
 
-  function onKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+  function onKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
     const isArrowDown = e.key === "ArrowDown" || e.code === "ArrowDown" || e.key === "Down";
     const isArrowUp = e.key === "ArrowUp" || e.code === "ArrowUp" || e.key === "Up";
 

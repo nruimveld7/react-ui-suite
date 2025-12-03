@@ -29,7 +29,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(functi
   },
   forwardedRef
 ) {
-  const internalRef = React.useRef<HTMLInputElement>(null);
+  const internalRef: React.MutableRefObject<HTMLInputElement | null> = React.useRef(null);
   const mergedRef = React.useCallback(
     (node: HTMLInputElement | null) => {
       internalRef.current = node;

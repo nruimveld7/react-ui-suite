@@ -41,10 +41,10 @@ export function Select({
   leadingContent,
   inlineContent,
 }: SelectProps) {
-  const containerRef = React.useRef<HTMLDivElement>(null);
-  const inputRef = React.useRef<HTMLInputElement>(null);
-  const chevronRef = React.useRef<HTMLButtonElement>(null);
-  const popoverListRef = React.useRef<React.RefObject<HTMLUListElement> | null>(null);
+  const containerRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
+  const inputRef: React.MutableRefObject<HTMLInputElement | null> = React.useRef(null);
+  const chevronRef: React.MutableRefObject<HTMLButtonElement | null> = React.useRef(null);
+  const popoverListRef: React.MutableRefObject<React.RefObject<HTMLUListElement> | null> = React.useRef(null);
   const suppressToggleRef = React.useRef(false);
   const id = React.useId();
   const listboxId = `${id}-listbox`;
@@ -97,7 +97,7 @@ export function Select({
     requestAnimationFrame(() => inputRef.current?.focus());
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     const isArrowDown = e.key === "ArrowDown" || e.code === "ArrowDown" || e.key === "Down";
     const isArrowUp = e.key === "ArrowUp" || e.code === "ArrowUp" || e.key === "Up";
 
