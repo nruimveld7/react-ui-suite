@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Button } from "react-ui-suite";
-import type { ButtonProps } from "react-ui-suite";
+import { Button } from "@react-ui-suite/core";
+import type { ButtonProps } from "@react-ui-suite/core";
 import type { ComponentRegistryEntry } from "../component-registry";
 
 function ButtonShowcase() {
@@ -86,3 +86,4 @@ const entry: ComponentRegistryEntry = {
 export default entry;
 export { Button };
 export type { ButtonProps };
+

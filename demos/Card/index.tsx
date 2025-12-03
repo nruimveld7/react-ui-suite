@@ -1,5 +1,5 @@
-import { Badge, Button, Card } from "react-ui-suite";
-import type { CardProps } from "react-ui-suite";
+import { Badge, Button, Card } from "@react-ui-suite/core";
+import type { CardProps } from "@react-ui-suite/core";
 import type { ComponentRegistryEntry } from "../component-registry";
 
 const plans = [
@@ -115,3 +115,4 @@ const entry: ComponentRegistryEntry = {
 export default entry;
 export { Card };
 export type { CardProps };
+

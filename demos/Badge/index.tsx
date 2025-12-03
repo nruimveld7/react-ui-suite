@@ -1,6 +1,6 @@
 import { useMemo } from "react";
-import { Badge } from "react-ui-suite";
-import type { BadgeProps, BadgeVariant } from "react-ui-suite";
+import { Badge } from "@react-ui-suite/core";
+import type { BadgeProps, BadgeVariant } from "@react-ui-suite/core";
 import type { ComponentRegistryEntry } from "../component-registry";
 
 const statusCopy: Record<BadgeVariant, { label: string; description: string }> = {
@@ -76,3 +76,4 @@ const entry: ComponentRegistryEntry = {
 export default entry;
 export { Badge };
 export type { BadgeProps, BadgeVariant };
+

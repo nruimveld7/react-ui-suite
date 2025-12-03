@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { DatePicker, Select } from "react-ui-suite";
-import type { SelectOption } from "react-ui-suite";
+import { DatePicker, Select } from "@react-ui-suite/core";
+import type { SelectOption } from "@react-ui-suite/core";
 import type { ComponentRegistryEntry } from "../component-registry";
 
 function Scheduling() {

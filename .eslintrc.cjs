@@ -18,7 +18,7 @@ module.exports = {
       version: "detect"
     }
   },
-  ignorePatterns: ["dist", "node_modules", "demo/dist"],
+  ignorePatterns: ["dist", "src/dist", "node_modules", "demo/dist"],
   env: {
     browser: true,
     es2022: true,

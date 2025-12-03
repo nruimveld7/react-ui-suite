@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Textarea } from "react-ui-suite";
-import type { TextareaProps } from "react-ui-suite";
+import { Textarea } from "@react-ui-suite/core";
+import type { TextareaProps } from "@react-ui-suite/core";
 import type { ComponentRegistryEntry } from "../component-registry";
 
 function ReleaseNotes() {
@@ -98,3 +98,4 @@ const entry: ComponentRegistryEntry = {
 export default entry;
 export { Textarea };
 export type { TextareaProps };
+

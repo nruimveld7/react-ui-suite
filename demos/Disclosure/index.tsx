@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Disclosure } from "react-ui-suite";
+import { Disclosure } from "@react-ui-suite/core";
 import type { ComponentRegistryEntry } from "../component-registry";
 
 const faqs = [
@@ -89,3 +89,4 @@ const entry: ComponentRegistryEntry = {
 
 export default entry;
 export { Disclosure };
+

@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
-import { Combobox } from "react-ui-suite";
-import type { ComboboxOption, ComboboxProps } from "react-ui-suite";
+import { Combobox } from "@react-ui-suite/core";
+import type { ComboboxOption, ComboboxProps } from "@react-ui-suite/core";
 import type { ComponentRegistryEntry } from "../component-registry";
 
 const languageOptions: ComboboxOption<string>[] = [
@@ -125,3 +125,4 @@ const entry: ComponentRegistryEntry = {
 export default entry;
 export { Combobox };
 export type { ComboboxOption, ComboboxProps };
+

@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
 import { twMerge } from "tailwind-merge";
-import { Slider } from "react-ui-suite";
-import type { SliderProps } from "react-ui-suite";
+import { Slider } from "@react-ui-suite/core";
+import type { SliderProps } from "@react-ui-suite/core";
 import type { ComponentRegistryEntry } from "../component-registry";
 
 function ListeningSession() {
@@ -271,6 +271,7 @@ const entry: ComponentRegistryEntry = {
 export default entry;
 export { Slider };
 export type { SliderProps };
+
 
 
 

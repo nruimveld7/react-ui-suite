@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Button, InputField } from "react-ui-suite";
-import type { InputFieldProps } from "react-ui-suite";
+import { Button, InputField } from "@react-ui-suite/core";
+import type { InputFieldProps } from "@react-ui-suite/core";
 import type { ComponentRegistryEntry } from "../component-registry";
 
 function ProfileFormPreview() {
@@ -127,3 +127,4 @@ const entry: ComponentRegistryEntry = {
 export default entry;
 export { InputField };
 export type { InputFieldProps };
+

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Button, ColorPicker } from "react-ui-suite";
-import type { ColorPickerProps } from "react-ui-suite";
+import { Button, ColorPicker } from "@react-ui-suite/core";
+import type { ColorPickerProps } from "@react-ui-suite/core";
 import type { ComponentRegistryEntry } from "../component-registry";
 
 const accentSwatches = [
@@ -194,3 +194,4 @@ const entry: ComponentRegistryEntry = {
 export default entry;
 export { ColorPicker };
 export type { ColorPickerProps };
+

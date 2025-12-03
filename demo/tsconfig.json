@@ -8,7 +8,7 @@
     "paths": {
       "@/*": ["src/*"],
       "@demo-components/*": ["../demos/*"],
-      "react-ui-suite": ["../src"]
+      "@react-ui-suite/core": ["../src"]
     },
     "skipLibCheck": true,
     "moduleResolution": "Bundler",

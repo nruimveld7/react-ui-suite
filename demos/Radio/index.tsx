@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
-import { Radio } from "react-ui-suite";
-import type { RadioProps } from "react-ui-suite";
+import { Radio } from "@react-ui-suite/core";
+import type { RadioProps } from "@react-ui-suite/core";
 import type { ComponentRegistryEntry } from "../component-registry";
 
 type PlanOption = {
@@ -206,3 +206,4 @@ const entry: ComponentRegistryEntry = {
 export default entry;
 export { Radio };
 export type { RadioProps };
+

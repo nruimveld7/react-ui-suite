@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import { Combobox, Toggle } from "react-ui-suite";
-import type { ComboboxOption } from "react-ui-suite";
+import { Combobox, Toggle } from "@react-ui-suite/core";
+import type { ComboboxOption } from "@react-ui-suite/core";
 import type { ComponentRegistryEntry } from "@demo-components/component-registry";
 import { useComponentRegistry } from "./lib/useComponentRegistry";
 

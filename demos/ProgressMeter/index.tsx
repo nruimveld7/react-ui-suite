@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Meter, Progress } from "react-ui-suite";
+import { Meter, Progress } from "@react-ui-suite/core";
 import type { ComponentRegistryEntry } from "../component-registry";
 
 function UploadCard() {
@@ -119,3 +119,4 @@ const entry: ComponentRegistryEntry = {
 
 export default entry;
 export { Progress, Meter };
+

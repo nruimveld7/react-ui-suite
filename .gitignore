@@ -1,6 +1,7 @@
 node_modules/
 demo/node_modules/
 dist/
+src/dist/
 demo/dist/
 demo/.vite/
 package-lock.json
@@ -8,6 +9,8 @@ demo/package-lock.json
 .eslintcache
 .vscode/
 .idea/
+temp.ps1
+tree.txt
 coverage/
 demo/coverage/
 *.swp
@@ -20,4 +23,5 @@ Thumbs.db
 artifacts/
 npm-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 .tsbuild/

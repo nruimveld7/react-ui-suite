@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Checkbox, Dialog } from "react-ui-suite";
+import { Button, Checkbox, Dialog } from "@react-ui-suite/core";
 import type { ComponentRegistryEntry } from "../component-registry";
 
 function ModalPlayground() {
@@ -98,3 +98,4 @@ const entry: ComponentRegistryEntry = {
 
 export default entry;
 export { Dialog };
+
