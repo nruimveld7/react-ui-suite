@@ -11,15 +11,7 @@ export type ToggleProps = Omit<
 };
 
 const Toggle = React.forwardRef<HTMLButtonElement, ToggleProps>(function Toggle(
-  {
-    checked,
-    defaultChecked = false,
-    onChange,
-    disabled,
-    className,
-    onClick,
-    ...rest
-  },
+  { checked, defaultChecked = false, onChange, disabled, className, onClick, ...rest },
   ref
 ) {
   const isControlled = typeof checked === "boolean";

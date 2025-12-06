@@ -40,9 +40,7 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
         </span>
       </summary>
 
-      <div className="mt-3 space-y-2 text-sm text-slate-600 dark:text-zinc-300">
-        {children}
-      </div>
+      <div className="mt-3 space-y-2 text-sm text-slate-600 dark:text-zinc-300">{children}</div>
     </details>
   );
 });

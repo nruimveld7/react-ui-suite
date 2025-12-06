@@ -121,10 +121,9 @@ const entry: ComponentRegistryEntry = {
     "Accessible text input with labels, helper text, error treatment, and optional leading/trailing adornments.",
   tags: ["input", "form", "text"],
   Preview: InputFieldPreview,
-  sourcePath: "src/components/InputField/InputField.tsx"
+  sourcePath: "src/components/InputField/InputField.tsx",
 };
 
 export default entry;
 export { InputField };
 export type { InputFieldProps };
-

@@ -3,10 +3,15 @@
   "private": true,
   "scripts": {
     "build": "npm run build --workspace @react-ui-suite/core",
-    "dev": "npm run dev --workspace demo"
+    "dev": "npm run dev --workspace demo",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check"
   },
   "workspaces": [
     "src",
     "demo"
-  ]
+  ],
+  "devDependencies": {
+    "prettier": "^3.3.3"
+  }
 }

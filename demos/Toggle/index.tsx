@@ -84,14 +84,7 @@ function AccentToggleExample() {
 }
 
 function DisabledToggleExample() {
-  return (
-    <Toggle
-      defaultChecked
-      disabled
-      aria-label="Disabled toggle"
-      className="opacity-70"
-    />
-  );
+  return <Toggle defaultChecked disabled aria-label="Disabled toggle" className="opacity-70" />;
 }
 
 function TogglePreview() {
@@ -118,7 +111,9 @@ function TogglePreview() {
             Disabled toggle
           </p>
           <DisabledToggleExample />
-          <p className="text-xs text-slate-500 dark:text-slate-400">Pass disabled to prevent interactions.</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400">
+            Pass disabled to prevent interactions.
+          </p>
         </div>
       </div>
     </div>
@@ -132,10 +127,9 @@ const entry: ComponentRegistryEntry = {
     "Minimal, accessible switch component with keyboard controls and Tailwind styling hooks.",
   tags: ["input", "form", "switch"],
   Preview: TogglePreview,
-  sourcePath: "src/components/Toggle/Toggle.tsx"
+  sourcePath: "src/components/Toggle/Toggle.tsx",
 };
 
 export default entry;
 export { Toggle };
 export type { ToggleProps };
-

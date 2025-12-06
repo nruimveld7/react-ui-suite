@@ -30,7 +30,11 @@ function useScrollbarMetrics(
   axis: "vertical" | "horizontal",
   extraSpace: number
 ) {
-  const [state, setState] = React.useState<ThumbState>({ visible: false, size: MIN_THUMB, offset: 0 });
+  const [state, setState] = React.useState<ThumbState>({
+    visible: false,
+    size: MIN_THUMB,
+    offset: 0,
+  });
 
   React.useLayoutEffect(() => {
     const el = ref.current;
@@ -55,7 +59,9 @@ function useScrollbarMetrics(
       }
 
       const ratio =
-        axis === "vertical" ? target.clientHeight / target.scrollHeight : target.clientWidth / target.scrollWidth;
+        axis === "vertical"
+          ? target.clientHeight / target.scrollHeight
+          : target.clientWidth / target.scrollWidth;
       const thumbSize = Math.max(trackLength * ratio, MIN_THUMB);
       const maxOffset = Math.max(0, trackLength - thumbSize);
       const currentOffset =
@@ -71,7 +77,8 @@ function useScrollbarMetrics(
       raf = window.requestAnimationFrame(update);
     };
 
-    const resizeObserver = typeof ResizeObserver !== "undefined" ? new ResizeObserver(update) : null;
+    const resizeObserver =
+      typeof ResizeObserver !== "undefined" ? new ResizeObserver(update) : null;
     resizeObserver?.observe(el);
     el.addEventListener("scroll", handleScroll, { passive: true });
     update();
@@ -99,7 +106,8 @@ function useThumbDrag(
       event.preventDefault();
 
       const startPos = axis === "vertical" ? event.clientY : event.clientX;
-      const startScroll = startScrollOverride ?? (axis === "vertical" ? el.scrollTop : el.scrollLeft);
+      const startScroll =
+        startScrollOverride ?? (axis === "vertical" ? el.scrollTop : el.scrollLeft);
       const thumbSize = thumbState.size;
 
       const handleMove = (moveEvent: PointerEvent) => {
@@ -191,7 +199,8 @@ export function Table<T extends Record<string, any>>({
       event.preventDefault();
       event.stopPropagation();
       const rect = event.currentTarget.getBoundingClientRect();
-      const clickOffset = axis === "vertical" ? event.clientY - rect.top : event.clientX - rect.left;
+      const clickOffset =
+        axis === "vertical" ? event.clientY - rect.top : event.clientX - rect.left;
       const trackLength = axis === "vertical" ? rect.height : rect.width;
       const scrollRange =
         axis === "vertical" ? el.scrollHeight - el.clientHeight : el.scrollWidth - el.clientWidth;
@@ -214,7 +223,10 @@ export function Table<T extends Record<string, any>>({
 
   return (
     <div
-      className={twMerge("overflow-hidden rounded-3xl border border-slate-200 shadow-sm dark:border-zinc-800", className)}
+      className={twMerge(
+        "overflow-hidden rounded-3xl border border-slate-200 shadow-sm dark:border-zinc-800",
+        className
+      )}
       style={style}
     >
       <div
@@ -269,7 +281,9 @@ export function Table<T extends Record<string, any>>({
                         col.align === "center" && "text-center"
                       )}
                     >
-                      {col.render ? col.render(row[col.key], row) : (row[col.key] as React.ReactNode)}
+                      {col.render
+                        ? col.render(row[col.key], row)
+                        : (row[col.key] as React.ReactNode)}
                     </td>
                   ))}
                 </tr>
@@ -300,7 +314,12 @@ export function Table<T extends Record<string, any>>({
         {hThumb.visible ? (
           <div
             className="absolute z-20 pointer-events-auto rounded-full bg-white/80 shadow-inner dark:bg-zinc-900/70"
-            style={{ left: hOffset + TRACK_INSET, right: hOffset + TRACK_INSET, bottom: hBottom, height: TRACK_THICKNESS }}
+            style={{
+              left: hOffset + TRACK_INSET,
+              right: hOffset + TRACK_INSET,
+              bottom: hBottom,
+              height: TRACK_THICKNESS,
+            }}
             onPointerDown={(e) => handleTrackPointerDown("horizontal", hThumb, startHDrag, e)}
           >
             <div className="relative h-full w-full rounded-full bg-slate-900/5 shadow-inner dark:bg-white/10">

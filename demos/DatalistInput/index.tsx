@@ -10,7 +10,7 @@ const commands = [
   "Start walkthrough",
   "Switch theme",
   "Export CSV",
-  "Schedule report"
+  "Schedule report",
 ];
 
 function CommandPalette() {
@@ -66,9 +66,8 @@ const entry: ComponentRegistryEntry = {
   description: "Input paired with a custom suggestions popover for lightweight autocompletes.",
   tags: ["input", "form", "search"],
   Preview: CommandPalette,
-  sourcePath: "src/components/DatalistInput/DatalistInput.tsx"
+  sourcePath: "src/components/DatalistInput/DatalistInput.tsx",
 };
 
 export default entry;
 export { DatalistInput };
-

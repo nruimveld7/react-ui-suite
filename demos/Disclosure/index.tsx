@@ -5,16 +5,16 @@ import type { ComponentRegistryEntry } from "../component-registry";
 const faqs = [
   {
     q: "What happens after trial?",
-    a: "We ask you to choose a plan. Your data stays intact during the decision."
+    a: "We ask you to choose a plan. Your data stays intact during the decision.",
   },
   {
     q: "Can I invite my team?",
-    a: "Yes, unlimited collaborators on any paid plan. Invite via email or SSO."
+    a: "Yes, unlimited collaborators on any paid plan. Invite via email or SSO.",
   },
   {
     q: "How do refunds work?",
-    a: "If something goes wrong, contact support within 14 days for a full refund."
-  }
+    a: "If something goes wrong, contact support within 14 days for a full refund.",
+  },
 ];
 
 function FAQAccordion() {
@@ -84,9 +84,8 @@ const entry: ComponentRegistryEntry = {
   description: "details/summary-based accordion with animated caret and soft shells.",
   tags: ["content", "faq"],
   Preview: DisclosurePreview,
-  sourcePath: "src/components/Disclosure/Disclosure.tsx"
+  sourcePath: "src/components/Disclosure/Disclosure.tsx",
 };
 
 export default entry;
 export { Disclosure };
-

@@ -60,7 +60,8 @@ function InnerCombobox<T>(
 
   const normalizedFilter = React.useMemo(() => {
     if (filter) return filter;
-    return (opt: ComboboxOption, q: string) => opt.label.toLowerCase().includes(q.trim().toLowerCase());
+    return (opt: ComboboxOption, q: string) =>
+      opt.label.toLowerCase().includes(q.trim().toLowerCase());
   }, [filter]);
 
   const visibleOptions = React.useMemo(() => {
@@ -206,11 +207,7 @@ function InnerCombobox<T>(
       }
 
       const baseIndex =
-        activeIndex === -1
-          ? direction === 1
-            ? firstEnabledIndex
-            : lastEnabledIndex
-          : activeIndex;
+        activeIndex === -1 ? (direction === 1 ? firstEnabledIndex : lastEnabledIndex) : activeIndex;
       if (baseIndex === -1) return;
 
       const next = cycleEnabledIndex(baseIndex, direction);

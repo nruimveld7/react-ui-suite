@@ -15,7 +15,9 @@ function ListeningSession() {
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-400 dark:text-slate-500">
             Listening Room
           </p>
-          <p className="text-base font-semibold text-slate-900 dark:text-slate-100">Lo-fi mornings</p>
+          <p className="text-base font-semibold text-slate-900 dark:text-slate-100">
+            Lo-fi mornings
+          </p>
         </div>
         <span className="rounded-full bg-slate-900 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white shadow-sm dark:bg-white/90 dark:text-slate-900">
           Live
@@ -59,7 +61,13 @@ function TemperatureControl() {
 
       const parse = (hex: string) => {
         const h = hex.replace("#", "");
-        const value = h.length === 3 ? h.split("").map((c) => c + c).join("") : h;
+        const value =
+          h.length === 3
+            ? h
+                .split("")
+                .map((c) => c + c)
+                .join("")
+            : h;
         const num = parseInt(value, 16);
         return { r: (num >> 16) & 255, g: (num >> 8) & 255, b: num & 255 };
       };
@@ -113,8 +121,8 @@ function TemperatureControl() {
           ? logicalRatio
           : 1 - logicalRatio
         : reversed
-        ? 1 - logicalRatio
-        : logicalRatio;
+          ? 1 - logicalRatio
+          : logicalRatio;
     const alongSize = thumbSize ?? 0;
     const usable = Math.max(trackLength - alongSize, 0);
     const main = usable * positionRatio;
@@ -201,7 +209,9 @@ function OrientationPlayground() {
 
       <div className="space-y-2 rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/60">
         <div className="flex items-center justify-between">
-          <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">Horizontal reversed</p>
+          <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">
+            Horizontal reversed
+          </p>
           {renderBadge("Reversed")}
         </div>
         <Slider
@@ -232,7 +242,9 @@ function OrientationPlayground() {
 
       <div className="space-y-2 rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/60">
         <div className="flex items-center justify-between">
-          <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">Vertical reversed</p>
+          <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">
+            Vertical reversed
+          </p>
           {renderBadge("Vertical + reversed")}
         </div>
         <div className="flex justify-center">
@@ -265,22 +277,9 @@ const entry: ComponentRegistryEntry = {
       </div>
     );
   },
-  sourcePath: "src/components/Slider/Slider.tsx"
+  sourcePath: "src/components/Slider/Slider.tsx",
 };
 
 export default entry;
 export { Slider };
 export type { SliderProps };
-
-
-
-
-
-
-
-
-
-
-
-
-

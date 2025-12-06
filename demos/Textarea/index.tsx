@@ -15,7 +15,9 @@ function ReleaseNotes() {
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
             Release notes
           </p>
-          <p className="text-sm text-slate-600 dark:text-slate-400">Ship a concise weekly update.</p>
+          <p className="text-sm text-slate-600 dark:text-slate-400">
+            Ship a concise weekly update.
+          </p>
         </div>
         <span className="rounded-full bg-slate-900 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-white shadow-sm dark:bg-white dark:text-slate-900">
           Public
@@ -92,10 +94,9 @@ const entry: ComponentRegistryEntry = {
   description: "Multiline input with helper text, error states, and optional character counter.",
   tags: ["input", "form"],
   Preview: TextareaPreview,
-  sourcePath: "src/components/Textarea/Textarea.tsx"
+  sourcePath: "src/components/Textarea/Textarea.tsx",
 };
 
 export default entry;
 export { Textarea };
 export type { TextareaProps };
-

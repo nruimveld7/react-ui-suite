@@ -7,25 +7,25 @@ const preferences = [
   {
     id: "mentions",
     label: "Mentions",
-    description: "Alerts when someone tags @you in a thread."
+    description: "Alerts when someone tags @you in a thread.",
   },
   {
     id: "summaries",
     label: "Weekly summary",
-    description: "Digest of unread items every Monday."
+    description: "Digest of unread items every Monday.",
   },
   {
     id: "changelog",
     label: "Product changelog",
-    description: "Major releases, experiments, and upcoming features."
-  }
+    description: "Major releases, experiments, and upcoming features.",
+  },
 ];
 
 function NotificationPreferences() {
   const [selected, setSelected] = useState<Record<string, boolean>>({
     mentions: true,
     summaries: false,
-    changelog: true
+    changelog: true,
   });
 
   return (
@@ -43,7 +43,7 @@ function NotificationPreferences() {
             onChange={(value) =>
               setSelected((prev) => ({
                 ...prev,
-                [pref.id]: value
+                [pref.id]: value,
               }))
             }
           />
@@ -57,7 +57,7 @@ function IndeterminateExample() {
   const [tasks, setTasks] = useState({
     docs: true,
     qa: false,
-    marketing: false
+    marketing: false,
   });
   const values = Object.values(tasks);
   const allChecked = values.every(Boolean);
@@ -74,7 +74,7 @@ function IndeterminateExample() {
           setTasks({
             docs: value,
             qa: value,
-            marketing: value
+            marketing: value,
           })
         }
       />
@@ -100,7 +100,9 @@ function DisabledCheckboxExample() {
         defaultChecked
         disabled
       />
-      <p className="text-xs text-slate-500 dark:text-slate-400">Disabled state keeps layout stable.</p>
+      <p className="text-xs text-slate-500 dark:text-slate-400">
+        Disabled state keeps layout stable.
+      </p>
     </div>
   );
 }
@@ -120,14 +122,12 @@ function CheckboxPreview() {
 const entry: ComponentRegistryEntry = {
   slug: "checkbox",
   name: "Checkbox",
-  description:
-    "Accessible checkbox with label, helper text, and indeterminate state support.",
+  description: "Accessible checkbox with label, helper text, and indeterminate state support.",
   tags: ["input", "form"],
   Preview: CheckboxPreview,
-  sourcePath: "src/components/Checkbox/Checkbox.tsx"
+  sourcePath: "src/components/Checkbox/Checkbox.tsx",
 };
 
 export default entry;
 export { Checkbox };
 export type { CheckboxProps };
-

@@ -18,10 +18,7 @@ function ModalPlayground() {
             Open a modal to confirm reminders and recipients.
           </p>
         </div>
-        <Button
-          onClick={() => setOpen(true)}
-          className="w-full"
-        >
+        <Button onClick={() => setOpen(true)} className="w-full">
           Launch digest modal
         </Button>
       </div>
@@ -31,7 +28,9 @@ function ModalPlayground() {
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
             Site Assistant
           </p>
-          <p className="text-sm text-slate-600 dark:text-slate-400">Open a floating helper that stays while you work.</p>
+          <p className="text-sm text-slate-600 dark:text-slate-400">
+            Open a floating helper that stays while you work.
+          </p>
         </div>
         <Button onClick={() => setInlineOpen(true)} className="w-full">
           Launch assistant
@@ -80,7 +79,8 @@ function ModalPlayground() {
         draggable={false}
       >
         <p className="text-sm text-slate-700 dark:text-slate-300">
-          This non-modal dialog allows interacting with the rest of the page. Click outside or press Esc to close.
+          This non-modal dialog allows interacting with the rest of the page. Click outside or press
+          Esc to close.
         </p>
       </Dialog>
     </div>
@@ -90,12 +90,12 @@ function ModalPlayground() {
 const entry: ComponentRegistryEntry = {
   slug: "dialog",
   name: "Dialog",
-  description: "Accessible overlay dialog with focus handling, ESC/backdrop close, and footer actions.",
+  description:
+    "Accessible overlay dialog with focus handling, ESC/backdrop close, and footer actions.",
   tags: ["overlay", "modal"],
   Preview: ModalPlayground,
-  sourcePath: "src/components/Dialog/Dialog.tsx"
+  sourcePath: "src/components/Dialog/Dialog.tsx",
 };
 
 export default entry;
 export { Dialog };
-

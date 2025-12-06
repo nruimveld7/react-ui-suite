@@ -47,9 +47,8 @@ const entry: ComponentRegistryEntry = {
   description: "HTMLOutput styled as a pill for computed values and statuses.",
   tags: ["feedback", "status"],
   Preview: MetricCard,
-  sourcePath: "src/components/OutputChip/OutputChip.tsx"
+  sourcePath: "src/components/OutputChip/OutputChip.tsx",
 };
 
 export default entry;
 export { OutputChip };
-

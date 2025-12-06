@@ -13,20 +13,18 @@ const languageOptions: ComboboxOption<string>[] = [
   { id: "php", label: "PHP", value: "PHP" },
   { id: "c", label: "C", value: "C" },
   { id: "cpp", label: "C++", value: "C++" },
-  { id: "cs", label: "C#", value: "C#" }
+  { id: "cs", label: "C#", value: "C#" },
 ];
 
 const frameworkOptions: ComboboxOption<string>[] = [
   { id: "next", label: "Next.js" },
   { id: "remix", label: "Remix" },
   { id: "astro", label: "Astro" },
-  { id: "qwik", label: "Qwik", disabled: true }
+  { id: "qwik", label: "Qwik", disabled: true },
 ];
 
 function LanguageCombobox() {
-  const [value, setValue] = useState<ComboboxOption<string> | null>(
-    languageOptions[0]
-  );
+  const [value, setValue] = useState<ComboboxOption<string> | null>(languageOptions[0]);
 
   return (
     <div className="space-y-2">
@@ -38,9 +36,7 @@ function LanguageCombobox() {
         placeholder="Pick a language"
         className="max-w-md"
       />
-      <p className="text-xs text-slate-400">
-        Selected language: {value?.label ?? "None"}
-      </p>
+      <p className="text-xs text-slate-400">Selected language: {value?.label ?? "None"}</p>
     </div>
   );
 }
@@ -77,9 +73,7 @@ function DisabledOptionsCombobox() {
         placeholder="Framework"
         className="max-w-md"
       />
-      <p className="text-xs text-slate-400">
-        Selected framework: {value?.label ?? "None"}
-      </p>
+      <p className="text-xs text-slate-400">Selected framework: {value?.label ?? "None"}</p>
     </div>
   );
 }
@@ -119,10 +113,9 @@ const entry: ComponentRegistryEntry = {
     "Accessible command palette style combobox with keyboard navigation, filtering, and composable overrides.",
   tags: ["input", "form", "search"],
   Preview: ComboboxPreview,
-  sourcePath: "src/components/Combobox/Combobox.tsx"
+  sourcePath: "src/components/Combobox/Combobox.tsx",
 };
 
 export default entry;
 export { Combobox };
 export type { ComboboxOption, ComboboxProps };
-

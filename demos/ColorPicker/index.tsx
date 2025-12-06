@@ -13,7 +13,7 @@ const accentSwatches = [
   "#F97316",
   "#FACC15",
   "#10B981",
-  "#14B8A6"
+  "#14B8A6",
 ];
 
 const backgroundSwatches = [
@@ -26,7 +26,7 @@ const backgroundSwatches = [
   "#94A3B8",
   "#E2E8F0",
   "#F8FAFC",
-  "#FFFFFF"
+  "#FFFFFF",
 ];
 
 function ThemeEditor() {
@@ -55,7 +55,11 @@ function ThemeEditor() {
             Background
           </p>
           <div className="flex justify-center">
-            <ColorPicker value={background} onChange={setBackground} swatches={backgroundSwatches} />
+            <ColorPicker
+              value={background}
+              onChange={setBackground}
+              swatches={backgroundSwatches}
+            />
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400">
             Surfaces for cards, panels, and navigation.
@@ -90,23 +94,38 @@ function HeroPosterExample() {
     <div className="space-y-4">
       <div className="grid gap-4 md:grid-cols-4">
         <div className="text-center">
-          <ColorPicker label="Sky" value={sky} onChange={setSky} swatches={accentSwatches.slice(3)} />
+          <ColorPicker
+            label="Sky"
+            value={sky}
+            onChange={setSky}
+            swatches={accentSwatches.slice(3)}
+          />
         </div>
         <div className="text-center">
-          <ColorPicker label="Sun" value={sun} onChange={setSun} swatches={accentSwatches.slice(5)} />
+          <ColorPicker
+            label="Sun"
+            value={sun}
+            onChange={setSun}
+            swatches={accentSwatches.slice(5)}
+          />
         </div>
         <div className="text-center">
           <ColorPicker label="Glow" value={glow} onChange={setGlow} swatches={accentSwatches} />
         </div>
         <div className="text-center">
-          <ColorPicker label="Text" value={textColor} onChange={setTextColor} swatches={backgroundSwatches} />
+          <ColorPicker
+            label="Text"
+            value={textColor}
+            onChange={setTextColor}
+            swatches={backgroundSwatches}
+          />
         </div>
       </div>
       <div className="relative overflow-hidden rounded-3xl border border-slate-200/70 bg-slate-950 p-6 text-white shadow-lg dark:border-slate-800">
         <div
           className="absolute inset-0 opacity-90"
           style={{
-            background: `linear-gradient(180deg, ${sky}, #020617 80%)`
+            background: `linear-gradient(180deg, ${sky}, #020617 80%)`,
           }}
         />
         <div
@@ -117,7 +136,7 @@ function HeroPosterExample() {
           className="absolute top-6 right-2 h-24 w-24 rounded-full shadow-[0_0_35px_rgba(0,0,0,.35)]"
           style={{
             background: `radial-gradient(circle at 35% 35%, ${sun} 0%, ${sun} 55%, ${glow} 100%)`,
-            filter: "blur(2px)"
+            filter: "blur(2px)",
           }}
         />
         <div className="relative space-y-4">
@@ -135,7 +154,7 @@ function HeroPosterExample() {
               background: sun,
               color: textColor,
               boxShadow: "0 10px 20px rgba(15, 23, 42, 0.35)",
-              border: "1px solid rgba(255,255,255,0.3)"
+              border: "1px solid rgba(255,255,255,0.3)",
             }}
             className="border-0 text-sm font-semibold shadow-lg"
           >
@@ -188,10 +207,9 @@ const entry: ComponentRegistryEntry = {
     "Custom color input with a bespoke popover, hex/RGB/HSL editing, and managed swatches.",
   tags: ["input", "form", "color"],
   Preview: ColorPickerPreview,
-  sourcePath: "src/components/ColorPicker/ColorPicker.tsx"
+  sourcePath: "src/components/ColorPicker/ColorPicker.tsx",
 };
 
 export default entry;
 export { ColorPicker };
 export type { ColorPickerProps };
-

@@ -26,10 +26,16 @@ function UploadCard() {
         </span>
       </div>
       <div className="mt-3 space-y-2">
-        <Progress value={progress} label="Progress" description="We keep your browser responsive." />
+        <Progress
+          value={progress}
+          label="Progress"
+          description="We keep your browser responsive."
+        />
         <div className="grid grid-cols-2 gap-2 text-xs text-slate-600 dark:text-slate-400">
           <span>Remaining files</span>
-          <span className="text-right font-semibold">{Math.max(0, 10 - Math.round(progress / 10))}</span>
+          <span className="text-right font-semibold">
+            {Math.max(0, 10 - Math.round(progress / 10))}
+          </span>
           <span>Bandwidth</span>
           <span className="text-right font-semibold">Fast</span>
         </div>
@@ -43,7 +49,7 @@ function HealthMeter() {
     () => [
       { value: 0, color: "#22c55e" },
       { value: 50, color: "#f59e0b" },
-      { value: 80, color: "#ef4444" }
+      { value: 80, color: "#ef4444" },
     ],
     []
   );
@@ -66,7 +72,9 @@ function HealthMeter() {
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
           System health
         </p>
-        <p className="text-sm text-slate-600 dark:text-slate-400">Live risk score with thresholds.</p>
+        <p className="text-sm text-slate-600 dark:text-slate-400">
+          Live risk score with thresholds.
+        </p>
         <div className="mt-3 space-y-3">
           <Meter
             value={score}
@@ -76,8 +84,15 @@ function HealthMeter() {
           />
           <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
             {thresholds.map((t) => (
-              <span key={t.value} className="flex items-center gap-1 rounded-full border border-slate-200 px-2 py-1 dark:border-slate-700">
-                <span className="block size-2 rounded-full" style={{ background: t.color }} aria-hidden="true" />
+              <span
+                key={t.value}
+                className="flex items-center gap-1 rounded-full border border-slate-200 px-2 py-1 dark:border-slate-700"
+              >
+                <span
+                  className="block size-2 rounded-full"
+                  style={{ background: t.color }}
+                  aria-hidden="true"
+                />
                 <span>{t.value}+</span>
               </span>
             ))}
@@ -114,9 +129,8 @@ const entry: ComponentRegistryEntry = {
   description: "Styled progress and meter bars with gradients, labels, and live updates.",
   tags: ["feedback", "status"],
   Preview: ProgressMeterPreview,
-  sourcePath: "src/components/ProgressMeter/ProgressMeter.tsx"
+  sourcePath: "src/components/ProgressMeter/ProgressMeter.tsx",
 };
 
 export default entry;
 export { Progress, Meter };
-

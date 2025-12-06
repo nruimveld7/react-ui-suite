@@ -13,7 +13,14 @@ export type ProgressProps = CommonProps & {
   showValue?: boolean;
 };
 
-export function Progress({ label, description, value, max = 100, showValue = true, className }: ProgressProps) {
+export function Progress({
+  label,
+  description,
+  value,
+  max = 100,
+  showValue = true,
+  className,
+}: ProgressProps) {
   const clamped = Math.min(max, Math.max(0, value));
   const percent = max === 0 ? 0 : Math.round((clamped / max) * 100);
 
@@ -25,7 +32,9 @@ export function Progress({ label, description, value, max = 100, showValue = tru
             {label}
           </p>
           {showValue ? (
-            <span className="text-xs font-semibold text-slate-600 dark:text-zinc-300">{percent}%</span>
+            <span className="text-xs font-semibold text-slate-600 dark:text-zinc-300">
+              {percent}%
+            </span>
           ) : null}
         </div>
       ) : null}
@@ -55,11 +64,22 @@ export type MeterProps = CommonProps & {
   thresholds?: { value: number; color: string }[];
 };
 
-export function Meter({ label, description, value, min = 0, max = 100, thresholds, className }: MeterProps) {
+export function Meter({
+  label,
+  description,
+  value,
+  min = 0,
+  max = 100,
+  thresholds,
+  className,
+}: MeterProps) {
   const clamped = Math.min(max, Math.max(min, value));
   const percent = max === min ? 0 : ((clamped - min) / (max - min)) * 100;
   const activeColor = thresholds
-    ? thresholds.reduce((acc, t) => (clamped >= t.value ? t.color : acc), thresholds[0]?.color ?? "linear-gradient(90deg, #22c55e, #0ea5e9)")
+    ? thresholds.reduce(
+        (acc, t) => (clamped >= t.value ? t.color : acc),
+        thresholds[0]?.color ?? "linear-gradient(90deg, #22c55e, #0ea5e9)"
+      )
     : "linear-gradient(90deg, #22c55e, #0ea5e9)";
 
   return (
@@ -69,9 +89,7 @@ export function Meter({ label, description, value, min = 0, max = 100, threshold
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500 dark:text-zinc-400">
             {label}
           </p>
-          <span className="text-xs font-semibold text-slate-600 dark:text-zinc-300">
-            {clamped}
-          </span>
+          <span className="text-xs font-semibold text-slate-600 dark:text-zinc-300">{clamped}</span>
         </div>
       ) : null}
       {description ? (

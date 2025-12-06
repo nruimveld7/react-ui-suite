@@ -14,7 +14,16 @@ export type DialogProps = {
   draggable?: boolean;
 };
 
-export function Dialog({ open, onClose, title, description, children, footer, modal = true, draggable = true }: DialogProps) {
+export function Dialog({
+  open,
+  onClose,
+  title,
+  description,
+  children,
+  footer,
+  modal = true,
+  draggable = true,
+}: DialogProps) {
   const overlayRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
   const dialogRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
   const dragState = React.useRef<{
@@ -176,19 +185,21 @@ export function Dialog({ open, onClose, title, description, children, footer, mo
     </div>
   );
 
-      return createPortal(
-        modal ? (
-          <div
-            ref={overlayRef}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/60 backdrop-blur-sm"
-            onMouseDown={(e) => {
-              if (e.target === overlayRef.current) onClose();
-            }}
-          >
-            {dialogCard}
+  return createPortal(
+    modal ? (
+      <div
+        ref={overlayRef}
+        className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/60 backdrop-blur-sm"
+        onMouseDown={(e) => {
+          if (e.target === overlayRef.current) onClose();
+        }}
+      >
+        {dialogCard}
       </div>
     ) : (
-      <div className="pointer-events-none fixed bottom-6 right-6 z-50 flex justify-end">{dialogCard}</div>
+      <div className="pointer-events-none fixed bottom-6 right-6 z-50 flex justify-end">
+        {dialogCard}
+      </div>
     ),
     document.body
   );

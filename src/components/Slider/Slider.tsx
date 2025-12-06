@@ -75,29 +75,31 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(function S
     value,
     defaultValue,
     onChange,
-  formatValue = (val) => `${val}`,
-  renderTrack,
-  renderThumb,
-  trackClassName,
-  thumbClassName,
-  className,
-  min = 0,
-  max = 100,
-  step = 1,
-  thumbSize = 24,
-  edgeOverlap = 0,
-  fillMode = "stretch",
-  disabled,
-  orientation = "horizontal",
-  reversed = false,
-  id,
-  ...rest
-},
+    formatValue = (val) => `${val}`,
+    renderTrack,
+    renderThumb,
+    trackClassName,
+    thumbClassName,
+    className,
+    min = 0,
+    max = 100,
+    step = 1,
+    thumbSize = 24,
+    edgeOverlap = 0,
+    fillMode = "stretch",
+    disabled,
+    orientation = "horizontal",
+    reversed = false,
+    id,
+    ...rest
+  },
   forwardedRef
 ) {
   const isControlled = typeof value === "number";
   const initialValue = typeof defaultValue === "number" ? defaultValue : min;
-  const [internalValue, setInternalValue] = React.useState<number>(() => snapToStep(initialValue, min, max, step));
+  const [internalValue, setInternalValue] = React.useState<number>(() =>
+    snapToStep(initialValue, min, max, step)
+  );
   const [focused, setFocused] = React.useState(false);
   const [dragging, setDragging] = React.useState(false);
   const [trackMetrics, setTrackMetrics] = React.useState({
@@ -116,7 +118,8 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(function S
     (node: HTMLInputElement | null) => {
       inputRef.current = node;
       if (typeof forwardedRef === "function") forwardedRef(node);
-      else if (forwardedRef && typeof forwardedRef === "object") (forwardedRef as any).current = node;
+      else if (forwardedRef && typeof forwardedRef === "object")
+        (forwardedRef as any).current = node;
     },
     [forwardedRef]
   );
@@ -125,7 +128,12 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(function S
     setInternalValue((prev) => snapToStep(prev, min, max, step));
   }, [min, max, step]);
 
-  const resolvedValue = snapToStep(isControlled ? (typeof value === "number" ? value : min) : internalValue, min, max, step);
+  const resolvedValue = snapToStep(
+    isControlled ? (typeof value === "number" ? value : min) : internalValue,
+    min,
+    max,
+    step
+  );
   const percentage = percentFromValue(resolvedValue, min, max);
   const isVertical = orientation === "vertical";
 
@@ -142,8 +150,12 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(function S
       const isVert = orientation === "vertical";
       const length = isVert ? trackRect.height : trackRect.width;
       const thickness = isVert ? trackRect.width : trackRect.height;
-      const mainOffset = isVert ? trackRect.top - containerRect.top : trackRect.left - containerRect.left;
-      const crossOffset = isVert ? trackRect.left - containerRect.left : trackRect.top - containerRect.top;
+      const mainOffset = isVert
+        ? trackRect.top - containerRect.top
+        : trackRect.left - containerRect.left;
+      const crossOffset = isVert
+        ? trackRect.left - containerRect.left
+        : trackRect.top - containerRect.top;
       setTrackMetrics({ length, mainOffset, crossOffset, thickness });
     };
     update();
@@ -445,9 +457,7 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(function S
           onPointerDown={handlePointerDown}
           className={twMerge(
             "absolute inset-0 cursor-pointer bg-transparent",
-            isVertical
-              ? "left-1/2 w-8 -translate-x-1/2"
-              : "top-1/2 h-8 -translate-y-1/2"
+            isVertical ? "left-1/2 w-8 -translate-x-1/2" : "top-1/2 h-8 -translate-y-1/2"
           )}
         />
       </div>

@@ -6,7 +6,7 @@ type RegistryModule = {
 };
 
 const moduleGlob = import.meta.glob<RegistryModule>("@demo-components/**/index.tsx", {
-  eager: true
+  eager: true,
 });
 
 export function useComponentRegistry(): ComponentRegistryEntry[] {

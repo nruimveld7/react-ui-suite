@@ -9,7 +9,7 @@ const standupItems: StackedListItem[] = [
     description: "Sync design tokens with the frontend before Friday.",
     meta: "Due tomorrow",
     icon: "🎨",
-    action: <Badge variant="info">in progress</Badge>
+    action: <Badge variant="info">in progress</Badge>,
   },
   {
     id: "two",
@@ -17,7 +17,7 @@ const standupItems: StackedListItem[] = [
     description: "Collect notes from TestFlight build 2.3.1.",
     meta: "2 hrs ago",
     icon: "📱",
-    action: <Button className="px-3 py-1 text-xs">View</Button>
+    action: <Button className="px-3 py-1 text-xs">View</Button>,
   },
   {
     id: "three",
@@ -25,8 +25,8 @@ const standupItems: StackedListItem[] = [
     description: "Approve campaign assets for Q4 launch.",
     meta: "Next week",
     icon: "📣",
-    action: <Badge variant="warning">pending</Badge>
-  }
+    action: <Badge variant="warning">pending</Badge>,
+  },
 ];
 
 function StandupPreview() {
@@ -40,7 +40,7 @@ function DenseActivityExample() {
       items={[
         { id: "p1", title: "Alice archived channel #leads", meta: "1m ago" },
         { id: "p2", title: "Jamal pushed to main", meta: "14m ago" },
-        { id: "p3", title: "Your plan renews tomorrow", meta: "Today" }
+        { id: "p3", title: "Your plan renews tomorrow", meta: "Today" },
       ]}
     />
   );
@@ -54,8 +54,8 @@ function QuickActionList() {
           id: "invite",
           title: "Invite designers",
           description: "Send access to alice@example.com",
-          action: <Button className="px-3 py-1 text-xs">Send invite</Button>
-        }
+          action: <Button className="px-3 py-1 text-xs">Send invite</Button>,
+        },
       ]}
     />
   );
@@ -92,13 +92,13 @@ function StackedListPreview() {
 const entry: ComponentRegistryEntry = {
   slug: "stacked-list",
   name: "Stacked List",
-  description: "Composable list surface built on native lists, ideal for inboxes or activity feeds.",
+  description:
+    "Composable list surface built on native lists, ideal for inboxes or activity feeds.",
   tags: ["display", "list"],
   Preview: StackedListPreview,
-  sourcePath: "src/components/StackedList/StackedList.tsx"
+  sourcePath: "src/components/StackedList/StackedList.tsx",
 };
 
 export default entry;
 export { StackedList };
 export type { StackedListProps, StackedListItem };
-

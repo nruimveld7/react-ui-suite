@@ -8,28 +8,30 @@ const plans = [
     name: "Starter",
     price: "$19/mo",
     description: "Best for small teams getting started.",
-    badge: null
+    badge: null,
   },
   {
     id: "growth",
     name: "Growth",
     price: "$49/mo",
     description: "Priority support, advanced analytics, and automation rules.",
-    badge: "Popular"
+    badge: "Popular",
   },
   {
     id: "enterprise",
     name: "Enterprise",
     price: "Let's chat",
     description: "SAML SSO, custom limits, and dedicated success partner.",
-    badge: "New"
-  }
+    badge: "New",
+  },
 ];
 
 function PlanComparison() {
   return (
     <div className="space-y-2">
-      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">Plan</p>
+      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">
+        Plan
+      </p>
       <div className="grid gap-4 md:grid-cols-3">
         {plans.map((plan) => (
           <Card
@@ -39,7 +41,10 @@ function PlanComparison() {
               <span className="flex items-center gap-2">
                 <span>{plan.name}</span>
                 {plan.badge ? (
-                  <Badge variant="info" className="ml-auto px-2.5 py-[3px] text-[0.65rem] leading-[0.9rem]">
+                  <Badge
+                    variant="info"
+                    className="ml-auto px-2.5 py-[3px] text-[0.65rem] leading-[0.9rem]"
+                  >
                     {plan.badge}
                   </Badge>
                 ) : null}
@@ -51,7 +56,9 @@ function PlanComparison() {
               </Button>
             }
           >
-            <div className="text-2xl font-semibold text-slate-900 dark:text-white">{plan.price}</div>
+            <div className="text-2xl font-semibold text-slate-900 dark:text-white">
+              {plan.price}
+            </div>
             <p className="mt-1 text-sm leading-relaxed">{plan.description}</p>
           </Card>
         ))}
@@ -78,11 +85,7 @@ function MutedCardExample() {
     <Card
       muted
       title="Invite your team"
-      footer={
-        <Button className="px-3 py-1 text-xs uppercase tracking-wide">
-          Send invites
-        </Button>
-      }
+      footer={<Button className="px-3 py-1 text-xs uppercase tracking-wide">Send invites</Button>}
     >
       Collaborate with teammates to share drafts, review changes, and sync releases.
     </Card>
@@ -109,10 +112,9 @@ const entry: ComponentRegistryEntry = {
   description: "Flexible surface with eyebrow, action zone, and footer for dashboards or settings.",
   tags: ["layout", "display", "surface"],
   Preview: CardPreview,
-  sourcePath: "src/components/Card/Card.tsx"
+  sourcePath: "src/components/Card/Card.tsx",
 };
 
 export default entry;
 export { Card };
 export type { CardProps };
-

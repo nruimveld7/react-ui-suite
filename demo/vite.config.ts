@@ -8,10 +8,10 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "src"),
       "@react-ui-suite/core": path.resolve(__dirname, "..", "src"),
-      "@demo-components": path.resolve(__dirname, "..", "demos")
-    }
+      "@demo-components": path.resolve(__dirname, "..", "demos"),
+    },
   },
   server: {
-    open: true
-  }
+    open: true,
+  },
 });

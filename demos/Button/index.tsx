@@ -44,7 +44,9 @@ function ButtonUsageExamples() {
         <Button className="bg-rose-500 text-white hover:bg-rose-400 focus:ring-2 focus:ring-offset-2 focus:ring-rose-500">
           Delete
         </Button>
-        <p className="text-xs text-slate-500 dark:text-slate-400">Override Tailwind styles while keeping layout.</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400">
+          Override Tailwind styles while keeping layout.
+        </p>
       </div>
       <div className="space-y-2 rounded-2xl border border-slate-200 bg-white/80 p-3 text-sm text-slate-600 shadow-sm dark:border-slate-800 dark:bg-slate-900/70 dark:text-slate-300">
         <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
@@ -56,7 +58,9 @@ function ButtonUsageExamples() {
           </span>
           Magic
         </Button>
-        <p className="text-xs text-slate-500 dark:text-slate-400">Buttons accept arbitrary children including icons.</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400">
+          Buttons accept arbitrary children including icons.
+        </p>
       </div>
     </div>
   );
@@ -80,10 +84,9 @@ const entry: ComponentRegistryEntry = {
     "Simple Tailwind button with sensible padding, rounded corners, and easy overrides via className.",
   tags: ["input", "action"],
   Preview: ButtonPreview,
-  sourcePath: "src/components/Button/Button.tsx"
+  sourcePath: "src/components/Button/Button.tsx",
 };
 
 export default entry;
 export { Button };
 export type { ButtonProps };
-

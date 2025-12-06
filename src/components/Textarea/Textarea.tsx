@@ -20,7 +20,18 @@ const TRACK_REDUCTION = 20; // static reduction to shorten the track
 const TRACK_REDUCTION_HALF = TRACK_REDUCTION / 2; // center the shortened track
 
 export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(function Textarea(
-  { label, description, error, className, id, disabled, maxLength, showCount = true, resizeDirection = "vertical", ...rest },
+  {
+    label,
+    description,
+    error,
+    className,
+    id,
+    disabled,
+    maxLength,
+    showCount = true,
+    resizeDirection = "vertical",
+    ...rest
+  },
   ref
 ) {
   const generatedId = React.useId();
@@ -33,12 +44,13 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
     move?: (event: MouseEvent) => void;
     up?: (event: MouseEvent) => void;
   }>({});
-  const [thumb, setThumb] = React.useState<ThumbState>({ visible: false, size: MIN_THUMB, offset: 0 });
+  const [thumb, setThumb] = React.useState<ThumbState>({
+    visible: false,
+    size: MIN_THUMB,
+    offset: 0,
+  });
 
-  const hintIds = [
-    description ? descriptionId : null,
-    error ? errorId : null
-  ].filter(Boolean);
+  const hintIds = [description ? descriptionId : null, error ? errorId : null].filter(Boolean);
   const resolvedAriaDescribedBy = hintIds.length ? hintIds.join(" ") : undefined;
 
   const [value, setValue] = React.useState(rest.defaultValue?.toString() ?? "");
@@ -89,7 +101,8 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
       const ratio = target.clientHeight / target.scrollHeight;
       const size = Math.max(trackLength * ratio, MIN_THUMB);
       const maxOffset = Math.max(0, trackLength - size);
-      const offset = maxOffset > 0 ? Math.min(maxOffset, (target.scrollTop / scrollRange) * maxOffset) : 0;
+      const offset =
+        maxOffset > 0 ? Math.min(maxOffset, (target.scrollTop / scrollRange) * maxOffset) : 0;
       setThumb({ visible: true, size, offset });
     };
 
@@ -203,7 +216,8 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
   const shellClasses = twMerge(
     "relative rounded-2xl border border-slate-300 bg-white/80 px-3 py-2 shadow-sm transition focus-within:border-slate-400 focus-within:shadow-[0_0_0_1px_rgba(148,163,184,0.45)] dark:border-zinc-700 dark:bg-zinc-900/70 dark:focus-within:border-slate-500",
     disabled && "opacity-60",
-    error && "border-rose-300 focus-within:border-rose-400 focus-within:shadow-[0_0_0_1px_rgba(248,113,113,0.35)] dark:border-rose-500/60"
+    error &&
+      "border-rose-300 focus-within:border-rose-400 focus-within:shadow-[0_0_0_1px_rgba(248,113,113,0.35)] dark:border-rose-500/60"
   );
 
   const textareaClasses = twMerge(
@@ -218,7 +232,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
     ...style,
     ...(height !== undefined ? { height } : null),
     ...(width !== undefined ? { width } : null),
-    maxWidth: "100%"
+    maxWidth: "100%",
   };
   const shellStyle = width !== undefined ? { width, maxWidth: "100%" } : { maxWidth: "100%" };
 
@@ -256,7 +270,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
               right: 4,
               top: TRACK_TOP + TRACK_REDUCTION_HALF,
               bottom: TRACK_BOTTOM + TRACK_REDUCTION_HALF,
-              width: TRACK_THICKNESS
+              width: TRACK_THICKNESS,
             }}
             onPointerDown={(event) => {
               event.preventDefault();
@@ -269,7 +283,8 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
               const scrollRange = el.scrollHeight - el.clientHeight;
               if (scrollRange <= 0 || trackLength <= 0) return;
               const effective = Math.max(1, trackLength - thumb.size);
-              const ratio = Math.max(0, Math.min(effective, clickOffset - thumb.size / 2)) / effective;
+              const ratio =
+                Math.max(0, Math.min(effective, clickOffset - thumb.size / 2)) / effective;
               const target = ratio * scrollRange;
               el.scrollTop = target;
               handleThumbDrag(event as unknown as React.PointerEvent<HTMLDivElement>, target);
@@ -289,16 +304,33 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
         ) : null}
         {resizeDirection !== "none" ? (
           <div className="pointer-events-none absolute bottom-2 right-2 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400 dark:text-zinc-500">
-            {showCount && limit ? <div className="pointer-events-auto">{count}/{limit}</div> : null}
+            {showCount && limit ? (
+              <div className="pointer-events-auto">
+                {count}/{limit}
+              </div>
+            ) : null}
             <button
               type="button"
               aria-label="Resize textarea"
               onMouseDown={handleResizeStart}
               className="pointer-events-auto inline-flex h-[14px] w-[14px] items-center justify-center rounded-[3px] bg-transparent text-slate-400 outline-none transition hover:text-slate-500 focus-visible:ring-2 focus-visible:ring-slate-300 focus-visible:ring-offset-1 focus-visible:ring-offset-white active:cursor-grab dark:bg-transparent dark:text-zinc-400 dark:hover:text-zinc-200 dark:focus-visible:ring-slate-500 dark:focus-visible:ring-offset-zinc-900"
-              style={{ border: "none", boxShadow: "none", appearance: "none", background: "transparent" }}
+              style={{
+                border: "none",
+                boxShadow: "none",
+                appearance: "none",
+                background: "transparent",
+              }}
             >
-              <svg viewBox="0 0 12 12" aria-hidden="true" className="h-3 w-3 text-slate-400 dark:text-zinc-400">
-                <path d="M2 10.5 10.5 2M4.5 10.5 10.5 4.5M7 10.5 10.5 7" stroke="currentColor" strokeWidth="1.1" />
+              <svg
+                viewBox="0 0 12 12"
+                aria-hidden="true"
+                className="h-3 w-3 text-slate-400 dark:text-zinc-400"
+              >
+                <path
+                  d="M2 10.5 10.5 2M4.5 10.5 10.5 4.5M7 10.5 10.5 7"
+                  stroke="currentColor"
+                  strokeWidth="1.1"
+                />
               </svg>
             </button>
           </div>

@@ -13,9 +13,7 @@ function getInitialTheme(): Theme {
   if (stored === "light" || stored === "dark") {
     return stored;
   }
-  return window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "dark"
-    : "light";
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
 export default function App() {
@@ -27,7 +25,7 @@ export default function App() {
       registry.map((entry) => ({
         id: entry.slug,
         label: entry.name,
-        value: entry.slug
+        value: entry.slug,
       })),
     [registry]
   );
@@ -65,8 +63,7 @@ export default function App() {
     setTheme(isDark ? "dark" : "light");
   };
 
-  const activeEntry =
-    registry.find((entry) => entry.slug === activeSlug) ?? registry[0] ?? null;
+  const activeEntry = registry.find((entry) => entry.slug === activeSlug) ?? registry[0] ?? null;
 
   if (!registry.length) {
     return (
@@ -176,4 +173,3 @@ function ComponentDetail({ entry }: { entry: ComponentRegistryEntry }) {
     </div>
   );
 }
-

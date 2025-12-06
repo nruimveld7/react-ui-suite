@@ -34,7 +34,9 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(function Card(
           ) : (
             <span />
           )}
-          {actions ? <div className="text-sm text-slate-500 dark:text-zinc-400">{actions}</div> : null}
+          {actions ? (
+            <div className="text-sm text-slate-500 dark:text-zinc-400">{actions}</div>
+          ) : null}
         </div>
       )}
       {title ? (
@@ -47,8 +49,14 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(function Card(
           {title}
         </h3>
       ) : null}
-      {children ? <div className="mt-3 flex-1 text-sm text-slate-600 dark:text-zinc-300">{children}</div> : null}
-      {footer ? <div className="mt-4 border-t border-slate-100 pt-3 text-xs text-slate-500 dark:border-zinc-800 dark:text-zinc-400">{footer}</div> : null}
+      {children ? (
+        <div className="mt-3 flex-1 text-sm text-slate-600 dark:text-zinc-300">{children}</div>
+      ) : null}
+      {footer ? (
+        <div className="mt-4 border-t border-slate-100 pt-3 text-xs text-slate-500 dark:border-zinc-800 dark:text-zinc-400">
+          {footer}
+        </div>
+      ) : null}
     </div>
   );
 });

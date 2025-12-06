@@ -16,21 +16,21 @@ const planOptions: PlanOption[] = [
     id: "starter",
     name: "Starter",
     description: "For side projects and prototypes that need a clean handoff.",
-    price: "$12/mo"
+    price: "$12/mo",
   },
   {
     id: "pro",
     name: "Pro",
     description: "Unlimited projects, team spaces, and workflow automations.",
     price: "$24/mo",
-    badge: "Popular"
+    badge: "Popular",
   },
   {
     id: "enterprise",
     name: "Enterprise",
     description: "Security reviews, custom terms, and premium onboarding.",
-    price: "Contact sales"
-  }
+    price: "Contact sales",
+  },
 ];
 
 function PlanSelector() {
@@ -93,7 +93,7 @@ type LayoutOption = {
 const layoutOptions: LayoutOption[] = [
   { id: "compact", title: "Compact", copy: "Tight spacing and dense tables." },
   { id: "cozy", title: "Cozy", copy: "Balanced spacing for mixed content." },
-  { id: "airy", title: "Airy", copy: "Roomy cards and generous whitespace." }
+  { id: "airy", title: "Airy", copy: "Roomy cards and generous whitespace." },
 ];
 
 function LayoutPreference() {
@@ -118,7 +118,8 @@ function LayoutPreference() {
         ))}
       </div>
       <p className="mt-3 rounded-xl border border-dashed border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-600 dark:border-slate-800 dark:bg-slate-950/50 dark:text-slate-300">
-        Current mode: <span className="font-semibold text-slate-900 dark:text-slate-100">{density}</span>
+        Current mode:{" "}
+        <span className="font-semibold text-slate-900 dark:text-slate-100">{density}</span>
       </p>
     </div>
   );
@@ -156,11 +157,14 @@ function DigestPreferences() {
 
       <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50/80 px-3 py-2 text-xs text-slate-600 dark:border-slate-800 dark:bg-slate-950/60 dark:text-slate-300">
         <p className="font-semibold text-slate-900 dark:text-slate-100">
-          Delivery: {cadence === "daily" ? "Every morning" : cadence === "weekly" ? "Mondays" : "First Monday"}
+          Delivery:{" "}
+          {cadence === "daily"
+            ? "Every morning"
+            : cadence === "weekly"
+              ? "Mondays"
+              : "First Monday"}
         </p>
-        <p className="text-[11px] text-slate-500 dark:text-slate-400">
-          Pause reasons (read only):
-        </p>
+        <p className="text-[11px] text-slate-500 dark:text-slate-400">Pause reasons (read only):</p>
         <div className="mt-1 space-y-1">
           <Radio
             name="digest-paused"
@@ -200,10 +204,9 @@ const entry: ComponentRegistryEntry = {
     "Custom radio control with helper text, trailing metadata, and flexible card styling.",
   tags: ["input", "form", "selection"],
   Preview: RadioPreview,
-  sourcePath: "src/components/Radio/Radio.tsx"
+  sourcePath: "src/components/Radio/Radio.tsx",
 };
 
 export default entry;
 export { Radio };
 export type { RadioProps };
-

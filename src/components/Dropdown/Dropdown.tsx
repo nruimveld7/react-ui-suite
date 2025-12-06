@@ -113,24 +113,26 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
             placeholder={mergedPlaceholder}
             className={inputClasses}
           />
-        {inlineContent ? <div className="flex items-center gap-2">{inlineContent}</div> : null}
-        {showChevron ? (
-          <button
-            ref={chevronRef}
-            type="button"
-            aria-label={isOpen ? "Close" : "Open"}
-            onClick={onChevronClick}
-            className={buttonClasses}
-            disabled={!!disabled}
-          >
-            <ChevronDown className={twMerge("size-4 transition-transform", isOpen && "rotate-180")} />
-          </button>
-        ) : null}
+          {inlineContent ? <div className="flex items-center gap-2">{inlineContent}</div> : null}
+          {showChevron ? (
+            <button
+              ref={chevronRef}
+              type="button"
+              aria-label={isOpen ? "Close" : "Open"}
+              onClick={onChevronClick}
+              className={buttonClasses}
+              disabled={!!disabled}
+            >
+              <ChevronDown
+                className={twMerge("size-4 transition-transform", isOpen && "rotate-180")}
+              />
+            </button>
+          ) : null}
+        </div>
+        {children}
       </div>
-      {children}
-    </div>
-  );
-}
+    );
+  }
 );
 
 Dropdown.displayName = "Dropdown";

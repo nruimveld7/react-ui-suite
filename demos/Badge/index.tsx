@@ -8,7 +8,7 @@ const statusCopy: Record<BadgeVariant, { label: string; description: string }> =
   info: { label: "Scheduled", description: "Used for upcoming or informational items." },
   success: { label: "Active", description: "Signals success or availability." },
   warning: { label: "Pending", description: "Warns when something needs attention." },
-  danger: { label: "Failed", description: "Marks destructive or blocked states." }
+  danger: { label: "Failed", description: "Marks destructive or blocked states." },
 };
 
 function BadgeLegend() {
@@ -66,14 +66,12 @@ function BadgePreview() {
 const entry: ComponentRegistryEntry = {
   slug: "badge",
   name: "Badge",
-  description:
-    "Rounded status pill with Tailwind variants for success, warning, info, and more.",
+  description: "Rounded status pill with Tailwind variants for success, warning, info, and more.",
   tags: ["display", "status"],
   Preview: BadgePreview,
-  sourcePath: "src/components/Badge/Badge.tsx"
+  sourcePath: "src/components/Badge/Badge.tsx",
 };
 
 export default entry;
 export { Badge };
 export type { BadgeProps, BadgeVariant };
-

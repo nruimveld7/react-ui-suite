@@ -7,23 +7,26 @@ const variantStyles: Record<AlertVariant, { container: string; accent: string; i
   info: {
     container: "bg-sky-50 text-sky-900 ring-1 ring-sky-100 dark:bg-sky-500/10 dark:text-sky-100",
     accent: "bg-sky-400",
-    icon: "ℹ️"
+    icon: "ℹ️",
   },
   success: {
-    container: "bg-emerald-50 text-emerald-900 ring-1 ring-emerald-100 dark:bg-emerald-500/10 dark:text-emerald-100",
+    container:
+      "bg-emerald-50 text-emerald-900 ring-1 ring-emerald-100 dark:bg-emerald-500/10 dark:text-emerald-100",
     accent: "bg-emerald-400",
-    icon: "✔️"
+    icon: "✔️",
   },
   warning: {
-    container: "bg-amber-50 text-amber-900 ring-1 ring-amber-100 dark:bg-amber-400/10 dark:text-amber-100",
+    container:
+      "bg-amber-50 text-amber-900 ring-1 ring-amber-100 dark:bg-amber-400/10 dark:text-amber-100",
     accent: "bg-amber-400",
-    icon: "⚠️"
+    icon: "⚠️",
   },
   danger: {
-    container: "bg-rose-50 text-rose-900 ring-1 ring-rose-100 dark:bg-rose-500/10 dark:text-rose-100",
+    container:
+      "bg-rose-50 text-rose-900 ring-1 ring-rose-100 dark:bg-rose-500/10 dark:text-rose-100",
     accent: "bg-rose-400",
-    icon: "⛔"
-  }
+    icon: "⛔",
+  },
 };
 
 export type AlertProps = React.HTMLAttributes<HTMLDivElement> & {
@@ -66,7 +69,10 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert
           ×
         </button>
       ) : null}
-      <span className={twMerge("absolute inset-y-2 left-1 w-1 rounded-full", style.accent)} aria-hidden="true" />
+      <span
+        className={twMerge("absolute inset-y-2 left-1 w-1 rounded-full", style.accent)}
+        aria-hidden="true"
+      />
     </div>
   );
 });

@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
 import type React from "react";
 
-export function useControlledState<T>(
-  controlled: T | undefined,
-  defaultValue: T | undefined
-) {
+export function useControlledState<T>(controlled: T | undefined, defaultValue: T | undefined) {
   const [internal, setInternal] = useState<T | undefined>(defaultValue);
   const isControlled = controlled !== undefined;
-  return [isControlled ? controlled : internal, isControlled ? (() => {}) : setInternal] as const;
+  return [isControlled ? controlled : internal, isControlled ? () => {} : setInternal] as const;
 }
 
 /**

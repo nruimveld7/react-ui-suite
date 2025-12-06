@@ -10,17 +10,7 @@ export type InputFieldProps = React.InputHTMLAttributes<HTMLInputElement> & {
 };
 
 export const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(function InputField(
-  {
-    label,
-    description,
-    error,
-    leadingIcon,
-    trailingLabel,
-    className,
-    id,
-    disabled,
-    ...rest
-  },
+  { label, description, error, leadingIcon, trailingLabel, className, id, disabled, ...rest },
   ref
 ) {
   const generatedId = React.useId();
@@ -28,17 +18,15 @@ export const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(fu
   const descriptionId = React.useId();
   const errorId = React.useId();
 
-  const hintIds = [
-    description ? descriptionId : null,
-    error ? errorId : null,
-  ].filter(Boolean);
+  const hintIds = [description ? descriptionId : null, error ? errorId : null].filter(Boolean);
 
   const resolvedAriaDescribedBy = hintIds.length ? hintIds.join(" ") : undefined;
 
   const containerClasses = twMerge(
     "flex items-center gap-3 rounded-2xl border border-slate-300 bg-white/70 px-3 py-2 transition focus-within:border-slate-400 focus-within:shadow-[0_0_0_1px_rgba(148,163,184,0.45)] dark:border-zinc-700 dark:bg-zinc-900/70 dark:focus-within:border-slate-500",
     disabled && "opacity-60",
-    error && "border-rose-300 focus-within:border-rose-400 focus-within:shadow-[0_0_0_1px_rgba(248,113,113,0.35)] dark:border-rose-500/60"
+    error &&
+      "border-rose-300 focus-within:border-rose-400 focus-within:shadow-[0_0_0_1px_rgba(248,113,113,0.35)] dark:border-rose-500/60"
   );
 
   const inputClasses = twMerge(

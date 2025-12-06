@@ -10,7 +10,7 @@ const countries: SelectOption[] = [
   { value: "mex", label: "Mexico", description: "CST" },
   { value: "bra", label: "Brazil", description: "BRT" },
   { value: "deu", label: "Germany", description: "CET" },
-  { value: "jpn", label: "Japan", description: "JST" }
+  { value: "jpn", label: "Japan", description: "JST" },
 ];
 
 function CountrySelect() {
@@ -48,7 +48,7 @@ const themes: ThemeOption[] = [
   { value: "midnight", label: "Midnight", accent: "#22d3ee" },
   { value: "sunrise", label: "Sunrise", accent: "#f97316" },
   { value: "forest", label: "Forest", accent: "#22c55e" },
-  { value: "lilac", label: "Lilac", accent: "#a855f7" }
+  { value: "lilac", label: "Lilac", accent: "#a855f7" },
 ];
 
 function ThemeSelector() {
@@ -103,10 +103,9 @@ const entry: ComponentRegistryEntry = {
   description: "Styled native select with label, helper text, and consistent shells.",
   tags: ["input", "form", "select"],
   Preview: SelectPreview,
-  sourcePath: "src/components/Select/Select.tsx"
+  sourcePath: "src/components/Select/Select.tsx",
 };
 
 export default entry;
 export { Select };
 export type { SelectProps };
-

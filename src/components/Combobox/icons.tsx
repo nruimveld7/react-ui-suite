@@ -35,7 +35,12 @@ export function Clock(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" {...props}>
       <circle cx="12" cy="12" r="8.5" strokeWidth="1.5" />
-      <path d="M12 7.5v4.25l3 1.75" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M12 7.5v4.25l3 1.75"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }

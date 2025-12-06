@@ -136,7 +136,10 @@ function Scrollbar({ scrollRef }: { scrollRef: React.MutableRefObject<HTMLElemen
   };
 
   return (
-    <div aria-hidden="true" className="pointer-events-none absolute inset-y-[6px] right-[2px] flex w-3 justify-center">
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-y-[6px] right-[2px] flex w-3 justify-center"
+    >
       <div
         className="pointer-events-auto relative h-full w-1 rounded-full bg-slate-900/5 shadow-inner dark:bg-white/10"
         onPointerDown={handleTrackPointerDown}
@@ -153,7 +156,9 @@ function Scrollbar({ scrollRef }: { scrollRef: React.MutableRefObject<HTMLElemen
 
 export type PopoverProps = {
   className?: string;
-  children: (props: { scrollRef: React.MutableRefObject<HTMLUListElement | null> }) => React.ReactNode;
+  children: (props: {
+    scrollRef: React.MutableRefObject<HTMLUListElement | null>;
+  }) => React.ReactNode;
 };
 
 export function Popover({ className, children }: PopoverProps) {

@@ -44,7 +44,8 @@ export function Select({
   const containerRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
   const inputRef: React.MutableRefObject<HTMLInputElement | null> = React.useRef(null);
   const chevronRef: React.MutableRefObject<HTMLButtonElement | null> = React.useRef(null);
-  const popoverListRef: React.MutableRefObject<React.RefObject<HTMLUListElement> | null> = React.useRef(null);
+  const popoverListRef: React.MutableRefObject<React.RefObject<HTMLUListElement> | null> =
+    React.useRef(null);
   const suppressToggleRef = React.useRef(false);
   const id = React.useId();
   const listboxId = `${id}-listbox`;
@@ -53,7 +54,9 @@ export function Select({
   const [activeIndex, setActiveIndex] = React.useState(-1);
   const [selected, setSelected] = useControlledState<string | null>(value, defaultValue ?? null);
 
-  useOutsideClick([containerRef as unknown as React.RefObject<HTMLElement | null>], () => setOpen(false));
+  useOutsideClick([containerRef as unknown as React.RefObject<HTMLElement | null>], () =>
+    setOpen(false)
+  );
 
   const selectedOption = options.find((opt) => opt.value === selected) ?? null;
   const selectedIndex = React.useMemo(
@@ -106,7 +109,8 @@ export function Select({
       const direction: 1 | -1 = isArrowDown ? 1 : -1;
       const source = options;
       if (!source.length) return;
-      const startIndex = selectedIndex === -1 ? (direction === 1 ? firstEnabled : lastEnabled) : selectedIndex;
+      const startIndex =
+        selectedIndex === -1 ? (direction === 1 ? firstEnabled : lastEnabled) : selectedIndex;
       const nextIndex = startIndex === -1 ? -1 : cycleEnabled(startIndex, direction);
       if (nextIndex !== -1 && nextIndex !== selectedIndex) {
         commitSelection(nextIndex);
@@ -254,7 +258,7 @@ export function Select({
                           onMouseEnter={() => !opt.disabled && setActiveIndex(index)}
                           onClick={() => commitSelection(index)}
                           className={twMerge(
-                        "flex w-full items-center gap-3 rounded-xl px-3 py-2 text-left text-sm transition",
+                            "flex w-full items-center gap-3 rounded-xl px-3 py-2 text-left text-sm transition",
                             isActive
                               ? "bg-slate-100 text-slate-900 dark:bg-zinc-800/70 dark:text-zinc-100"
                               : "text-slate-700 hover:bg-slate-100 dark:text-zinc-200 dark:hover:bg-zinc-800/70",
@@ -263,7 +267,9 @@ export function Select({
                           )}
                         >
                           <span className="flex-1 text-left">
-                            <span className="block text-slate-900 dark:text-zinc-100">{opt.label}</span>
+                            <span className="block text-slate-900 dark:text-zinc-100">
+                              {opt.label}
+                            </span>
                             {opt.description ? (
                               <span className="block text-xs text-slate-500 dark:text-zinc-400">
                                 {opt.description}
@@ -287,9 +293,7 @@ export function Select({
       </Dropdown>
 
       {error ? (
-        <p className="text-xs font-medium text-rose-500 dark:text-rose-400">
-          {error}
-        </p>
+        <p className="text-xs font-medium text-rose-500 dark:text-rose-400">{error}</p>
       ) : null}
     </div>
   );

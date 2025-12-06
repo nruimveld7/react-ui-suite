@@ -4,8 +4,6 @@ dist/
 src/dist/
 demo/dist/
 demo/.vite/
-package-lock.json
-demo/package-lock.json
 .eslintcache
 .vscode/
 .idea/

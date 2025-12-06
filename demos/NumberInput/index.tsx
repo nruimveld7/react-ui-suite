@@ -5,7 +5,10 @@ import type { ComponentRegistryEntry } from "../component-registry";
 function BudgetPlanner() {
   const [budget, setBudget] = useState(4500);
   const [headcount, setHeadcount] = useState(8);
-  const burnRate = useMemo(() => (headcount ? Math.round(budget / headcount) : 0), [budget, headcount]);
+  const burnRate = useMemo(
+    () => (headcount ? Math.round(budget / headcount) : 0),
+    [budget, headcount]
+  );
 
   return (
     <div className="grid gap-3 rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm md:grid-cols-[1.1fr_0.9fr] dark:border-slate-800 dark:bg-slate-900/70">
@@ -45,8 +48,21 @@ function CompactNumberExamples() {
   const [hours, setHours] = useState(32);
   return (
     <div className="grid gap-3 rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm md:grid-cols-2 dark:border-slate-800 dark:bg-slate-900/70">
-      <NumberInput label="Tickets per sprint" value={tickets} onChange={setTickets} min={0} step={1} />
-      <NumberInput label="Hours allocated" value={hours} onChange={setHours} min={0} step={4} suffix="h" />
+      <NumberInput
+        label="Tickets per sprint"
+        value={tickets}
+        onChange={setTickets}
+        min={0}
+        step={1}
+      />
+      <NumberInput
+        label="Hours allocated"
+        value={hours}
+        onChange={setHours}
+        min={0}
+        step={4}
+        suffix="h"
+      />
     </div>
   );
 }
@@ -66,9 +82,8 @@ const entry: ComponentRegistryEntry = {
   description: "Stepper-based number input with Tailwind shell, suffix, and custom steps.",
   tags: ["input", "form", "number"],
   Preview: NumberInputPreview,
-  sourcePath: "src/components/NumberInput/NumberInput.tsx"
+  sourcePath: "src/components/NumberInput/NumberInput.tsx",
 };
 
 export default entry;
 export { NumberInput };
-

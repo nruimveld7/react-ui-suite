@@ -4,12 +4,12 @@ import { Check } from "./icons";
 import type { ComboboxOption } from "./types";
 
 export type ListboxProps<T> = {
-  id: string;                              // listbox id for aria-controls
-  options: ComboboxOption<T>[];            // visible, filtered options
-  activeIndex: number;                     // highlighted index
-  selectedId?: string | null;              // current selection id (if any)
-  onHoverIndex: (i: number) => void;       // set active on hover
-  onSelectIndex: (i: number) => void;      // commit selection on click
+  id: string; // listbox id for aria-controls
+  options: ComboboxOption<T>[]; // visible, filtered options
+  activeIndex: number; // highlighted index
+  selectedId?: string | null; // current selection id (if any)
+  onHoverIndex: (i: number) => void; // set active on hover
+  onSelectIndex: (i: number) => void; // commit selection on click
   listRef: React.RefObject<HTMLUListElement>; // scroll container
 };
 
@@ -30,7 +30,12 @@ export function Listbox<T>({
   }, [activeIndex]);
 
   return (
-    <ul ref={listRef} id={id} role="listbox" className={twMerge("combobox-scrollbar max-h-64 overflow-auto px-1 pr-4")}>
+    <ul
+      ref={listRef}
+      id={id}
+      role="listbox"
+      className={twMerge("combobox-scrollbar max-h-64 overflow-auto px-1 pr-4")}
+    >
       {options.length === 0 && (
         <li aria-disabled className="select-none">
           <div className="px-3 py-2 text-sm text-slate-500 dark:text-zinc-500">No results</div>

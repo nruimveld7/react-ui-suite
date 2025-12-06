@@ -13,7 +13,7 @@ const toneStyles: Record<
   neutral: { bg: "bg-slate-900", text: "text-white", ring: "ring-slate-300" },
   success: { bg: "bg-emerald-500", text: "text-white", ring: "ring-emerald-200" },
   warning: { bg: "bg-amber-500", text: "text-white", ring: "ring-amber-200" },
-  danger: { bg: "bg-rose-500", text: "text-white", ring: "ring-rose-200" }
+  danger: { bg: "bg-rose-500", text: "text-white", ring: "ring-rose-200" },
 };
 
 export const OutputChip = React.forwardRef<HTMLOutputElement, OutputChipProps>(function OutputChip(

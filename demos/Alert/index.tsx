@@ -95,10 +95,9 @@ const entry: ComponentRegistryEntry = {
   description: "Dismissible inline alert with success, info, warning, and danger variants.",
   tags: ["feedback", "status"],
   Preview: AlertPreview,
-  sourcePath: "src/components/Alert/Alert.tsx"
+  sourcePath: "src/components/Alert/Alert.tsx",
 };
 
 export default entry;
 export { Alert };
 export type { AlertProps };
-

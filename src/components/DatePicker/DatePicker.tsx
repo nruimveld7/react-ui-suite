@@ -18,7 +18,7 @@ export type DatePickerProps = {
   onChange?: (value: string) => void;
   type?: "date" | "time";
   timeIntervalMinutes?: number; // only used when type === "time"
-  use24HourClock?: boolean;     // only used when type === "time"
+  use24HourClock?: boolean; // only used when type === "time"
 };
 
 type ViewMode = "day" | "month" | "year";
@@ -95,18 +95,27 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
 
   const initial = (() => {
     if (!isDate) {
-      return normalizeTimeString(value) ?? normalizeTimeString(defaultValue) ?? (() => {
-        const now = new Date();
-        const minutes = now.getMinutes();
-        const rounded = Math.round(minutes / clampInterval) * clampInterval;
-        const h = rounded >= 60 ? now.getHours() + 1 : now.getHours();
-        const m = rounded % 60;
-        const safeH = (h + 24) % 24;
-        return `${String(safeH).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
-      })();
+      return (
+        normalizeTimeString(value) ??
+        normalizeTimeString(defaultValue) ??
+        (() => {
+          const now = new Date();
+          const minutes = now.getMinutes();
+          const rounded = Math.round(minutes / clampInterval) * clampInterval;
+          const h = rounded >= 60 ? now.getHours() + 1 : now.getHours();
+          const m = rounded % 60;
+          const safeH = (h + 24) % 24;
+          return `${String(safeH).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
+        })()
+      );
     }
     const normalized = parseLocalDateString(value ?? defaultValue)?.date;
-    if (normalized) return formatLocalDateString(normalized.getFullYear(), normalized.getMonth(), normalized.getDate());
+    if (normalized)
+      return formatLocalDateString(
+        normalized.getFullYear(),
+        normalized.getMonth(),
+        normalized.getDate()
+      );
     const today = new Date();
     return formatLocalDateString(today.getFullYear(), today.getMonth(), today.getDate());
   })();
@@ -139,7 +148,9 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
     [ref]
   );
 
-  useOutsideClick([dropdownRef as unknown as React.RefObject<HTMLElement | null>], () => setOpen(false));
+  useOutsideClick([dropdownRef as unknown as React.RefObject<HTMLElement | null>], () =>
+    setOpen(false)
+  );
 
   const commit = (next: string) => {
     setCurrent(next);
@@ -251,7 +262,10 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
       ? `${rangeStart} - ${rangeEnd}`
       : viewMode === "month"
         ? `${month.year}`
-        : new Date(month.year, month.month).toLocaleString("default", { month: "long", year: "numeric" });
+        : new Date(month.year, month.month).toLocaleString("default", {
+            month: "long",
+            year: "numeric",
+          });
 
   function openPicker() {
     if (disabled) return;
@@ -277,7 +291,8 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
     if (available <= 0) return;
 
     const font =
-      inputStyles.font || `${inputStyles.fontWeight} ${inputStyles.fontSize} ${inputStyles.fontFamily}`;
+      inputStyles.font ||
+      `${inputStyles.fontWeight} ${inputStyles.fontSize} ${inputStyles.fontFamily}`;
     const canvas = canvasRef.current ?? document.createElement("canvas");
     canvasRef.current = canvas;
     const ctx = canvas.getContext("2d");
@@ -318,10 +333,7 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
           displayValue={displayLabel}
           query={displayLabel}
           className="w-full"
-          inputClassName={twMerge(
-            "min-w-0 font-semibold",
-            className
-          )}
+          inputClassName={twMerge("min-w-0 font-semibold", className)}
           shellClassName={twMerge(
             error &&
               "border-rose-300 focus-within:border-rose-400 focus-within:shadow-[0_0_0_1px_rgba(248,113,113,0.35)] dark:border-rose-500/60"
@@ -388,7 +400,9 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
                       <span style={{ transform: "translateY(-1.5px)" }}>{"<"}</span>
                     </Button>
                     {viewMode === "year" ? (
-                      <span className="font-semibold text-slate-900 dark:text-zinc-100">{headerLabel}</span>
+                      <span className="font-semibold text-slate-900 dark:text-zinc-100">
+                        {headerLabel}
+                      </span>
                     ) : (
                       <button
                         type="button"
@@ -443,7 +457,8 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
                     <div className="grid grid-cols-3 gap-2">
                       {monthNames.map((name, idx) => {
                         const isSelected =
-                          parsedDate?.getFullYear() === month.year && parsedDate?.getMonth() === idx;
+                          parsedDate?.getFullYear() === month.year &&
+                          parsedDate?.getMonth() === idx;
                         return (
                           <button
                             key={name}
@@ -454,7 +469,8 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
                             }}
                             className={twMerge(
                               "h-10 rounded-xl border border-slate-200 bg-white text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-[1px] hover:shadow-md dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100",
-                              isSelected && "border-slate-400 bg-slate-100 dark:border-slate-500 dark:bg-zinc-800"
+                              isSelected &&
+                                "border-slate-400 bg-slate-100 dark:border-slate-500 dark:bg-zinc-800"
                             )}
                           >
                             {name}
@@ -476,7 +492,8 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
                             }}
                             className={twMerge(
                               "h-10 rounded-xl border border-slate-200 bg-white text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-[1px] hover:shadow-md dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100",
-                              isSelected && "border-slate-400 bg-slate-100 dark:border-slate-500 dark:bg-zinc-800"
+                              isSelected &&
+                                "border-slate-400 bg-slate-100 dark:border-slate-500 dark:bg-zinc-800"
                             )}
                           >
                             {yr}
@@ -492,8 +509,12 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
         </Dropdown>
       </div>
 
-      {description ? <p className="text-xs text-slate-500 dark:text-zinc-400">{description}</p> : null}
-      {error ? <p className="text-xs font-medium text-rose-500 dark:text-rose-400">{error}</p> : null}
+      {description ? (
+        <p className="text-xs text-slate-500 dark:text-zinc-400">{description}</p>
+      ) : null}
+      {error ? (
+        <p className="text-xs font-medium text-rose-500 dark:text-rose-400">{error}</p>
+      ) : null}
     </div>
   );
 });

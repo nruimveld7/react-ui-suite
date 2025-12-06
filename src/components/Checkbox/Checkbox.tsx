@@ -34,7 +34,8 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(functi
     (node: HTMLInputElement | null) => {
       internalRef.current = node;
       if (typeof forwardedRef === "function") forwardedRef(node);
-      else if (forwardedRef && typeof forwardedRef === "object") (forwardedRef as any).current = node;
+      else if (forwardedRef && typeof forwardedRef === "object")
+        (forwardedRef as any).current = node;
     },
     [forwardedRef]
   );
@@ -84,7 +85,8 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(functi
         <span
           className={twMerge(
             "grid size-5 place-items-center rounded-lg border border-slate-300 bg-white text-[0.65rem] font-semibold text-slate-600 transition drop-shadow-sm peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-slate-400 dark:border-zinc-600 dark:bg-zinc-950/70 dark:text-zinc-200",
-            resolvedChecked && "border-slate-400 bg-slate-100 text-slate-900 shadow-[0_0_0_1px_rgba(148,163,184,0.45)] dark:border-zinc-500 dark:bg-zinc-500 dark:text-white"
+            resolvedChecked &&
+              "border-slate-400 bg-slate-100 text-slate-900 shadow-[0_0_0_1px_rgba(148,163,184,0.45)] dark:border-zinc-500 dark:bg-zinc-500 dark:text-white"
           )}
           aria-hidden="true"
         >

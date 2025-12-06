@@ -16,13 +16,13 @@ const baseRows: Row[] = [
   { name: "Notifications", status: "Paused", latency: 0, region: "eu-west-1" },
   { name: "Realtime", status: "Active", latency: 88, region: "us-west-2" },
   { name: "Ingestion", status: "Error", latency: 420, region: "us-east-1" },
-  { name: "Exports", status: "Active", latency: 215, region: "ap-southeast-1" }
+  { name: "Exports", status: "Active", latency: 215, region: "ap-southeast-1" },
 ];
 
 const statusTone: Record<Row["status"], string> = {
   Active: "bg-emerald-500/90 text-white",
   Paused: "bg-amber-400/90 text-slate-900",
-  Error: "bg-rose-500/90 text-white"
+  Error: "bg-rose-500/90 text-white",
 };
 
 function ServiceTable() {
@@ -44,17 +44,19 @@ function ServiceTable() {
           <span className="block size-1.5 rounded-full bg-white/80" />
           {value}
         </span>
-      )
+      ),
     },
     {
       key: "latency",
       header: "p95",
       align: "right",
       render: (value: number) => (
-        <span className="font-semibold text-slate-900 dark:text-slate-100">{value ? `${value}ms` : "N/A"}</span>
-      )
+        <span className="font-semibold text-slate-900 dark:text-slate-100">
+          {value ? `${value}ms` : "N/A"}
+        </span>
+      ),
     },
-    { key: "region", header: "Region" }
+    { key: "region", header: "Region" },
   ];
 
   return (
@@ -64,7 +66,9 @@ function ServiceTable() {
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
             Services
           </p>
-          <p className="text-sm text-slate-600 dark:text-slate-400">Native table with soft zebra styling.</p>
+          <p className="text-sm text-slate-600 dark:text-slate-400">
+            Native table with soft zebra styling.
+          </p>
         </div>
         <Checkbox
           label="Hide paused"
@@ -92,13 +96,13 @@ const memberRows: MemberRow[] = [
   { user: "Jamie Chen", role: "Editor", status: "Active", team: "Data" },
   { user: "Morgan Patel", role: "Editor", status: "Invited", team: "Growth" },
   { user: "Priya Das", role: "Viewer", status: "Active", team: "Core" },
-  { user: "Riley Brooks", role: "Viewer", status: "Suspended", team: "Ops" }
+  { user: "Riley Brooks", role: "Viewer", status: "Suspended", team: "Ops" },
 ];
 
 const memberStatusTone: Record<MemberRow["status"], string> = {
   Active: "bg-emerald-500/90 text-white",
   Invited: "bg-sky-400/90 text-white",
-  Suspended: "bg-rose-500/90 text-white"
+  Suspended: "bg-rose-500/90 text-white",
 };
 
 function MembersTable() {
@@ -108,7 +112,9 @@ function MembersTable() {
   const filtered = useMemo(() => {
     return memberRows.filter((row) => {
       const matchesStatus = filter === "All" || row.status === filter;
-      const matchesQuery = row.user.toLowerCase().includes(query.toLowerCase()) || row.team.toLowerCase().includes(query.toLowerCase());
+      const matchesQuery =
+        row.user.toLowerCase().includes(query.toLowerCase()) ||
+        row.team.toLowerCase().includes(query.toLowerCase());
       return matchesStatus && matchesQuery;
     });
   }, [filter, query]);
@@ -126,8 +132,8 @@ function MembersTable() {
         >
           {value}
         </span>
-      )
-    }
+      ),
+    },
   ];
 
   const filters: Array<MemberRow["status"] | "All"> = ["All", "Active", "Invited", "Suspended"];
@@ -186,13 +192,13 @@ const invoiceRows: InvoiceRow[] = [
   { invoice: "INV-2042", amount: 760, status: "Pending", issued: "2025-10-12" },
   { invoice: "INV-2043", amount: 420, status: "Paid", issued: "2025-11-01" },
   { invoice: "INV-2044", amount: 1520, status: "Overdue", issued: "2025-11-15" },
-  { invoice: "INV-2045", amount: 940, status: "Pending", issued: "2025-11-20" }
+  { invoice: "INV-2045", amount: 940, status: "Pending", issued: "2025-11-20" },
 ];
 
 const invoiceTone: Record<InvoiceRow["status"], string> = {
   Paid: "bg-emerald-500/90 text-white",
   Pending: "bg-amber-400/90 text-slate-900",
-  Overdue: "bg-rose-500/90 text-white"
+  Overdue: "bg-rose-500/90 text-white",
 };
 
 function BillingTable() {
@@ -208,7 +214,11 @@ function BillingTable() {
       key: "amount",
       header: "Amount",
       align: "right",
-      render: (value: number) => <span className="font-semibold text-slate-900 dark:text-slate-100">${value.toFixed(2)}</span>
+      render: (value: number) => (
+        <span className="font-semibold text-slate-900 dark:text-slate-100">
+          ${value.toFixed(2)}
+        </span>
+      ),
     },
     { key: "issued", header: "Issued" },
     {
@@ -220,8 +230,8 @@ function BillingTable() {
         >
           {value}
         </span>
-      )
-    }
+      ),
+    },
   ];
 
   return (
@@ -231,7 +241,9 @@ function BillingTable() {
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
             Billing
           </p>
-          <p className="text-sm text-slate-600 dark:text-slate-400">Zebra rows with amount column.</p>
+          <p className="text-sm text-slate-600 dark:text-slate-400">
+            Zebra rows with amount column.
+          </p>
         </div>
         <Checkbox
           label="Open only"
@@ -272,7 +284,7 @@ const ticketRowsWide: TicketRow[] = [
     priority: "High",
     status: "In Progress",
     queue: "Growth",
-    assignee: "Lena Ortiz"
+    assignee: "Lena Ortiz",
   },
   {
     id: "INIT-2102",
@@ -280,7 +292,7 @@ const ticketRowsWide: TicketRow[] = [
     priority: "Medium",
     status: "Open",
     queue: "Support",
-    assignee: "Elliot Shaw"
+    assignee: "Elliot Shaw",
   },
   {
     id: "INIT-2103",
@@ -288,7 +300,7 @@ const ticketRowsWide: TicketRow[] = [
     priority: "High",
     status: "In Progress",
     queue: "Mobile",
-    assignee: "Mara Singh"
+    assignee: "Mara Singh",
   },
   {
     id: "INIT-2104",
@@ -296,7 +308,7 @@ const ticketRowsWide: TicketRow[] = [
     priority: "Medium",
     status: "Open",
     queue: "Identity",
-    assignee: "Yuki Tan"
+    assignee: "Yuki Tan",
   },
   {
     id: "INIT-2105",
@@ -304,7 +316,7 @@ const ticketRowsWide: TicketRow[] = [
     priority: "Medium",
     status: "Open",
     queue: "Analytics",
-    assignee: "Priya Das"
+    assignee: "Priya Das",
   },
   {
     id: "INIT-2106",
@@ -312,7 +324,7 @@ const ticketRowsWide: TicketRow[] = [
     priority: "Low",
     status: "Open",
     queue: "Infra",
-    assignee: "Jordan Lake"
+    assignee: "Jordan Lake",
   },
   {
     id: "INIT-2107",
@@ -320,7 +332,7 @@ const ticketRowsWide: TicketRow[] = [
     priority: "Low",
     status: "Closed",
     queue: "Sustainability",
-    assignee: "Noel Hart"
+    assignee: "Noel Hart",
   },
   {
     id: "INIT-2108",
@@ -328,21 +340,23 @@ const ticketRowsWide: TicketRow[] = [
     priority: "Medium",
     status: "In Progress",
     queue: "Onboarding",
-    assignee: "Samira Ali"
-  }
+    assignee: "Samira Ali",
+  },
 ];
 
 function TicketsTable() {
   const columns: TableColumn<TicketRow>[] = [
     { key: "id", header: "Ticket" },
-    { key: "summary", header: "Summary" }
+    { key: "summary", header: "Summary" },
   ];
 
   return (
     <div className="rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/70 overflow-hidden">
       <div className="flex items-center justify-between gap-3">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Tickets</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
+            Tickets
+          </p>
           <p className="text-sm text-slate-600 dark:text-slate-400">Vertical overflow example.</p>
         </div>
       </div>
@@ -365,15 +379,19 @@ function TicketsTableDuplicate() {
     { key: "queue", header: "Track" },
     { key: "priority", header: "Priority" },
     { key: "status", header: "Status" },
-    { key: "assignee", header: "Owner" }
+    { key: "assignee", header: "Owner" },
   ];
 
   return (
     <div className="rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/70 overflow-hidden">
       <div className="flex items-center justify-between gap-3">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Initiatives</p>
-          <p className="text-sm text-slate-600 dark:text-slate-400">Vertical + horizontal overflow example.</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
+            Initiatives
+          </p>
+          <p className="text-sm text-slate-600 dark:text-slate-400">
+            Vertical + horizontal overflow example.
+          </p>
         </div>
       </div>
       <div className="mt-3">
@@ -408,9 +426,8 @@ const entry: ComponentRegistryEntry = {
       </div>
     );
   },
-  sourcePath: "src/components/Table/Table.tsx"
+  sourcePath: "src/components/Table/Table.tsx",
 };
 
 export default entry;
 export { Table };
-

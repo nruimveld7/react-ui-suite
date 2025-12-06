@@ -6,11 +6,11 @@
 
 ## Packages
 
-| Folder | Description |
-| --- | --- |
-| `src/` | Workspace that publishes `@react-ui-suite/core`. `tsup` compiles this folder to `dist/`. |
-| `demos/` | Demo entries that describe each component preview (slug, description, tags, etc.). These files are not published. |
-| `demo/` | Standalone Vite gallery that auto-registers every demo entry via `import.meta.glob`. Useful for local development and QA. |
+| Folder   | Description                                                                                                               |
+| -------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `src/`   | Workspace that publishes `@react-ui-suite/core`. `tsup` compiles this folder to `dist/`.                                  |
+| `demos/` | Demo entries that describe each component preview (slug, description, tags, etc.). These files are not published.         |
+| `demo/`  | Standalone Vite gallery that auto-registers every demo entry via `import.meta.glob`. Useful for local development and QA. |
 
 ## Installation
 
@@ -35,9 +35,7 @@ export function ExampleCard() {
   return (
     <Card title="Weekly report">
       <Badge variant="success">Live</Badge>
-      <p className="mt-3 text-sm text-slate-600">
-        Performance is trending upward for all KPIs.
-      </p>
+      <p className="mt-3 text-sm text-slate-600">Performance is trending upward for all KPIs.</p>
       <Button className="mt-4 w-full">View details</Button>
     </Card>
   );
@@ -49,6 +47,7 @@ Every component (and its related types) is exported from `src/index.ts`, so tree
 ## Development
 
 ### Build the library workspace
+
 ```bash
 npm install          # installs all workspace deps (library + demo)
 npm run build        # builds @react-ui-suite/core via tsup
