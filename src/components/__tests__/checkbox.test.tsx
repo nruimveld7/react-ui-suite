@@ -23,4 +23,20 @@ describe("Checkbox", () => {
     await user.click(screen.getByRole("checkbox", { name: "Terms" }));
     expect(handleChange).toHaveBeenCalledWith(true);
   });
+
+  it("merges className on the label and forwards extra props to the input", () => {
+    const { container } = render(
+      <Checkbox
+        label="Notifications"
+        className="custom-label"
+        data-testid="checkbox-input"
+        description="Stay updated"
+      />
+    );
+
+    const label = container.querySelector("label");
+    expect(label).toHaveClass("custom-label");
+    expect(screen.getByTestId("checkbox-input")).toHaveAttribute("type", "checkbox");
+    expect(screen.getByText("Stay updated")).toBeInTheDocument();
+  });
 });

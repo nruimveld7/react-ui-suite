@@ -30,4 +30,17 @@ describe("Button", () => {
 
     expect(onClick).not.toHaveBeenCalled();
   });
+
+  it("forwards className and other props to the button element", () => {
+    render(
+      <Button className="custom-button" data-testid="button">
+        Styled
+      </Button>
+    );
+
+    const button = screen.getByTestId("button");
+    expect(button).toHaveClass("custom-button");
+    expect(button).toHaveAttribute("type", "button");
+    expect(button).toHaveRole("button");
+  });
 });
