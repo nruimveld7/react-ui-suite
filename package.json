@@ -1,14 +1,12 @@
 {
   "name": "react-ui-suite",
   "private": true,
+  "scripts": {
+    "build": "npm run build --workspace @react-ui-suite/core",
+    "dev": "npm run dev --workspace demo"
+  },
   "workspaces": [
     "src",
     "demo"
-  ],
-  "scripts": {
-    "build": "npm --workspace src run build",
-    "dev": "npm --workspace demo run dev",
-    "lint": "npm --workspace src run lint",
-    "test": "npm --workspace src run test"
-  }
+  ]
 }

@@ -51,9 +51,9 @@ Every component (and its related types) is exported from `src/index.ts`, so tree
 ### Build the library workspace
 ```bash
 npm install          # installs all workspace deps (library + demo)
-npm run build        # runs the src workspace build (tsup -> src/dist)
-npm test             # executes Vitest in the src workspace
-npm run lint         # lints src/ and demo/ via ESLint
+npm run build        # builds @react-ui-suite/core via tsup
+npm run test --workspace @react-ui-suite/core   # executes Vitest for the library
+npm run lint --workspace @react-ui-suite/core   # lints the library source via ESLint
 ```
 
 `tsup` cleans `src/dist/` automatically and marks `react` / `react-dom` as externals so the published artifacts only contain the suite's code. Linting and tests provide fast feedback before shipping any new component primitives.
