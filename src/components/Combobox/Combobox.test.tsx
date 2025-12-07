@@ -66,11 +66,15 @@ describe("Combobox", () => {
 
     const input = screen.getByRole("combobox", { name: "Framework" });
     await user.click(input);
+    const optionEls = await screen.findAllByRole("option");
+    const lastId = optionEls.at(-1)?.id;
+    const firstId = optionEls.at(0)?.id;
+
     await user.keyboard("{End}");
-    expect(input.getAttribute("aria-activedescendant")).toMatch(/option-2$/);
+    expect(input.getAttribute("aria-activedescendant")).toBe(lastId);
 
     await user.keyboard("{Home}");
-    expect(input.getAttribute("aria-activedescendant")).toMatch(/option-0$/);
+    expect(input.getAttribute("aria-activedescendant")).toBe(firstId);
 
     await user.keyboard("{Escape}");
     expect(screen.queryByRole("option", { name: "Alpha" })).not.toBeInTheDocument();

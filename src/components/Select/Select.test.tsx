@@ -42,8 +42,10 @@ describe("Select", () => {
 
     const input = screen.getByRole("combobox", { name: "Priority" });
     await user.click(input);
-    await user.keyboard("{ArrowDown}{Enter}");
-    expect(handleChange).toHaveBeenCalledWith("high");
+    await screen.findAllByRole("option");
+    await user.keyboard("{ArrowDown}");
+    await user.keyboard("{Enter}");
+    await waitFor(() => expect(handleChange).toHaveBeenCalledWith("high"));
     expect(input).toHaveValue("High");
   });
 
