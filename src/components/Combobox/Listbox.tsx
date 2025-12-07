@@ -1,7 +1,7 @@
 import * as React from "react";
 import { twMerge } from "tailwind-merge";
 import { Check } from "./icons";
-import type { ComboboxOption } from "./types";
+import type { ComboboxOption, ComboboxRenderState } from "./types";
 
 export type ListboxProps<T> = {
   id: string; // listbox id for aria-controls
@@ -11,6 +11,8 @@ export type ListboxProps<T> = {
   onHoverIndex: (i: number) => void; // set active on hover
   onSelectIndex: (i: number) => void; // commit selection on click
   listRef: React.RefObject<HTMLUListElement>; // scroll container
+  emptyState?: React.ReactNode;
+  renderOption?: (opt: ComboboxOption<T>, state: ComboboxRenderState) => React.ReactNode;
 };
 
 export function Listbox<T>({
@@ -21,13 +23,15 @@ export function Listbox<T>({
   onHoverIndex,
   onSelectIndex,
   listRef,
+  emptyState,
+  renderOption,
 }: ListboxProps<T>) {
   // Keep active option scrolled into view
   React.useEffect(() => {
     if (activeIndex < 0) return;
     const el = listRef.current?.querySelector<HTMLElement>(`[data-index="${activeIndex}"]`);
     el?.scrollIntoView({ block: "nearest" });
-  }, [activeIndex]);
+  }, [activeIndex, listRef]);
 
   return (
     <ul
@@ -38,13 +42,16 @@ export function Listbox<T>({
     >
       {options.length === 0 && (
         <li aria-disabled className="select-none">
-          <div className="px-3 py-2 text-sm text-slate-500 dark:text-zinc-500">No results</div>
+          <div className="px-3 py-2 text-sm text-slate-500 dark:text-zinc-500">
+            {emptyState ?? "No results"}
+          </div>
         </li>
       )}
 
       {options.map((opt, i) => {
         const selected = opt.id === selectedId;
         const active = i === activeIndex;
+        const optionState: ComboboxRenderState = { active, selected };
         return (
           <li
             key={opt.id}
@@ -58,22 +65,26 @@ export function Listbox<T>({
             onMouseDown={(e) => e.preventDefault()} // keep focus on input
             onClick={() => !opt.disabled && onSelectIndex(i)}
           >
-            <div
-              className={twMerge(
-                "flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2 text-sm",
-                active
-                  ? "bg-slate-100 text-slate-900 dark:bg-zinc-800/70 dark:text-zinc-100"
-                  : "text-slate-700 hover:bg-slate-100 dark:text-zinc-200 dark:hover:bg-zinc-800/70",
-                opt.disabled && "cursor-not-allowed opacity-50"
-              )}
-            >
-              <span className="truncate">{opt.label}</span>
-              {selected ? (
-                <Check className="ml-auto h-3 w-3 text-slate-600 dark:text-zinc-300" />
-              ) : (
-                <span className="ml-auto inline-flex h-3 w-3" />
-              )}
-            </div>
+            {renderOption ? (
+              renderOption(opt, optionState)
+            ) : (
+              <div
+                className={twMerge(
+                  "flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2 text-sm",
+                  active
+                    ? "bg-slate-100 text-slate-900 dark:bg-zinc-800/70 dark:text-zinc-100"
+                    : "text-slate-700 hover:bg-slate-100 dark:text-zinc-200 dark:hover:bg-zinc-800/70",
+                  opt.disabled && "cursor-not-allowed opacity-50"
+                )}
+              >
+                <span className="truncate">{opt.label}</span>
+                {selected ? (
+                  <Check className="ml-auto h-3 w-3 text-slate-600 dark:text-zinc-300" />
+                ) : (
+                  <span className="ml-auto inline-flex h-3 w-3" />
+                )}
+              </div>
+            )}
           </li>
         );
       })}

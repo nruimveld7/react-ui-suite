@@ -151,7 +151,7 @@ function useThumbDrag(
   return { onThumbPointerDown, startDrag };
 }
 
-export function Table<T extends Record<string, any>>({
+export function Table<T extends Record<string, unknown>>({
   columns,
   data,
   caption,

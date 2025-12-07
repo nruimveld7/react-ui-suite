@@ -1,6 +1,7 @@
 {
   "name": "react-ui-suite",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "npm run build --workspace @react-ui-suite/core",
     "dev": "npm run dev --workspace demo",
@@ -12,6 +13,12 @@
     "demo"
   ],
   "devDependencies": {
-    "prettier": "^3.3.3"
+    "@eslint/js": "^9.39.1",
+    "@typescript-eslint/eslint-plugin": "^8.48.1",
+    "@typescript-eslint/parser": "^8.48.1",
+    "eslint": "^9.39.1",
+    "globals": "^16.5.0",
+    "prettier": "^3.3.3",
+    "typescript-eslint": "^8.48.1"
   }
 }

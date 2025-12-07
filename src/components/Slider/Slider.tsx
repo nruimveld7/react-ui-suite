@@ -1,5 +1,6 @@
 import * as React from "react";
 import { twMerge } from "tailwind-merge";
+import { assignRef } from "../../utils/ref";
 
 type SliderRenderProps = {
   value: number;
@@ -108,7 +109,8 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(function S
     crossOffset: 0,
     thickness: 0,
   });
-  const inputId = id ?? React.useId();
+  const generatedId = React.useId();
+  const inputId = id ?? generatedId;
 
   const inputRef: React.MutableRefObject<HTMLInputElement | null> = React.useRef(null);
   const interactionRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
@@ -117,9 +119,7 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(function S
   const mergedRef = React.useCallback(
     (node: HTMLInputElement | null) => {
       inputRef.current = node;
-      if (typeof forwardedRef === "function") forwardedRef(node);
-      else if (forwardedRef && typeof forwardedRef === "object")
-        (forwardedRef as any).current = node;
+      assignRef(forwardedRef, node);
     },
     [forwardedRef]
   );

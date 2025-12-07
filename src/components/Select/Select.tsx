@@ -292,6 +292,10 @@ export function Select({
         )}
       </Dropdown>
 
+      {description ? (
+        <p className="text-xs text-slate-500 dark:text-zinc-400">{description}</p>
+      ) : null}
+
       {error ? (
         <p className="text-xs font-medium text-rose-500 dark:text-rose-400">{error}</p>
       ) : null}

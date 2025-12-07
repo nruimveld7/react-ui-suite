@@ -5,6 +5,7 @@ import { Popover } from "../Popover/Popover";
 import { useControlledState, useOutsideClick } from "./hooks";
 import { Listbox } from "./Listbox";
 import type { ComboboxOption, ComboboxProps } from "./types";
+import { assignRef } from "../../utils/ref";
 
 // Generic-preserving forwardRef wrapper
 function InnerCombobox<T>(
@@ -18,8 +19,8 @@ function InnerCombobox<T>(
     className,
     listClassName,
     inputClassName,
-    emptyState, // (unused here; Listbox has 'No results', or pipe it down)
-    renderOption, // (optional; see Listbox note)
+    emptyState,
+    renderOption,
     filter,
     openOnFocus = true,
     ariaLabel,
@@ -33,15 +34,13 @@ function InnerCombobox<T>(
     () => [containerRef as unknown as React.RefObject<HTMLElement | null>],
     [containerRef]
   );
-  const closeOnOutsideClick = React.useCallback(() => setOpen(false), []);
-
   const mergedInputRef = (node: HTMLInputElement | null) => {
-    (inputRef as any).current = node;
-    if (typeof forwardedRef === "function") forwardedRef(node);
-    else if (forwardedRef && typeof forwardedRef === "object") (forwardedRef as any).current = node;
+    inputRef.current = node;
+    assignRef(forwardedRef, node);
   };
 
   const [open, setOpen] = React.useState(false);
+  const closeOnOutsideClick = React.useCallback(() => setOpen(false), []);
   const [query, setQuery] = React.useState("");
   const [activeIndex, setActiveIndex] = React.useState<number>(-1);
   const suppressNextOpenRef = React.useRef(false);
@@ -170,7 +169,7 @@ function InnerCombobox<T>(
 
   function commitSelection(opt: ComboboxOption<T> | null, opts: { refocus?: boolean } = {}) {
     const { refocus = true } = opts;
-    setSelected(opt as any);
+    setSelected(opt);
     onChange?.(opt);
     if (opt) setQuery("");
     setOpen(false);
@@ -346,6 +345,8 @@ function InnerCombobox<T>(
               onHoverIndex={setActiveIndex}
               onSelectIndex={(i) => commitSelection(visibleOptions[i])}
               listRef={scrollRef}
+              emptyState={emptyState}
+              renderOption={renderOption}
             />
           )}
         </Popover>

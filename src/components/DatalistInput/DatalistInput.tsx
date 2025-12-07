@@ -3,6 +3,7 @@ import { twMerge } from "tailwind-merge";
 import { useOutsideClick } from "../Combobox/hooks";
 import { Dropdown } from "../Dropdown/Dropdown";
 import { Popover } from "../Popover/Popover";
+import { assignRef } from "../../utils/ref";
 
 export type DatalistInputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   label?: string;
@@ -21,8 +22,7 @@ export const DatalistInput = React.forwardRef<HTMLInputElement, DatalistInputPro
     const mergedRef = React.useCallback(
       (node: HTMLInputElement | null) => {
         inputRef.current = node;
-        if (typeof ref === "function") ref(node);
-        else if (ref && typeof ref === "object") (ref as any).current = node;
+        assignRef(ref, node);
       },
       [ref]
     );
@@ -47,15 +47,12 @@ export const DatalistInput = React.forwardRef<HTMLInputElement, DatalistInputPro
       }
     }, [controlledValue]);
 
-    const emitChange = React.useCallback(
-      (val: string) => {
-        setQuery(val);
-        rest.onChange?.({
-          target: { value: val },
-        } as React.ChangeEvent<HTMLInputElement>);
-      },
-      [rest]
-    );
+    const emitChange = (val: string) => {
+      setQuery(val);
+      rest.onChange?.({
+        target: { value: val },
+      } as React.ChangeEvent<HTMLInputElement>);
+    };
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
       if (!open && (e.key === "ArrowDown" || e.key === "ArrowUp")) {

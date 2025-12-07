@@ -1,5 +1,6 @@
 import * as React from "react";
 import { twMerge } from "tailwind-merge";
+import { assignRef } from "../../utils/ref";
 
 type ColorFormat = "hex" | "rgb" | "hsl";
 
@@ -278,10 +279,6 @@ export const ColorPicker = React.forwardRef<HTMLInputElement, ColorPickerProps>(
       getChannelValues(resolvedValue, format)
     );
     const [swatchList, setSwatchList] = React.useState<string[]>(normalizedSwatches);
-    const resolvedHsl = React.useMemo(
-      () => hexToHsl(resolvedValue) ?? { h: 199, s: 100, l: 50 },
-      [resolvedValue]
-    );
     const resolvedHsv = React.useMemo(
       () => hexToHsv(resolvedValue) ?? { h: 199, s: 100, v: 100 },
       [resolvedValue]
@@ -304,9 +301,7 @@ export const ColorPicker = React.forwardRef<HTMLInputElement, ColorPickerProps>(
     const mergedRef = React.useCallback(
       (node: HTMLInputElement | null) => {
         inputRef.current = node;
-        if (typeof forwardedRef === "function") forwardedRef(node);
-        else if (forwardedRef && typeof forwardedRef === "object")
-          (forwardedRef as any).current = node;
+        assignRef(forwardedRef, node);
       },
       [forwardedRef]
     );

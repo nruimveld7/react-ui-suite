@@ -6,6 +6,7 @@ import { Calendar, Clock } from "../Combobox/icons";
 import { useOutsideClick } from "../Combobox/hooks";
 import { Select, type SelectOption } from "../Select/Select";
 import Button from "../Button/Button";
+import { assignRef } from "../../utils/ref";
 
 export type DatePickerProps = {
   label?: string;
@@ -84,14 +85,17 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
     return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
   };
 
-  const formatTimeLabel = (time: string) => {
-    if (use24HourClock) return time;
-    const [hStr, m] = time.split(":");
-    let hNum = Number(hStr);
-    const suffix = hNum >= 12 ? "PM" : "AM";
-    hNum = hNum % 12 || 12;
-    return `${String(hNum).padStart(2, "0")}:${m} ${suffix}`;
-  };
+  const formatTimeLabel = React.useCallback(
+    (time: string) => {
+      if (use24HourClock) return time;
+      const [hStr, m] = time.split(":");
+      let hNum = Number(hStr);
+      const suffix = hNum >= 12 ? "PM" : "AM";
+      hNum = hNum % 12 || 12;
+      return `${String(hNum).padStart(2, "0")}:${m} ${suffix}`;
+    },
+    [use24HourClock]
+  );
 
   const initial = (() => {
     if (!isDate) {
@@ -138,12 +142,7 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
   const setInputRef = React.useCallback(
     (node: HTMLInputElement | null) => {
       inputInnerRef.current = node;
-      if (!ref) return;
-      if (typeof ref === "function") {
-        ref(node);
-      } else {
-        (ref as React.MutableRefObject<HTMLInputElement | null>).current = node;
-      }
+      assignRef(ref, node);
     },
     [ref]
   );
@@ -196,28 +195,7 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
       }
     }
     return opts;
-  }, [clampInterval, use24HourClock]);
-
-  if (!isDate) {
-    return (
-      <Select
-        label={label}
-        description={description}
-        error={error}
-        options={timeOptions}
-        value={current}
-        onChange={(val) => commit(val ?? current)}
-        placeholder="Select time"
-        disabled={disabled}
-        className={className}
-        leadingContent={
-          <span className="pointer-events-none rounded-xl bg-slate-100 px-2 py-1 shadow-inner dark:bg-zinc-800/70">
-            <Clock className="h-4 w-4 text-slate-500 dark:text-zinc-300" />
-          </span>
-        }
-      />
-    );
-  }
+  }, [clampInterval, formatTimeLabel]);
 
   const highlightBorder =
     "border-slate-400 shadow-[0_0_0_1px_rgba(148,163,184,0.45)] dark:border-slate-500";
@@ -315,6 +293,27 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
     const id = requestAnimationFrame(() => evaluateLabelFit());
     return () => cancelAnimationFrame(id);
   }, [displayLabel, evaluateLabelFit]);
+
+  if (!isDate) {
+    return (
+      <Select
+        label={label}
+        description={description}
+        error={error}
+        options={timeOptions}
+        value={current}
+        onChange={(val) => commit(val ?? current)}
+        placeholder="Select time"
+        disabled={disabled}
+        className={className}
+        leadingContent={
+          <span className="pointer-events-none rounded-xl bg-slate-100 px-2 py-1 shadow-inner dark:bg-zinc-800/70">
+            <Clock className="h-4 w-4 text-slate-500 dark:text-zinc-300" />
+          </span>
+        }
+      />
+    );
+  }
 
   return (
     <div className="space-y-1.5">

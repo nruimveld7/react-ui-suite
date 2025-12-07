@@ -1,6 +1,7 @@
 import * as React from "react";
 import { twMerge } from "tailwind-merge";
 import { Check } from "../Combobox/icons";
+import { assignRef } from "../../utils/ref";
 
 export type CheckboxProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -33,9 +34,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(functi
   const mergedRef = React.useCallback(
     (node: HTMLInputElement | null) => {
       internalRef.current = node;
-      if (typeof forwardedRef === "function") forwardedRef(node);
-      else if (forwardedRef && typeof forwardedRef === "object")
-        (forwardedRef as any).current = node;
+      assignRef(forwardedRef, node);
     },
     [forwardedRef]
   );
@@ -45,7 +44,6 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(functi
   const resolvedChecked = isControlled ? !!checked : internalChecked;
   const generatedId = React.useId();
   const checkboxId = id ?? generatedId;
-  const hasDescription = !!description;
 
   React.useEffect(() => {
     if (internalRef.current) {
