@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
-import { Alert } from "../Alert";
+import { Alert } from ".";
 
 describe("Alert", () => {
   it("renders the title and description with role alert", () => {
@@ -28,4 +28,13 @@ describe("Alert", () => {
     await user.click(screen.getByRole("button", { name: /dismiss alert/i }));
     expect(handleDismiss).toHaveBeenCalledTimes(1);
   });
+
+  it("applies variant specific styles and omits dismiss button when not provided", () => {
+    render(<Alert title="Success" variant="success" />);
+    const alert = screen.getByRole("alert");
+    expect(alert).toHaveClass("bg-emerald-50", { exact: false });
+    expect(screen.queryByRole("button", { name: /dismiss alert/i })).toBeNull();
+  });
 });
+
+

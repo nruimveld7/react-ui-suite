@@ -1,11 +1,13 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import { Badge } from "../Badge";
+import { Badge } from ".";
 
 describe("Badge", () => {
   it("renders the provided children", () => {
     render(<Badge>Ship It</Badge>);
-    expect(screen.getByText("Ship It")).toBeInTheDocument();
+    const badge = screen.getByText("Ship It");
+    expect(badge).toBeInTheDocument();
+    expect(badge).toHaveClass("bg-slate-100", { exact: false });
   });
 
   it("applies the requested variant styles", () => {
@@ -22,6 +24,9 @@ describe("Badge", () => {
 
     const badge = screen.getByText("With Icon");
     expect(badge).toHaveClass("custom-badge");
-    expect(screen.getByTestId("icon")).toBeInTheDocument();
+    const icon = screen.getByTestId("icon");
+    expect(icon.parentElement).toHaveAttribute("aria-hidden", "true");
   });
 });
+
+

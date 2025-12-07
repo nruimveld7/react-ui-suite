@@ -19,3 +19,13 @@ if (!Element.prototype.scrollIntoView) {
   // eslint-disable-next-line no-extend-native
   Element.prototype.scrollIntoView = () => {};
 }
+
+if (!Element.prototype.setPointerCapture) {
+  // eslint-disable-next-line no-extend-native, @typescript-eslint/no-empty-function
+  Element.prototype.setPointerCapture = () => {};
+}
+
+if (!Element.prototype.releasePointerCapture) {
+  // eslint-disable-next-line no-extend-native, @typescript-eslint/no-empty-function
+  Element.prototype.releasePointerCapture = () => {};
+}

@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
-import { Disclosure } from "../Disclosure";
+import { Disclosure } from ".";
 
 describe("Disclosure", () => {
   it("toggles the open state when summary is clicked", async () => {
@@ -19,4 +19,18 @@ describe("Disclosure", () => {
     await user.click(summary as HTMLElement);
     expect(details?.open).toBe(true);
   });
+
+  it("applies subtle styling when requested", () => {
+    const { container } = render(
+      <Disclosure title="Always open" subtle>
+        <p>Visible</p>
+      </Disclosure>
+    );
+
+    const details = container.querySelector("details");
+    expect(details).toHaveClass("border-transparent", { exact: false });
+  });
+
 });
+
+

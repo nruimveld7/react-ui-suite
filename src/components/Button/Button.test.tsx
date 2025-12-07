@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
-import { Button } from "../Button";
+import { Button } from ".";
 
 describe("Button", () => {
   it("invokes onClick when pressed", async () => {
@@ -43,4 +43,20 @@ describe("Button", () => {
     expect(button).toHaveAttribute("type", "button");
     expect(button).toHaveRole("button");
   });
+
+  it("respects custom background and text utilities without overriding them", () => {
+    render(
+      <Button className="bg-red-500 text-white" data-testid="button">
+        Danger
+      </Button>
+    );
+
+    const button = screen.getByTestId("button");
+    expect(button.className).toContain("bg-red-500");
+    expect(button.className).toContain("text-white");
+    expect(button.className).not.toContain("bg-white");
+    expect(button.className).not.toContain("text-slate-900");
+  });
 });
+
+

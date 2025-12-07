@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import { Card } from "../Card";
+import { Card } from ".";
 
 describe("Card", () => {
   it("renders eyebrow, title, content, and footer", () => {
@@ -31,4 +31,18 @@ describe("Card", () => {
     expect(card).toHaveClass("custom-card");
     expect(card).toHaveTextContent("Details");
   });
+
+  it("renders muted state and optional actions content", () => {
+    render(
+      <Card eyebrow="Info" actions={<span>Action slot</span>} muted data-testid="card">
+        Content
+      </Card>
+    );
+
+    expect(screen.getByText("Action slot")).toBeInTheDocument();
+    const card = screen.getByTestId("card");
+    expect(card).toHaveClass("bg-slate-50/70", { exact: false });
+  });
 });
+
+
