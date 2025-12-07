@@ -51,8 +51,8 @@ Every component (and its related types) is exported from `src/index.ts`, so tree
 ```bash
 npm install          # installs all workspace deps (library + demo)
 npm run build        # builds @react-ui-suite/core via tsup
-npm run test --workspace @react-ui-suite/core   # executes Vitest for the library
-npm run lint --workspace @react-ui-suite/core   # lints the library source via ESLint
+npm run test        # executes Vitest for the library (proxied to the src workspace)
+npm run lint        # lints the library source via ESLint (proxied to the src workspace)
 ```
 
 `tsup` cleans `src/dist/` automatically and marks `react` / `react-dom` as externals so the published artifacts only contain the suite's code. Linting and tests provide fast feedback before shipping any new component primitives.
@@ -67,4 +67,4 @@ The Vite app aliases `react-ui-suite` to `../src`, so you always preview the lat
 
 ## Publishing
 
-`src/package.json` limits the published files to `dist/`, `README.md`, and `LICENSE` so neither the demo app nor the raw source ship to npm. The `prepublishOnly` script automatically runs `build`, `test`, and `lint` so the release payload is always in a healthy state. Once the API begins to stabilize, consider layering in release tooling such as [Changesets](https://github.com/changesets/changesets) or `semantic-release` to track versions/CHANGELOG entries from tagged commits.
+`src/package.json` limits the published files to `dist/`, `README.md`, and `LICENSE` so neither the demo app nor the raw source ship to npm. The package relies solely on its `exports` map (no legacy `main` field), so bundlers must respect the ESM entry point. The `prepublishOnly` script automatically runs `build`, `test`, and `lint` so the release payload is always in a healthy state. Once the API begins to stabilize, consider layering in release tooling such as [Changesets](https://github.com/changesets/changesets) or `semantic-release` to track versions/CHANGELOG entries from tagged commits.
