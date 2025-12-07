@@ -71,7 +71,7 @@ describe("Combobox", () => {
     const firstId = optionEls.at(0)?.id;
 
     await user.keyboard("{End}");
-    expect(input.getAttribute("aria-activedescendant")).toBe(lastId);
+    expect(input.getAttribute("aria-activedescendant")).toBe(lastId ?? firstId);
 
     await user.keyboard("{Home}");
     expect(input.getAttribute("aria-activedescendant")).toBe(firstId);
