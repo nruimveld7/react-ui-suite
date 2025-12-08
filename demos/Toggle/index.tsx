@@ -1,6 +1,6 @@
 import { useId, useState } from "react";
-import { Toggle } from "@react-ui-suite/core";
-import type { ToggleProps } from "@react-ui-suite/core";
+import { Toggle } from "react-ui-suite";
+import type { ToggleProps } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../component-registry";
 
 type ToggleFieldProps = {

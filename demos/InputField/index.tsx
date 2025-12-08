@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Button, InputField } from "@react-ui-suite/core";
-import type { InputFieldProps } from "@react-ui-suite/core";
+import { Button, InputField } from "react-ui-suite";
+import type { InputFieldProps } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../component-registry";
 
 function ProfileFormPreview() {

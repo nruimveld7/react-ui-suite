@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Alert } from "@react-ui-suite/core";
-import type { AlertProps } from "@react-ui-suite/core";
+import { Alert } from "react-ui-suite";
+import type { AlertProps } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../component-registry";
 
 function AlertsStack() {

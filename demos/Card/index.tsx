@@ -1,5 +1,5 @@
-import { Badge, Button, Card } from "@react-ui-suite/core";
-import type { CardProps } from "@react-ui-suite/core";
+import { Badge, Button, Card } from "react-ui-suite";
+import type { CardProps } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../component-registry";
 
 const plans = [

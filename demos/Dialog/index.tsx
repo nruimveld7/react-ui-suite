@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Checkbox, Dialog } from "@react-ui-suite/core";
+import { Button, Checkbox, Dialog } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../component-registry";
 
 function ModalPlayground() {

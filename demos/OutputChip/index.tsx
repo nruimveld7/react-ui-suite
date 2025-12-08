@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { OutputChip } from "@react-ui-suite/core";
+import { OutputChip } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../component-registry";
 
 function MetricCard() {

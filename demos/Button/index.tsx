@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Button } from "@react-ui-suite/core";
-import type { ButtonProps } from "@react-ui-suite/core";
+import { Button } from "react-ui-suite";
+import type { ButtonProps } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../component-registry";
 
 function ButtonShowcase() {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Disclosure } from "@react-ui-suite/core";
+import { Disclosure } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../component-registry";
 
 const faqs = [

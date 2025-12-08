@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Meter, Progress } from "@react-ui-suite/core";
+import { Meter, Progress } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../component-registry";
 
 function UploadCard() {

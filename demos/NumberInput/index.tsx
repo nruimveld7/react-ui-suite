@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { NumberInput } from "@react-ui-suite/core";
+import { NumberInput } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../component-registry";
 
 function BudgetPlanner() {

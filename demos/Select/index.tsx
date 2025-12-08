@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
-import { Select } from "@react-ui-suite/core";
-import type { SelectOption, SelectProps } from "@react-ui-suite/core";
+import { Select } from "react-ui-suite";
+import type { SelectOption, SelectProps } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../component-registry";
 
 const countries: SelectOption[] = [

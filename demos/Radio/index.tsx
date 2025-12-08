@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
-import { Radio } from "@react-ui-suite/core";
-import type { RadioProps } from "@react-ui-suite/core";
+import { Radio } from "react-ui-suite";
+import type { RadioProps } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../component-registry";
 
 type PlanOption = {

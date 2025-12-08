@@ -1,6 +1,6 @@
 # react-ui-suite
 
-`react-ui-suite` is a collection of production-ready React components built with Tailwind-friendly class names and ergonomic APIs. The publishable package lives in the `src/` workspace as `@react-ui-suite/core`, while a separate Vite demo app showcases every component with rich previews.
+`react-ui-suite` is a collection of production-ready React components built with Tailwind-friendly class names and ergonomic APIs. The publishable package lives in the `src/` workspace as `react-ui-suite`, while a separate Vite demo app showcases every component with rich previews.
 
 > **ESM-only:** The npm package only publishes ES modules and type declarations under `dist/`. Tools that still require CommonJS entry points must add an extra build step (e.g., `tsup --format cjs`) before consumption.
 
@@ -8,14 +8,15 @@
 
 | Folder   | Description                                                                                                               |
 | -------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `src/`   | Workspace that publishes `@react-ui-suite/core`. `tsup` compiles this folder to `dist/`.                                  |
+| `.`      | Root workspace published as `@react-ui-suite/root`. It stitches tooling/scripts for every package but is never released.  |
+| `src/`   | Workspace that publishes `react-ui-suite`. `tsup` compiles this folder to `dist/`.                                        |
 | `demos/` | Demo entries that describe each component preview (slug, description, tags, etc.). These files are not published.         |
 | `demo/`  | Standalone Vite gallery that auto-registers every demo entry via `import.meta.glob`. Useful for local development and QA. |
 
 ## Installation
 
 ```bash
-npm install @react-ui-suite/core
+npm install react-ui-suite
 # or pnpm / yarn
 ```
 
@@ -29,7 +30,7 @@ react-dom@^18
 ## Usage
 
 ```tsx
-import { Badge, Button, Card } from "@react-ui-suite/core";
+import { Badge, Button, Card } from "react-ui-suite";
 
 export function ExampleCard() {
   return (
@@ -50,7 +51,7 @@ Every component (and its related types) is exported from `src/index.ts`, so tree
 
 ```bash
 npm install          # installs all workspace deps (library + demo)
-npm run build        # builds @react-ui-suite/core via tsup
+npm run build        # builds react-ui-suite via tsup
 npm run test        # executes Vitest for the library (proxied to the src workspace)
 npm run lint        # lints the library source via ESLint (proxied to the src workspace)
 ```
