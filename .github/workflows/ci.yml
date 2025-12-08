@@ -24,10 +24,10 @@ jobs:
         run: npm install
 
       - name: Lint library
-        run: npm run lint --workspace @react-ui-suite/core
+        run: npm run lint --workspace react-ui-suite
 
       - name: Test library
-        run: npm run test --workspace @react-ui-suite/core
+        run: npm run test --workspace react-ui-suite
 
       - name: Build library
         run: npm run build
