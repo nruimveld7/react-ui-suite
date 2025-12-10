@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { Checkbox, InputField, Table } from "react-ui-suite";
 import type { TableColumn } from "react-ui-suite";
-import type { ComponentRegistryEntry } from "../component-registry";
+import type { ComponentRegistryEntry } from "../../../demo/component-registry";
 
 type Row = {
   name: string;

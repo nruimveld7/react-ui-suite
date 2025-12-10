@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Combobox, Toggle } from "react-ui-suite";
 import type { ComboboxOption } from "react-ui-suite";
-import type { ComponentRegistryEntry } from "@demo-components/component-registry";
+import type { ComponentRegistryEntry } from "component-registry";
 import { useComponentRegistry } from "./lib/useComponentRegistry";
 
 const THEME_STORAGE_KEY = "component-gallery-theme";
@@ -71,7 +71,7 @@ export default function App() {
         <div className="text-center">
           <p className="text-lg font-semibold">No component demos found.</p>
           <p className="text-sm text-zinc-400">
-            Add an index.tsx file to each component folder to register it.
+            Add a *.demo.tsx file (e.g. Button.demo.tsx) next to each component to register it.
           </p>
         </div>
       </main>

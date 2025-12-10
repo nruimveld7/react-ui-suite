@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { OutputChip } from "react-ui-suite";
-import type { ComponentRegistryEntry } from "../component-registry";
+import type { ComponentRegistryEntry } from "../../../demo/component-registry";
 
 function MetricCard() {
   const [latency, setLatency] = useState(122);

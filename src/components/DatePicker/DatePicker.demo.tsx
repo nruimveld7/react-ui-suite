@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { DatePicker, Select } from "react-ui-suite";
 import type { SelectOption } from "react-ui-suite";
-import type { ComponentRegistryEntry } from "../component-registry";
+import type { ComponentRegistryEntry } from "../../../demo/component-registry";
 
 function Scheduling() {
   const [start, setStart] = useState("2025-12-05");

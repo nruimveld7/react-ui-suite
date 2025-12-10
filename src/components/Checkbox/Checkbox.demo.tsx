@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Checkbox } from "react-ui-suite";
 import type { CheckboxProps } from "react-ui-suite";
-import type { ComponentRegistryEntry } from "../component-registry";
+import type { ComponentRegistryEntry } from "../../../demo/component-registry";
 
 const preferences = [
   {

@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { DatalistInput } from "react-ui-suite";
-import type { ComponentRegistryEntry } from "../component-registry";
+import type { ComponentRegistryEntry } from "../../../demo/component-registry";
 
 const commands = [
   "Open dashboard",

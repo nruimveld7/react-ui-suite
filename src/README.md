@@ -17,9 +17,8 @@ This repository is a small monorepo that contains:
 | Folder | Description |
 | ------ | ----------- |
 | `.`    | Root workspace named `@react-ui-suite/root`. It orchestrates tooling/scripts for every workspace and is **never published** to npm. |
-| `src/` | Workspace that publishes the `react-ui-suite` library. `tsup` compiles all source files in this folder to `dist/`. |
-| `demos/` | Demo entry definitions (metadata, descriptions, tags, etc.) used by the gallery. These files are not published. |
-| `demo/` | Standalone Vite gallery that auto-registers every demo entry via `import.meta.glob`. Useful for local development and QA. |
+| `src/` | Workspace that publishes the `react-ui-suite` library. Components live in `src/components/` alongside their `*.demo.tsx` gallery entries, all compiled to `dist/` via `tsup`. |
+| `demo/` | Standalone Vite gallery that auto-registers every component demo (`src/components/**/*.demo.tsx`) via `import.meta.glob`. Useful for local development and QA. |
 
 ---
 
@@ -124,7 +123,9 @@ This will:
 
 - start Vite on `http://localhost:5173`
 - alias `react-ui-suite` to the local `src/` workspace
-- auto-load demo definitions from `demos/` via `import.meta.glob`
+- auto-load demo definitions from `src/components/**/*.demo.tsx` via `import.meta.glob`
+
+Add a `<Component>.demo.tsx` file (for example `src/components/Button/Button.demo.tsx`) beside the component to have it show up automatically in the gallery.
 
 Use this gallery to iterate on new components and verify changes visually.
 

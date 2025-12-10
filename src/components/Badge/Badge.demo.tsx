@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Badge } from "react-ui-suite";
 import type { BadgeProps, BadgeVariant } from "react-ui-suite";
-import type { ComponentRegistryEntry } from "../component-registry";
+import type { ComponentRegistryEntry } from "../../../demo/component-registry";
 
 const statusCopy: Record<BadgeVariant, { label: string; description: string }> = {
   neutral: { label: "Draft", description: "Neutral defaults for unqualified states." },

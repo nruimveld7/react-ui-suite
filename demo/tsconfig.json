@@ -7,7 +7,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@demo-components/*": ["../demos/*"],
+      "@demo-components/*": ["../src/components/*"],
       "react-ui-suite": ["../src"]
     },
     "skipLibCheck": true,
@@ -20,6 +20,11 @@
     "jsx": "react-jsx",
     "types": ["vite/client"]
   },
-  "include": ["src", "../demos/**/*.ts", "../demos/**/*.tsx"],
+  "include": [
+    "src",
+    "../src/components/**/*.demo.ts",
+    "../src/components/**/*.demo.tsx",
+    "component-registry.ts"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

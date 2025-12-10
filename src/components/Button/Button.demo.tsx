@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "react-ui-suite";
 import type { ButtonProps } from "react-ui-suite";
-import type { ComponentRegistryEntry } from "../component-registry";
+import type { ComponentRegistryEntry } from "../../../demo/component-registry";
 
 function ButtonShowcase() {
   const [count, setCount] = useState(0);

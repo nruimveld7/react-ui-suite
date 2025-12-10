@@ -1,6 +1,6 @@
 import { Badge, Button, Card } from "react-ui-suite";
 import type { CardProps } from "react-ui-suite";
-import type { ComponentRegistryEntry } from "../component-registry";
+import type { ComponentRegistryEntry } from "../../../demo/component-registry";
 
 const plans = [
   {

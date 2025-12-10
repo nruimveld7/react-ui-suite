@@ -1,11 +1,11 @@
 import { useMemo } from "react";
-import type { ComponentRegistryEntry } from "@demo-components/component-registry";
+import type { ComponentRegistryEntry } from "component-registry";
 
 type RegistryModule = {
   default: ComponentRegistryEntry;
 };
 
-const moduleGlob = import.meta.glob<RegistryModule>("@demo-components/**/index.tsx", {
+const moduleGlob = import.meta.glob<RegistryModule>("@demo-components/**/*.demo.tsx", {
   eager: true,
 });
 

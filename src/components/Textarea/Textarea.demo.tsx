@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Textarea } from "react-ui-suite";
 import type { TextareaProps } from "react-ui-suite";
-import type { ComponentRegistryEntry } from "../component-registry";
+import type { ComponentRegistryEntry } from "../../../demo/component-registry";
 
 function ReleaseNotes() {
   const [notes, setNotes] = useState(

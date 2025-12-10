@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { NumberInput } from "react-ui-suite";
-import type { ComponentRegistryEntry } from "../component-registry";
+import type { ComponentRegistryEntry } from "../../../demo/component-registry";
 
 function BudgetPlanner() {
   const [budget, setBudget] = useState(4500);

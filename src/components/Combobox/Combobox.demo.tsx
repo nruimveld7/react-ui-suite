@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Combobox } from "react-ui-suite";
 import type { ComboboxOption, ComboboxProps } from "react-ui-suite";
-import type { ComponentRegistryEntry } from "../component-registry";
+import type { ComponentRegistryEntry } from "../../../demo/component-registry";
 
 const languageOptions: ComboboxOption<string>[] = [
   { id: "ts", label: "TypeScript", value: "TypeScript" },

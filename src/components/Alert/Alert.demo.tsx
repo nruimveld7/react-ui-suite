@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Alert } from "react-ui-suite";
 import type { AlertProps } from "react-ui-suite";
-import type { ComponentRegistryEntry } from "../component-registry";
+import type { ComponentRegistryEntry } from "../../../demo/component-registry";
 
 function AlertsStack() {
   const [visible, setVisible] = useState(true);

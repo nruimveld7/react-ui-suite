@@ -1,6 +1,6 @@
 import { Badge, Button, StackedList } from "react-ui-suite";
 import type { StackedListItem, StackedListProps } from "react-ui-suite";
-import type { ComponentRegistryEntry } from "../component-registry";
+import type { ComponentRegistryEntry } from "../../../demo/component-registry";
 
 const standupItems: StackedListItem[] = [
   {

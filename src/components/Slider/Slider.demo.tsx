@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { Slider } from "react-ui-suite";
 import type { SliderProps } from "react-ui-suite";
-import type { ComponentRegistryEntry } from "../component-registry";
+import type { ComponentRegistryEntry } from "../../../demo/component-registry";
 
 function ListeningSession() {
   const [mixLevel, setMixLevel] = useState(38);

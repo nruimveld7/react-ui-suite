@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, InputField } from "react-ui-suite";
 import type { InputFieldProps } from "react-ui-suite";
-import type { ComponentRegistryEntry } from "../component-registry";
+import type { ComponentRegistryEntry } from "../../../demo/component-registry";
 
 function ProfileFormPreview() {
   const [name, setName] = useState("Ada Lovelace");
