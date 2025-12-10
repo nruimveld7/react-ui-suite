@@ -22,7 +22,10 @@
     "dev": "tsup --watch --config tsup.config.ts",
     "lint": "eslint . --ext .ts,.tsx",
     "test": "vitest run --config ../vitest.config.ts",
-    "prepublishOnly": "npm run build && npm run test && npm run lint"
+    "prepublishOnly": "npm run build && npm run test && npm run lint",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "publish": "npm publish --access public"
   },
   "peerDependencies": {
     "react": "^18",
