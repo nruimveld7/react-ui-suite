@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { twMerge } from "tailwind-merge";
 import { Select } from "react-ui-suite";
 import type { SelectOption, SelectProps } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../../../demo/component-registry";

@@ -52,7 +52,7 @@ function CommandPalette() {
               ))}
             </ul>
           ) : (
-            <p>No matches. Try "export".</p>
+            <p>No matches. Try &ldquo;export&rdquo;.</p>
           )}
         </div>
       </div>

@@ -1,20 +1,11 @@
 import { useState } from "react";
-import { DatePicker, Select } from "react-ui-suite";
-import type { SelectOption } from "react-ui-suite";
+import { DatePicker } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../../../demo/component-registry";
 
 function Scheduling() {
   const [start, setStart] = useState("2025-12-05");
   const [deadline, setDeadline] = useState("2026-01-15");
   const [daily, setDaily] = useState("09:30");
-
-  const timeOptions: SelectOption[] = Array.from({ length: 24 }, (_, h) => h)
-    .flatMap((h) => [0, 30].map((m) => ({ h, m })))
-    .map(({ h, m }) => {
-      const hh = String(h).padStart(2, "0");
-      const mm = String(m).padStart(2, "0");
-      return { value: `${hh}:${mm}`, label: `${hh}:${mm}` };
-    });
 
   return (
     <div className="rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
