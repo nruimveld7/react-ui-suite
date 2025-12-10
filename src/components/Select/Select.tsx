@@ -51,7 +51,19 @@ export function Select({
   const listboxId = `${id}-listbox`;
 
   const [open, setOpen] = React.useState(false);
-  const [activeIndex, setActiveIndex] = React.useState(-1);
+  const [activeIndexState, setActiveIndexState] = React.useState(-1);
+  const activeIndexRef = React.useRef(activeIndexState);
+  const setActiveIndex = React.useCallback(
+    (value: React.SetStateAction<number>) => {
+      setActiveIndexState((prev) => {
+        const next = typeof value === "function" ? (value as (current: number) => number)(prev) : value;
+        activeIndexRef.current = next;
+        return next;
+      });
+    },
+    []
+  );
+  const activeIndex = activeIndexState;
   const [selected, setSelected] = useControlledState<string | null>(value, defaultValue ?? null);
 
   useOutsideClick([containerRef as unknown as React.RefObject<HTMLElement | null>], () =>
@@ -151,7 +163,7 @@ export function Select({
       case "Enter":
       case " ":
         e.preventDefault();
-        if (activeIndex >= 0) commitSelection(activeIndex);
+        if (activeIndexRef.current >= 0) commitSelection(activeIndexRef.current);
         break;
       case "Escape":
         e.preventDefault();

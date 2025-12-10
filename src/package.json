@@ -1,6 +1,6 @@
 {
   "name": "react-ui-suite",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
   "types": "dist/index.d.ts",
   "exports": {
@@ -21,7 +21,7 @@
     "build": "tsup --config tsup.config.ts",
     "dev": "tsup --watch --config tsup.config.ts",
     "lint": "eslint . --ext .ts,.tsx",
-    "test": "vitest --config ../vitest.config.ts",
+    "test": "vitest run --config ../vitest.config.ts",
     "prepublishOnly": "npm run build && npm run test && npm run lint"
   },
   "peerDependencies": {
