@@ -1,3 +1,5 @@
+import "./styles/tokens.css";
+
 export * from "./components/Alert";
 export * from "./components/Badge";
 export * from "./components/Button";
@@ -19,6 +21,7 @@ export * from "./components/Radio";
 export * from "./components/Select";
 export * from "./components/Slider";
 export * from "./components/StackedList";
+export * from "./components/TabGroup";
 export * from "./components/Table";
 export * from "./components/Textarea";
 export * from "./components/Toggle";

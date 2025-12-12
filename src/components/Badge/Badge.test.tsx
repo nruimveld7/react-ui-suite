@@ -7,12 +7,13 @@ describe("Badge", () => {
     render(<Badge>Ship It</Badge>);
     const badge = screen.getByText("Ship It");
     expect(badge).toBeInTheDocument();
-    expect(badge).toHaveClass("bg-slate-100", { exact: false });
+    expect(badge).toHaveClass("rui-badge");
+    expect(badge).toHaveClass("rui-badge--neutral");
   });
 
   it("applies the requested variant styles", () => {
     render(<Badge variant="success">Success</Badge>);
-    expect(screen.getByText("Success")).toHaveClass("bg-emerald-50", { exact: false });
+    expect(screen.getByText("Success")).toHaveClass("rui-badge--success");
   });
 
   it("merges className and renders optional icon", () => {
@@ -28,5 +29,3 @@ describe("Badge", () => {
     expect(icon.parentElement).toHaveAttribute("aria-hidden", "true");
   });
 });
-
-

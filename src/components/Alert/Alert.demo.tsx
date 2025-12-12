@@ -2,11 +2,12 @@ import { useState } from "react";
 import { Alert } from "react-ui-suite";
 import type { AlertProps } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../../../demo/component-registry";
+import "./Alert.demo.css";
 
 function AlertsStack() {
   const [visible, setVisible] = useState(true);
   return (
-    <div className="space-y-3">
+    <div className="alert-demo-stack">
       {visible && (
         <Alert
           title="Workspace updated"
@@ -32,7 +33,7 @@ function AlertsStack() {
 function DangerAlertExample() {
   const [acks, setAcks] = useState(0);
   return (
-    <div className="space-y-2">
+    <div className="alert-demo-stack">
       <Alert
         title="Payment required"
         description="We could not charge your default payment method."
@@ -40,7 +41,7 @@ function DangerAlertExample() {
         onDismiss={() => setAcks((value) => value + 1)}
       />
       {acks > 0 && (
-        <p className="text-xs text-slate-500 dark:text-slate-400">
+        <p className="alert-demo-note">
           Dismissed {acks} {acks === 1 ? "time" : "times"}.
         </p>
       )}
@@ -50,37 +51,31 @@ function DangerAlertExample() {
 
 function PersistentAlertExample() {
   return (
-    <div className="space-y-2">
+    <div className="alert-demo-stack">
       <Alert
         title="Quota at 82%"
         variant="warning"
         description="Upgrade to unlock more automations."
       />
-      <p className="text-xs text-slate-500 dark:text-slate-400">
-        Leave off onDismiss to keep alerts present.
-      </p>
+      <p className="alert-demo-note">Leave off onDismiss to keep alerts present.</p>
     </div>
   );
 }
 
 function AlertPreview() {
   return (
-    <div className="space-y-4">
+    <div className="alert-demo-preview">
       <AlertsStack />
-      <div className="grid gap-4 md:grid-cols-2">
-        <div className="rounded-3xl border border-slate-200 bg-white/80 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/60">
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-400 dark:text-slate-500">
-            High priority
-          </p>
-          <div className="mt-2">
+      <div className="alert-demo-grid">
+        <div className="alert-demo-panel">
+          <p className="alert-demo-panel__label">High priority</p>
+          <div className="alert-demo-panel__body">
             <DangerAlertExample />
           </div>
         </div>
-        <div className="rounded-3xl border border-slate-200 bg-white/80 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/60">
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-400 dark:text-slate-500">
-            Persistent notice
-          </p>
-          <div className="mt-2">
+        <div className="alert-demo-panel">
+          <p className="alert-demo-panel__label">Persistent notice</p>
+          <div className="alert-demo-panel__body">
             <PersistentAlertExample />
           </div>
         </div>

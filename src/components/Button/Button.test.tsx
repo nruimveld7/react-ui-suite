@@ -39,6 +39,7 @@ describe("Button", () => {
     );
 
     const button = screen.getByTestId("button");
+    expect(button).toHaveClass("rui-button");
     expect(button).toHaveClass("custom-button");
     expect(button).toHaveAttribute("type", "button");
     expect(button).toHaveRole("button");
@@ -54,9 +55,8 @@ describe("Button", () => {
     const button = screen.getByTestId("button");
     expect(button.className).toContain("bg-red-500");
     expect(button.className).toContain("text-white");
-    expect(button.className).not.toContain("bg-white");
-    expect(button.className).not.toContain("text-slate-900");
+    expect(button.className).not.toContain("rui-button--bg-default");
+    expect(button.className).not.toContain("rui-button--text-default");
   });
 });
-
 

@@ -18,6 +18,7 @@ describe("Alert", () => {
     expect(alert).toHaveTextContent("Heads up");
     expect(alert).toHaveTextContent("System maintenance this weekend");
     expect(alert).toHaveClass("custom-alert");
+    expect(alert).toHaveClass("rui-alert");
   });
 
   it("invokes onDismiss when the dismiss button is clicked", async () => {
@@ -32,9 +33,7 @@ describe("Alert", () => {
   it("applies variant specific styles and omits dismiss button when not provided", () => {
     render(<Alert title="Success" variant="success" />);
     const alert = screen.getByRole("alert");
-    expect(alert).toHaveClass("bg-emerald-50", { exact: false });
+    expect(alert).toHaveClass("rui-alert--success");
     expect(screen.queryByRole("button", { name: /dismiss alert/i })).toBeNull();
   });
 });
-
-

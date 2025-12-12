@@ -9,4 +9,7 @@ export default defineConfig({
   outDir: "dist",
   tsconfig: "../tsconfig.json",
   external: ["react", "react-dom"],
+  loader: {
+    ".css": "copy",
+  },
 });

@@ -24,6 +24,7 @@ const expectedRuntimeExports = [
   "Select",
   "Slider",
   "StackedList",
+  "TabGroup",
   "Table",
   "Textarea",
   "Toggle",
