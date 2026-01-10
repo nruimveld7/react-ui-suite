@@ -69,10 +69,9 @@ describe("Table", () => {
       expect(wrapper.style.paddingBottom).not.toBe("");
     });
 
-    await waitFor(() =>
-      expect(
-        container.querySelector("div[style*='width: 6px'][class*='pointer-events-auto']")
-      ).toBeTruthy()
-    );
+    await waitFor(() => {
+      expect(container.querySelector(".table-scrollbar-thumb--vertical")).toBeTruthy();
+      expect(container.querySelector(".table-scrollbar-thumb--horizontal")).toBeTruthy();
+    });
   });
 });

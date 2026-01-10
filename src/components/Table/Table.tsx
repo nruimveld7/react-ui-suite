@@ -1,6 +1,6 @@
 import * as React from "react";
-import { twMerge } from "tailwind-merge";
-
+import clsx from "clsx";
+import "./Table.css";
 export type TableColumn<T> = {
   key: keyof T;
   header: string;
@@ -223,37 +223,37 @@ export function Table<T extends Record<string, unknown>>({
 
   return (
     <div
-      className={twMerge(
-        "overflow-hidden rounded-3xl border border-slate-200 shadow-sm dark:border-zinc-800",
+      className={clsx(
+        "rui-table__u-overflow-hidden--2cd02d11d1 rui-table__u-border-radius-1-5rem--ea189a088a rui-table__u-border-width-1px--ca6bcd4b6f rui-table__u-rui-border-opacity-1--52f4da2ca5 rui-table__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-table__u-rui-border-opacity-1--139f099dfa",
         className
       )}
       style={style}
     >
       <div
-        className="relative overflow-hidden bg-white/90 dark:bg-zinc-950/80"
+        className="rui-table__u-position-relative--d89972fe17 rui-table__u-overflow-hidden--2cd02d11d1 rui-table__u-background-color-rgb-255-255-255--6c21de570d rui-table__u-background-color-rgb-9-9-11-0-8--a1463e42bf"
         style={{ paddingRight: padRight, paddingBottom: padBottom }}
       >
         <div
           ref={scrollRef}
-          className="table-scrollbar overflow-auto"
+          className="table-scrollbar rui-table__u-overflow-auto--73fc3fb18c"
           style={{ ...scrollAreaStyle }}
         >
-          <table className="w-full border-collapse text-sm text-slate-700 dark:text-zinc-200">
+          <table className="rui-table__u-width-100--6da6a3c3f7 rui-table__u-border-collapse-collapse--4583f90cd9 rui-table__u-font-size-0-875rem--fc7473ca09 rui-table__u-rui-text-opacity-1--bcbca7a5be rui-table__u-rui-text-opacity-1--270353156a">
             {caption ? (
-              <caption className="bg-slate-50 px-4 py-2 text-left text-xs font-semibold uppercase tracking-[0.25em] text-slate-500 dark:bg-zinc-900/70 dark:text-zinc-400">
+              <caption className="rui-table__u-rui-bg-opacity-1--f97e9d36d1 rui-table__u-padding-left-1rem--f0faeb26d6 rui-table__u-padding-top-0-5rem--03b4dd7f17 rui-table__u-text-align-left--2eba0d65d0 rui-table__u-font-size-0-75rem--359090c2d5 rui-table__u-font-weight-600--e83a7042bc rui-table__u-text-transform-uppercase--117ec720ea rui-table__u-letter-spacing-0-25em--854c830ad6 rui-table__u-rui-text-opacity-1--30426eb75c rui-table__u-background-color-rgb-24-24-27-0---5cd2915a74 rui-table__u-rui-text-opacity-1--6462b86910">
                 {caption}
               </caption>
             ) : null}
-            <thead className="bg-white/90 text-xs uppercase tracking-[0.16em] text-slate-500 dark:bg-zinc-900/80 dark:text-zinc-400">
+            <thead className="rui-table__u-background-color-rgb-255-255-255--6c21de570d rui-table__u-font-size-0-75rem--359090c2d5 rui-table__u-text-transform-uppercase--117ec720ea rui-table__u-letter-spacing-0-16em--9dbf48b2ab rui-table__u-rui-text-opacity-1--30426eb75c rui-table__u-background-color-rgb-24-24-27-0---67553a7cb3 rui-table__u-rui-text-opacity-1--6462b86910">
               <tr>
                 {columns.map((col) => (
                   <th
                     key={String(col.key)}
                     scope="col"
-                    className={twMerge(
-                      "px-4 py-3 text-left font-semibold",
-                      col.align === "right" && "text-right",
-                      col.align === "center" && "text-center"
+                    className={clsx(
+                      "rui-table__u-padding-left-1rem--f0faeb26d6 rui-table__u-padding-top-0-75rem--1b2d54a3fd rui-table__u-text-align-left--2eba0d65d0 rui-table__u-font-weight-600--e83a7042bc",
+                      col.align === "right" && "rui-table__u-text-align-right--308fc069e4",
+                      col.align === "center" && "rui-table__u-text-align-center--ca6bf63030"
                     )}
                   >
                     {col.header}
@@ -265,20 +265,20 @@ export function Table<T extends Record<string, unknown>>({
               {data.map((row, rowIndex) => (
                 <tr
                   key={rowIndex}
-                  className={twMerge(
-                    "border-t border-slate-100 transition dark:border-zinc-800",
+                  className={clsx(
+                    "rui-table__u-border-top-width-1px--b950dda299 rui-table__u-rui-border-opacity-1--e488850b52 rui-table__u-transition-property-color-backgr--56bf8ae82a rui-table__u-rui-border-opacity-1--139f099dfa",
                     rowIndex % 2 === 0
-                      ? "bg-slate-100/70 hover:bg-slate-200 dark:bg-zinc-950/70 dark:hover:bg-zinc-800"
-                      : "bg-white/80 hover:bg-slate-200 dark:bg-zinc-900/60 dark:hover:bg-zinc-800"
+                      ? "rui-table__u-background-color-rgb-241-245-249--c5501378e0 rui-table__u-rui-bg-opacity-1--706569e6a5 rui-table__u-background-color-rgb-9-9-11-0-7--18f22f07a8 rui-table__u-rui-bg-opacity-1--1a5d9aa0b0"
+                      : "rui-table__u-background-color-rgb-255-255-255--845918557e rui-table__u-rui-bg-opacity-1--706569e6a5 rui-table__u-background-color-rgb-24-24-27-0---5cb47d6e2f rui-table__u-rui-bg-opacity-1--1a5d9aa0b0"
                   )}
                 >
                   {columns.map((col) => (
                     <td
                       key={String(col.key)}
-                      className={twMerge(
-                        "px-4 py-3 align-middle",
-                        col.align === "right" && "text-right",
-                        col.align === "center" && "text-center"
+                      className={clsx(
+                        "rui-table__u-padding-left-1rem--f0faeb26d6 rui-table__u-padding-top-0-75rem--1b2d54a3fd rui-table__u-vertical-align-middle--8d3c01126f",
+                        col.align === "right" && "rui-table__u-text-align-right--308fc069e4",
+                        col.align === "center" && "rui-table__u-text-align-center--ca6bf63030"
                       )}
                     >
                       {col.render
@@ -293,7 +293,7 @@ export function Table<T extends Record<string, unknown>>({
         </div>
         {vThumb.visible ? (
           <div
-            className="absolute z-20 pointer-events-auto rounded-full bg-white/80 shadow-inner dark:bg-zinc-900/70"
+            className="rui-table__u-position-absolute--da4dbfbc4f rui-table__u-z-index-20--145745bf52 rui-table__u-pointer-events-auto--7d5d4c29be rui-table__u-border-radius-9999px--ac204c1088 rui-table__u-background-color-rgb-255-255-255--845918557e rui-table__u-rui-shadow-inset-0-2px-4px-0-rgb--eca5782b24 rui-table__u-background-color-rgb-24-24-27-0---5cd2915a74"
             style={{
               right: vOffset,
               top: TRACK_PADDING + V_TRACK_INSET,
@@ -302,9 +302,12 @@ export function Table<T extends Record<string, unknown>>({
             }}
             onPointerDown={(e) => handleTrackPointerDown("vertical", vThumb, startVDrag, e)}
           >
-            <div className="relative h-full w-full rounded-full bg-slate-900/5 shadow-inner dark:bg-white/10">
+            <div className="rui-table__u-position-relative--d89972fe17 rui-table__u-height-100--668b21aa54 rui-table__u-width-100--6da6a3c3f7 rui-table__u-border-radius-9999px--ac204c1088 rui-table__u-background-color-rgb-15-23-42-0---b1e59fba64 rui-table__u-rui-shadow-inset-0-2px-4px-0-rgb--eca5782b24 rui-table__u-background-color-rgb-255-255-255--93a1f57e1e">
               <div
-                className="absolute left-1/2 w-full -translate-x-1/2 rounded-full bg-slate-400/80 shadow-sm transition-colors dark:bg-zinc-500/70"
+                className={clsx(
+                  "table-scrollbar-thumb table-scrollbar-thumb--vertical",
+                  "rui-table__u-position-absolute--da4dbfbc4f rui-table__u-left-50--e632769ad7 rui-table__u-width-100--6da6a3c3f7 rui-table__u-rui-translate-x-50--efaa070148 rui-table__u-border-radius-9999px--ac204c1088 rui-table__u-background-color-rgb-148-163-184--91c0d51da3 rui-table__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-table__u-transition-property-color-backgr--ceb69a6b0e rui-table__u-background-color-rgb-113-113-122--fe8680199c"
+                )}
                 style={{ height: `${vThumb.size}px`, top: `${vThumb.offset}px` }}
                 onPointerDown={handleVThumbDown}
               />
@@ -313,7 +316,7 @@ export function Table<T extends Record<string, unknown>>({
         ) : null}
         {hThumb.visible ? (
           <div
-            className="absolute z-20 pointer-events-auto rounded-full bg-white/80 shadow-inner dark:bg-zinc-900/70"
+            className="rui-table__u-position-absolute--da4dbfbc4f rui-table__u-z-index-20--145745bf52 rui-table__u-pointer-events-auto--7d5d4c29be rui-table__u-border-radius-9999px--ac204c1088 rui-table__u-background-color-rgb-255-255-255--845918557e rui-table__u-rui-shadow-inset-0-2px-4px-0-rgb--eca5782b24 rui-table__u-background-color-rgb-24-24-27-0---5cd2915a74"
             style={{
               left: hOffset + TRACK_INSET,
               right: hOffset + TRACK_INSET,
@@ -322,9 +325,12 @@ export function Table<T extends Record<string, unknown>>({
             }}
             onPointerDown={(e) => handleTrackPointerDown("horizontal", hThumb, startHDrag, e)}
           >
-            <div className="relative h-full w-full rounded-full bg-slate-900/5 shadow-inner dark:bg-white/10">
+            <div className="rui-table__u-position-relative--d89972fe17 rui-table__u-height-100--668b21aa54 rui-table__u-width-100--6da6a3c3f7 rui-table__u-border-radius-9999px--ac204c1088 rui-table__u-background-color-rgb-15-23-42-0---b1e59fba64 rui-table__u-rui-shadow-inset-0-2px-4px-0-rgb--eca5782b24 rui-table__u-background-color-rgb-255-255-255--93a1f57e1e">
               <div
-                className="absolute top-1/2 h-full -translate-y-1/2 rounded-full bg-slate-400/80 shadow-sm transition-colors dark:bg-zinc-500/70"
+                className={clsx(
+                  "table-scrollbar-thumb table-scrollbar-thumb--horizontal",
+                  "rui-table__u-position-absolute--da4dbfbc4f rui-table__u-top-50--d694ba66e3 rui-table__u-height-100--668b21aa54 rui-table__u-rui-translate-y-50--36b381be4d rui-table__u-border-radius-9999px--ac204c1088 rui-table__u-background-color-rgb-148-163-184--91c0d51da3 rui-table__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-table__u-transition-property-color-backgr--ceb69a6b0e rui-table__u-background-color-rgb-113-113-122--fe8680199c"
+                )}
                 style={{ width: `${hThumb.size}px`, left: `${hThumb.offset}px` }}
                 onPointerDown={handleHThumbDown}
               />

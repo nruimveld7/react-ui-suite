@@ -62,7 +62,7 @@ describe("Checkbox", () => {
 
     const checkbox = screen.getByRole("checkbox", { name: "Disabled" });
     const label = container.querySelector("label");
-    expect(label).toHaveClass("opacity-60", { exact: false });
+    expect(label).toHaveClass("rui-checkbox--disabled", { exact: false });
 
     await user.click(checkbox);
     expect(handleChange).not.toHaveBeenCalled();

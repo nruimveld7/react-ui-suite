@@ -1,0 +1,210 @@
+.rui-toggle__u-pointer-events-none--a4326536b8 {
+  pointer-events: none;
+}
+
+.rui-toggle__u-left-0-25rem--7971386c27 {
+  left: 0.25rem;
+}
+
+.rui-toggle__u-left-0-25rem--7971386c27\/2 {
+  left: 50%;
+}
+
+.rui-toggle__u-top-3px--651d3a8232 {
+  top: 3px;
+}
+
+.rui-toggle__u-display-inline-flex--52083e7da4 {
+  display: inline-flex;
+}
+
+.rui-toggle__u-width-1-25rem--add63bc675 {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.rui-toggle__u-height-1-75rem--d0a52b312f {
+  height: 1.75rem;
+}
+
+.rui-toggle__u-width-3rem--e7e371071b {
+  width: 3rem;
+}
+
+.rui-toggle__u-flex-shrink-0--012fbd121f {
+  flex-shrink: 0;
+}
+
+.rui-toggle__u-rui-translate-x-0px--850292e4ef {
+  --rui-translate-x: 0px;
+  transform: translate(var(--rui-translate-x), var(--rui-translate-y)) rotate(var(--rui-rotate)) skewX(var(--rui-skew-x)) skewY(var(--rui-skew-y)) scaleX(var(--rui-scale-x)) scaleY(var(--rui-scale-y));
+}
+
+.rui-toggle__u-rui-translate-x-19px--4cb621eea7 {
+  --rui-translate-x: 19px;
+  transform: translate(var(--rui-translate-x), var(--rui-translate-y)) rotate(var(--rui-rotate)) skewX(var(--rui-skew-x)) skewY(var(--rui-skew-y)) scaleX(var(--rui-scale-x)) scaleY(var(--rui-scale-y));
+}
+
+.rui-toggle__u-cursor-not-allowed--29b733e4c1 {
+  cursor: not-allowed;
+}
+
+.rui-toggle__u-cursor-pointer--3451683673 {
+  cursor: pointer;
+}
+
+.rui-toggle__u-align-items-center--3960ffc248 {
+  align-items: center;
+}
+
+.rui-toggle__u-border-radius-9999px--ac204c1088 {
+  border-radius: 9999px;
+}
+
+.rui-toggle__u-rui-border-opacity-1--85684b007e {
+  --rui-border-opacity: 1;
+  border-color: rgb(203 213 225 / var(--rui-border-opacity, 1));
+}
+
+.rui-toggle__u-rui-border-opacity-1--6b0439773b {
+  --rui-border-opacity: 1;
+  border-color: rgb(148 163 184 / var(--rui-border-opacity, 1));
+}
+
+.rui-toggle__u-rui-bg-opacity-1--5793d2cb69 {
+  --rui-bg-opacity: 1;
+  background-color: rgb(226 232 240 / var(--rui-bg-opacity, 1));
+}
+
+.rui-toggle__u-background-color-rgb-100-116-139--f98f825e4b {
+  background-color: rgb(100 116 139 / 0.4);
+}
+
+.rui-toggle__u-rui-bg-opacity-1--5e10cdb8f1 {
+  --rui-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--rui-bg-opacity, 1));
+}
+
+.rui-toggle__u-rui-bg-opacity-1--5e10cdb8f1\/60 {
+  background-color: rgb(255 255 255 / 0.6);
+}
+
+.rui-toggle__u-rui-bg-opacity-1--5e10cdb8f1\/70 {
+  background-color: rgb(255 255 255 / 0.7);
+}
+
+.rui-toggle__u-rui-bg-opacity-1--5e10cdb8f1\/80 {
+  background-color: rgb(255 255 255 / 0.8);
+}
+
+.rui-toggle__u-rui-bg-opacity-1--5e10cdb8f1\/90 {
+  background-color: rgb(255 255 255 / 0.9);
+}
+
+.rui-toggle__u-rui-bg-opacity-1--5e10cdb8f1\/95 {
+  background-color: rgb(255 255 255 / 0.95);
+}
+
+.rui-toggle__u-rui-text-opacity-1--03eea20e2a {
+  --rui-text-opacity: 1;
+  color: rgb(24 24 27 / var(--rui-text-opacity, 1));
+}
+
+.rui-toggle__u-opacity-0-6--f2868c227f {
+  opacity: 0.6;
+}
+
+.rui-toggle__u-rui-shadow-0-10px-15px-3px-rgb-0--06bbb43166 {
+  --rui-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --rui-shadow-colored: 0 10px 15px -3px var(--rui-shadow-color), 0 4px 6px -4px var(--rui-shadow-color);
+  box-shadow: var(--rui-ring-offset-shadow, 0 0 #0000), var(--rui-ring-shadow, 0 0 #0000), var(--rui-shadow);
+}
+
+.rui-toggle__u-rui-shadow-color-rgb-0-0-0-0-3--3a6e48cfcc {
+  --rui-shadow-color: rgb(0 0 0 / 0.3);
+  --rui-shadow: var(--rui-shadow-colored);
+}
+
+.rui-toggle__u-transition-property-color-backgr--ceb69a6b0e {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.rui-toggle__u-transition-property-transform--eadef23823 {
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.rui-toggle__u-transition-duration-200ms--625a4c3fbe {
+  transition-duration: 200ms;
+}
+
+.rui-toggle__u-outline-2px-solid-transparent--f10f771f87:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.rui-toggle__u-rui-ring-offset-shadow-var-rui-r--793c80e97f:focus-visible {
+  --rui-ring-offset-shadow: var(--rui-ring-inset) 0 0 0 var(--rui-ring-offset-width) var(--rui-ring-offset-color);
+  --rui-ring-shadow: var(--rui-ring-inset) 0 0 0 calc(2px + var(--rui-ring-offset-width)) var(--rui-ring-color);
+  box-shadow: var(--rui-ring-offset-shadow), var(--rui-ring-shadow), var(--rui-shadow, 0 0 #0000);
+}
+
+.rui-toggle__u-rui-ring-opacity-1--1e73de7dbd:focus-visible {
+  --rui-ring-opacity: 1;
+  --rui-ring-color: rgb(100 116 139 / var(--rui-ring-opacity, 1));
+}
+
+.rui-toggle__u-rui-ring-offset-width-2px--0c4687c16c:focus-visible {
+  --rui-ring-offset-width: 2px;
+}
+
+.rui-toggle__u-rui-ring-offset-color-f1f5f9--8c7a545fa9:focus-visible {
+  --rui-ring-offset-color: #f1f5f9;
+}
+
+.rui-toggle__u-rui-border-opacity-1--5bf6e2c7d4:is(.dark *) {
+  --rui-border-opacity: 1;
+  border-color: rgb(113 113 122 / var(--rui-border-opacity, 1));
+}
+
+.rui-toggle__u-border-color-rgb-63-63-70-0-7--0e08197dba:is(.dark *) {
+  border-color: rgb(63 63 70 / 0.7);
+}
+
+.rui-toggle__u-rui-bg-opacity-1--f002a89a5c:is(.dark *) {
+  --rui-bg-opacity: 1;
+  background-color: rgb(113 113 122 / var(--rui-bg-opacity, 1));
+}
+
+.rui-toggle__u-rui-bg-opacity-1--f002a89a5c\/70:is(.dark *) {
+  background-color: rgb(113 113 122 / 0.7);
+}
+
+.rui-toggle__u-background-color-rgb-24-24-27-0---5cd2915a74:is(.dark *) {
+  background-color: rgb(24 24 27 / 0.7);
+}
+
+.rui-toggle__u-rui-ring-offset-color-020617--3b0cfe2894:focus-visible:is(.dark *) {
+  --rui-ring-offset-color: #020617;
+}
+
+.rui-toggle__u-position-absolute--da4dbfbc4f {
+  position: absolute;
+}
+
+.rui-toggle__u-position-relative--d89972fe17 {
+  position: relative;
+}
+
+.rui-toggle__u-border-width-1px--ca6bcd4b6f {
+  border-width: 1px;
+}
+
+.rui-toggle__u-rui-shadow-0-0-0-1px-rgba-148-16--bdcb4600f1 {
+  --rui-shadow: 0 0 0 1px rgba(148,163,184,0.45);
+  --rui-shadow-colored: 0 0 0 1px var(--rui-shadow-color);
+  box-shadow: var(--rui-ring-offset-shadow, 0 0 #0000), var(--rui-ring-shadow, 0 0 #0000), var(--rui-shadow);
+}

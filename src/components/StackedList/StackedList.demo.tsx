@@ -1,6 +1,8 @@
 import { Badge, Button, StackedList } from "react-ui-suite";
 import type { StackedListItem, StackedListProps } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../../../demo/component-registry";
+import "./StackedList.demo.css";
+import { DemoExample } from "../../../demo/src/components/DemoExample";
 
 const standupItems: StackedListItem[] = [
   {
@@ -17,7 +19,7 @@ const standupItems: StackedListItem[] = [
     description: "Collect notes from TestFlight build 2.3.1.",
     meta: "2 hrs ago",
     icon: "📱",
-    action: <Button className="px-3 py-1 text-xs">View</Button>,
+    action: <Button className="rui-stacked-list-demo__u-padding-left-0-75rem--0e17f2bd90 rui-stacked-list-demo__u-padding-top-0-25rem--660d2effb8 rui-stacked-list-demo__u-font-size-0-75rem--359090c2d5">View</Button>,
   },
   {
     id: "three",
@@ -54,7 +56,7 @@ function QuickActionList() {
           id: "invite",
           title: "Invite designers",
           description: "Send access to alice@example.com",
-          action: <Button className="px-3 py-1 text-xs">Send invite</Button>,
+          action: <Button className="rui-stacked-list-demo__u-padding-left-0-75rem--0e17f2bd90 rui-stacked-list-demo__u-padding-top-0-25rem--660d2effb8 rui-stacked-list-demo__u-font-size-0-75rem--359090c2d5">Send invite</Button>,
         },
       ]}
     />
@@ -63,27 +65,26 @@ function QuickActionList() {
 
 function StackedListPreview() {
   return (
-    <div className="space-y-4">
-      <div className="rounded-3xl border border-slate-200 bg-white/80 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
+    <div className="rui-stacked-list-demo__u-style--3e7ce58d64">
+      <DemoExample
+        title="Standup"
+        className="rui-stacked-list-demo__u-border-radius-1-5rem--ea189a088a rui-stacked-list-demo__u-border-width-1px--ca6bcd4b6f rui-stacked-list-demo__u-rui-border-opacity-1--52f4da2ca5 rui-stacked-list-demo__u-background-color-rgb-255-255-255--845918557e rui-stacked-list-demo__u-padding-1rem--8e63407b5c rui-stacked-list-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-stacked-list-demo__u-rui-border-opacity-1--2072c87505 rui-stacked-list-demo__u-background-color-rgb-15-23-42-0---5212cbf15b"
+      >
         <StandupPreview />
-      </div>
-      <div className="grid gap-4 md:grid-cols-2">
-        <div className="rounded-3xl border border-slate-200 bg-white/80 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-            Dense activity
-          </p>
-          <div className="mt-3">
-            <DenseActivityExample />
-          </div>
-        </div>
-        <div className="rounded-3xl border border-slate-200 bg-white/80 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-            Quick actions
-          </p>
-          <div className="mt-3">
-            <QuickActionList />
-          </div>
-        </div>
+      </DemoExample>
+      <div className="rui-stacked-list-demo__u-display-grid--f3c543ad5f rui-stacked-list-demo__u-gap-1rem--0c3bc98565 rui-stacked-list-demo__u-grid-template-columns-repeat-2-m--e4d6f343b9">
+        <DemoExample
+          title="Dense activity"
+          className="rui-stacked-list-demo__u-border-radius-1-5rem--ea189a088a rui-stacked-list-demo__u-border-width-1px--ca6bcd4b6f rui-stacked-list-demo__u-rui-border-opacity-1--52f4da2ca5 rui-stacked-list-demo__u-background-color-rgb-255-255-255--845918557e rui-stacked-list-demo__u-padding-1rem--8e63407b5c rui-stacked-list-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-stacked-list-demo__u-rui-border-opacity-1--2072c87505 rui-stacked-list-demo__u-background-color-rgb-15-23-42-0---5212cbf15b"
+        >
+          <DenseActivityExample />
+        </DemoExample>
+        <DemoExample
+          title="Quick actions"
+          className="rui-stacked-list-demo__u-border-radius-1-5rem--ea189a088a rui-stacked-list-demo__u-border-width-1px--ca6bcd4b6f rui-stacked-list-demo__u-rui-border-opacity-1--52f4da2ca5 rui-stacked-list-demo__u-background-color-rgb-255-255-255--845918557e rui-stacked-list-demo__u-padding-1rem--8e63407b5c rui-stacked-list-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-stacked-list-demo__u-rui-border-opacity-1--2072c87505 rui-stacked-list-demo__u-background-color-rgb-15-23-42-0---5212cbf15b"
+        >
+          <QuickActionList />
+        </DemoExample>
       </div>
     </div>
   );

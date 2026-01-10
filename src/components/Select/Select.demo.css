@@ -1,0 +1,165 @@
+.rui-select-demo__u-margin-top-0-75rem--eccd13ef4f {
+  margin-top: 0.75rem;
+}
+
+.rui-select-demo__u-width-0-625rem--6b7265b65a {
+  width: 0.625rem;
+  height: 0.625rem;
+}
+
+.rui-select-demo__u-flex-1-1-0--36e579c0b4 {
+  flex: 1 1 0%;
+}
+
+.rui-select-demo__u-align-items-center--3960ffc248 {
+  align-items: center;
+}
+
+.rui-select-demo__u-justify-content-space-between--8ef2268efb {
+  justify-content: space-between;
+}
+
+.rui-select-demo__u-gap-0-5rem--77a2a20e90 {
+  gap: 0.5rem;
+}
+
+.rui-select-demo__u-gap-0-75rem--1004c0c395 {
+  gap: 0.75rem;
+}
+
+.rui-select-demo__u-gap-1rem--0c3bc98565 {
+  gap: 1rem;
+}
+
+.rui-select-demo__u-border-radius-1-5rem--ea189a088a {
+  border-radius: 1.5rem;
+}
+
+.rui-select-demo__u-border-radius-9999px--ac204c1088 {
+  border-radius: 9999px;
+}
+
+.rui-select-demo__u-rui-border-opacity-1--52f4da2ca5 {
+  --rui-border-opacity: 1;
+  border-color: rgb(226 232 240 / var(--rui-border-opacity, 1));
+}
+
+.rui-select-demo__u-background-color-rgb-255-255-255--6c21de570d {
+  background-color: rgb(255 255 255 / 1);
+}
+
+.rui-select-demo__u-padding-1rem--8e63407b5c {
+  padding: 1rem;
+}
+
+.rui-select-demo__u-padding-left-0-75rem--0e17f2bd90 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.rui-select-demo__u-padding-top-0-25rem--660d2effb8 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.rui-select-demo__u-font-size-11px--d058ca6de6 {
+  font-size: 11px;
+}
+
+.rui-select-demo__u-font-size-0-875rem--fc7473ca09 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.rui-select-demo__u-font-size-0-75rem--359090c2d5 {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.rui-select-demo__u-font-weight-600--e83a7042bc {
+  font-weight: 600;
+}
+
+.rui-select-demo__u-letter-spacing-0-28em--a9fb519cad {
+  letter-spacing: 0.28em;
+}
+
+.rui-select-demo__u-letter-spacing-0-025em--8baf13a3e9 {
+  letter-spacing: 0.025em;
+}
+
+.rui-select-demo__u-rui-text-opacity-1--8d44cef396 {
+  --rui-text-opacity: 1;
+  color: rgb(148 163 184 / var(--rui-text-opacity, 1));
+}
+
+.rui-select-demo__u-rui-text-opacity-1--2d6fbf48fa {
+  --rui-text-opacity: 1;
+  color: rgb(71 85 105 / var(--rui-text-opacity, 1));
+}
+
+.rui-select-demo__u-rui-text-opacity-1--f5f136c41d {
+  --rui-text-opacity: 1;
+  color: rgb(15 23 42 / var(--rui-text-opacity, 1));
+}
+
+.rui-select-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 {
+  --rui-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --rui-shadow-colored: 0 1px 2px 0 var(--rui-shadow-color);
+  box-shadow: var(--rui-ring-offset-shadow, 0 0 #0000), var(--rui-ring-shadow, 0 0 #0000), var(--rui-shadow);
+}
+
+.rui-select-demo__u-rui-border-opacity-1--2072c87505:is(.dark *) {
+  --rui-border-opacity: 1;
+  border-color: rgb(30 41 59 / var(--rui-border-opacity, 1));
+}
+
+.rui-select-demo__u-background-color-rgb-15-23-42-0---5212cbf15b:is(.dark *) {
+  background-color: rgba(24, 24, 27, 0.75);
+}
+
+.rui-select-demo__u-background-color-rgb-15-23-42-0---d855d73915:is(.dark *) {
+  background-color: rgb(15 23 42 / 0.9);
+}
+
+.rui-select-demo__u-rui-text-opacity-1--cc0274aad9:is(.dark *) {
+  --rui-text-opacity: 1;
+  color: rgb(148 163 184 / var(--rui-text-opacity, 1));
+}
+
+.rui-select-demo__u-rui-text-opacity-1--15b16954d1:is(.dark *) {
+  --rui-text-opacity: 1;
+  color: rgb(100 116 139 / var(--rui-text-opacity, 1));
+}
+
+.rui-select-demo__u-rui-text-opacity-1--889e4e871c:is(.dark *) {
+  --rui-text-opacity: 1;
+  color: rgb(255 255 255 / var(--rui-text-opacity, 1));
+}
+
+@media (min-width: 640px) {
+  .rui-select-demo__u-grid-template-columns-repeat-2-m--e00ad81645 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.rui-select-demo__u-display-block--0214b4b355 {
+  display: block;
+}
+
+.rui-select-demo__u-display-flex--60fbb77139 {
+  margin: 0px;
+  display: flex;
+}
+
+.rui-select-demo__u-display-grid--f3c543ad5f {
+  display: grid;
+}
+
+.rui-select-demo__u-border-width-1px--ca6bcd4b6f {
+  border-width: 1px;
+}
+
+.rui-select-demo__u-text-transform-uppercase--117ec720ea {
+  text-transform: uppercase;
+}

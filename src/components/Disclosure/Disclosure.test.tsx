@@ -28,7 +28,7 @@ describe("Disclosure", () => {
     );
 
     const details = container.querySelector("details");
-    expect(details).toHaveClass("border-transparent", { exact: false });
+    expect(details).toHaveClass("rui-disclosure__u-border-color-transparent--521fa0c7c4", { exact: false });
   });
 
 });

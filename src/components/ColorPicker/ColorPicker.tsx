@@ -1,6 +1,7 @@
 import * as React from "react";
-import { twMerge } from "tailwind-merge";
 import { assignRef } from "../../utils/ref";
+import clsx from "clsx";
+import "./ColorPicker.css";
 
 type ColorFormat = "hex" | "rgb" | "hsl";
 
@@ -286,6 +287,9 @@ export const ColorPicker = React.forwardRef<HTMLInputElement, ColorPickerProps>(
     const [hue, setHue] = React.useState(resolvedHsv.h);
     const [saturation, setSaturation] = React.useState(resolvedHsv.s);
     const [valueLevel, setValueLevel] = React.useState(resolvedHsv.v);
+    const lastColorUpdateSource = React.useRef<
+      null | "gradient" | "hue" | "swatch" | "channel" | "external"
+    >(null);
 
     const generatedId = React.useId();
     const inputId = id ?? generatedId;
@@ -309,9 +313,12 @@ export const ColorPicker = React.forwardRef<HTMLInputElement, ColorPickerProps>(
     const shouldLockHue = (s: number, v: number) => s <= 1 || v <= 1;
 
     React.useEffect(() => {
-      setHue((prev) => (shouldLockHue(resolvedHsv.s, resolvedHsv.v) ? prev : resolvedHsv.h));
+      if (lastColorUpdateSource.current !== "gradient") {
+        setHue((prev) => (shouldLockHue(resolvedHsv.s, resolvedHsv.v) ? prev : resolvedHsv.h));
+      }
       setSaturation(resolvedHsv.s);
       setValueLevel(resolvedHsv.v);
+      lastColorUpdateSource.current = null;
     }, [resolvedHsv.h, resolvedHsv.s, resolvedHsv.v]);
 
     React.useEffect(() => {
@@ -335,6 +342,7 @@ export const ColorPicker = React.forwardRef<HTMLInputElement, ColorPickerProps>(
       if (!normalized) return;
       const hsv = hexToHsv(normalized);
       if (hsv) {
+        lastColorUpdateSource.current = "swatch";
         setHue((prev) => (shouldLockHue(hsv.s, hsv.v) ? prev : hsv.h));
         setSaturation(hsv.s);
         setValueLevel(hsv.v);
@@ -370,6 +378,7 @@ export const ColorPicker = React.forwardRef<HTMLInputElement, ColorPickerProps>(
           }
           const parsed = channelsToHex(updated, format);
           if (parsed) {
+            lastColorUpdateSource.current = "channel";
             applyColor(parsed);
           }
           return updated;
@@ -421,6 +430,7 @@ export const ColorPicker = React.forwardRef<HTMLInputElement, ColorPickerProps>(
         const nextV = Math.round((1 - yRatio) * 100);
         setSaturation(nextS);
         setValueLevel(nextV);
+        lastColorUpdateSource.current = "gradient";
         applyColor(hsvToHex(hue, nextS, nextV));
       },
       [applyColor, hue]
@@ -456,6 +466,7 @@ export const ColorPicker = React.forwardRef<HTMLInputElement, ColorPickerProps>(
         const ratio = clamp((clientX - rect.left) / rect.width, 0, 1);
         const nextHue = Math.round(ratio * 360);
         setHue(nextHue);
+        lastColorUpdateSource.current = "hue";
         applyColor(hsvToHex(nextHue, saturation, valueLevel));
       },
       [applyColor, saturation, valueLevel]
@@ -494,9 +505,9 @@ export const ColorPicker = React.forwardRef<HTMLInputElement, ColorPickerProps>(
     const activeLabels = channelLabels[format];
 
     return (
-      <div className="relative inline-flex flex-col items-center gap-2">
+      <div className="rui-color-picker__u-position-relative--d89972fe17 rui-color-picker__u-display-inline-flex--52083e7da4 rui-color-picker__u-flex-direction-column--8dddea0773 rui-color-picker__u-align-items-center--3960ffc248 rui-color-picker__u-gap-0-5rem--77a2a20e90">
         {label ? (
-          <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-slate-400 dark:text-zinc-500">
+          <p className="rui-color-picker__u-font-size-10px--1dc571a360 rui-color-picker__u-font-weight-600--e83a7042bc rui-color-picker__u-text-transform-uppercase--117ec720ea rui-color-picker__u-letter-spacing-0-3em--bf7342eeb7 rui-color-picker__u-color-rgb-148-163-184-1--8d44cef396 rui-color-picker__u-color-rgb-113-113-122-1--28db7d8770">
             {label}
           </p>
         ) : null}
@@ -507,15 +518,15 @@ export const ColorPicker = React.forwardRef<HTMLInputElement, ColorPickerProps>(
           aria-haspopup="dialog"
           aria-expanded={isOpen}
           aria-label={label ? `Adjust ${label}` : "Choose color"}
-          className="relative inline-flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white shadow-sm transition hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 dark:border-zinc-700 dark:bg-zinc-900"
+          className="rui-color-picker__u-position-relative--d89972fe17 rui-color-picker__u-display-inline-flex--52083e7da4 rui-color-picker__u-box-shadow-0-4px-10px-rgb-15-23---508ebf85b1 rui-color-picker__u-width-3rem--e7e371071b rui-color-picker__u-align-items-center--3960ffc248 rui-color-picker__u-justify-content-center--86843cf1e2 rui-color-picker__u-border-radius-9999px--ac204c1088 rui-color-picker__u-border-width-1px--ca6bcd4b6f rui-color-picker__u-border-color-rgb-226-232-240-1--52f4da2ca5 rui-color-picker__u-background-color-rgb-255-255-255--5e10cdb8f1 rui-color-picker__u-box-shadow-0-0-0000-0-0-0000-0-1--438b2237b8 rui-color-picker__u-transition-property-color-backgr--56bf8ae82a rui-color-picker__u-box-shadow-0-0-0000-0-0-0000-0-1--9c02094c0d rui-color-picker__u-outline-2px-solid-transparent--f10f771f87 rui-color-picker__u-box-shadow-0-0-0-0px-fff-0-0-0-c--793c80e97f rui-color-picker__u-style--25cf37df2c rui-color-picker__u-border-color-rgb-63-63-70-1--4e12bcf58d rui-color-picker__u-background-color-rgb-24-24-27-1--6319578a41"
         >
           <span
-            className="absolute inset-1 rounded-full border border-white/30 shadow-inner dark:border-zinc-900/60"
+            className="rui-color-picker__u-position-absolute--da4dbfbc4f rui-color-picker__u-inset-0-25rem--fff78388e6 rui-color-picker__u-border-radius-9999px--ac204c1088 rui-color-picker__u-border-width-1px--ca6bcd4b6f rui-color-picker__u-border-color-rgb-255-255-255-0-3--0f9b8dce19 rui-color-picker__u-box-shadow-0-0-0000-0-0-0000-ins--eca5782b24 rui-color-picker__u-border-color-rgb-24-24-27-0-6--47c07a490e"
             style={{ background: resolvedValue }}
             aria-hidden="true"
           />
           <span
-            className="relative text-xl drop-shadow-[0_1px_1px_rgba(15,23,42,0.55)]"
+            className="rui-color-picker__u-position-relative--d89972fe17 rui-color-picker__u-font-size-1-25rem--d5c9b0001e rui-color-picker__u-filter-drop-shadow-0-1px-1px-rgb--e46b8660b9"
             style={{ transform: "translateX(0.5px) translateY(-1.5px)" }}
             aria-hidden="true"
           >
@@ -527,14 +538,14 @@ export const ColorPicker = React.forwardRef<HTMLInputElement, ColorPickerProps>(
             ref={panelRef}
             role="dialog"
             aria-label={label ? `${label} color picker` : "Color picker dialog"}
-            className="absolute left-1/2 top-full z-20 mt-3 w-[340px] max-w-[90vw] -translate-x-1/2 rounded-2xl border border-slate-200/80 bg-white/95 p-4 shadow-2xl backdrop-blur-sm dark:border-zinc-700/60 dark:bg-zinc-900/95"
+            className="rui-color-picker__panel rui-color-picker__u-position-absolute--da4dbfbc4f rui-color-picker__u-left-50--e632769ad7 rui-color-picker__u-top-100--5e8a03e061 rui-color-picker__u-z-index-20--145745bf52 rui-color-picker__u-margin-top-0-75rem--eccd13ef4f rui-color-picker__u-width-340px--21dd0c0d28 rui-color-picker__u-max-width-90vw--be38309b0e rui-color-picker__u-transform-translate-50-0-rotate---efaa070148 rui-color-picker__u-border-radius-1rem--68f2db624d rui-color-picker__u-border-width-1px--ca6bcd4b6f rui-color-picker__u-border-color-rgb-226-232-240-0-8--0066d85199 rui-color-picker__u-background-color-rgb-255-255-255--f5ebd4d019 rui-color-picker__u-padding-1rem--8e63407b5c rui-color-picker__u-box-shadow-0-0-0000-0-0-0000-0-2--14e46609fd rui-color-picker__u-backdrop-filter-blur-4px--1ca6dd1e47 rui-color-picker__u-border-color-rgb-63-63-70-0-6--2e65f80c00 rui-color-picker__u-background-color-rgb-24-24-27-0---3e2ed48bf6"
           >
-            <div className="space-y-4">
-              <div className="space-y-3">
+            <div className="rui-color-picker__u-style--3e7ce58d64">
+              <div className="rui-color-picker__u-style--6ed543e2fb">
                 <div
                   ref={gradientRef}
                   onPointerDown={handleGradientPointerDown}
-                  className="relative h-40 w-full cursor-crosshair overflow-hidden rounded-xl shadow-[inset_0_1px_2px_rgba(15,23,42,.25)] ring-1 ring-black/5 dark:ring-white/10"
+                  className="rui-color-picker__u-position-relative--d89972fe17 rui-color-picker__u-height-10rem--aadad6871a rui-color-picker__u-width-100--6da6a3c3f7 rui-color-picker__u-cursor-crosshair--92b7f35f04 rui-color-picker__u-overflow-hidden--2cd02d11d1 rui-color-picker__u-border-radius-0-75rem--a217b4eaa9 rui-color-picker__u-box-shadow-0-0-0000-0-0-0000-ins--a9ce402f0b rui-color-picker__u-box-shadow-0-0-0-0px-fff-0-0-0-c--3daca9af08 rui-color-picker__u-style--1e4905f70e rui-color-picker__u-style--e440174b6b"
                   style={{
                     backgroundColor: `hsl(${hue}, 100%, 50%)`,
                     backgroundImage:
@@ -543,7 +554,7 @@ export const ColorPicker = React.forwardRef<HTMLInputElement, ColorPickerProps>(
                   aria-label="Color area"
                 >
                   <span
-                    className="pointer-events-none absolute h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white shadow-[0_1px_2px_rgba(15,23,42,.4)]"
+                    className="rui-color-picker__gradient-thumb"
                     style={{
                       left: `${saturation}%`,
                       top: `${100 - valueLevel}%`,
@@ -554,67 +565,68 @@ export const ColorPicker = React.forwardRef<HTMLInputElement, ColorPickerProps>(
                 <div
                   ref={hueRef}
                   onPointerDown={handleHuePointerDown}
-                  className="relative h-3 w-full cursor-pointer rounded-full border border-white/40 shadow-inner dark:border-zinc-800/60"
+                  className="rui-color-picker__u-position-relative--d89972fe17 rui-color-picker__u-height-0-75rem--6a60c09e6a rui-color-picker__u-width-100--6da6a3c3f7 rui-color-picker__u-cursor-pointer--3451683673 rui-color-picker__u-border-radius-9999px--ac204c1088 rui-color-picker__u-border-width-1px--ca6bcd4b6f rui-color-picker__u-border-color-rgb-255-255-255-0-4--9c15994f34 rui-color-picker__u-box-shadow-0-0-0000-0-0-0000-ins--eca5782b24 rui-color-picker__u-border-color-rgb-39-39-42-0-6--efd7e6fbb1"
                   style={{
                     background: "linear-gradient(90deg, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00)",
                   }}
                   aria-label="Hue slider"
                 >
                   <span
-                    className="pointer-events-none absolute top-1/2 h-5 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-slate-900/40 bg-white shadow"
+                    className="rui-color-picker__hue-thumb"
                     style={{ left: `${(hue / 360) * 100}%` }}
                   />
                 </div>
               </div>
-              <div className="flex flex-wrap items-center gap-2">
-                {swatchList.map((color) => (
-                  <div key={color} className="relative group">
-                    <button
-                      type="button"
-                      onClick={() => handleSwatchClick(color)}
-                      className={twMerge(
-                        "h-7 w-7 rounded-full border border-white/30 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 dark:border-zinc-900/70",
-                        color.toLowerCase() === resolvedValue.toLowerCase() &&
-                          "ring-2 ring-offset-2 ring-slate-500 dark:ring-offset-slate-900"
-                      )}
-                      style={{ background: color }}
-                      aria-label={`Select ${color}`}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveSwatch(color)}
-                      className="absolute -top-1.5 -right-1.5 hidden h-5 w-5 items-center justify-center rounded-full bg-white text-[10px] font-bold text-slate-600 shadow-sm ring-1 ring-slate-200 transition group-hover:flex group-focus-within:flex dark:bg-zinc-900 dark:text-zinc-200 dark:ring-zinc-700"
-                      aria-label={`Remove ${color} swatch`}
-                    >
-                      ×
-                    </button>
-                  </div>
-                ))}
+              <div className="rui-color-picker__swatch-row">
+                {swatchList.map((color) => {
+                  const isActive =
+                    color.toLowerCase() === resolvedValue.toLowerCase();
+
+                  return (
+                    <div key={color} className="rui-color-picker__swatch">
+                      <button
+                        type="button"
+                        onClick={() => handleSwatchClick(color)}
+                        className={clsx(
+                          "rui-color-picker__swatch-button",
+                          isActive && "rui-color-picker__swatch-button--active"
+                        )}
+                        style={{ background: color }}
+                        aria-label={`Select ${color}`}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveSwatch(color)}
+                        className="rui-color-picker__swatch-remove"
+                        aria-label={`Remove ${color} swatch`}
+                      >
+                        ×
+                      </button>
+                    </div>
+                  );
+                })}
                 <button
                   type="button"
                   onClick={handleAddSwatch}
-                  className="inline-flex h-7 items-center gap-1 rounded-full border border-dashed border-slate-300 px-3 text-xs font-semibold uppercase tracking-wide text-slate-500 transition hover:border-slate-400 hover:text-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 dark:border-zinc-600 dark:text-zinc-300 dark:hover:border-zinc-500"
+                  className="rui-color-picker__add-swatch"
+                  aria-label="+ Add swatch"
                 >
-                  + Add swatch
+                  +
                 </button>
               </div>
-              <div className="space-y-2">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-400 dark:text-zinc-500">
-                    Channels
-                  </p>
-                  <div className="inline-flex overflow-hidden rounded-xl border border-slate-200 bg-white/80 text-[11px] font-semibold uppercase text-slate-500 dark:border-zinc-700 dark:bg-zinc-900/80 dark:text-zinc-300">
+              <div className="rui-color-picker__channels">
+                <div className="rui-color-picker__channels-header">
+                  <span>Channels</span>
+                  <div className="rui-color-picker__format-toggle">
                     {formatOrder.map((option) => (
                       <button
                         key={option}
                         type="button"
                         onClick={() => setFormat(option)}
                         aria-pressed={format === option}
-                        className={twMerge(
-                          "px-3 py-1.5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400/60",
-                          format === option
-                            ? "bg-white text-slate-900 shadow-[inset_0_0_0_1px_rgba(15,23,42,0.08)] dark:bg-white/15 dark:text-white"
-                            : "text-slate-500 dark:text-zinc-400"
+                        className={clsx(
+                          "rui-color-picker__format-button",
+                          format === option && "is-active"
                         )}
                       >
                         {option.toUpperCase()}
@@ -622,38 +634,40 @@ export const ColorPicker = React.forwardRef<HTMLInputElement, ColorPickerProps>(
                     ))}
                   </div>
                 </div>
-                <div className="flex flex-wrap gap-2">
+                <div className="rui-color-picker__channel-grid">
                   {format === "hex" ? (
-                    <label className="flex min-w-[180px] flex-1 items-center gap-2 rounded-xl border border-slate-200 bg-white/60 px-3 py-1.5 font-mono text-sm text-slate-900 focus-within:border-slate-400 dark:border-zinc-700 dark:bg-zinc-900/70 dark:text-zinc-100">
-                      <span className="text-base font-semibold text-slate-400 dark:text-zinc-500">
-                        #
-                      </span>
+                    <label className="rui-color-picker__channel-field rui-color-picker__channel-field--hex">
+                      <span className="rui-color-picker__channel-prefix">#</span>
                       <input
                         type="text"
                         value={channelValues[0] ?? ""}
-                        onChange={(event) => handleChannelChange(0, event.target.value)}
+                        onChange={(event) =>
+                          handleChannelChange(0, event.target.value)
+                        }
                         onBlur={resetChannels}
                         inputMode="text"
                         maxLength={6}
-                        className="h-6 min-w-0 flex-1 border-none bg-transparent p-0 text-left text-sm uppercase tracking-[0.2em] text-slate-900 placeholder:text-slate-400 focus:outline-none dark:text-zinc-50"
+                        className="rui-color-picker__channel-input rui-color-picker__channel-input--hex"
                       />
                     </label>
                   ) : (
                     channelValues.map((value, index) => (
                       <label
                         key={activeLabels[index]}
-                        className="flex min-w-[90px] flex-1 items-center gap-2 rounded-xl border border-slate-200 bg-white/60 px-3 py-1.5 font-mono text-sm text-slate-900 focus-within:border-slate-400 dark:border-zinc-700 dark:bg-zinc-900/70 dark:text-zinc-100"
+                        className="rui-color-picker__channel-field"
                       >
-                        <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-400 dark:text-zinc-500">
+                        <span className="rui-color-picker__channel-prefix">
                           {activeLabels[index]}
                         </span>
                         <input
                           type="text"
                           value={value}
-                          onChange={(event) => handleChannelChange(index, event.target.value)}
+                          onChange={(event) =>
+                            handleChannelChange(index, event.target.value)
+                          }
                           onBlur={resetChannels}
                           inputMode="numeric"
-                          className="h-6 min-w-0 flex-1 border-none bg-transparent p-0 text-right text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none dark:text-zinc-50"
+                          className="rui-color-picker__channel-input"
                         />
                       </label>
                     ))

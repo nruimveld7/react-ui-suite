@@ -1,8 +1,10 @@
 import { useMemo, useState } from "react";
-import { twMerge } from "tailwind-merge";
 import { Checkbox, InputField, Table } from "react-ui-suite";
 import type { TableColumn } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../../../demo/component-registry";
+import clsx from "clsx";
+import "./Table.demo.css";
+import { DemoExample } from "../../../demo/src/components/DemoExample";
 
 type Row = {
   name: string;
@@ -20,9 +22,9 @@ const baseRows: Row[] = [
 ];
 
 const statusTone: Record<Row["status"], string> = {
-  Active: "bg-emerald-500/90 text-white",
-  Paused: "bg-amber-400/90 text-slate-900",
-  Error: "bg-rose-500/90 text-white",
+  Active: "rui-table-demo__u-background-color-rgb-16-185-129---5a31c1c8ef rui-table-demo__u-rui-text-opacity-1--72a4c7cdee",
+  Paused: "rui-table-demo__u-background-color-rgb-251-191-36---2d0a4f72fa rui-table-demo__u-rui-text-opacity-1--f5f136c41d",
+  Error: "rui-table-demo__u-background-color-rgb-244-63-94-0--9c84066f4b rui-table-demo__u-rui-text-opacity-1--72a4c7cdee",
 };
 
 function ServiceTable() {
@@ -39,9 +41,9 @@ function ServiceTable() {
       header: "Status",
       render: (value: Row["status"]) => (
         <span
-          className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] ${statusTone[value]}`}
+          className={clsx("rui-table-demo__statusPill", statusTone[value])}
         >
-          <span className="block size-1.5 rounded-full bg-white/80" />
+          <span className="rui-table-demo__u-display-block--0214b4b355 rui-table-demo__u-width-0-375rem--d75e0c426b rui-table-demo__u-border-radius-9999px--ac204c1088 rui-table-demo__u-background-color-rgb-255-255-255--845918557e" />
           {value}
         </span>
       ),
@@ -51,7 +53,7 @@ function ServiceTable() {
       header: "p95",
       align: "right",
       render: (value: number) => (
-        <span className="font-semibold text-slate-900 dark:text-slate-100">
+        <span className="rui-table-demo__u-font-weight-600--e83a7042bc rui-table-demo__u-rui-text-opacity-1--f5f136c41d rui-table-demo__u-rui-text-opacity-1--e1d41ccd69">
           {value ? `${value}ms` : "N/A"}
         </span>
       ),
@@ -60,13 +62,13 @@ function ServiceTable() {
   ];
 
   return (
-    <div className="rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/70 overflow-hidden">
-      <div className="flex items-center justify-between gap-3">
+    <DemoExample
+      title="Services"
+      className="rui-table-demo__u-border-radius-1-5rem--ea189a088a rui-table-demo__u-border-width-1px--ca6bcd4b6f rui-table-demo__u-rui-border-opacity-1--52f4da2ca5 rui-table-demo__u-background-color-rgb-255-255-255--6c21de570d rui-table-demo__u-padding-1rem--8e63407b5c rui-table-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-table-demo__u-rui-border-opacity-1--2072c87505 rui-table-demo__u-background-color-rgb-15-23-42-0---5212cbf15b rui-table-demo__u-overflow-hidden--2cd02d11d1"
+    >
+      <div className="rui-table-demo__u-display-flex--60fbb77139 rui-table-demo__u-align-items-center--3960ffc248 rui-table-demo__u-justify-content-space-between--8ef2268efb rui-table-demo__u-gap-0-75rem--1004c0c395">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-            Services
-          </p>
-          <p className="text-sm text-slate-600 dark:text-slate-400">
+          <p className="rui-table-demo__u-font-size-0-875rem--fc7473ca09 rui-table-demo__u-rui-text-opacity-1--2d6fbf48fa rui-table-demo__u-rui-text-opacity-1--cc0274aad9">
             Native table with soft zebra styling.
           </p>
         </div>
@@ -74,13 +76,13 @@ function ServiceTable() {
           label="Hide paused"
           checked={hidePaused}
           onChange={setHidePaused}
-          className="w-fit rounded-xl border border-slate-200 bg-white px-2 py-1 dark:border-zinc-700 dark:bg-zinc-900/70"
+          className="rui-table-demo__u-width-moz-fit-content--92e7450ad2 rui-table-demo__u-border-radius-0-75rem--a217b4eaa9 rui-table-demo__u-border-width-1px--ca6bcd4b6f rui-table-demo__u-rui-border-opacity-1--52f4da2ca5 rui-table-demo__u-rui-bg-opacity-1--5e10cdb8f1 rui-table-demo__u-padding-left-0-5rem--d5eab218aa rui-table-demo__u-padding-top-0-25rem--660d2effb8 rui-table-demo__u-rui-border-opacity-1--4e12bcf58d rui-table-demo__u-background-color-rgb-24-24-27-0---5cd2915a74"
         />
       </div>
-      <div className="mt-3">
+      <div className="rui-table-demo__u-margin-top-0-75rem--eccd13ef4f">
         <Table<Row> columns={columns} data={rows} caption="Service health" />
       </div>
-    </div>
+    </DemoExample>
   );
 }
 
@@ -100,9 +102,9 @@ const memberRows: MemberRow[] = [
 ];
 
 const memberStatusTone: Record<MemberRow["status"], string> = {
-  Active: "bg-emerald-500/90 text-white",
-  Invited: "bg-sky-400/90 text-white",
-  Suspended: "bg-rose-500/90 text-white",
+  Active: "rui-table-demo__u-background-color-rgb-16-185-129---5a31c1c8ef rui-table-demo__u-rui-text-opacity-1--72a4c7cdee",
+  Invited: "rui-table-demo__u-background-color-rgb-56-189-248---d2f1dd6d0a rui-table-demo__u-rui-text-opacity-1--72a4c7cdee",
+  Suspended: "rui-table-demo__u-background-color-rgb-244-63-94-0--9c84066f4b rui-table-demo__u-rui-text-opacity-1--72a4c7cdee",
 };
 
 function MembersTable() {
@@ -127,9 +129,7 @@ function MembersTable() {
       key: "status",
       header: "Status",
       render: (value: MemberRow["status"]) => (
-        <span
-          className={`inline-flex items-center justify-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] ${memberStatusTone[value]}`}
-        >
+        <span className={clsx("rui-table-demo__statusPill", memberStatusTone[value])}>
           {value}
         </span>
       ),
@@ -139,44 +139,44 @@ function MembersTable() {
   const filters: Array<MemberRow["status"] | "All"> = ["All", "Active", "Invited", "Suspended"];
 
   return (
-    <div className="rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/70 overflow-hidden">
-      <div className="flex flex-wrap items-center justify-between gap-3">
+    <DemoExample
+      title="Members"
+      className="rui-table-demo__u-border-radius-1-5rem--ea189a088a rui-table-demo__u-border-width-1px--ca6bcd4b6f rui-table-demo__u-rui-border-opacity-1--52f4da2ca5 rui-table-demo__u-background-color-rgb-255-255-255--6c21de570d rui-table-demo__u-padding-1rem--8e63407b5c rui-table-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-table-demo__u-rui-border-opacity-1--2072c87505 rui-table-demo__u-background-color-rgb-15-23-42-0---5212cbf15b rui-table-demo__u-overflow-hidden--2cd02d11d1"
+    >
+      <div className="rui-table-demo__u-display-flex--60fbb77139 rui-table-demo__u-flex-wrap-wrap--1eb5c6df38 rui-table-demo__u-align-items-center--3960ffc248 rui-table-demo__u-justify-content-space-between--8ef2268efb rui-table-demo__u-gap-0-75rem--1004c0c395">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-            Members
-          </p>
-          <p className="text-sm text-slate-600 dark:text-slate-400">Quick filter chips + search.</p>
+          <p className="rui-table-demo__u-font-size-0-875rem--fc7473ca09 rui-table-demo__u-rui-text-opacity-1--2d6fbf48fa rui-table-demo__u-rui-text-opacity-1--cc0274aad9">Quick filter chips + search.</p>
         </div>
-        <div className="w-full max-w-lg">
+        <div className="rui-table-demo__u-width-100--6da6a3c3f7 rui-table-demo__u-max-width-32rem--6199866f61">
           <InputField
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search people or teams"
-            className="w-full"
+            className="rui-table-demo__u-width-100--6da6a3c3f7"
           />
         </div>
       </div>
-      <div className="mt-3 flex flex-wrap gap-2">
+      <div className="rui-table-demo__u-margin-top-0-75rem--eccd13ef4f rui-table-demo__u-display-flex--60fbb77139 rui-table-demo__u-flex-wrap-wrap--1eb5c6df38 rui-table-demo__u-gap-0-5rem--77a2a20e90">
         {filters.map((item) => (
           <button
             key={item}
             type="button"
             onClick={() => setFilter(item)}
-            className={twMerge(
-              "rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500 transition hover:-translate-y-[1px] hover:shadow-sm dark:text-slate-300",
+            className={clsx(
+              "rui-table-demo__u-border-radius-9999px--ac204c1088 rui-table-demo__u-border-width-1px--ca6bcd4b6f rui-table-demo__u-padding-left-0-75rem--0e17f2bd90 rui-table-demo__u-padding-top-0-25rem--660d2effb8 rui-table-demo__u-font-size-11px--d058ca6de6 rui-table-demo__u-font-weight-600--e83a7042bc rui-table-demo__u-text-transform-uppercase--117ec720ea rui-table-demo__u-letter-spacing-0-2em--2da1a7016e rui-table-demo__u-rui-text-opacity-1--30426eb75c rui-table-demo__u-transition-property-color-backgr--56bf8ae82a rui-table-demo__u-rui-translate-y-1px--2464a58ddc rui-table-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--ab1dd417ce rui-table-demo__u-rui-text-opacity-1--ca11017ff7",
               filter === item
-                ? "border-slate-400 bg-white shadow-sm dark:border-slate-600 dark:bg-slate-800"
-                : "border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-900"
+                ? "rui-table-demo__u-rui-border-opacity-1--6b0439773b rui-table-demo__u-rui-bg-opacity-1--5e10cdb8f1 rui-table-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-table-demo__u-rui-border-opacity-1--ba51e3e27c rui-table-demo__u-rui-bg-opacity-1--16ce49611c"
+                : "rui-table-demo__u-rui-border-opacity-1--52f4da2ca5 rui-table-demo__u-rui-bg-opacity-1--5e10cdb8f1 rui-table-demo__u-rui-border-opacity-1--30fb741464 rui-table-demo__u-rui-bg-opacity-1--f2a0c62312"
             )}
           >
             {item}
           </button>
         ))}
       </div>
-      <div className="mt-3">
+      <div className="rui-table-demo__u-margin-top-0-75rem--eccd13ef4f">
         <Table<MemberRow> columns={columns} data={filtered} caption="Workspace members" />
       </div>
-    </div>
+    </DemoExample>
   );
 }
 
@@ -196,9 +196,9 @@ const invoiceRows: InvoiceRow[] = [
 ];
 
 const invoiceTone: Record<InvoiceRow["status"], string> = {
-  Paid: "bg-emerald-500/90 text-white",
-  Pending: "bg-amber-400/90 text-slate-900",
-  Overdue: "bg-rose-500/90 text-white",
+  Paid: "rui-table-demo__u-background-color-rgb-16-185-129---5a31c1c8ef rui-table-demo__u-rui-text-opacity-1--72a4c7cdee",
+  Pending: "rui-table-demo__u-background-color-rgb-251-191-36---2d0a4f72fa rui-table-demo__u-rui-text-opacity-1--f5f136c41d",
+  Overdue: "rui-table-demo__u-background-color-rgb-244-63-94-0--9c84066f4b rui-table-demo__u-rui-text-opacity-1--72a4c7cdee",
 };
 
 function BillingTable() {
@@ -215,7 +215,7 @@ function BillingTable() {
       header: "Amount",
       align: "right",
       render: (value: number) => (
-        <span className="font-semibold text-slate-900 dark:text-slate-100">
+        <span className="rui-table-demo__u-font-weight-600--e83a7042bc rui-table-demo__u-rui-text-opacity-1--f5f136c41d rui-table-demo__u-rui-text-opacity-1--e1d41ccd69">
           ${value.toFixed(2)}
         </span>
       ),
@@ -225,9 +225,7 @@ function BillingTable() {
       key: "status",
       header: "Status",
       render: (value: InvoiceRow["status"]) => (
-        <span
-          className={`inline-flex items-center justify-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] ${invoiceTone[value]}`}
-        >
+        <span className={clsx("rui-table-demo__statusPill", invoiceTone[value])}>
           {value}
         </span>
       ),
@@ -235,13 +233,13 @@ function BillingTable() {
   ];
 
   return (
-    <div className="rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/70 overflow-hidden">
-      <div className="flex items-center justify-between gap-3">
+    <DemoExample
+      title="Billing"
+      className="rui-table-demo__u-border-radius-1-5rem--ea189a088a rui-table-demo__u-border-width-1px--ca6bcd4b6f rui-table-demo__u-rui-border-opacity-1--52f4da2ca5 rui-table-demo__u-background-color-rgb-255-255-255--6c21de570d rui-table-demo__u-padding-1rem--8e63407b5c rui-table-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-table-demo__u-rui-border-opacity-1--2072c87505 rui-table-demo__u-background-color-rgb-15-23-42-0---5212cbf15b rui-table-demo__u-overflow-hidden--2cd02d11d1"
+    >
+      <div className="rui-table-demo__u-display-flex--60fbb77139 rui-table-demo__u-align-items-center--3960ffc248 rui-table-demo__u-justify-content-space-between--8ef2268efb rui-table-demo__u-gap-0-75rem--1004c0c395">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-            Billing
-          </p>
-          <p className="text-sm text-slate-600 dark:text-slate-400">
+          <p className="rui-table-demo__u-font-size-0-875rem--fc7473ca09 rui-table-demo__u-rui-text-opacity-1--2d6fbf48fa rui-table-demo__u-rui-text-opacity-1--cc0274aad9">
             Zebra rows with amount column.
           </p>
         </div>
@@ -249,13 +247,13 @@ function BillingTable() {
           label="Open only"
           checked={onlyOpen}
           onChange={setOnlyOpen}
-          className="w-fit rounded-xl border border-slate-200 bg-white px-2 py-1 dark:border-zinc-700 dark:bg-zinc-900/70"
+          className="rui-table-demo__u-width-moz-fit-content--92e7450ad2 rui-table-demo__u-border-radius-0-75rem--a217b4eaa9 rui-table-demo__u-border-width-1px--ca6bcd4b6f rui-table-demo__u-rui-border-opacity-1--52f4da2ca5 rui-table-demo__u-rui-bg-opacity-1--5e10cdb8f1 rui-table-demo__u-padding-left-0-5rem--d5eab218aa rui-table-demo__u-padding-top-0-25rem--660d2effb8 rui-table-demo__u-rui-border-opacity-1--4e12bcf58d rui-table-demo__u-background-color-rgb-24-24-27-0---5cd2915a74"
         />
       </div>
-      <div className="mt-3">
+      <div className="rui-table-demo__u-margin-top-0-75rem--eccd13ef4f">
         <Table<InvoiceRow> columns={columns} data={rows} caption="Invoices" />
       </div>
-    </div>
+    </DemoExample>
   );
 }
 
@@ -351,16 +349,16 @@ function TicketsTable() {
   ];
 
   return (
-    <div className="rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/70 overflow-hidden">
-      <div className="flex items-center justify-between gap-3">
+    <DemoExample
+      title="Tickets"
+      className="rui-table-demo__u-border-radius-1-5rem--ea189a088a rui-table-demo__u-border-width-1px--ca6bcd4b6f rui-table-demo__u-rui-border-opacity-1--52f4da2ca5 rui-table-demo__u-background-color-rgb-255-255-255--6c21de570d rui-table-demo__u-padding-1rem--8e63407b5c rui-table-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-table-demo__u-rui-border-opacity-1--2072c87505 rui-table-demo__u-background-color-rgb-15-23-42-0---5212cbf15b rui-table-demo__u-overflow-hidden--2cd02d11d1"
+    >
+      <div className="rui-table-demo__u-display-flex--60fbb77139 rui-table-demo__u-align-items-center--3960ffc248 rui-table-demo__u-justify-content-space-between--8ef2268efb rui-table-demo__u-gap-0-75rem--1004c0c395">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-            Tickets
-          </p>
-          <p className="text-sm text-slate-600 dark:text-slate-400">Vertical overflow example.</p>
+          <p className="rui-table-demo__u-font-size-0-875rem--fc7473ca09 rui-table-demo__u-rui-text-opacity-1--2d6fbf48fa rui-table-demo__u-rui-text-opacity-1--cc0274aad9">Vertical overflow example.</p>
         </div>
       </div>
-      <div className="mt-3">
+      <div className="rui-table-demo__u-margin-top-0-75rem--eccd13ef4f">
         <Table<TicketRow>
           columns={columns}
           data={ticketRows}
@@ -368,7 +366,7 @@ function TicketsTable() {
           scrollAreaStyle={{ maxHeight: 320 }}
         />
       </div>
-    </div>
+    </DemoExample>
   );
 }
 
@@ -383,18 +381,18 @@ function TicketsTableDuplicate() {
   ];
 
   return (
-    <div className="rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/70 overflow-hidden">
-      <div className="flex items-center justify-between gap-3">
+    <DemoExample
+      title="Initiatives"
+      className="rui-table-demo__u-border-radius-1-5rem--ea189a088a rui-table-demo__u-border-width-1px--ca6bcd4b6f rui-table-demo__u-rui-border-opacity-1--52f4da2ca5 rui-table-demo__u-background-color-rgb-255-255-255--6c21de570d rui-table-demo__u-padding-1rem--8e63407b5c rui-table-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-table-demo__u-rui-border-opacity-1--2072c87505 rui-table-demo__u-background-color-rgb-15-23-42-0---5212cbf15b rui-table-demo__u-overflow-hidden--2cd02d11d1"
+    >
+      <div className="rui-table-demo__u-display-flex--60fbb77139 rui-table-demo__u-align-items-center--3960ffc248 rui-table-demo__u-justify-content-space-between--8ef2268efb rui-table-demo__u-gap-0-75rem--1004c0c395">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-            Initiatives
-          </p>
-          <p className="text-sm text-slate-600 dark:text-slate-400">
+          <p className="rui-table-demo__u-font-size-0-875rem--fc7473ca09 rui-table-demo__u-rui-text-opacity-1--2d6fbf48fa rui-table-demo__u-rui-text-opacity-1--cc0274aad9">
             Vertical + horizontal overflow example.
           </p>
         </div>
       </div>
-      <div className="mt-3">
+      <div className="rui-table-demo__u-margin-top-0-75rem--eccd13ef4f">
         <Table<TicketRow>
           columns={columns}
           data={ticketRowsWide}
@@ -402,7 +400,7 @@ function TicketsTableDuplicate() {
           scrollAreaStyle={{ maxHeight: 320 }}
         />
       </div>
-    </div>
+    </DemoExample>
   );
 }
 
@@ -413,13 +411,13 @@ const entry: ComponentRegistryEntry = {
   tags: ["data", "table"],
   Preview: function TablePreview() {
     return (
-      <div className="grid gap-4">
+      <div className="rui-table-demo__u-display-grid--f3c543ad5f rui-table-demo__u-gap-1rem--0c3bc98565">
         <ServiceTable />
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="rui-table-demo__u-display-grid--f3c543ad5f rui-table-demo__u-gap-1rem--0c3bc98565 rui-table-demo__u-grid-template-columns-repeat-2-m--e4d6f343b9">
           <MembersTable />
           <BillingTable />
         </div>
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="rui-table-demo__u-display-grid--f3c543ad5f rui-table-demo__u-gap-1rem--0c3bc98565 rui-table-demo__u-grid-template-columns-repeat-2-m--e4d6f343b9">
           <TicketsTable />
           <TicketsTableDuplicate />
         </div>

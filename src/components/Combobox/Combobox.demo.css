@@ -1,0 +1,44 @@
+@import "../../styles/tokens.css";
+
+.rui-combobox-demo__container {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .rui-combobox-demo__container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .rui-combobox-demo__card--span2 {
+    grid-column: span 2 / span 2;
+  }
+}
+
+.rui-combobox-demo__stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.rui-combobox-demo__combobox {
+  max-width: 28rem;
+}
+
+.rui-combobox-demo__selected {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--rui-color-text-muted);
+}
+
+.rui-combobox-demo__hint {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--rui-color-text-muted);
+}
+
+[data-theme="dark"] .rui-combobox-demo__hint {
+  color: var(--rui-color-text-muted);
+}

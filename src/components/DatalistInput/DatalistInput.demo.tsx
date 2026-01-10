@@ -1,6 +1,8 @@
 import { useMemo, useState } from "react";
 import { DatalistInput } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../../../demo/component-registry";
+import "./DatalistInput.demo.css";
+import { DemoExample } from "../../../demo/src/components/DemoExample";
 
 const commands = [
   "Open dashboard",
@@ -21,16 +23,16 @@ function CommandPalette() {
   );
 
   return (
-    <div className="rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
-      <div className="flex items-center justify-between">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-          Command palette
-        </p>
-        <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-slate-500 shadow-sm dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-300">
+    <DemoExample title="Command palette">
+      <div
+        className="rui-datalist-input-demo__u-display-flex--60fbb77139 rui-datalist-input-demo__u-align-items-center--3960ffc248"
+        style={{ justifyContent: "flex-end" }}
+      >
+        <span className="rui-datalist-input-demo__u-border-radius-9999px--ac204c1088 rui-datalist-input-demo__u-border-width-1px--ca6bcd4b6f rui-datalist-input-demo__u-border-color-rgb-226-232-240-1--52f4da2ca5 rui-datalist-input-demo__u-background-color-rgb-255-255-255--5e10cdb8f1 rui-datalist-input-demo__u-padding-left-0-75rem--0e17f2bd90 rui-datalist-input-demo__u-padding-top-0-25rem--660d2effb8 rui-datalist-input-demo__u-font-size-11px--d058ca6de6 rui-datalist-input-demo__u-font-weight-600--e83a7042bc rui-datalist-input-demo__u-text-transform-uppercase--117ec720ea rui-datalist-input-demo__u-letter-spacing-0-025em--8baf13a3e9 rui-datalist-input-demo__u-color-rgb-100-116-139-1--30426eb75c rui-datalist-input-demo__u-box-shadow-0-0-0000-0-0-0000-0-1--438b2237b8 rui-datalist-input-demo__u-border-color-rgb-51-65-85-1--30fb741464 rui-datalist-input-demo__u-background-color-rgb-15-23-42-0---5212cbf15b rui-datalist-input-demo__u-color-rgb-203-213-225-1--ca11017ff7">
           Custom popover
         </span>
       </div>
-      <div className="mt-3 space-y-3">
+      <div className="rui-datalist-input-demo__u-margin-top-0-75rem--eccd13ef4f rui-datalist-input-demo__u-style--6ed543e2fb">
         <DatalistInput
           label="Search actions"
           placeholder="Type to filter commands"
@@ -39,15 +41,15 @@ function CommandPalette() {
           onChange={(e) => setQuery(e.target.value)}
           description="Custom suggestions popover that matches the gallery styling."
         />
-        <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50/80 p-3 text-sm text-slate-600 dark:border-slate-800 dark:bg-slate-950/60 dark:text-slate-300">
+        <div className="rui-datalist-input-demo__u-border-radius-1rem--68f2db624d rui-datalist-input-demo__u-border-width-1px--ca6bcd4b6f rui-datalist-input-demo__u-border-style-dashed--a29b7a649c rui-datalist-input-demo__u-border-color-rgb-226-232-240-1--52f4da2ca5 rui-datalist-input-demo__u-background-color-rgb-248-250-252--2579b25ad0 rui-datalist-input-demo__u-padding-0-75rem--eb6e8b881a rui-datalist-input-demo__u-font-size-0-875rem--fc7473ca09 rui-datalist-input-demo__u-color-rgb-71-85-105-1--2d6fbf48fa rui-datalist-input-demo__u-border-color-rgb-30-41-59-1--2072c87505 rui-datalist-input-demo__u-background-color-rgb-2-6-23-0-6--ddf84eea43 rui-datalist-input-demo__u-color-rgb-203-213-225-1--ca11017ff7">
           {matched.length ? (
-            <ul className="space-y-1">
+            <ul className="rui-datalist-input-demo__u-style--da7c36cd88">
               {matched.map((item) => (
-                <li key={item} className="flex items-center gap-2">
-                  <span className="text-[10px] uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">
+                <li key={item} className="rui-datalist-input-demo__u-display-flex--60fbb77139 rui-datalist-input-demo__u-align-items-center--3960ffc248 rui-datalist-input-demo__u-gap-0-5rem--77a2a20e90">
+                  <span className="rui-datalist-input-demo__u-font-size-10px--1dc571a360 rui-datalist-input-demo__u-text-transform-uppercase--117ec720ea rui-datalist-input-demo__u-letter-spacing-0-2em--2da1a7016e rui-datalist-input-demo__u-color-rgb-148-163-184-1--8d44cef396 rui-datalist-input-demo__u-color-rgb-100-116-139-1--15b16954d1">
                     cmd
                   </span>
-                  <span className="font-semibold text-slate-900 dark:text-slate-100">{item}</span>
+                  <span className="rui-datalist-input-demo__u-font-weight-600--e83a7042bc rui-datalist-input-demo__u-color-rgb-15-23-42-1--f5f136c41d rui-datalist-input-demo__u-color-rgb-241-245-249-1--e1d41ccd69">{item}</span>
                 </li>
               ))}
             </ul>
@@ -56,7 +58,7 @@ function CommandPalette() {
           )}
         </div>
       </div>
-    </div>
+    </DemoExample>
   );
 }
 

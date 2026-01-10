@@ -1,5 +1,4 @@
 import * as React from "react";
-import { twMerge } from "tailwind-merge";
 import { Dropdown } from "../Dropdown/Dropdown";
 import { Popover } from "../Popover/Popover";
 import { Calendar, Clock } from "../Combobox/icons";
@@ -7,6 +6,8 @@ import { useOutsideClick } from "../Combobox/hooks";
 import { Select, type SelectOption } from "../Select/Select";
 import Button from "../Button/Button";
 import { assignRef } from "../../utils/ref";
+import clsx from "clsx";
+import "./DatePicker.css";
 
 export type DatePickerProps = {
   label?: string;
@@ -197,8 +198,7 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
     return opts;
   }, [clampInterval, formatTimeLabel]);
 
-  const highlightBorder =
-    "border-slate-400 shadow-[0_0_0_1px_rgba(148,163,184,0.45)] dark:border-slate-500";
+  const highlightBorder = "rui-date-picker__highlightBorder";
 
   const monthNames = React.useMemo(
     () => ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
@@ -307,8 +307,8 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
         disabled={disabled}
         className={className}
         leadingContent={
-          <span className="pointer-events-none rounded-xl bg-slate-100 px-2 py-1 shadow-inner dark:bg-zinc-800/70">
-            <Clock className="h-4 w-4 text-slate-500 dark:text-zinc-300" />
+          <span className="rui-date-picker__u-pointer-events-none--a4326536b8 rui-date-picker__u-border-radius-0-75rem--a217b4eaa9 rui-date-picker__u-background-color-rgb-241-245-249--34d54ab9e5 rui-date-picker__u-padding-left-0-5rem--d5eab218aa rui-date-picker__u-padding-top-0-25rem--660d2effb8 rui-date-picker__u-box-shadow-0-0-0000-0-0-0000-ins--eca5782b24 rui-date-picker__u-background-color-rgb-39-39-42-0---b37a7836e7">
+            <Clock className="rui-date-picker__u-height-1rem--11e59c6d5f rui-date-picker__u-width-1rem--dc7972ebf3 rui-date-picker__u-color-rgb-100-116-139-1--30426eb75c rui-date-picker__u-color-rgb-212-212-216-1--5b8efd1d78" />
           </span>
         }
       />
@@ -316,14 +316,14 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
   }
 
   return (
-    <div className="space-y-1.5">
+    <div className="rui-date-picker__u-style--5a2508227c">
       {label ? (
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-zinc-400">
+        <p className="rui-date-picker__u-font-size-0-75rem--359090c2d5 rui-date-picker__u-font-weight-600--e83a7042bc rui-date-picker__u-text-transform-uppercase--117ec720ea rui-date-picker__u-letter-spacing-0-2em--2da1a7016e rui-date-picker__u-color-rgb-100-116-139-1--30426eb75c rui-date-picker__u-color-rgb-161-161-170-1--6462b86910">
           {label}
         </p>
       ) : null}
 
-      <div className="relative">
+      <div className="rui-date-picker__u-position-relative--d89972fe17">
         <Dropdown
           ref={dropdownRef}
           isOpen={open}
@@ -331,15 +331,15 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
           placeholder=""
           displayValue={displayLabel}
           query={displayLabel}
-          className="w-full"
-          inputClassName={twMerge("min-w-0 font-semibold", className)}
-          shellClassName={twMerge(
+          className="rui-date-picker__u-width-100--6da6a3c3f7"
+          inputClassName={clsx("rui-date-picker__u-min-width-0px--7e0b7cdf1a rui-date-picker__u-font-weight-600--e83a7042bc", className)}
+          shellClassName={clsx(
             error &&
-              "border-rose-300 focus-within:border-rose-400 focus-within:shadow-[0_0_0_1px_rgba(248,113,113,0.35)] dark:border-rose-500/60"
+              "rui-date-picker__u-border-color-rgb-253-164-175-1--3b7f978155 rui-date-picker__u-border-color-rgb-251-113-133-1--6fe003501e rui-date-picker__u-box-shadow-0-0-0000-0-0-0000-0-0--633a78b9cd rui-date-picker__u-border-color-rgb-244-63-94-0-6--99963c86d9"
           )}
           leadingContent={
-            <span className="pointer-events-none rounded-xl bg-slate-100 px-2 py-1 shadow-inner dark:bg-zinc-800/70">
-              <Calendar className="h-4 w-4 text-slate-500 dark:text-zinc-300" />
+            <span className="rui-date-picker__u-pointer-events-none--a4326536b8 rui-date-picker__u-border-radius-0-75rem--a217b4eaa9 rui-date-picker__u-background-color-rgb-241-245-249--34d54ab9e5 rui-date-picker__u-padding-left-0-5rem--d5eab218aa rui-date-picker__u-padding-top-0-25rem--660d2effb8 rui-date-picker__u-box-shadow-0-0-0000-0-0-0000-ins--eca5782b24 rui-date-picker__u-background-color-rgb-39-39-42-0---b37a7836e7">
+              <Calendar className="rui-date-picker__u-height-1rem--11e59c6d5f rui-date-picker__u-width-1rem--dc7972ebf3 rui-date-picker__u-color-rgb-100-116-139-1--30426eb75c rui-date-picker__u-color-rgb-212-212-216-1--5b8efd1d78" />
             </span>
           }
           highlightClass={highlightBorder}
@@ -387,26 +387,26 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
           }}
         >
           {open && (
-            <Popover className={twMerge("p-3", highlightBorder)}>
+            <Popover className={clsx("rui-date-picker__u-padding-0-75rem--eb6e8b881a", highlightBorder)}>
               {() => (
-                <div className="space-y-3" id={popoverId}>
-                  <div className="flex items-center justify-between text-sm text-slate-600 dark:text-zinc-300">
+                <div className="rui-date-picker__u-style--6ed543e2fb" id={popoverId}>
+                  <div className="rui-date-picker__u-display-flex--60fbb77139 rui-date-picker__u-align-items-center--3960ffc248 rui-date-picker__u-justify-content-space-between--8ef2268efb rui-date-picker__u-font-size-0-875rem--fc7473ca09 rui-date-picker__u-color-rgb-71-85-105-1--2d6fbf48fa rui-date-picker__u-color-rgb-212-212-216-1--5b8efd1d78">
                     <Button
                       type="button"
                       onClick={goPrev}
-                      className="h-8 w-8 min-w-0 rounded-xl border border-slate-200 bg-white p-0 text-sm font-semibold text-slate-700 shadow-sm dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
+                      className="rui-date-picker__u-height-2rem--ed8a5df7b2 rui-date-picker__u-width-2rem--2bbcfc3b51 rui-date-picker__u-min-width-0px--7e0b7cdf1a rui-date-picker__u-border-radius-0-75rem--a217b4eaa9 rui-date-picker__u-border-width-1px--ca6bcd4b6f rui-date-picker__u-border-color-rgb-226-232-240-1--52f4da2ca5 rui-date-picker__u-background-color-rgb-255-255-255--5e10cdb8f1 rui-date-picker__u-padding-0px--8a539c7fe2 rui-date-picker__u-font-size-0-875rem--fc7473ca09 rui-date-picker__u-font-weight-600--e83a7042bc rui-date-picker__u-color-rgb-51-65-85-1--bcbca7a5be rui-date-picker__u-box-shadow-0-0-0000-0-0-0000-0-1--438b2237b8 rui-date-picker__u-border-color-rgb-63-63-70-1--4e12bcf58d rui-date-picker__u-background-color-rgb-24-24-27-1--6319578a41 rui-date-picker__u-color-rgb-244-244-245-1--3ddc1cab99"
                     >
                       <span style={{ transform: "translateY(-1.5px)" }}>{"<"}</span>
                     </Button>
                     {viewMode === "year" ? (
-                      <span className="font-semibold text-slate-900 dark:text-zinc-100">
+                      <span className="rui-date-picker__header-title">
                         {headerLabel}
                       </span>
                     ) : (
                       <button
                         type="button"
                         onClick={() => setViewMode((prev) => (prev === "day" ? "month" : "year"))}
-                        className="font-semibold text-slate-900 transition hover:underline dark:text-zinc-100"
+                        className="rui-date-picker__header-title rui-date-picker__header-title-button"
                       >
                         {headerLabel}
                       </button>
@@ -414,7 +414,7 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
                     <Button
                       type="button"
                       onClick={goNext}
-                      className="h-8 w-8 min-w-0 rounded-xl border border-slate-200 bg-white p-0 text-sm font-semibold text-slate-700 shadow-sm dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
+                      className="rui-date-picker__u-height-2rem--ed8a5df7b2 rui-date-picker__u-width-2rem--2bbcfc3b51 rui-date-picker__u-min-width-0px--7e0b7cdf1a rui-date-picker__u-border-radius-0-75rem--a217b4eaa9 rui-date-picker__u-border-width-1px--ca6bcd4b6f rui-date-picker__u-border-color-rgb-226-232-240-1--52f4da2ca5 rui-date-picker__u-background-color-rgb-255-255-255--5e10cdb8f1 rui-date-picker__u-padding-0px--8a539c7fe2 rui-date-picker__u-font-size-0-875rem--fc7473ca09 rui-date-picker__u-font-weight-600--e83a7042bc rui-date-picker__u-color-rgb-51-65-85-1--bcbca7a5be rui-date-picker__u-box-shadow-0-0-0000-0-0-0000-0-1--438b2237b8 rui-date-picker__u-border-color-rgb-63-63-70-1--4e12bcf58d rui-date-picker__u-background-color-rgb-24-24-27-1--6319578a41 rui-date-picker__u-color-rgb-244-244-245-1--3ddc1cab99"
                     >
                       <span style={{ transform: "translateY(-1.5px)" }}>{">"}</span>
                     </Button>
@@ -422,12 +422,12 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
 
                   {viewMode === "day" ? (
                     <>
-                      <div className="grid grid-cols-7 gap-1 text-center text-[11px] uppercase tracking-[0.2em] text-slate-400 dark:text-zinc-500">
+                      <div className="rui-date-picker__u-display-grid--f3c543ad5f rui-date-picker__u-grid-template-columns-repeat-7-m--67d5ae4238 rui-date-picker__u-gap-0-25rem--44ee8ba0a4 rui-date-picker__u-text-align-center--ca6bf63030 rui-date-picker__u-font-size-11px--d058ca6de6 rui-date-picker__u-font-weight-600--e83a7042bc rui-date-picker__u-text-transform-uppercase--117ec720ea rui-date-picker__u-letter-spacing-0-2em--2da1a7016e rui-date-picker__u-color-rgb-148-163-184-1--8d44cef396 rui-date-picker__u-color-rgb-113-113-122-1--28db7d8770">
                         {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((d) => (
                           <span key={d}>{d}</span>
                         ))}
                       </div>
-                      <div className="grid grid-cols-7 gap-1">
+                      <div className="rui-date-picker__u-display-grid--f3c543ad5f rui-date-picker__u-grid-template-columns-repeat-7-m--67d5ae4238 rui-date-picker__u-gap-0-25rem--44ee8ba0a4">
                         {getMonthDays(month.year, month.month).map((cell, idx) => {
                           const isSelected = cell.date === current;
                           return (
@@ -439,11 +439,10 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
                                 if (!cell.date) return;
                                 commit(cell.date);
                               }}
-                              className={twMerge(
-                                "h-9 rounded-xl text-sm font-semibold text-slate-700 transition hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400/70 dark:text-zinc-200 dark:hover:bg-zinc-800",
-                                isSelected &&
-                                  "bg-slate-200 text-slate-900 ring-1 ring-slate-400/70 shadow-sm dark:bg-zinc-800 dark:hover:bg-zinc-700/80 dark:text-zinc-100 dark:ring-zinc-500/70",
-                                !cell.date && "opacity-30"
+                              className={clsx(
+                                "rui-date-picker__day",
+                                isSelected && "is-selected",
+                                !cell.date && "is-empty"
                               )}
                             >
                               {cell.day ?? ""}
@@ -453,7 +452,7 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
                       </div>
                     </>
                   ) : viewMode === "month" ? (
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="rui-date-picker__u-display-grid--f3c543ad5f rui-date-picker__u-grid-template-columns-repeat-3-m--be2e831be5 rui-date-picker__u-gap-0-5rem--77a2a20e90">
                       {monthNames.map((name, idx) => {
                         const isSelected =
                           parsedDate?.getFullYear() === month.year &&
@@ -466,10 +465,9 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
                               setMonth((prev) => ({ ...prev, month: idx }));
                               setViewMode("day");
                             }}
-                            className={twMerge(
-                              "h-10 rounded-xl border border-slate-200 bg-white text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-[1px] hover:shadow-md dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100",
-                              isSelected &&
-                                "border-slate-400 bg-slate-100 dark:border-slate-500 dark:bg-zinc-800"
+                            className={clsx(
+                              "rui-date-picker__tile",
+                              isSelected && "is-selected"
                             )}
                           >
                             {name}
@@ -478,7 +476,7 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
                       })}
                     </div>
                   ) : (
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="rui-date-picker__u-display-grid--f3c543ad5f rui-date-picker__u-grid-template-columns-repeat-3-m--be2e831be5 rui-date-picker__u-gap-0-5rem--77a2a20e90">
                       {Array.from({ length: 12 }, (_, i) => rangeStart + i).map((yr) => {
                         const isSelected = parsedDate?.getFullYear() === yr;
                         return (
@@ -489,10 +487,9 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
                               setMonth((prev) => ({ ...prev, year: yr }));
                               setViewMode("month");
                             }}
-                            className={twMerge(
-                              "h-10 rounded-xl border border-slate-200 bg-white text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-[1px] hover:shadow-md dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100",
-                              isSelected &&
-                                "border-slate-400 bg-slate-100 dark:border-slate-500 dark:bg-zinc-800"
+                            className={clsx(
+                              "rui-date-picker__tile",
+                              isSelected && "is-selected"
                             )}
                           >
                             {yr}
@@ -509,10 +506,10 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
       </div>
 
       {description ? (
-        <p className="text-xs text-slate-500 dark:text-zinc-400">{description}</p>
+        <p className="rui-date-picker__u-font-size-0-75rem--359090c2d5 rui-date-picker__u-color-rgb-100-116-139-1--30426eb75c rui-date-picker__u-color-rgb-161-161-170-1--6462b86910">{description}</p>
       ) : null}
       {error ? (
-        <p className="text-xs font-medium text-rose-500 dark:text-rose-400">{error}</p>
+        <p className="rui-date-picker__u-font-size-0-75rem--359090c2d5 rui-date-picker__u-font-weight-600--e83a7042bc rui-date-picker__u-color-rgb-244-63-94-1--fa51279820 rui-date-picker__u-color-rgb-251-113-133-1--897de47303">{error}</p>
       ) : null}
     </div>
   );

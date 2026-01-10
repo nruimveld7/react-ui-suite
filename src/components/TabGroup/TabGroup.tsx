@@ -1,6 +1,6 @@
 import * as React from "react";
-import { twMerge } from "tailwind-merge";
-
+import clsx from "clsx";
+import "./TabGroup.css";
 export type TabGroupItem = {
   id: string;
   label: React.ReactNode;
@@ -112,21 +112,20 @@ const TabGroup = React.forwardRef<HTMLDivElement, TabGroupProps>(function TabGro
   const ariaLabel = rest["aria-label"];
   const ariaLabelledBy = rest["aria-labelledby"];
 
-  const containerClasses = twMerge(
-    "flex flex-col gap-4 rounded-3xl border border-slate-200 bg-white/80 p-4 shadow-xl shadow-slate-200/40 dark:border-zinc-800 dark:bg-zinc-900/70 dark:shadow-none",
-    vertical && "md:flex-row",
+  const containerClasses = clsx(
+    "rui-tab-group__u-display-flex--60fbb77139 rui-tab-group__u-flex-direction-column--8dddea0773 rui-tab-group__u-gap-1rem--0c3bc98565 rui-tab-group__u-border-radius-1-5rem--ea189a088a rui-tab-group__u-border-width-1px--ca6bcd4b6f rui-tab-group__u-rui-border-opacity-1--52f4da2ca5 rui-tab-group__u-background-color-rgb-255-255-255--845918557e rui-tab-group__u-padding-1rem--8e63407b5c rui-tab-group__u-rui-shadow-0-20px-25px-5px-rgb-0--a739868a85 rui-tab-group__u-rui-shadow-color-rgb-226-232-240--766950d8cd rui-tab-group__u-rui-border-opacity-1--139f099dfa rui-tab-group__u-background-color-rgb-24-24-27-0---5cd2915a74 rui-tab-group__u-rui-shadow-0-0-0000--2ac3c2fc68",
+    vertical && "rui-tab-group__u-flex-direction-row--4102dddfda",
     className
   );
 
-  const tabListContainerClasses = twMerge(
-    "rounded-2xl border border-slate-200 bg-white/70 p-2 dark:border-zinc-800 dark:bg-zinc-950/50",
-    vertical ? "md:w-72" : ""
+  const tabListContainerClasses = clsx(
+    "rui-tab-group__u-border-radius-1rem--68f2db624d rui-tab-group__u-border-width-1px--ca6bcd4b6f rui-tab-group__u-rui-border-opacity-1--52f4da2ca5 rui-tab-group__u-background-color-rgb-255-255-255--b0b66d884b rui-tab-group__u-padding-0-5rem--7660b45090 rui-tab-group__u-rui-border-opacity-1--139f099dfa rui-tab-group__u-background-color-rgb-9-9-11-0-5--1dc8f87e5f",
+    vertical ? "rui-tab-group__u-width-18rem--8be8f98900" : ""
   );
 
-  const tabListClasses = twMerge("flex gap-1", vertical ? "flex-col" : "flex-row");
-  const panelWrapperClasses = twMerge("flex-1", vertical ? "md:flex-1" : "w-full");
-  const panelBaseClasses =
-    "rounded-2xl border border-slate-100 bg-white/90 p-4 text-sm text-slate-600 shadow-inner shadow-slate-200/40 dark:border-zinc-800 dark:bg-zinc-950/40 dark:text-zinc-200";
+  const tabListClasses = clsx("rui-tab-group__u-display-flex--60fbb77139", vertical ? "rui-tab-group__u-flex-direction-column--8dddea0773" : "rui-tab-group__u-flex-direction-row--a6e88615d7");
+  const panelWrapperClasses = clsx("rui-tab-group__u-flex-1-1-0--36e579c0b4", vertical ? "rui-tab-group__u-flex-1-1-0--9ee45fc97f" : "rui-tab-group__u-width-100--6da6a3c3f7");
+  const panelBaseClasses = "rui-tab-group__panel";
 
   return (
     <div {...rest} ref={ref} className={containerClasses} data-orientation={orientation}>
@@ -142,12 +141,12 @@ const TabGroup = React.forwardRef<HTMLDivElement, TabGroupProps>(function TabGro
             const tabIsActive = tab.id === activeId;
             const buttonId = `${baseId}-tab-${tab.id}`;
             const panelId = `${baseId}-panel-${tab.id}`;
-            const buttonClasses = twMerge(
-              "flex flex-col gap-1 rounded-xl px-4 py-2 text-sm font-semibold text-slate-500 transition hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:text-zinc-400 dark:hover:text-zinc-100 dark:focus-visible:ring-offset-zinc-900",
-              vertical ? "w-full items-start text-left" : "flex-1 items-center text-center",
+            const buttonClasses = clsx(
+              "rui-tab-group__u-display-flex--60fbb77139 rui-tab-group__u-flex-direction-column--8dddea0773 rui-tab-group__u-gap-0-25rem--44ee8ba0a4 rui-tab-group__u-border-radius-0-75rem--a217b4eaa9 rui-tab-group__u-padding-left-1rem--f0faeb26d6 rui-tab-group__u-padding-top-0-5rem--03b4dd7f17 rui-tab-group__u-font-size-0-875rem--fc7473ca09 rui-tab-group__u-font-weight-600--e83a7042bc rui-tab-group__u-rui-text-opacity-1--30426eb75c rui-tab-group__u-transition-property-color-backgr--56bf8ae82a rui-tab-group__u-rui-text-opacity-1--82ef9d210c rui-tab-group__u-outline-2px-solid-transparent--f10f771f87 rui-tab-group__u-rui-ring-offset-shadow-var-rui-r--793c80e97f rui-tab-group__u-rui-ring-opacity-1--1e73de7dbd rui-tab-group__u-rui-ring-offset-width-2px--0c4687c16c rui-tab-group__u-rui-ring-offset-color-fff--cccba99ae0 rui-tab-group__u-rui-text-opacity-1--6462b86910 rui-tab-group__u-rui-text-opacity-1--b08882541b rui-tab-group__u-rui-ring-offset-color-18181b--900e4559ba",
+              vertical ? "rui-tab-group__u-width-100--6da6a3c3f7 rui-tab-group__u-align-items-flex-start--60541e1e26 rui-tab-group__u-text-align-left--2eba0d65d0" : "rui-tab-group__u-flex-1-1-0--36e579c0b4 rui-tab-group__u-align-items-center--3960ffc248 rui-tab-group__u-text-align-center--ca6bf63030",
               tabIsActive &&
-                "bg-white text-slate-900 shadow shadow-slate-200/50 dark:bg-zinc-900 dark:text-zinc-50",
-              tab.disabled && "cursor-not-allowed opacity-40"
+                "rui-tab-group__u-rui-bg-opacity-1--5e10cdb8f1 rui-tab-group__u-rui-text-opacity-1--f5f136c41d rui-tab-group__u-rui-shadow-0-1px-3px-0-rgb-0-0-0--ed9d3d832a rui-tab-group__u-rui-shadow-color-rgb-226-232-240--a2af19db46 rui-tab-group__u-rui-bg-opacity-1--6319578a41 rui-tab-group__u-rui-text-opacity-1--f28dd6eba7",
+              tab.disabled && "rui-tab-group__u-cursor-not-allowed--29b733e4c1 rui-tab-group__u-opacity-0-4--2a2db4667b"
             );
 
             return (
@@ -167,7 +166,7 @@ const TabGroup = React.forwardRef<HTMLDivElement, TabGroupProps>(function TabGro
               >
                 <span>{tab.label}</span>
                 {tab.description ? (
-                  <span className="text-xs font-normal text-slate-500 dark:text-zinc-400">
+                  <span className="rui-tab-group__u-font-size-0-75rem--359090c2d5 rui-tab-group__u-font-weight-400--8ecebc9f80 rui-tab-group__u-rui-text-opacity-1--30426eb75c rui-tab-group__u-rui-text-opacity-1--6462b86910">
                     {tab.description}
                   </span>
                 ) : null}
@@ -190,7 +189,7 @@ const TabGroup = React.forwardRef<HTMLDivElement, TabGroupProps>(function TabGro
                 id={panelId}
                 aria-labelledby={buttonId}
                 hidden={!tabIsActive}
-                className={twMerge(panelBaseClasses, !tabIsActive && "hidden")}
+                className={clsx(panelBaseClasses, !tabIsActive && "rui-tab-group__u-display-none--99d72c7fc3")}
               >
                 {tab.content}
               </div>
@@ -198,7 +197,7 @@ const TabGroup = React.forwardRef<HTMLDivElement, TabGroupProps>(function TabGro
           })
         ) : (
           <div className={panelBaseClasses}>
-            <p className="text-sm text-slate-500 dark:text-zinc-400">No tabs to display.</p>
+            <p className="rui-tab-group__u-font-size-0-875rem--fc7473ca09 rui-tab-group__u-rui-text-opacity-1--30426eb75c rui-tab-group__u-rui-text-opacity-1--6462b86910">No tabs to display.</p>
           </div>
         )}
       </div>

@@ -11,14 +11,14 @@ describe("OutputChip", () => {
     );
 
     const chip = screen.getByText("Ready").closest("output");
-    expect(chip).toHaveClass("bg-emerald-500", { exact: false });
+    expect(chip).toHaveClass("rui-output-chip__u-background-color-rgb-16-185-129---1d40adc8f0");
     expect(screen.getByText("Status")).toBeInTheDocument();
   });
 
   it("defaults to the neutral tone", () => {
     const { container } = render(<OutputChip>Value</OutputChip>);
     const chip = container.querySelector("output");
-    expect(chip).toHaveClass("bg-slate-900", { exact: false });
+    expect(chip).toHaveClass("rui-output-chip__u-background-color-rgb-15-23-42-1--15821c2ff2");
   });
 });
 

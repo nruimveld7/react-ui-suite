@@ -2,6 +2,8 @@ import { useId, useState } from "react";
 import { Toggle } from "react-ui-suite";
 import type { ToggleProps } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../../../demo/component-registry";
+import "./Toggle.demo.css";
+import { DemoExample } from "../../../demo/src/components/DemoExample";
 
 type ToggleFieldProps = {
   title: string;
@@ -16,13 +18,13 @@ function ToggleField({ title, description, checked, onChange, disabled }: Toggle
   const descriptionId = useId();
 
   return (
-    <div className="flex items-center justify-between gap-6 rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
+    <div className="rui-toggle-demo__u-display-flex--60fbb77139 rui-toggle-demo__u-align-items-center--3960ffc248 rui-toggle-demo__u-justify-content-space-between--8ef2268efb rui-toggle-demo__u-gap-1-5rem--0d304f904c rui-toggle-demo__u-border-radius-1rem--68f2db624d rui-toggle-demo__u-border-width-1px--ca6bcd4b6f rui-toggle-demo__u-rui-border-opacity-1--52f4da2ca5 rui-toggle-demo__u-background-color-rgb-255-255-255--6c21de570d rui-toggle-demo__u-padding-left-1rem--f0faeb26d6 rui-toggle-demo__u-padding-top-0-75rem--1b2d54a3fd rui-toggle-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-toggle-demo__u-rui-border-opacity-1--2072c87505 rui-toggle-demo__u-background-color-rgb-15-23-42-0---5212cbf15b">
       <div>
-        <p id={labelId} className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+        <p id={labelId} className="rui-toggle-demo__u-font-size-0-875rem--fc7473ca09 rui-toggle-demo__u-font-weight-600--e83a7042bc rui-toggle-demo__u-rui-text-opacity-1--f5f136c41d rui-toggle-demo__u-rui-text-opacity-1--e1d41ccd69">
           {title}
         </p>
         {description ? (
-          <p id={descriptionId} className="text-xs text-slate-500 dark:text-slate-400">
+          <p id={descriptionId} className="rui-toggle-demo__u-font-size-0-75rem--359090c2d5 rui-toggle-demo__u-rui-text-opacity-1--30426eb75c rui-toggle-demo__u-rui-text-opacity-1--cc0274aad9">
             {description}
           </p>
         ) : null}
@@ -44,7 +46,7 @@ function ToggleSettingsPanel() {
   const [marketing, setMarketing] = useState(false);
 
   return (
-    <div className="space-y-3">
+    <div className="rui-toggle-demo__u-style--6ed543e2fb">
       <ToggleField
         title="Notifications"
         description="Push me when someone mentions my handle."
@@ -64,7 +66,7 @@ function ToggleSettingsPanel() {
 function ControlledToggleExample() {
   const [enabled, setEnabled] = useState(true);
   return (
-    <div className="flex flex-col items-center gap-2 text-center text-sm text-slate-600 dark:text-slate-300">
+    <div className="rui-toggle-demo__u-display-flex--60fbb77139 rui-toggle-demo__u-flex-direction-column--8dddea0773 rui-toggle-demo__u-align-items-center--3960ffc248 rui-toggle-demo__u-gap-0-5rem--77a2a20e90 rui-toggle-demo__u-text-align-center--ca6bf63030 rui-toggle-demo__u-font-size-0-875rem--fc7473ca09 rui-toggle-demo__u-rui-text-opacity-1--2d6fbf48fa rui-toggle-demo__u-rui-text-opacity-1--ca11017ff7">
       <Toggle checked={enabled} onChange={setEnabled} aria-label="Enable integrations" />
       <span>{enabled ? "Integrations enabled" : "Integrations disabled"}</span>
     </div>
@@ -78,43 +80,46 @@ function AccentToggleExample() {
       checked={value}
       onChange={setValue}
       aria-label="Accent toggle"
-      className="border-cyan-400/70 bg-cyan-500/80 data-[state=off]:border-cyan-800 data-[state=off]:bg-cyan-950/70 data-[state=on]:shadow-[0_0_20px_rgba(34,211,238,0.5)] dark:border-cyan-300/80 dark:bg-cyan-500/60 dark:data-[state=off]:border-cyan-950/80 dark:data-[state=off]:bg-cyan-950/70 dark:data-[state=on]:shadow-[0_0_32px_rgba(34,211,238,0.8)]"
+      className="rui-toggle-demo__u-border-color-rgb-34-211-238-0-7--cfded47aa0 rui-toggle-demo__u-background-color-rgb-6-182-212-0--8b05b6eac3 rui-toggle-demo__u-style--5f1b969c93 rui-toggle-demo__u-style--44d8b39dc4 rui-toggle-demo__u-style--9f264d8e07 rui-toggle-demo__u-border-color-rgb-103-232-249-0-8--e18226057a rui-toggle-demo__u-background-color-rgb-6-182-212-0--c3a2148ab8 rui-toggle-demo__u-style--6609646bd7 rui-toggle-demo__u-style--ea1f48bbfa rui-toggle-demo__u-style--1d1cf22aab"
     />
   );
 }
 
 function DisabledToggleExample() {
-  return <Toggle defaultChecked disabled aria-label="Disabled toggle" className="opacity-70" />;
+  return <Toggle defaultChecked disabled aria-label="Disabled toggle" className="rui-toggle-demo__u-opacity-0-7--0c67ca474a" />;
 }
 
 function TogglePreview() {
   return (
-    <div className="space-y-4">
-      <div className="rounded-3xl border border-slate-200 bg-white/80 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
+    <div className="rui-toggle-demo__u-style--3e7ce58d64">
+      <DemoExample
+        title="Settings"
+        className="rui-toggle-demo__u-border-radius-1-5rem--ea189a088a rui-toggle-demo__u-border-width-1px--ca6bcd4b6f rui-toggle-demo__u-rui-border-opacity-1--52f4da2ca5 rui-toggle-demo__u-background-color-rgb-255-255-255--845918557e rui-toggle-demo__u-padding-1rem--8e63407b5c rui-toggle-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-toggle-demo__u-rui-border-opacity-1--2072c87505 rui-toggle-demo__u-background-color-rgb-15-23-42-0---5212cbf15b"
+      >
         <ToggleSettingsPanel />
-      </div>
-      <div className="grid gap-4 md:grid-cols-3">
-        <div className="flex flex-col items-center gap-3 rounded-3xl border border-slate-200 bg-white/80 p-4 text-center shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-            Controlled state
-          </p>
+      </DemoExample>
+      <div className="rui-toggle-demo__u-display-grid--f3c543ad5f rui-toggle-demo__u-gap-1rem--0c3bc98565 rui-toggle-demo__u-grid-template-columns-repeat-3-m--9a638cfe82">
+        <DemoExample
+          title="Controlled state"
+          className="rui-toggle-demo__u-display-flex--60fbb77139 rui-toggle-demo__u-flex-direction-column--8dddea0773 rui-toggle-demo__u-align-items-center--3960ffc248 rui-toggle-demo__u-gap-0-75rem--1004c0c395 rui-toggle-demo__u-border-radius-1-5rem--ea189a088a rui-toggle-demo__u-border-width-1px--ca6bcd4b6f rui-toggle-demo__u-rui-border-opacity-1--52f4da2ca5 rui-toggle-demo__u-background-color-rgb-255-255-255--845918557e rui-toggle-demo__u-padding-1rem--8e63407b5c rui-toggle-demo__u-text-align-center--ca6bf63030 rui-toggle-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-toggle-demo__u-rui-border-opacity-1--2072c87505 rui-toggle-demo__u-background-color-rgb-15-23-42-0---5212cbf15b"
+        >
           <ControlledToggleExample />
-        </div>
-        <div className="flex flex-col items-center gap-3 rounded-3xl border border-slate-200 bg-white/80 p-4 text-center shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-            Accent styling
-          </p>
+        </DemoExample>
+        <DemoExample
+          title="Accent styling"
+          className="rui-toggle-demo__u-display-flex--60fbb77139 rui-toggle-demo__u-flex-direction-column--8dddea0773 rui-toggle-demo__u-align-items-center--3960ffc248 rui-toggle-demo__u-gap-0-75rem--1004c0c395 rui-toggle-demo__u-border-radius-1-5rem--ea189a088a rui-toggle-demo__u-border-width-1px--ca6bcd4b6f rui-toggle-demo__u-rui-border-opacity-1--52f4da2ca5 rui-toggle-demo__u-background-color-rgb-255-255-255--845918557e rui-toggle-demo__u-padding-1rem--8e63407b5c rui-toggle-demo__u-text-align-center--ca6bf63030 rui-toggle-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-toggle-demo__u-rui-border-opacity-1--2072c87505 rui-toggle-demo__u-background-color-rgb-15-23-42-0---5212cbf15b"
+        >
           <AccentToggleExample />
-        </div>
-        <div className="flex flex-col items-center gap-3 rounded-3xl border border-slate-200 bg-white/80 p-4 text-center text-sm text-slate-600 shadow-sm dark:border-slate-800 dark:bg-slate-900/70 dark:text-slate-300">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-            Disabled toggle
-          </p>
+        </DemoExample>
+        <DemoExample
+          title="Disabled toggle"
+          className="rui-toggle-demo__u-display-flex--60fbb77139 rui-toggle-demo__u-flex-direction-column--8dddea0773 rui-toggle-demo__u-align-items-center--3960ffc248 rui-toggle-demo__u-gap-0-75rem--1004c0c395 rui-toggle-demo__u-border-radius-1-5rem--ea189a088a rui-toggle-demo__u-border-width-1px--ca6bcd4b6f rui-toggle-demo__u-rui-border-opacity-1--52f4da2ca5 rui-toggle-demo__u-background-color-rgb-255-255-255--845918557e rui-toggle-demo__u-padding-1rem--8e63407b5c rui-toggle-demo__u-text-align-center--ca6bf63030 rui-toggle-demo__u-font-size-0-875rem--fc7473ca09 rui-toggle-demo__u-rui-text-opacity-1--2d6fbf48fa rui-toggle-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-toggle-demo__u-rui-border-opacity-1--2072c87505 rui-toggle-demo__u-background-color-rgb-15-23-42-0---5212cbf15b rui-toggle-demo__u-rui-text-opacity-1--ca11017ff7"
+        >
           <DisabledToggleExample />
-          <p className="text-xs text-slate-500 dark:text-slate-400">
+          <p className="rui-toggle-demo__u-font-size-0-75rem--359090c2d5 rui-toggle-demo__u-rui-text-opacity-1--30426eb75c rui-toggle-demo__u-rui-text-opacity-1--cc0274aad9">
             Pass disabled to prevent interactions.
           </p>
-        </div>
+        </DemoExample>
       </div>
     </div>
   );
@@ -124,7 +129,7 @@ const entry: ComponentRegistryEntry = {
   slug: "toggle",
   name: "Toggle",
   description:
-    "Minimal, accessible switch component with keyboard controls and Tailwind styling hooks.",
+    "Minimal, accessible switch component with keyboard controls and styling hooks.",
   tags: ["input", "form", "switch"],
   Preview: TogglePreview,
   sourcePath: "src/components/Toggle/Toggle.tsx",

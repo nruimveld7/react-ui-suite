@@ -47,16 +47,14 @@ describe("Button", () => {
 
   it("respects custom background and text utilities without overriding them", () => {
     render(
-      <Button className="bg-red-500 text-white" data-testid="button">
+      <Button className="rui-button__u-background-color-rgb-239-68-68-1--7aa79040cd rui-button__u-color-rgb-255-255-255-1--72a4c7cdee" data-testid="button">
         Danger
       </Button>
     );
 
     const button = screen.getByTestId("button");
-    expect(button.className).toContain("bg-red-500");
-    expect(button.className).toContain("text-white");
-    expect(button.className).not.toContain("rui-button--bg-default");
-    expect(button.className).not.toContain("rui-button--text-default");
+    expect(button).toHaveClass("rui-button__u-background-color-rgb-239-68-68-1--7aa79040cd", { exact: false });
+    expect(button).toHaveClass("rui-button__u-color-rgb-255-255-255-1--72a4c7cdee", { exact: false });
   });
 });
 

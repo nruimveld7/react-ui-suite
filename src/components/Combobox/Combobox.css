@@ -1,0 +1,97 @@
+.rui-combobox__highlightBorder {
+  border-color: #94a3b8;
+}
+
+[data-theme="dark"] .rui-combobox__highlightBorder {
+  border-color: #64748b;
+}
+
+.rui-combobox__listbox {
+  max-height: 16rem;
+  overflow: auto;
+  padding-left: 0.25rem;
+  padding-right: 1rem;
+  margin: 0px;
+}
+
+.rui-combobox__empty {
+  user-select: none;
+}
+
+.rui-combobox__empty-content {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: rgb(100 116 139 / 1);
+}
+
+[data-theme="dark"] .rui-combobox__empty-content {
+  color: rgb(113 113 122 / 1);
+}
+
+.rui-combobox__option {
+  list-style-type: none;
+}
+
+.rui-combobox__option-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: rgb(51 65 85 / 1);
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 150ms ease, color 150ms ease, opacity 150ms ease;
+}
+
+.rui-combobox__option-row--active {
+  background-color: rgb(241 245 249 / 1);
+  color: rgb(15 23 42 / 1);
+}
+
+.rui-combobox__option-row:not(.rui-combobox__option-row--disabled):hover {
+  background-color: rgb(241 245 249 / 1);
+}
+
+.rui-combobox__option-row--disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+[data-theme="dark"] .rui-combobox__option-row {
+  color: rgb(228 228 231 / 1);
+}
+
+[data-theme="dark"] .rui-combobox__option-row--active {
+  background-color: rgb(39 39 42 / 0.7);
+  color: rgb(244 244 245 / 1);
+}
+
+[data-theme="dark"] .rui-combobox__option-row:not(.rui-combobox__option-row--disabled):hover {
+  background-color: rgb(39 39 42 / 0.7);
+}
+
+.rui-combobox__option-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rui-combobox__option-icon,
+.rui-combobox__option-icon-placeholder {
+  margin-left: auto;
+  width: 0.75rem;
+  height: 0.75rem;
+  flex: 0 0 0.75rem;
+}
+
+.rui-combobox__option-icon {
+  color: rgb(71 85 105 / 1);
+}
+
+[data-theme="dark"] .rui-combobox__option-icon {
+  color: rgb(212 212 216 / 1);
+}

@@ -1,0 +1,372 @@
+.rui-progress-meter-demo__u-margin-top-0-75rem--eccd13ef4f {
+  margin-top: 0.75rem;
+}
+
+.rui-progress-meter-demo__u-display-inline-flex--52083e7da4 {
+  display: inline-flex;
+}
+
+.rui-progress-meter-demo__u-width-0-5rem--91aa108e8e {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.rui-progress-meter-demo__u-width-0-5rem--91aa108e8e\.5 {
+  width: 0.625rem;
+  height: 0.625rem;
+}
+
+.rui-progress-meter-demo__u-grid-template-columns-repeat-2-m--8e75e3db48 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.rui-progress-meter-demo__u-flex-direction-column--8dddea0773 {
+  flex-direction: column;
+}
+
+.rui-progress-meter-demo__u-align-items-center--3960ffc248 {
+  align-items: center;
+}
+
+.rui-progress-meter-demo__u-justify-content-center--86843cf1e2 {
+  justify-content: center;
+}
+
+.rui-progress-meter-demo__u-justify-content-space-between--8ef2268efb {
+  justify-content: space-between;
+}
+
+.rui-progress-meter-demo__u-gap-0-25rem--44ee8ba0a4 {
+  gap: 0.25rem;
+}
+
+.rui-progress-meter-demo__u-gap-0-5rem--77a2a20e90 {
+  gap: 0.5rem;
+}
+
+.rui-progress-meter-demo__u-gap-0-75rem--1004c0c395 {
+  gap: 0.75rem;
+}
+
+.rui-progress-meter-demo__u-gap-1rem--0c3bc98565 {
+  gap: 1rem;
+}
+
+.rui-progress-meter-demo__u-style--6f7e013d64 > :not([hidden]) ~ :not([hidden]) {
+  --rui-space-y-reverse: 0;
+  margin-top: calc(0.5rem * calc(1 - var(--rui-space-y-reverse)));
+  margin-bottom: calc(0.5rem * var(--rui-space-y-reverse));
+}
+
+.rui-progress-meter-demo__u-style--6ed543e2fb > :not([hidden]) ~ :not([hidden]) {
+  --rui-space-y-reverse: 0;
+  margin-top: calc(0.75rem * calc(1 - var(--rui-space-y-reverse)));
+  margin-bottom: calc(0.75rem * var(--rui-space-y-reverse));
+}
+
+.rui-progress-meter-demo__u-border-radius-1rem--68f2db624d {
+  border-radius: 1rem;
+}
+
+.rui-progress-meter-demo__u-border-radius-1-5rem--ea189a088a {
+  border-radius: 1.5rem;
+}
+
+.rui-progress-meter-demo__u-border-radius-9999px--ac204c1088 {
+  border-radius: 9999px;
+}
+
+.rui-progress-meter-demo__u-border-radius-0-75rem--a217b4eaa9 {
+  border-radius: 0.75rem;
+}
+
+.rui-progress-meter-demo__u-border-style-dashed--a29b7a649c {
+  border-style: dashed;
+}
+
+.rui-progress-meter-demo__u-rui-border-opacity-1--52f4da2ca5 {
+  --rui-border-opacity: 1;
+  border-color: rgb(226 232 240 / var(--rui-border-opacity, 1));
+}
+
+.rui-progress-meter-demo__u-rui-border-opacity-1--85684b007e {
+  --rui-border-opacity: 1;
+  border-color: rgb(203 213 225 / var(--rui-border-opacity, 1));
+}
+
+.rui-progress-meter-demo__u-background-color-rgb-248-250-252--2579b25ad0 {
+  background-color: rgb(248 250 252 / 0.8);
+}
+
+.rui-progress-meter-demo__u-rui-bg-opacity-1--15821c2ff2 {
+  --rui-bg-opacity: 1;
+  background-color: rgb(15 23 42 / var(--rui-bg-opacity, 1));
+}
+
+.rui-progress-meter-demo__u-rui-bg-opacity-1--15821c2ff2\/5 {
+  background-color: rgb(15 23 42 / 0.05);
+}
+
+.rui-progress-meter-demo__u-rui-bg-opacity-1--15821c2ff2\/90 {
+  background-color: rgb(15 23 42 / 0.9);
+}
+
+.rui-progress-meter-demo__u-rui-bg-opacity-1--5e10cdb8f1 {
+  --rui-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--rui-bg-opacity, 1));
+}
+
+.rui-progress-meter-demo__u-rui-bg-opacity-1--5e10cdb8f1\/60 {
+  background-color: rgb(255 255 255 / 0.6);
+}
+
+.rui-progress-meter-demo__u-rui-bg-opacity-1--5e10cdb8f1\/70 {
+  background-color: rgb(255 255 255 / 0.7);
+}
+
+.rui-progress-meter-demo__u-rui-bg-opacity-1--5e10cdb8f1\/80 {
+  background-color: rgb(255 255 255 / 0.8);
+}
+
+.rui-progress-meter-demo__u-background-color-rgb-255-255-255--6c21de570d {
+  background-color: rgb(255 255 255 / 1);
+}
+
+.rui-progress-meter-demo__u-rui-bg-opacity-1--5e10cdb8f1\/95 {
+  background-color: rgb(255 255 255 / 0.95);
+}
+
+.rui-progress-meter-demo__u-padding-0-75rem--eb6e8b881a {
+  padding: 0.75rem;
+}
+
+.rui-progress-meter-demo__u-padding-1rem--8e63407b5c {
+  padding: 1rem;
+}
+
+.rui-progress-meter-demo__u-padding-left-0-5rem--d5eab218aa {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.rui-progress-meter-demo__u-padding-left-0-5rem--d5eab218aa\.5 {
+  padding-left: 0.625rem;
+  padding-right: 0.625rem;
+}
+
+.rui-progress-meter-demo__u-padding-left-0-75rem--0e17f2bd90 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.rui-progress-meter-demo__u-padding-top-0-25rem--660d2effb8 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.rui-progress-meter-demo__u-padding-top-0-5rem--03b4dd7f17 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.rui-progress-meter-demo__u-text-align-right--308fc069e4 {
+  text-align: right;
+}
+
+.rui-progress-meter-demo__u-font-size-11px--d058ca6de6 {
+  font-size: 11px;
+}
+
+.rui-progress-meter-demo__u-font-size-0-875rem--fc7473ca09 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.rui-progress-meter-demo__u-font-size-0-75rem--359090c2d5 {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.rui-progress-meter-demo__u-font-weight-600--e83a7042bc {
+  font-weight: 600;
+}
+
+.rui-progress-meter-demo__u-letter-spacing-0-28em--a9fb519cad {
+  letter-spacing: 0.28em;
+}
+
+.rui-progress-meter-demo__u-letter-spacing-0-3em--bf7342eeb7 {
+  letter-spacing: 0.3em;
+}
+
+.rui-progress-meter-demo__u-letter-spacing-0-025em--8baf13a3e9 {
+  letter-spacing: 0.025em;
+}
+
+.rui-progress-meter-demo__u-rui-text-opacity-1--30426eb75c {
+  --rui-text-opacity: 1;
+  color: rgb(100 116 139 / var(--rui-text-opacity, 1));
+}
+
+.rui-progress-meter-demo__u-rui-text-opacity-1--2d6fbf48fa {
+  --rui-text-opacity: 1;
+  color: rgb(71 85 105 / var(--rui-text-opacity, 1));
+}
+
+.rui-progress-meter-demo__u-rui-text-opacity-1--bcbca7a5be {
+  --rui-text-opacity: 1;
+  color: rgb(51 65 85 / var(--rui-text-opacity, 1));
+}
+
+.rui-progress-meter-demo__u-rui-text-opacity-1--c69797100a {
+  --rui-text-opacity: 1;
+  color: rgb(30 41 59 / var(--rui-text-opacity, 1));
+}
+
+.rui-progress-meter-demo__u-rui-text-opacity-1--72a4c7cdee {
+  --rui-text-opacity: 1;
+  color: rgb(255 255 255 / var(--rui-text-opacity, 1));
+}
+
+.rui-progress-meter-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 {
+  --rui-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --rui-shadow-colored: 0 1px 2px 0 var(--rui-shadow-color);
+  box-shadow: var(--rui-ring-offset-shadow, 0 0 #0000), var(--rui-ring-shadow, 0 0 #0000), var(--rui-shadow);
+}
+
+.rui-progress-meter-demo__u-rui-translate-y-1px--2464a58ddc:hover {
+  --rui-translate-y: -1px;
+  transform: translate(var(--rui-translate-x), var(--rui-translate-y)) rotate(var(--rui-rotate)) skewX(var(--rui-skew-x)) skewY(var(--rui-skew-y)) scaleX(var(--rui-scale-x)) scaleY(var(--rui-scale-y));
+}
+
+.rui-progress-meter-demo__u-rui-shadow-0-4px-6px-1px-rgb-0-0--9e85ac05ca:hover {
+  --rui-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --rui-shadow-colored: 0 4px 6px -1px var(--rui-shadow-color), 0 2px 4px -2px var(--rui-shadow-color);
+  box-shadow: var(--rui-ring-offset-shadow, 0 0 #0000), var(--rui-ring-shadow, 0 0 #0000), var(--rui-shadow);
+}
+
+.rui-progress-meter-demo__u-rui-border-opacity-1--30fb741464:is(.dark *) {
+  --rui-border-opacity: 1;
+  border-color: rgb(51 65 85 / var(--rui-border-opacity, 1));
+}
+
+.rui-progress-meter-demo__u-rui-border-opacity-1--2072c87505:is(.dark *) {
+  --rui-border-opacity: 1;
+  border-color: rgb(30 41 59 / var(--rui-border-opacity, 1));
+}
+
+.rui-progress-meter-demo__u-rui-bg-opacity-1--f2a0c62312:is(.dark *) {
+  --rui-bg-opacity: 1;
+  background-color: rgb(15 23 42 / var(--rui-bg-opacity, 1));
+}
+
+.rui-progress-meter-demo__u-rui-bg-opacity-1--f2a0c62312\/60:is(.dark *) {
+  background-color: rgb(15 23 42 / 0.6);
+}
+
+.rui-progress-meter-demo__u-background-color-rgb-15-23-42-0---5212cbf15b:is(.dark *) {
+  background-color: rgba(24, 24, 27, 0.75);
+}
+
+.rui-progress-meter-demo__u-rui-bg-opacity-1--f2a0c62312\/80:is(.dark *) {
+  background-color: rgb(15 23 42 / 0.8);
+}
+
+.rui-progress-meter-demo__u-rui-bg-opacity-1--f2a0c62312\/90:is(.dark *) {
+  background-color: rgb(15 23 42 / 0.9);
+}
+
+.rui-progress-meter-demo__u-background-color-rgb-2-6-23-0-6--ddf84eea43:is(.dark *) {
+  background-color: #27272a;
+}
+
+.rui-progress-meter-demo__u-rui-bg-opacity-1--e598448d8a:is(.dark *) {
+  --rui-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--rui-bg-opacity, 1));
+}
+
+.rui-progress-meter-demo__u-rui-bg-opacity-1--e598448d8a\/10:is(.dark *) {
+  background-color: rgb(255 255 255 / 0.1);
+}
+
+.rui-progress-meter-demo__u-rui-bg-opacity-1--e598448d8a\/5:is(.dark *) {
+  background-color: rgb(255 255 255 / 0.05);
+}
+
+.rui-progress-meter-demo__u-rui-bg-opacity-1--e598448d8a\/90:is(.dark *) {
+  background-color: rgb(255 255 255 / 0.9);
+}
+
+.rui-progress-meter-demo__u-rui-text-opacity-1--e1d41ccd69:is(.dark *) {
+  --rui-text-opacity: 1;
+  color: rgb(241 245 249 / var(--rui-text-opacity, 1));
+}
+
+.rui-progress-meter-demo__u-rui-text-opacity-1--ca11017ff7:is(.dark *) {
+  --rui-text-opacity: 1;
+  color: rgb(203 213 225 / var(--rui-text-opacity, 1));
+}
+
+.rui-progress-meter-demo__u-rui-text-opacity-1--cc0274aad9:is(.dark *) {
+  --rui-text-opacity: 1;
+  color: rgb(148 163 184 / var(--rui-text-opacity, 1));
+}
+
+.rui-progress-meter-demo__u-rui-text-opacity-1--ea4519095b:is(.dark *) {
+  --rui-text-opacity: 1;
+  color: rgb(15 23 42 / var(--rui-text-opacity, 1));
+}
+
+@media (min-width: 768px) {
+
+  .rui-progress-meter-demo__u-grid-template-columns-1-1fr-0-9f--5e2f7a1008 {
+    grid-template-columns: 1.1fr 0.9fr;
+  }
+}
+
+.rui-progress-meter-demo__u-display-block--0214b4b355 {
+  display: block;
+}
+
+.rui-progress-meter-demo__u-display-flex--60fbb77139 {
+  margin: 0px;
+  display: flex;
+}
+
+.rui-progress-meter-demo__u-display-grid--f3c543ad5f {
+  display: grid;
+}
+
+.rui-progress-meter-demo__u-border-width-1px--ca6bcd4b6f {
+  border-width: 1px;
+}
+
+.rui-progress-meter-demo__u-text-transform-uppercase--117ec720ea {
+  text-transform: uppercase;
+}
+
+.rui-progress-meter-demo__u-transition-property-color-backgr--56bf8ae82a {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.rui-progress-meter-demo__system-health > .rui-demo-example__title {
+  grid-column: 1 / -1;
+}
+
+.rui-progress-meter-demo__anomaly-title,
+.rui-progress-meter-demo__anomaly-description {
+  margin: 0;
+}
+
+.rui-progress-meter-demo__health-panel,
+.rui-progress-meter-demo__health-intro {
+  margin: 0;
+}
+
+.rui-progress-meter-demo__health-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}

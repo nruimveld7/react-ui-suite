@@ -1,11 +1,12 @@
 import * as React from "react";
-import { twMerge } from "tailwind-merge";
 import { Dropdown } from "../Dropdown/Dropdown";
 import { Popover } from "../Popover/Popover";
 import { useControlledState, useOutsideClick } from "./hooks";
 import { Listbox } from "./Listbox";
 import type { ComboboxOption, ComboboxProps } from "./types";
 import { assignRef } from "../../utils/ref";
+import clsx from "clsx";
+import "./Combobox.css";
 
 // Generic-preserving forwardRef wrapper
 function InnerCombobox<T>(
@@ -258,7 +259,7 @@ function InnerCombobox<T>(
   const selectedLabel = selected?.label ?? "";
   const selectedId = selected?.id ?? null;
 
-  const highlightBorder = "border-slate-400 dark:border-slate-500";
+  const highlightBorder = "rui-combobox__highlightBorder";
 
   const listboxHighlight = isEffectivelyOpen ? highlightBorder : "";
 
@@ -335,7 +336,7 @@ function InnerCombobox<T>(
       }}
     >
       {isEffectivelyOpen && (
-        <Popover className={twMerge(listboxHighlight, listClassName)}>
+        <Popover className={clsx(listboxHighlight, listClassName)}>
           {({ scrollRef }) => (
             <Listbox
               id={listboxId}

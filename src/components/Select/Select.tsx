@@ -1,9 +1,10 @@
 import * as React from "react";
-import { twMerge } from "tailwind-merge";
 import { Dropdown } from "../Dropdown/Dropdown";
 import { Popover } from "../Popover/Popover";
 import { Check } from "../Combobox/icons";
 import { useControlledState, useOutsideClick } from "../Combobox/hooks";
+import clsx from "clsx";
+import "./Select.css";
 
 export type SelectOption = {
   label: string;
@@ -180,13 +181,13 @@ export function Select({
   }, [open, activeIndex]);
 
   const displayValue = selectedOption?.label ?? "";
-  const highlightBorder = "border-slate-400 dark:border-slate-500";
+  const highlightBorder = "rui-select__highlightBorder";
   const listboxHighlight = open ? highlightBorder : "";
 
   return (
-    <div className="space-y-1.5">
+    <div className="rui-select__u-style--5a2508227c">
       {label ? (
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-zinc-400">
+        <p className="rui-select__u-font-size-0-75rem--359090c2d5 rui-select__u-font-weight-600--e83a7042bc rui-select__u-text-transform-uppercase--117ec720ea rui-select__u-letter-spacing-0-2em--2da1a7016e rui-select__u-rui-text-opacity-1--30426eb75c rui-select__u-rui-text-opacity-1--6462b86910">
           {label}
         </p>
       ) : null}
@@ -198,13 +199,13 @@ export function Select({
         placeholder={placeholder}
         displayValue={displayValue}
         query={displayValue}
-        className={twMerge(
-          "w-full",
+        className={clsx(
+          "rui-select__u-width-100--6da6a3c3f7",
           error &&
-            "border-rose-300 focus-within:border-rose-400 focus-within:shadow-[0_0_0_1px_rgba(248,113,113,0.35)] dark:border-rose-500/60",
+            "rui-select__u-rui-border-opacity-1--3b7f978155 rui-select__u-rui-border-opacity-1--6fe003501e rui-select__u-rui-shadow-0-0-0-1px-rgba-248-11--633a78b9cd rui-select__u-border-color-rgb-244-63-94-0-6--99963c86d9",
           className
         )}
-        inputClassName="font-semibold"
+        inputClassName="rui-select__input"
         highlightClass={highlightBorder}
         ariaControls={listboxId}
         ariaLabel={label}
@@ -255,13 +256,13 @@ export function Select({
                   ref={scrollRef}
                   id={listboxId}
                   role="listbox"
-                  className="combobox-scrollbar max-h-64 overflow-auto px-1 pr-4"
+                  className="combobox-scrollbar rui-select__list rui-select__u-max-height-16rem--8aee2b07b4 rui-select__u-overflow-auto--73fc3fb18c"
                 >
                   {options.map((opt, index) => {
                     const isSelected = selected === opt.value;
                     const isActive = activeIndex === index;
                     return (
-                      <li key={opt.value} className="list-none" data-index={index}>
+                      <li key={opt.value} className="rui-select__option" data-index={index}>
                         <button
                           type="button"
                           role="option"
@@ -269,29 +270,29 @@ export function Select({
                           disabled={opt.disabled}
                           onMouseEnter={() => !opt.disabled && setActiveIndex(index)}
                           onClick={() => commitSelection(index)}
-                          className={twMerge(
-                            "flex w-full items-center gap-3 rounded-xl px-3 py-2 text-left text-sm transition",
+                          className={clsx(
+                            "rui-select__option-button rui-select__u-display-flex--60fbb77139 rui-select__u-width-100--6da6a3c3f7 rui-select__u-align-items-center--3960ffc248 rui-select__u-gap-0-75rem--1004c0c395 rui-select__u-border-radius-0-75rem--a217b4eaa9 rui-select__u-padding-left-0-75rem--0e17f2bd90 rui-select__u-padding-top-0-5rem--03b4dd7f17 rui-select__u-text-align-left--2eba0d65d0 rui-select__u-font-size-0-875rem--fc7473ca09 rui-select__u-transition-property-color-backgr--56bf8ae82a",
                             isActive
-                              ? "bg-slate-100 text-slate-900 dark:bg-zinc-800/70 dark:text-zinc-100"
-                              : "text-slate-700 hover:bg-slate-100 dark:text-zinc-200 dark:hover:bg-zinc-800/70",
-                            isSelected && "font-semibold",
-                            opt.disabled && "cursor-not-allowed opacity-50"
+                              ? "rui-select__u-rui-bg-opacity-1--34d54ab9e5 rui-select__u-rui-text-opacity-1--f5f136c41d rui-select__u-background-color-rgb-39-39-42-0---b37a7836e7 rui-select__u-rui-text-opacity-1--3ddc1cab99"
+                              : "rui-select__u-rui-text-opacity-1--bcbca7a5be rui-select__u-rui-bg-opacity-1--f3653f7e77 rui-select__u-rui-text-opacity-1--270353156a rui-select__u-background-color-rgb-39-39-42-0---2531b09202",
+                            isSelected && "rui-select__u-font-weight-600--e83a7042bc",
+                            opt.disabled && "rui-select__u-cursor-not-allowed--29b733e4c1 rui-select__u-opacity-0-5--0b8c506a05"
                           )}
                         >
-                          <span className="flex-1 text-left">
-                            <span className="block text-slate-900 dark:text-zinc-100">
+                          <span className="rui-select__u-flex-1-1-0--36e579c0b4 rui-select__u-text-align-left--2eba0d65d0">
+                            <span className="rui-select__option-label rui-select__u-display-block--0214b4b355 rui-select__u-rui-text-opacity-1--f5f136c41d rui-select__u-rui-text-opacity-1--3ddc1cab99">
                               {opt.label}
                             </span>
                             {opt.description ? (
-                              <span className="block text-xs text-slate-500 dark:text-zinc-400">
+                              <span className="rui-select__option-description rui-select__u-display-block--0214b4b355 rui-select__u-font-size-0-75rem--359090c2d5 rui-select__u-rui-text-opacity-1--30426eb75c rui-select__u-rui-text-opacity-1--6462b86910">
                                 {opt.description}
                               </span>
                             ) : null}
                           </span>
                           {isSelected ? (
-                            <Check className="ml-auto h-3 w-3 text-slate-600 dark:text-zinc-300" />
+                            <Check className="rui-select__u-margin-left-auto--fb56d9cff3 rui-select__u-height-0-75rem--6a60c09e6a rui-select__u-width-0-75rem--9cea05671a rui-select__u-rui-text-opacity-1--2d6fbf48fa rui-select__u-rui-text-opacity-1--5b8efd1d78" />
                           ) : (
-                            <span className="ml-auto inline-flex h-3 w-3" />
+                            <span className="rui-select__u-margin-left-auto--fb56d9cff3 rui-select__u-display-inline-flex--52083e7da4 rui-select__u-height-0-75rem--6a60c09e6a rui-select__u-width-0-75rem--9cea05671a" />
                           )}
                         </button>
                       </li>
@@ -305,11 +306,11 @@ export function Select({
       </Dropdown>
 
       {description ? (
-        <p className="text-xs text-slate-500 dark:text-zinc-400">{description}</p>
+        <p className="rui-select__u-font-size-0-75rem--359090c2d5 rui-select__u-rui-text-opacity-1--30426eb75c rui-select__u-rui-text-opacity-1--6462b86910">{description}</p>
       ) : null}
 
       {error ? (
-        <p className="text-xs font-medium text-rose-500 dark:text-rose-400">{error}</p>
+        <p className="rui-select__u-font-size-0-75rem--359090c2d5 rui-select__u-font-weight-500--2689f39580 rui-select__u-rui-text-opacity-1--fa51279820 rui-select__u-rui-text-opacity-1--897de47303">{error}</p>
       ) : null}
     </div>
   );

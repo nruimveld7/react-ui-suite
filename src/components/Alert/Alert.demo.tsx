@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import { Alert } from "react-ui-suite";
 import type { AlertProps } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../../../demo/component-registry";
 import "./Alert.demo.css";
+import { DemoExample } from "../../../demo/src/components/DemoExample";
+
+const examplePanelStyle: CSSProperties = {
+  padding: "var(--rui-space-3) var(--rui-space-4) var(--rui-space-2)",
+};
 
 function AlertsStack() {
   const [visible, setVisible] = useState(true);
@@ -30,20 +35,17 @@ function AlertsStack() {
   );
 }
 
-function DangerAlertExample() {
-  const [acks, setAcks] = useState(0);
+function NoticeAlertExample() {
+  const [visible, setVisible] = useState(true);
   return (
     <div className="alert-demo-stack">
-      <Alert
-        title="Payment required"
-        description="We could not charge your default payment method."
-        variant="danger"
-        onDismiss={() => setAcks((value) => value + 1)}
-      />
-      {acks > 0 && (
-        <p className="alert-demo-note">
-          Dismissed {acks} {acks === 1 ? "time" : "times"}.
-        </p>
+      {visible && (
+        <Alert
+          title="Quota at 82%"
+          variant="warning"
+          description="Upgrade to unlock more automations."
+          onDismiss={() => setVisible(false)}
+        />
       )}
     </div>
   );
@@ -51,13 +53,15 @@ function DangerAlertExample() {
 
 function PersistentAlertExample() {
   return (
-    <div className="alert-demo-stack">
+    <div className="alert-demo-stack" style={{ gap: "var(--rui-space-2)" }}>
       <Alert
-        title="Quota at 82%"
-        variant="warning"
-        description="Upgrade to unlock more automations."
+        title="Payment required"
+        description="We could not charge your default payment method."
+        variant="danger"
       />
-      <p className="alert-demo-note">Leave off onDismiss to keep alerts present.</p>
+      <p className="alert-demo-note" style={{ margin: 0 }}>
+        Leave off onDismiss to keep alerts present.
+      </p>
     </div>
   );
 }
@@ -65,20 +69,16 @@ function PersistentAlertExample() {
 function AlertPreview() {
   return (
     <div className="alert-demo-preview">
-      <AlertsStack />
+      <DemoExample title="Stack">
+        <AlertsStack />
+      </DemoExample>
       <div className="alert-demo-grid">
-        <div className="alert-demo-panel">
-          <p className="alert-demo-panel__label">High priority</p>
-          <div className="alert-demo-panel__body">
-            <DangerAlertExample />
-          </div>
-        </div>
-        <div className="alert-demo-panel">
-          <p className="alert-demo-panel__label">Persistent notice</p>
-          <div className="alert-demo-panel__body">
-            <PersistentAlertExample />
-          </div>
-        </div>
+        <DemoExample title="Notice" style={examplePanelStyle}>
+          <NoticeAlertExample />
+        </DemoExample>
+        <DemoExample title="Persistent notice" style={examplePanelStyle}>
+          <PersistentAlertExample />
+        </DemoExample>
       </div>
     </div>
   );

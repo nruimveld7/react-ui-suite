@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Checkbox } from "react-ui-suite";
 import type { CheckboxProps } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../../../demo/component-registry";
+import "./Checkbox.demo.css";
+import { DemoExample } from "../../../demo/src/components/DemoExample";
 
 const preferences = [
   {
@@ -29,16 +31,17 @@ function NotificationPreferences() {
   });
 
   return (
-    <div className="rounded-3xl border border-slate-200 bg-white/80 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/60">
-      <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500">
-        Notifications
-      </p>
-      <div className="mt-3 space-y-1">
+    <DemoExample title="Notifications">
+      <div className="rui-checkbox-demo__u-style--da7c36cd88">
         {preferences.map((pref) => (
           <Checkbox
             key={pref.id}
             label={pref.label}
             description={pref.description}
+            uncheckedBoxColor={pref.id === "mentions" ? "#ecfdf5" : undefined}
+            checkedBoxColor={pref.id === "mentions" ? "#d1fae5" : undefined}
+            uncheckedBorderColor={pref.id === "mentions" ? "#86efac" : undefined}
+            checkedBorderColor={pref.id === "mentions" ? "#22c55e" : undefined}
             checked={!!selected[pref.id]}
             onChange={(value) =>
               setSelected((prev) => ({
@@ -49,7 +52,7 @@ function NotificationPreferences() {
           />
         ))}
       </div>
-    </div>
+    </DemoExample>
   );
 }
 
@@ -64,7 +67,7 @@ function IndeterminateExample() {
   const someChecked = values.some(Boolean);
 
   return (
-    <div className="space-y-2 rounded-2xl border border-slate-200 bg-white/80 p-4 dark:border-slate-800 dark:bg-slate-900/60">
+    <DemoExample title="Project rollout">
       <Checkbox
         label="Project rollout"
         description="Parent checkbox reflects child selections."
@@ -82,36 +85,36 @@ function IndeterminateExample() {
         <Checkbox
           key={key}
           label={`Task: ${key}`}
-          className="pl-6"
+          className="rui-checkbox-demo__u-padding-left-1-5rem--9079b62ef1"
           checked={value}
           onChange={(next) => setTasks((prev) => ({ ...prev, [key]: next }))}
         />
       ))}
-    </div>
+    </DemoExample>
   );
 }
 
 function DisabledCheckboxExample() {
   return (
-    <div className="space-y-2 rounded-2xl border border-slate-200 bg-white/80 p-4 text-sm text-slate-600 shadow-sm dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-300">
+    <DemoExample title="Disabled">
       <Checkbox
         label="Beta access"
         description="Invite-only at the moment."
         defaultChecked
         disabled
       />
-      <p className="text-xs text-slate-500 dark:text-slate-400">
+      <p className="rui-checkbox-demo__u-font-size-0-75rem--359090c2d5 rui-checkbox-demo__u-color-rgb-100-116-139-1--30426eb75c rui-checkbox-demo__u-color-rgb-148-163-184-1--cc0274aad9">
         Disabled state keeps layout stable.
       </p>
-    </div>
+    </DemoExample>
   );
 }
 
 function CheckboxPreview() {
   return (
-    <div className="space-y-4">
+    <div className="rui-checkbox-demo__u-style--3e7ce58d64">
       <NotificationPreferences />
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="rui-checkbox-demo__u-display-grid--f3c543ad5f rui-checkbox-demo__u-gap-1rem--0c3bc98565 rui-checkbox-demo__u-grid-template-columns-repeat-2-m--e4d6f343b9">
         <IndeterminateExample />
         <DisabledCheckboxExample />
       </div>

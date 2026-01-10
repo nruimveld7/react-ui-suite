@@ -1,0 +1,121 @@
+.rui-dropdown {
+  position: relative;
+  width: 100%;
+}
+
+.rui-dropdown__shell {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  height: 2.75rem;
+  border-radius: 1rem;
+  border: 1px solid rgb(203 213 225 / 1);
+  background-color: rgb(255 255 255 / 1);
+  padding-left: 0.75rem;
+  padding-right: 0.25rem;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke,
+    opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.rui-dropdown__shell--open {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-width: 0;
+}
+
+.rui-dropdown__shell--disabled {
+  opacity: 0.6;
+}
+
+.rui-dropdown__leading {
+  display: flex;
+  align-items: center;
+}
+
+.rui-dropdown__inline {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.rui-dropdown__input {
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: rgb(15 23 42 / 1);
+}
+
+.rui-dropdown__input::placeholder {
+  color: rgb(148 163 184 / 1);
+}
+
+.rui-dropdown__input:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.rui-dropdown__focusWhenClosed:focus-within {
+  border-color: #94a3b8;
+  box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.45);
+}
+
+[data-theme="dark"] .rui-dropdown__focusWhenClosed:focus-within {
+  border-color: #64748b;
+}
+
+.rui-dropdown__chevronButton {
+  display: inline-flex;
+  height: 2.25rem;
+  width: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+  background: transparent;
+  font-size: 0.875rem;
+  color: #475569;
+  transition: color 150ms ease, opacity 150ms ease;
+  border: none;
+}
+
+.rui-dropdown__chevronButton:focus-visible {
+  outline: none;
+}
+
+.rui-dropdown__chevronButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+[data-theme="dark"] .rui-dropdown__chevronButton {
+  color: #e4e4e7;
+}
+
+.rui-dropdown__chevronIcon {
+  width: 1rem;
+  height: 1rem;
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.rui-dropdown__chevronIcon--open {
+  transform: translate(0, 0) rotate(180deg) skewX(0) skewY(0) scaleX(1) scaleY(1);
+}
+
+[data-theme="dark"] .rui-dropdown__shell {
+  border-color: rgb(63 63 70 / 0.6);
+  background-color: rgb(24 24 27 / 0.7);
+}
+
+[data-theme="dark"] .rui-dropdown__input {
+  color: rgb(244 244 245 / 1);
+}
+
+[data-theme="dark"] .rui-dropdown__input::placeholder {
+  color: rgb(113 113 122 / 1);
+}

@@ -1,3 +1,4 @@
+import "./styles/utility-vars.css";
 import "./styles/tokens.css";
 
 export * from "./components/Alert";

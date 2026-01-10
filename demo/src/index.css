@@ -1,7 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 :root {
   color-scheme: light;
 }
@@ -12,6 +8,8 @@
 
 body {
   margin: 0;
+  background: #f1f5f9;
+  color: #0f172a;
   font-family:
     "Inter",
     system-ui,
@@ -19,6 +17,11 @@ body {
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
+}
+
+.dark body {
+  background: #18181b;
+  color: #f4f4f5;
 }
 
 /* Combobox dropdown scrollbar styling */
@@ -50,9 +53,15 @@ body {
 }
 
 /* Utility: clamp text to three lines with ellipsis */
-.line-clamp-3 {
+.text-clamp-3 {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

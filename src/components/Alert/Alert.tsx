@@ -43,7 +43,7 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert
           className="rui-alert__dismiss"
           aria-label="Dismiss alert"
         >
-          x
+          ×
         </button>
       ) : null}
       <span className="rui-alert__accent" aria-hidden="true" />

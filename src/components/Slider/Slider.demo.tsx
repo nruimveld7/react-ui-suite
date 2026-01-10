@@ -1,25 +1,27 @@
 import { useCallback, useMemo, useState } from "react";
-import { twMerge } from "tailwind-merge";
 import { Slider } from "react-ui-suite";
 import type { SliderProps } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../../../demo/component-registry";
+import clsx from "clsx";
+import "./Slider.demo.css";
+import { DemoExample } from "../../../demo/src/components/DemoExample";
 
 function ListeningSession() {
   const [mixLevel, setMixLevel] = useState(38);
   const [ambience, setAmbience] = useState(72);
 
   return (
-    <div className="space-y-4 rounded-3xl border border-slate-200 bg-white/80 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/60">
-      <div className="flex items-center justify-between gap-3">
+    <DemoExample
+      title="Listening room"
+      className="rui-slider-demo__u-style--3e7ce58d64 rui-slider-demo__u-border-radius-1-5rem--ea189a088a rui-slider-demo__u-border-width-1px--ca6bcd4b6f rui-slider-demo__u-rui-border-opacity-1--52f4da2ca5 rui-slider-demo__u-background-color-rgb-255-255-255--845918557e rui-slider-demo__u-padding-1rem--8e63407b5c rui-slider-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-slider-demo__u-rui-border-opacity-1--2072c87505 rui-slider-demo__u-background-color-rgb-15-23-42-0---43aaa5e5c1"
+    >
+      <div className="rui-slider-demo__u-display-flex--60fbb77139 rui-slider-demo__u-align-items-center--3960ffc248 rui-slider-demo__u-justify-content-space-between--8ef2268efb rui-slider-demo__u-gap-0-75rem--1004c0c395">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-400 dark:text-slate-500">
-            Listening Room
-          </p>
-          <p className="text-base font-semibold text-slate-900 dark:text-slate-100">
+          <p className="rui-slider-demo__margin-bottom-0 rui-slider-demo__u-font-size-1rem--4ee734926f rui-slider-demo__u-font-weight-600--e83a7042bc rui-slider-demo__u-rui-text-opacity-1--f5f136c41d rui-slider-demo__u-rui-text-opacity-1--e1d41ccd69">
             Lo-fi mornings
           </p>
         </div>
-        <span className="rounded-full bg-slate-900 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white shadow-sm dark:bg-white/90 dark:text-slate-900">
+        <span className="rui-slider-demo__u-border-radius-9999px--ac204c1088 rui-slider-demo__u-rui-bg-opacity-1--15821c2ff2 rui-slider-demo__u-padding-left-0-75rem--0e17f2bd90 rui-slider-demo__u-padding-top-0-25rem--660d2effb8 rui-slider-demo__u-font-size-0-75rem--359090c2d5 rui-slider-demo__u-font-weight-600--e83a7042bc rui-slider-demo__u-text-transform-uppercase--117ec720ea rui-slider-demo__u-letter-spacing-0-025em--8baf13a3e9 rui-slider-demo__u-rui-text-opacity-1--72a4c7cdee rui-slider-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-slider-demo__u-background-color-rgb-255-255-255--a978c46eef rui-slider-demo__u-rui-text-opacity-1--ea4519095b">
           Live
         </span>
       </div>
@@ -39,7 +41,7 @@ function ListeningSession() {
         formatValue={(val) => `${val}%`}
         aria-label="Room ambience"
       />
-    </div>
+    </DemoExample>
   );
 }
 
@@ -83,21 +85,21 @@ function TemperatureControl() {
 
   const renderTrack: SliderProps["renderTrack"] = ({ percentage, children, disabled }) => (
     <div
-      className={twMerge(
-        "relative h-3 w-full overflow-hidden rounded-full bg-gradient-to-r from-slate-900/5 via-white to-slate-900/5 shadow-inner ring-1 ring-slate-200/70 dark:from-white/5 dark:via-slate-900 dark:to-white/5 dark:ring-white/10",
-        disabled && "opacity-60"
+      className={clsx(
+        "rui-slider-demo__u-position-relative--d89972fe17 rui-slider-demo__u-height-0-75rem--6a60c09e6a rui-slider-demo__u-width-100--6da6a3c3f7 rui-slider-demo__u-overflow-hidden--2cd02d11d1 rui-slider-demo__u-border-radius-9999px--ac204c1088 rui-slider-demo__u-background-image-linear-gradient--6ae7db2cff rui-slider-demo__u-rui-gradient-from-rgb-15-23-42-0--6456cd9021 rui-slider-demo__u-rui-gradient-to-rgb-255-255-255---f643528bfd rui-slider-demo__u-rui-gradient-to-rgb-15-23-42-0-0--eb6a5d914e rui-slider-demo__u-rui-shadow-inset-0-2px-4px-0-rgb--eca5782b24 rui-slider-demo__u-rui-ring-offset-shadow-var-rui-r--3daca9af08 rui-slider-demo__u-rui-ring-color-rgb-226-232-240-0--674b1ab7f2 rui-slider-demo__u-rui-gradient-from-rgb-255-255-25--f8ad3f9d23 rui-slider-demo__u-rui-gradient-to-rgb-15-23-42-0-v--df9b95b13f rui-slider-demo__u-rui-gradient-to-rgb-255-255-255---a05d27e483 rui-slider-demo__u-rui-ring-color-rgb-255-255-255-0--e440174b6b",
+        disabled && "rui-slider-demo__u-opacity-0-6--f2868c227f"
       )}
       aria-hidden="true"
     >
       <div
-        className="absolute inset-0 rounded-full"
+        className="rui-slider-demo__u-position-absolute--da4dbfbc4f rui-slider-demo__u-inset-0px--7b7df0449b rui-slider-demo__u-border-radius-9999px--ac204c1088"
         style={{
           backgroundImage: `linear-gradient(90deg, ${gradientStops.join(",")})`,
           clipPath: `inset(0 ${Math.max(0, 100 - percentage)}% 0 0)`,
         }}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-transparent to-slate-900/10 dark:from-white/5 dark:via-transparent dark:to-black/40" />
-      <div className="absolute inset-0 mix-blend-soft-light">{children}</div>
+      <div className="rui-slider-demo__u-position-absolute--da4dbfbc4f rui-slider-demo__u-inset-0px--7b7df0449b rui-slider-demo__u-background-image-linear-gradient--24a9e3ad53 rui-slider-demo__u-rui-gradient-from-rgb-255-255-25--ee7d5168a9 rui-slider-demo__u-rui-gradient-to-rgb-0-0-0-0-var---fd507f2bc3 rui-slider-demo__u-rui-gradient-to-rgb-15-23-42-0-1--43e4e6423e rui-slider-demo__u-rui-gradient-from-rgb-255-255-25--f8ad3f9d23 rui-slider-demo__u-rui-gradient-to-rgb-0-0-0-0-var---453d42b738 rui-slider-demo__u-rui-gradient-to-rgb-0-0-0-0-4-va--549a97434e" />
+      <div className="rui-slider-demo__u-position-absolute--da4dbfbc4f rui-slider-demo__u-inset-0px--7b7df0449b rui-slider-demo__u-mix-blend-mode-soft-light--0c31e56d9a">{children}</div>
     </div>
   );
 
@@ -137,10 +139,10 @@ function TemperatureControl() {
       <span
         aria-hidden="true"
         style={{ ...style, background: fillColor }}
-        className={twMerge(
-          "absolute flex h-9 -translate-y-1/2 items-center justify-center text-center rounded-full border border-white/70 px-2.5 text-sm font-semibold text-white shadow-md shadow-slate-900/25 ring-1 ring-slate-200/80 backdrop-blur-sm",
-          focused && "scale-[1.02] ring-slate-300 dark:ring-slate-500",
-          disabled && "opacity-60 shadow-none dark:shadow-none"
+        className={clsx(
+          "rui-slider-demo__u-position-absolute--da4dbfbc4f rui-slider-demo__u-display-flex--60fbb77139 rui-slider-demo__u-height-2-25rem--e7a768f922 rui-slider-demo__u-rui-translate-y-50--36b381be4d rui-slider-demo__u-align-items-center--3960ffc248 rui-slider-demo__u-justify-content-center--86843cf1e2 rui-slider-demo__u-text-align-center--ca6bf63030 rui-slider-demo__u-border-radius-9999px--ac204c1088 rui-slider-demo__u-border-width-1px--ca6bcd4b6f rui-slider-demo__u-border-color-rgb-255-255-255-0-7--f834d11190 rui-slider-demo__u-padding-left-0-625rem--0b91436deb rui-slider-demo__u-font-size-0-875rem--fc7473ca09 rui-slider-demo__u-font-weight-600--e83a7042bc rui-slider-demo__u-rui-text-opacity-1--72a4c7cdee rui-slider-demo__u-rui-shadow-0-4px-6px-1px-rgb-0-0--febc34e471 rui-slider-demo__u-rui-shadow-color-rgb-15-23-42-0---478d1c8947 rui-slider-demo__u-rui-ring-offset-shadow-var-rui-r--3daca9af08 rui-slider-demo__u-rui-ring-color-rgb-226-232-240-0--dff1289ca3 rui-slider-demo__u-rui-backdrop-blur-blur-4px--1ca6dd1e47",
+          focused && "rui-slider-demo__u-rui-scale-x-1-02--1fdf1b1361 rui-slider-demo__u-rui-ring-opacity-1--ac04a0392c rui-slider-demo__u-rui-ring-opacity-1--8adf4f0314",
+          disabled && "rui-slider-demo__u-opacity-0-6--f2868c227f rui-slider-demo__u-rui-shadow-0-0-0000--ad47d17e60 rui-slider-demo__u-rui-shadow-0-0-0000--2ac3c2fc68"
         )}
       >
         {`${value}\u00B0F`}
@@ -149,15 +151,15 @@ function TemperatureControl() {
   };
 
   return (
-    <div className="space-y-3 rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/60">
-      <div className="flex items-center justify-between">
+    <DemoExample
+      title="Studio climate"
+      className="rui-slider-demo__u-style--6ed543e2fb rui-slider-demo__u-border-radius-1-5rem--ea189a088a rui-slider-demo__u-border-width-1px--ca6bcd4b6f rui-slider-demo__u-rui-border-opacity-1--52f4da2ca5 rui-slider-demo__u-background-color-rgb-255-255-255--6c21de570d rui-slider-demo__u-padding-1rem--8e63407b5c rui-slider-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-slider-demo__u-rui-border-opacity-1--2072c87505 rui-slider-demo__u-background-color-rgb-15-23-42-0---43aaa5e5c1"
+    >
+      <div className="rui-slider-demo__u-display-flex--60fbb77139 rui-slider-demo__u-align-items-center--3960ffc248 rui-slider-demo__u-justify-content-space-between--8ef2268efb">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-slate-400 dark:text-slate-500">
-            Studio Climate
-          </p>
-          <p className="text-sm text-slate-500 dark:text-slate-400">Manage room temperature</p>
+          <p className="rui-slider-demo__u-font-size-0-875rem--fc7473ca09 rui-slider-demo__u-rui-text-opacity-1--30426eb75c rui-slider-demo__u-rui-text-opacity-1--cc0274aad9">Manage room temperature</p>
         </div>
-        <span className="rounded-full bg-gradient-to-r from-orange-400 to-rose-500 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-white shadow-sm">
+        <span className="rui-slider-demo__u-border-radius-9999px--ac204c1088 rui-slider-demo__u-background-image-linear-gradient--6ae7db2cff rui-slider-demo__u-rui-gradient-from-fb923c-var-rui--085f0086b7 rui-slider-demo__u-rui-gradient-to-f43f5e-var-rui-g--932a260682 rui-slider-demo__u-padding-left-0-75rem--0e17f2bd90 rui-slider-demo__u-padding-top-0-25rem--660d2effb8 rui-slider-demo__u-font-size-11px--d058ca6de6 rui-slider-demo__u-font-weight-600--e83a7042bc rui-slider-demo__u-text-transform-uppercase--117ec720ea rui-slider-demo__u-letter-spacing-0-025em--8baf13a3e9 rui-slider-demo__u-rui-text-opacity-1--72a4c7cdee rui-slider-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8">
           Custom thumb
         </span>
       </div>
@@ -176,7 +178,7 @@ function TemperatureControl() {
         formatValue={(val) => `${val}\u00B0F`}
         aria-label="Temperature"
       />
-    </div>
+    </DemoExample>
   );
 }
 
@@ -187,16 +189,21 @@ function OrientationPlayground() {
   const [verticalReverse, setVerticalReverse] = useState(80);
 
   const renderBadge = (label: string) => (
-    <span className="rounded-full bg-white/90 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-slate-600 shadow-sm ring-1 ring-slate-200 dark:bg-slate-900/80 dark:text-slate-200 dark:ring-slate-700">
+    <span className="rui-slider-demo__u-border-radius-9999px--ac204c1088 rui-slider-demo__u-background-color-rgb-255-255-255--6c21de570d rui-slider-demo__u-padding-left-0-5rem--d5eab218aa rui-slider-demo__u-padding-top-0-125rem--465609a240 rui-slider-demo__u-font-size-11px--d058ca6de6 rui-slider-demo__u-font-weight-600--e83a7042bc rui-slider-demo__u-text-transform-uppercase--117ec720ea rui-slider-demo__u-letter-spacing-0-025em--8baf13a3e9 rui-slider-demo__u-rui-text-opacity-1--2d6fbf48fa rui-slider-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-slider-demo__u-rui-ring-offset-shadow-var-rui-r--3daca9af08 rui-slider-demo__u-rui-ring-opacity-1--b63063b264 rui-slider-demo__u-background-color-rgb-15-23-42-0---96db0407f2 rui-slider-demo__u-rui-text-opacity-1--7b1a91a31e rui-slider-demo__u-rui-ring-opacity-1--3e516f5522">
       {label}
     </span>
   );
 
   return (
-    <div className="grid gap-6 md:grid-cols-2">
-      <div className="space-y-2 rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/60">
-        <div className="flex items-center justify-between">
-          <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">Horizontal</p>
+    <div className="rui-slider-demo__u-display-grid--f3c543ad5f rui-slider-demo__u-gap-1-5rem--0d304f904c rui-slider-demo__u-grid-template-columns-repeat-2-m--e4d6f343b9">
+      <DemoExample
+        title="Horizontal"
+        className="rui-slider-demo__u-style--6f7e013d64 rui-slider-demo__u-border-radius-1-5rem--ea189a088a rui-slider-demo__u-border-width-1px--ca6bcd4b6f rui-slider-demo__u-rui-border-opacity-1--52f4da2ca5 rui-slider-demo__u-background-color-rgb-255-255-255--6c21de570d rui-slider-demo__u-padding-1rem--8e63407b5c rui-slider-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-slider-demo__u-rui-border-opacity-1--2072c87505 rui-slider-demo__u-background-color-rgb-15-23-42-0---43aaa5e5c1"
+      >
+        <div
+          className="rui-slider-demo__u-display-flex--60fbb77139 rui-slider-demo__u-align-items-center--3960ffc248 rui-slider-demo__u-justify-content-space-between--8ef2268efb"
+          style={{ justifyContent: "flex-end" }}
+        >
           {renderBadge("Default")}
         </div>
         <Slider
@@ -205,13 +212,16 @@ function OrientationPlayground() {
           formatValue={(v) => `${v}%`}
           aria-label="Horizontal slider"
         />
-      </div>
+      </DemoExample>
 
-      <div className="space-y-2 rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/60">
-        <div className="flex items-center justify-between">
-          <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">
-            Horizontal reversed
-          </p>
+      <DemoExample
+        title="Horizontal reversed"
+        className="rui-slider-demo__u-style--6f7e013d64 rui-slider-demo__u-border-radius-1-5rem--ea189a088a rui-slider-demo__u-border-width-1px--ca6bcd4b6f rui-slider-demo__u-rui-border-opacity-1--52f4da2ca5 rui-slider-demo__u-background-color-rgb-255-255-255--6c21de570d rui-slider-demo__u-padding-1rem--8e63407b5c rui-slider-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-slider-demo__u-rui-border-opacity-1--2072c87505 rui-slider-demo__u-background-color-rgb-15-23-42-0---43aaa5e5c1"
+      >
+        <div
+          className="rui-slider-demo__u-display-flex--60fbb77139 rui-slider-demo__u-align-items-center--3960ffc248 rui-slider-demo__u-justify-content-space-between--8ef2268efb"
+          style={{ justifyContent: "flex-end" }}
+        >
           {renderBadge("Reversed")}
         </div>
         <Slider
@@ -221,33 +231,41 @@ function OrientationPlayground() {
           formatValue={(v) => `${v}%`}
           aria-label="Horizontal reversed slider"
         />
-      </div>
+      </DemoExample>
 
-      <div className="space-y-2 rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/60">
-        <div className="flex items-center justify-between">
-          <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">Vertical</p>
+      <DemoExample
+        title="Vertical"
+        className="rui-slider-demo__u-style--6f7e013d64 rui-slider-demo__u-border-radius-1-5rem--ea189a088a rui-slider-demo__u-border-width-1px--ca6bcd4b6f rui-slider-demo__u-rui-border-opacity-1--52f4da2ca5 rui-slider-demo__u-background-color-rgb-255-255-255--6c21de570d rui-slider-demo__u-padding-1rem--8e63407b5c rui-slider-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-slider-demo__u-rui-border-opacity-1--2072c87505 rui-slider-demo__u-background-color-rgb-15-23-42-0---43aaa5e5c1"
+      >
+        <div
+          className="rui-slider-demo__u-display-flex--60fbb77139 rui-slider-demo__u-align-items-center--3960ffc248 rui-slider-demo__u-justify-content-space-between--8ef2268efb"
+          style={{ justifyContent: "flex-end" }}
+        >
           {renderBadge("Vertical")}
         </div>
-        <div className="flex justify-center">
+        <div className="rui-slider-demo__u-display-flex--60fbb77139 rui-slider-demo__u-justify-content-center--86843cf1e2">
           <Slider
             orientation="vertical"
             value={vertical}
             onChange={setVertical}
             formatValue={(v) => `${v}%`}
             aria-label="Vertical slider"
-            className="w-auto"
+            className="rui-slider-demo__u-width-auto--23e1f628d0"
           />
         </div>
-      </div>
+      </DemoExample>
 
-      <div className="space-y-2 rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/60">
-        <div className="flex items-center justify-between">
-          <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">
-            Vertical reversed
-          </p>
+      <DemoExample
+        title="Vertical reversed"
+        className="rui-slider-demo__u-style--6f7e013d64 rui-slider-demo__u-border-radius-1-5rem--ea189a088a rui-slider-demo__u-border-width-1px--ca6bcd4b6f rui-slider-demo__u-rui-border-opacity-1--52f4da2ca5 rui-slider-demo__u-background-color-rgb-255-255-255--6c21de570d rui-slider-demo__u-padding-1rem--8e63407b5c rui-slider-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-slider-demo__u-rui-border-opacity-1--2072c87505 rui-slider-demo__u-background-color-rgb-15-23-42-0---43aaa5e5c1"
+      >
+        <div
+          className="rui-slider-demo__u-display-flex--60fbb77139 rui-slider-demo__u-align-items-center--3960ffc248 rui-slider-demo__u-justify-content-space-between--8ef2268efb"
+          style={{ justifyContent: "flex-end" }}
+        >
           {renderBadge("Vertical + reversed")}
         </div>
-        <div className="flex justify-center">
+        <div className="rui-slider-demo__u-display-flex--60fbb77139 rui-slider-demo__u-justify-content-center--86843cf1e2">
           <Slider
             orientation="vertical"
             reversed
@@ -255,10 +273,10 @@ function OrientationPlayground() {
             onChange={setVerticalReverse}
             formatValue={(v) => `${v}%`}
             aria-label="Vertical reversed slider"
-            className="w-auto"
+            className="rui-slider-demo__u-width-auto--23e1f628d0"
           />
         </div>
-      </div>
+      </DemoExample>
     </div>
   );
 }
@@ -270,7 +288,7 @@ const entry: ComponentRegistryEntry = {
   tags: ["input", "form", "slider"],
   Preview: function SliderPreview() {
     return (
-      <div className="grid gap-4">
+      <div className="rui-slider-demo__u-display-grid--f3c543ad5f rui-slider-demo__u-gap-1rem--0c3bc98565">
         <ListeningSession />
         <TemperatureControl />
         <OrientationPlayground />
