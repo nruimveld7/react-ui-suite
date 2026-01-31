@@ -202,3 +202,8 @@
 [data-theme="dark"] .rui-input-field__shell {
   background-color: rgb(24 24 27 / 0.7);
 }
+
+.rui-input-field__shell,
+.rui-input-field__u-flex-1-1-0--36e579c0b4 {
+  min-width: 0;
+}

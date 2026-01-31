@@ -1,155 +1,371 @@
-import { useState } from "react";
-import { Badge, TabGroup } from "react-ui-suite";
-import type { TabGroupItem, TabGroupProps } from "react-ui-suite";
+import * as React from "react";
+import { Radio, TabGroup, NumberInput, ResizableContainer } from "react-ui-suite";
+import type { TabGroupProps } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../../../demo/component-registry";
 import "./TabGroup.demo.css";
 import { DemoExample } from "../../../demo/src/components/DemoExample";
 
-const roadmapTabs: TabGroupItem[] = [
-  {
-    id: "overview",
-    label: "Overview",
-    description: "Status + owners",
-    content: (
-      <div className="rui-tab-group-demo__u-style--6ed543e2fb">
-        <div className="rui-tab-group-demo__u-display-flex--60fbb77139 rui-tab-group-demo__u-align-items-center--3960ffc248 rui-tab-group-demo__u-justify-content-space-between--8ef2268efb">
-          <p className="rui-tab-group-demo__u-font-size-1-125rem--42536e69e6 rui-tab-group-demo__u-font-weight-600--e83a7042bc rui-tab-group-demo__u-rui-text-opacity-1--f5f136c41d rui-tab-group-demo__u-rui-text-opacity-1--3ddc1cab99">
-            Messaging revamp
-          </p>
-          <Badge variant="success">on track</Badge>
-        </div>
-        <p className="rui-tab-group-demo__u-font-size-0-875rem--fc7473ca09 rui-tab-group-demo__u-rui-text-opacity-1--2d6fbf48fa rui-tab-group-demo__u-rui-text-opacity-1--5b8efd1d78">
-          Align engineering and brand crews on the April release milestones.
-        </p>
-        <ul className="rui-tab-group-demo__u-style--6f7e013d64 rui-tab-group-demo__u-font-size-0-875rem--fc7473ca09 rui-tab-group-demo__u-rui-text-opacity-1--2d6fbf48fa rui-tab-group-demo__u-rui-text-opacity-1--5b8efd1d78">
-          <li className="rui-tab-group-demo__u-display-flex--60fbb77139 rui-tab-group-demo__u-align-items-center--3960ffc248 rui-tab-group-demo__u-justify-content-space-between--8ef2268efb rui-tab-group-demo__u-border-radius-1rem--68f2db624d rui-tab-group-demo__u-border-width-1px--ca6bcd4b6f rui-tab-group-demo__u-border-color-rgb-241-245-249-0-7--5ac1e0b6c2 rui-tab-group-demo__u-padding-left-1rem--f0faeb26d6 rui-tab-group-demo__u-padding-top-0-5rem--03b4dd7f17 rui-tab-group-demo__u-border-color-rgb-39-39-42-0-6--efd7e6fbb1">
-            <span>App shell + tokens</span>
-            <span className="rui-tab-group-demo__u-font-size-0-75rem--359090c2d5 rui-tab-group-demo__u-text-transform-uppercase--117ec720ea rui-tab-group-demo__u-letter-spacing-0-025em--8baf13a3e9 rui-tab-group-demo__u-rui-text-opacity-1--8d44cef396 rui-tab-group-demo__u-rui-text-opacity-1--28db7d8770">
-              Dev
-            </span>
-          </li>
-          <li className="rui-tab-group-demo__u-display-flex--60fbb77139 rui-tab-group-demo__u-align-items-center--3960ffc248 rui-tab-group-demo__u-justify-content-space-between--8ef2268efb rui-tab-group-demo__u-border-radius-1rem--68f2db624d rui-tab-group-demo__u-border-width-1px--ca6bcd4b6f rui-tab-group-demo__u-border-color-rgb-241-245-249-0-7--5ac1e0b6c2 rui-tab-group-demo__u-padding-left-1rem--f0faeb26d6 rui-tab-group-demo__u-padding-top-0-5rem--03b4dd7f17 rui-tab-group-demo__u-border-color-rgb-39-39-42-0-6--efd7e6fbb1">
-            <span>Product narrative</span>
-            <span className="rui-tab-group-demo__u-font-size-0-75rem--359090c2d5 rui-tab-group-demo__u-text-transform-uppercase--117ec720ea rui-tab-group-demo__u-letter-spacing-0-025em--8baf13a3e9 rui-tab-group-demo__u-rui-text-opacity-1--8d44cef396 rui-tab-group-demo__u-rui-text-opacity-1--28db7d8770">
-              GTM
-            </span>
-          </li>
-        </ul>
-      </div>
-    ),
-  },
-  {
-    id: "research",
-    label: "Research",
-    description: "Customer notes",
-    content: (
-      <div className="rui-tab-group-demo__u-style--6ed543e2fb rui-tab-group-demo__u-font-size-0-875rem--fc7473ca09 rui-tab-group-demo__u-rui-text-opacity-1--2d6fbf48fa rui-tab-group-demo__u-rui-text-opacity-1--5b8efd1d78">
-        <p className="rui-tab-group-demo__u-font-size-1rem--4ee734926f rui-tab-group-demo__u-font-weight-600--e83a7042bc rui-tab-group-demo__u-rui-text-opacity-1--f5f136c41d rui-tab-group-demo__u-rui-text-opacity-1--3ddc1cab99">
-          Voice of Customer takeaways
-        </p>
-        <p>- 62% of teams want zero-downtime handoffs.</p>
-        <p>- Admins requested a self-serve onboarding tour.</p>
-        <p>- Beta users enjoy the simplified composer layout.</p>
-      </div>
-    ),
-  },
-  {
-    id: "launch",
-    label: "Launch",
-    description: "Campaign tracker",
-    content: (
-      <div className="rui-tab-group-demo__u-style--6ed543e2fb rui-tab-group-demo__u-font-size-0-875rem--fc7473ca09 rui-tab-group-demo__u-rui-text-opacity-1--2d6fbf48fa rui-tab-group-demo__u-rui-text-opacity-1--5b8efd1d78">
-        <p className="rui-tab-group-demo__u-font-size-1rem--4ee734926f rui-tab-group-demo__u-font-weight-600--e83a7042bc rui-tab-group-demo__u-rui-text-opacity-1--f5f136c41d rui-tab-group-demo__u-rui-text-opacity-1--3ddc1cab99">
-          Launch checklist
-        </p>
-        <div className="rui-tab-group-demo__u-display-flex--60fbb77139 rui-tab-group-demo__u-flex-wrap-wrap--1eb5c6df38 rui-tab-group-demo__u-gap-0-5rem--77a2a20e90">
-          <Badge variant="info">press kit</Badge>
-          <Badge variant="warning">ads pending</Badge>
-          <Badge>demo video</Badge>
-        </div>
-        <p>Next sync with revenue is scheduled for Tuesday 9 AM PT.</p>
-      </div>
-    ),
-  },
-];
+const DEFAULT_TABS = 3;
+const MIN_TABS = 2;
+const MAX_TABS = 20;
 
-const operationsTabs: TabGroupItem[] = [
-  {
-    id: "support",
-    label: "Support",
-    description: "Queue health",
-    content: (
-      <div className="rui-tab-group-demo__u-style--6f7e013d64 rui-tab-group-demo__u-font-size-0-875rem--fc7473ca09 rui-tab-group-demo__u-rui-text-opacity-1--2d6fbf48fa rui-tab-group-demo__u-rui-text-opacity-1--5b8efd1d78">
-        <p className="rui-tab-group-demo__u-font-size-1rem--4ee734926f rui-tab-group-demo__u-font-weight-600--e83a7042bc rui-tab-group-demo__u-rui-text-opacity-1--f5f136c41d rui-tab-group-demo__u-rui-text-opacity-1--3ddc1cab99">Support load</p>
-        <p>
-          142 open tickets - high priority escalations cooled down after we rolled out new macros.
-        </p>
-        <Badge variant="warning">response target 42m</Badge>
-      </div>
-    ),
-  },
-  {
-    id: "ops",
-    label: "Biz ops",
-    description: "Runbooks",
-    content: (
-      <div className="rui-tab-group-demo__u-style--6f7e013d64 rui-tab-group-demo__u-font-size-0-875rem--fc7473ca09 rui-tab-group-demo__u-rui-text-opacity-1--2d6fbf48fa rui-tab-group-demo__u-rui-text-opacity-1--5b8efd1d78">
-        <p className="rui-tab-group-demo__u-font-size-1rem--4ee734926f rui-tab-group-demo__u-font-weight-600--e83a7042bc rui-tab-group-demo__u-rui-text-opacity-1--f5f136c41d rui-tab-group-demo__u-rui-text-opacity-1--3ddc1cab99">Critical docs</p>
-        <ul className="rui-tab-group-demo__u-list-style-type-disc--1f33b438c8 rui-tab-group-demo__u-style--da7c36cd88 rui-tab-group-demo__u-padding-left-1-25rem--1512159b61">
-          <li>Renewal playbook v4.2</li>
-          <li>Incident command tree</li>
-          <li>Budget checkpoint template</li>
-        </ul>
-      </div>
-    ),
-  },
-  {
-    id: "people",
-    label: "People",
-    description: "Wellness",
-    content: (
-      <div className="rui-tab-group-demo__u-style--6f7e013d64 rui-tab-group-demo__u-font-size-0-875rem--fc7473ca09 rui-tab-group-demo__u-rui-text-opacity-1--2d6fbf48fa rui-tab-group-demo__u-rui-text-opacity-1--5b8efd1d78">
-        <p className="rui-tab-group-demo__u-font-size-1rem--4ee734926f rui-tab-group-demo__u-font-weight-600--e83a7042bc rui-tab-group-demo__u-rui-text-opacity-1--f5f136c41d rui-tab-group-demo__u-rui-text-opacity-1--3ddc1cab99">
-          Team pulse summary
-        </p>
-        <p>Weekly morale score up 8% after we trimmed the on-call rotation.</p>
-        <Badge variant="success">green</Badge>
-      </div>
-    ),
-  },
-];
+const MIN_TAB_SIZE = 25;
+const MAX_TAB_SIZE = 500;
+const DEFAULT_TAB_SIZE = 120;
 
-function HorizontalTabExample() {
-  return <TabGroup aria-label="Roadmap tabs" tabs={roadmapTabs} />;
+function clamp(n: number, min: number, max: number) {
+  return Math.max(min, Math.min(max, n));
 }
 
-function VerticalTabExample() {
-  const [active, setActive] = useState("support");
+function makeTabs(count: number, variant: "horizontal" | "vertical") {
+  return Array.from({ length: count }, (_, i) => ({
+    label: (
+      <span style={{ display: "inline-flex", gap: 6, alignItems: "center" }}>
+        Tab {i + 1}
+      </span>
+    ),
+    content: (
+      <div className="rui-tab-group-demo__panel">
+        <div className="rui-tab-group-demo__panel-header">
+          <div>
+            <strong>{variant === "horizontal" ? "Runway" : "Lane"} {i + 1}</strong>
+            <p className="rui-tab-group-demo__panel-subtitle">
+              {variant === "horizontal" ? "Route" : "Signal"} {i + 1}: {(i + 1) * 12}% complete
+            </p>
+          </div>
+          <span className="rui-tab-group-demo__panel-badge">
+            {variant === "horizontal" ? "Route" : "Rank"} {i + 1}
+          </span>
+        </div>
+        <div className="rui-tab-group-demo__panel-body">
+          <div className="rui-tab-group-demo__panel-block">
+            <p className="rui-tab-group-demo__panel-label">
+              {variant === "horizontal" ? "Velocity" : "Momentum"}
+            </p>
+            <p className="rui-tab-group-demo__panel-value">
+              {variant === "horizontal" ? 68 - i * 6 : 70 - i * 7}%
+            </p>
+          </div>
+          <div className="rui-tab-group-demo__panel-block">
+            <p className="rui-tab-group-demo__panel-label">
+              {variant === "horizontal" ? "Coverage" : "Focus"}
+            </p>
+            <p className="rui-tab-group-demo__panel-value">
+              {variant === "horizontal" ? 82 - i * 4 : 95 - i * 5}%
+            </p>
+          </div>
+          <div className="rui-tab-group-demo__panel-block">
+            <p className="rui-tab-group-demo__panel-label">
+              {variant === "horizontal" ? "Beacons" : "Queue"}
+            </p>
+            <p className="rui-tab-group-demo__panel-value">
+              {variant === "horizontal" ? 11 + i * 2 : 3 + i}
+            </p>
+          </div>
+        </div>
+        <p className="rui-tab-group-demo__panel-note">
+          {variant === "horizontal"
+            ? `Route ${i + 1} maps performance to the top edge.`
+            : `This lane is tuned for tab ${i + 1}. Adjust the controls to rebalance the layout.`}
+        </p>
+      </div>
+    ),
+  }));
+}
+
+type AlignLabels = {
+  start: string;
+  center: string;
+  end: string;
+}
+
+type PositionOptions = {
+  value: NonNullable<TabGroupProps["position"]>;
+  label: string;
+}
+
+type RotationOptions = {
+  value: NonNullable<TabGroupProps["rotation"]>;
+  label: string;
+}
+
+type TabControlsConfig = {
+  legendLocation: string;
+  positionOptions: PositionOptions[];
+  legendFill: string;
+  fillLabels: { full: string; partial: string };
+  legendRotation: string;
+  rotationOptions: RotationOptions[];
+  sizeLabel: string;
+  legendAlign: string;
+  alignLabels: AlignLabels;
+  radioNamePrefix: string;
+}
+
+type TabSettings = {
+  position: NonNullable<TabGroupProps["position"]>;
+  fill: NonNullable<TabGroupProps["fill"]>;
+  rotation: NonNullable<TabGroupProps["rotation"]>;
+  align: NonNullable<TabGroupProps["align"]>;
+  size: number;
+  tabCount: number;
+}
+
+type TabControlsProps = {
+  value: TabSettings;
+  onChange: (next: TabSettings) => void;
+  config: TabControlsConfig;
+};
+
+function TabControls({ value, onChange, config }: TabControlsProps) {
+  const uid = React.useId();
+  const group = `${config.radioNamePrefix}-${uid}`;
+  const { position, fill, rotation, align, size, tabCount } = value;
+  const set = (patch: Partial<TabSettings>) => onChange({ ...value, ...patch });
   return (
-    <TabGroup
-      aria-label="Operations tabs"
-      orientation="vertical"
-      value={active}
-      onChange={setActive}
-      tabs={operationsTabs}
-    />
+  <div className="rui-tab-group-demo__controls">
+         <fieldset className="rui-tab-group-demo__group">
+          <legend>Tabs</legend>
+          <NumberInput
+            value={tabCount}
+            min={MIN_TABS}
+            max={MAX_TABS}
+            step={1}
+            scale={0.5}
+            onChange={(next) =>
+              set({ tabCount: clamp(Number(next) || MIN_TABS, MIN_TABS, MAX_TABS) })
+            }
+          />
+        </fieldset>
+
+        <fieldset className="rui-tab-group-demo__group">
+          <legend>{config.legendLocation}</legend>
+          {config.positionOptions.map((opt) => (
+            <label key={opt.value}>
+              <input
+                type="radio"
+                name={`${group}-position`}
+                checked={position === opt.value}
+                onChange={() => set({ position: opt.value })}
+              />
+              {opt.label}
+            </label>
+          ))}
+        </fieldset>
+
+        <fieldset className="rui-tab-group-demo__group">
+          <legend>{config.legendRotation}</legend>
+          {config.rotationOptions.map((opt) => (
+            <label key={opt.value}>
+              <input
+                type="radio"
+                name={`${group}-rotation`}
+                checked={rotation === opt.value}
+                onChange={() => set({rotation: opt.value })}
+              />
+              {opt.label}
+            </label>
+          ))}
+        </fieldset>
+
+        <fieldset className="rui-tab-group-demo__group">
+          <legend>{config.legendFill}</legend>
+          <label>
+            <input
+              type="radio"
+              name={`${group}-fill`}
+              checked={fill === "full"}
+              onChange={() => set({ fill: "full" })}
+            />
+            {config.fillLabels.full}
+          </label>
+          <label>
+            <input
+              type="radio"
+              name={`${group}-fill`}
+              checked={fill === "partial"}
+              onChange={() => set({ fill: "partial" })}
+            />
+            {config.fillLabels.partial}
+          </label>
+        </fieldset>
+
+        {fill === "partial" ? (
+          <fieldset className="rui-tab-group-demo__group">
+            <legend>{config.sizeLabel}</legend>
+            <NumberInput
+              value={size}
+              min={MIN_TAB_SIZE}
+              max={MAX_TAB_SIZE}
+              step={5}
+              scale={0.5}
+              onChange={(next) =>
+                set({ size: clamp(Number(next) || MIN_TAB_SIZE, MIN_TAB_SIZE, MAX_TAB_SIZE) })
+              }
+            />
+          </fieldset>
+        ) : null}
+
+        {fill === "partial" ? (
+          <fieldset className="rui-tab-group-demo__group">
+            <legend>{config.legendAlign}</legend>
+            <label>
+              <input
+                type="radio"
+                name={`${config.radioNamePrefix}-align`}
+                checked={align === "start"}
+                onChange={() => set({ align: "start" })}
+              />
+              {config.alignLabels.start}
+            </label>
+            <label>
+              <input
+                type="radio"
+                name={`${config.radioNamePrefix}-align`}
+                checked={align === "center"}
+                onChange={() => set({ align: "center" })}
+              />
+              {config.alignLabels.center}
+            </label>
+            <label>
+              <input
+                type="radio"
+                name={`${config.radioNamePrefix}-align`}
+                checked={align === "end"}
+                onChange={() => set({ align: "end" })}
+              />
+              {config.alignLabels.end}
+            </label>
+          </fieldset>
+        ) : null}
+      </div>
+      );
+}
+
+const horizontalControlsConfig: TabControlsConfig = {
+  legendLocation: "Location",
+  positionOptions: [
+    { value: "top", label: "Top" },
+    { value: "bottom", label: "Bottom" },
+  ],
+  legendFill: "Width",
+  fillLabels: { full: "Full", partial: "Partial" },
+  legendRotation: "Rotation",
+  rotationOptions: [
+    { value: "horizontal", label: "Horizontal" },
+    { value: "vertical", label: "Vertical" },
+  ],
+  sizeLabel: "Tab width",
+  legendAlign: "Align",
+  alignLabels: { start: "Left", center: "Center", end: "Right" },
+  radioNamePrefix: "horizontal",
+}
+
+const verticalControlsConfig: TabControlsConfig = {
+  legendLocation: "Location",
+  positionOptions: [
+    { value: "left", label: "Left"},
+    { value: "right", label: "Right" },
+  ],
+  legendFill: "Height",
+  fillLabels: { full: "Full", partial: "Partial" },
+  legendRotation: "Rotation",
+  rotationOptions: [
+    { value: "horizontal", label: "Horizontal" },
+    { value: "vertical", label: "Vertical" },
+  ],
+  sizeLabel: "Tab height",
+  legendAlign: "Align",
+  alignLabels: { start: "Top", center: "Center", end: "Bottom" },
+  radioNamePrefix: "vertical",
+}
+
+function HorizontalControlsDemo() {
+  const [settings, setSettings] = React.useState<TabSettings>( {
+    tabCount: DEFAULT_TABS,
+    position: "top",
+    fill: "full",
+    rotation: "horizontal",
+    align: "center",
+    size: DEFAULT_TAB_SIZE,
+  });
+  const tabs = React.useMemo(
+    () => makeTabs(settings.tabCount, "horizontal"),
+    [settings.tabCount]
+  );
+  return (
+    <div className="rui-tab-group-demo__stack">
+      <TabControls value={settings} onChange={setSettings} config={horizontalControlsConfig} />
+      <div className="rui-tab-group-demo__resizable-wrap">
+        <ResizableContainer
+          axis="x"
+          minWidth={320}
+          defaultWidth={520}
+          className="rui-tab-group-demo__resizable rui-tab-group-demo__resizable--horizontal"
+        >
+          <TabGroup
+            position={settings.position}
+            fill={settings.fill}
+            rotation={settings.rotation}
+            align={settings.align}
+            size={settings.size}
+            tabs={tabs}
+          />
+        </ResizableContainer>
+      </div>
+    </div>
+  );
+}
+
+function VerticalControlsDemo() {
+  const [settings, setSettings] = React.useState<TabSettings>( {
+    tabCount: DEFAULT_TABS,
+    position: "left",
+    fill: "full",
+    rotation: "vertical",
+    align: "center",
+    size: DEFAULT_TAB_SIZE,
+  });
+  const tabs = React.useMemo(
+    () => makeTabs(settings.tabCount, "vertical"),
+    [settings.tabCount]
+  );
+  return (
+    <div className="rui-tab-group-demo__stack">
+      <TabControls value={settings} onChange={setSettings} config={verticalControlsConfig} />
+      <ResizableContainer
+        axis="y"
+        minHeight={200}
+        defaultHeight={280}
+        className="rui-tab-group-demo__resizable"
+      >
+        <TabGroup
+          position={settings.position}
+          fill={settings.fill}
+          rotation={settings.rotation}
+          align={settings.align}
+          size={settings.size}
+          tabs={tabs}
+        />
+      </ResizableContainer>
+    </div>
   );
 }
 
 function TabGroupPreview() {
   return (
     <div className="rui-tab-group-demo__u-style--3e7ce58d64">
-      <DemoExample
-        title="Horizontal tabs"
-        className="rui-tab-group-demo__u-border-radius-1-5rem--ea189a088a rui-tab-group-demo__u-border-width-1px--ca6bcd4b6f rui-tab-group-demo__u-rui-border-opacity-1--52f4da2ca5 rui-tab-group-demo__u-background-color-rgb-255-255-255--845918557e rui-tab-group-demo__u-padding-1rem--8e63407b5c rui-tab-group-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-tab-group-demo__u-rui-border-opacity-1--2072c87505 rui-tab-group-demo__u-background-color-rgb-15-23-42-0---5212cbf15b"
-      >
-        <HorizontalTabExample />
+      <DemoExample title="Horizontal tabs">
+        <p className="rui-tab-group-demo__note">
+          Resize horizontally to test left/right scroll buttons.
+        </p>
+        <HorizontalControlsDemo />
       </DemoExample>
-      <DemoExample
-        title="Vertical knowledge hub"
-        className="rui-tab-group-demo__u-border-radius-1-5rem--ea189a088a rui-tab-group-demo__u-border-width-1px--ca6bcd4b6f rui-tab-group-demo__u-rui-border-opacity-1--52f4da2ca5 rui-tab-group-demo__u-background-color-rgb-255-255-255--845918557e rui-tab-group-demo__u-padding-1rem--8e63407b5c rui-tab-group-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-tab-group-demo__u-rui-border-opacity-1--2072c87505 rui-tab-group-demo__u-background-color-rgb-15-23-42-0---5212cbf15b"
-      >
-        <VerticalTabExample />
+      <DemoExample title="Vertical tabs">
+        <p className="rui-tab-group-demo__note">
+          Resize vertically to test tab heights and scroll buttons.
+        </p>
+        <VerticalControlsDemo />
       </DemoExample>
     </div>
   );
@@ -158,8 +374,7 @@ function TabGroupPreview() {
 const entry: ComponentRegistryEntry = {
   slug: "tab-group",
   name: "Tab Group",
-  description:
-    "Accessible tabbed panels with roving keyboard focus that can lay out horizontally or vertically.",
+  description: "Accessible tabbed panels that can lay out horizontally or vertically.",
   tags: ["navigation", "layout"],
   Preview: TabGroupPreview,
   sourcePath: "src/components/TabGroup/TabGroup.tsx",
@@ -167,4 +382,4 @@ const entry: ComponentRegistryEntry = {
 
 export default entry;
 export { TabGroup };
-export type { TabGroupProps, TabGroupItem };
+export type { TabGroupProps };

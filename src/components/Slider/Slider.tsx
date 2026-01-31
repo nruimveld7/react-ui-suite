@@ -170,7 +170,7 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(function S
   const trackOffset = trackMetrics.mainOffset;
   const trackCrossOffset = trackMetrics.crossOffset;
   const trackThickness = trackMetrics.thickness;
-  const overlap = Math.max(edgeOverlap, 0);
+  const overlap = Math.max(renderThumb ? 0 : edgeOverlap, 0);
   const minCenter = Math.max(thumbRadius - overlap, 0);
   const maxCenter = Math.max(trackLength - thumbRadius + overlap, minCenter);
   const usableLength = Math.max(maxCenter - minCenter, 0);
@@ -407,12 +407,12 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(function S
   );
 
   return (
-    <div className={clsx("rui-slider__u-width-100--6da6a3c3f7 rui-slider__u-style--6f7e013d64", isVertical && "rui-slider__u-max-width-120px--d3f6ecda5b", className)}>
+    <div className={clsx("rui-root rui-slider__u-width-100--6da6a3c3f7 rui-slider__u-style--6f7e013d64", isVertical && "rui-slider__u-max-width-120px--d3f6ecda5b", className)}>
       {label ? (
         <div className="rui-slider__u-display-flex--60fbb77139 rui-slider__u-align-items-center--3960ffc248 rui-slider__u-justify-content-space-between--8ef2268efb rui-slider__u-gap-0-75rem--1004c0c395">
           <label
             htmlFor={inputId}
-            className="rui-slider__u-font-size-11px--d058ca6de6 rui-slider__u-font-weight-600--e83a7042bc rui-slider__u-text-transform-uppercase--117ec720ea rui-slider__u-letter-spacing-0-25em--854c830ad6 rui-slider__u-rui-text-opacity-1--30426eb75c rui-slider__u-rui-text-opacity-1--6462b86910"
+            className="rui-slider__u-font-size-11px--d058ca6de6 rui-slider__u-font-weight-600--e83a7042bc rui-slider__u-text-transform-uppercase--117ec720ea rui-slider__u-letter-spacing-0-25em--854c830ad6 rui-slider__u-rui-text-opacity-1--30426eb75c rui-slider__u-rui-text-opacity-1--6462b86910 rui-text-wrap"
           >
             {label}
           </label>
@@ -425,7 +425,7 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(function S
       <div
         ref={trackContainerRef}
         className={clsx(
-          "rui-slider__u-position-relative--d89972fe17 rui-slider__u-width-100--6da6a3c3f7 rui-slider__u-padding-top-0-5rem--f46b61a9b3 rui-slider__u-padding-bottom-0-75rem--7fcf9124b5",
+          "rui-slider__track-container rui-slider__u-position-relative--d89972fe17 rui-slider__u-width-100--6da6a3c3f7 rui-slider__u-padding-top-0-5rem--f46b61a9b3 rui-slider__u-padding-bottom-0-75rem--7fcf9124b5",
           isVertical && "rui-slider__u-display-flex--60fbb77139 rui-slider__u-height-12rem--3c8ea328c0 rui-slider__u-align-items-center--3960ffc248 rui-slider__u-justify-content-center--86843cf1e2 rui-slider__u-padding-left-1rem--f0faeb26d6 rui-slider__u-padding-bottom-1rem--9fcd8a1382 rui-slider__u-padding-top-1rem--173fa8f067"
         )}
         data-orientation={orientation}
@@ -465,3 +465,5 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(function S
     </div>
   );
 });
+
+

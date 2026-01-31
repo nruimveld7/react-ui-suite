@@ -190,7 +190,7 @@ export function Dialog({
     modal ? (
       <div
         ref={overlayRef}
-        className="rui-dialog__u-position-fixed--7bc555991d rui-dialog__u-inset-0px--7b7df0449b rui-dialog__u-z-index-50--181b286668 rui-dialog__u-display-flex--60fbb77139 rui-dialog__u-align-items-center--3960ffc248 rui-dialog__u-justify-content-center--86843cf1e2 rui-dialog__u-background-color-rgb-9-9-11-0-6--df3b4d71de rui-dialog__u-backdrop-filter-blur-4px--1ca6dd1e47"
+        className="rui-overlay-root rui-dialog__u-position-fixed--7bc555991d rui-dialog__u-inset-0px--7b7df0449b rui-dialog__u-z-index-50--181b286668 rui-dialog__u-display-flex--60fbb77139 rui-dialog__u-align-items-center--3960ffc248 rui-dialog__u-justify-content-center--86843cf1e2 rui-dialog__u-background-color-rgb-9-9-11-0-6--df3b4d71de rui-dialog__u-backdrop-filter-blur-4px--1ca6dd1e47"
         onMouseDown={(e) => {
           if (e.target === overlayRef.current) onClose();
         }}
@@ -198,10 +198,11 @@ export function Dialog({
         {dialogCard}
       </div>
     ) : (
-      <div className="rui-dialog__u-pointer-events-none--a4326536b8 rui-dialog__u-position-fixed--7bc555991d rui-dialog__u-bottom-1-5rem--4c049197a3 rui-dialog__u-right-1-5rem--82d7e544e4 rui-dialog__u-z-index-50--181b286668 rui-dialog__u-display-flex--60fbb77139 rui-dialog__u-justify-content-flex-end--77c08e015d">
+      <div className="rui-overlay-root rui-dialog__u-pointer-events-none--a4326536b8 rui-dialog__u-position-fixed--7bc555991d rui-dialog__u-bottom-1-5rem--4c049197a3 rui-dialog__u-right-1-5rem--82d7e544e4 rui-dialog__u-z-index-50--181b286668 rui-dialog__u-display-flex--60fbb77139 rui-dialog__u-justify-content-flex-end--77c08e015d">
         {dialogCard}
       </div>
     ),
     document.body
   );
 }
+

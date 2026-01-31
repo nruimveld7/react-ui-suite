@@ -41,7 +41,7 @@ export const OutputChip = React.forwardRef<HTMLOutputElement, OutputChipProps>(f
     <output
       {...rest}
       ref={ref}
-      className={clsx(
+      className={clsx("rui-root", 
         "rui-output-chip__u-display-inline-flex--52083e7da4 rui-output-chip__u-align-items-center--3960ffc248 rui-output-chip__u-justify-content-center--86843cf1e2 rui-output-chip__u-gap-0-5rem--77a2a20e90 rui-output-chip__u-border-radius-9999px--ac204c1088 rui-output-chip__u-padding-left-0-75rem--0e17f2bd90 rui-output-chip__u-padding-top-0-25rem--660d2effb8 rui-output-chip__u-font-size-0-75rem--359090c2d5 rui-output-chip__u-font-weight-600--e83a7042bc rui-output-chip__u-text-transform-uppercase--117ec720ea rui-output-chip__u-letter-spacing-0-25em--854c830ad6 rui-output-chip__u-box-shadow-0-0-0000-0-0-0000-0-1--438b2237b8 rui-output-chip__u-box-shadow-0-0-0-0px-fff-0-0-0-c--3daca9af08 rui-output-chip__u-text-align-center--ca6bf63030",
         styles.bg,
         styles.text,
@@ -49,8 +49,12 @@ export const OutputChip = React.forwardRef<HTMLOutputElement, OutputChipProps>(f
         className
       )}
     >
-      {label ? <span className="rui-output-chip__u-opacity-0-7--0c67ca474a">{label}</span> : null}
-      <span>{children}</span>
+      {label ? <span className="rui-output-chip__u-opacity-0-7--0c67ca474a rui-text-wrap">{label}</span> : null}
+      <span className="rui-output-chip__value rui-text-wrap">{children}</span>
     </output>
   );
 });
+
+
+
+

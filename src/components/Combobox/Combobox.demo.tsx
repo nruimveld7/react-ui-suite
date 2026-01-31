@@ -36,7 +36,6 @@ function LanguageCombobox() {
         value={value}
         onChange={setValue}
         placeholder="Pick a language"
-        className="rui-combobox-demo__combobox"
       />
       <p className="rui-combobox-demo__selected">Selected language: {value?.label ?? "None"}</p>
     </div>
@@ -48,18 +47,20 @@ function CustomFilterCombobox() {
   const fuzzyOptions = useMemo(() => languageOptions, []);
 
   return (
-    <Combobox
-      ariaLabel="Fuzzy language filter"
-      options={fuzzyOptions}
-      value={value}
-      onChange={setValue}
-      placeholder="Search languages..."
-      filter={(option, query) => {
-        const tokens = query.trim().toLowerCase().split(/\s+/);
-        return tokens.every((token) => option.label.toLowerCase().includes(token));
-      }}
-      className="rui-combobox-demo__combobox"
-    />
+    <div className="rui-combobox-demo__stack">
+      <Combobox
+        ariaLabel="Fuzzy language filter"
+        options={fuzzyOptions}
+        value={value}
+        onChange={setValue}
+        placeholder="Search languages..."
+        filter={(option, query) => {
+          const tokens = query.trim().toLowerCase().split(/\s+/);
+          return tokens.every((token) => option.label.toLowerCase().includes(token));
+        }}
+      />
+      <p className="rui-combobox-demo__hint">Override the filter prop for fuzzy matching.</p>
+    </div>
   );
 }
 
@@ -73,7 +74,6 @@ function DisabledOptionsCombobox() {
         value={value}
         onChange={setValue}
         placeholder="Framework"
-        className="rui-combobox-demo__combobox"
       />
       <p className="rui-combobox-demo__selected">Selected framework: {value?.label ?? "None"}</p>
     </div>
@@ -88,7 +88,6 @@ function ComboboxPreview() {
       </DemoExample>
       <DemoExample title="Custom filter">
         <CustomFilterCombobox />
-        <p className="rui-combobox-demo__hint">Override the filter prop for fuzzy matching.</p>
       </DemoExample>
       <DemoExample title="Disabled options" className="rui-combobox-demo__card--span2">
         <DisabledOptionsCombobox />

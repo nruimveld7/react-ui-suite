@@ -19,14 +19,14 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(function Card(
     <div
       {...rest}
       ref={ref}
-      className={clsx("rui-card", muted && "rui-card--muted", className)}
+      className={clsx("rui-card", "rui-root", "rui-surface", muted && "rui-card--muted", className)}
     >
       {hasHeader && (
         <div className="rui-card__header">
           {eyebrow ? (
-            <p className="rui-card__eyebrow">{eyebrow}</p>
+            <p className="rui-card__eyebrow rui-text-wrap">{eyebrow}</p>
           ) : (
-            <p className="rui-card__eyebrow rui-card__eyebrow--placeholder">Eyebrow</p>
+            <p className="rui-card__eyebrow rui-text-wrap rui-card__eyebrow--placeholder">Eyebrow</p>
           )}
           {actions ? <div className="rui-card__actions">{actions}</div> : null}
         </div>
@@ -34,17 +34,18 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(function Card(
       {title ? (
         <h3
           className={clsx(
-            "rui-card__title",
+            "rui-card__title rui-text-wrap",
             hasHeader && "rui-card__title--offset"
           )}
         >
           {title}
         </h3>
       ) : null}
-      {children ? <div className="rui-card__body">{children}</div> : null}
+      {children ? <div className="rui-card__body rui-text-wrap">{children}</div> : null}
       {footer ? (
-        <div className="rui-card__footer">{footer}</div>
+        <div className="rui-card__footer rui-text-wrap">{footer}</div>
       ) : null}
     </div>
   );
 });
+

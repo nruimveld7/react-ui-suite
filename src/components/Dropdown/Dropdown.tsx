@@ -74,7 +74,7 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
     const mergedAriaLabel = ariaLabel ?? inputProps?.["aria-label"];
 
     return (
-      <div ref={ref} className={clsx("rui-dropdown", className)}>
+      <div ref={ref} className={clsx("rui-dropdown", "rui-root", className)}>
         <div
           onKeyDownCapture={onKeyDownCapture}
           onMouseDown={onShellMouseDown}
@@ -130,3 +130,4 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
 );
 
 Dropdown.displayName = "Dropdown";
+

@@ -63,8 +63,12 @@ export function Listbox<T>({
             data-index={i}
             className="rui-combobox__option"
             onMouseEnter={() => !opt.disabled && onHoverIndex(i)}
-            onMouseDown={(e) => e.preventDefault()} // keep focus on input
-            onClick={() => !opt.disabled && onSelectIndex(i)}
+            onMouseDown={(e) => {
+              if (opt.disabled) return;
+              e.preventDefault();
+              e.stopPropagation();
+              onSelectIndex(i);
+            }} // keep focus on input
           >
             {renderOption ? (
               renderOption(opt, optionState)
@@ -73,6 +77,7 @@ export function Listbox<T>({
                 className={clsx(
                   "rui-combobox__option-row",
                   active && "rui-combobox__option-row--active",
+                  selected && "rui-combobox__option-row--selected",
                   opt.disabled && "rui-combobox__option-row--disabled"
                 )}
               >
@@ -90,3 +95,5 @@ export function Listbox<T>({
     </ul>
   );
 }
+
+

@@ -71,7 +71,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(functi
   return (
     <label
       htmlFor={checkboxId}
-      className={clsx(
+      className={clsx("rui-root", 
         "rui-checkbox",
         disabled && "rui-checkbox--disabled",
         className
@@ -95,8 +95,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(functi
           disabled={disabled}
         />
         <span
-          className={clsx(
-            "rui-checkbox__box",
+          className={clsx("rui-checkbox__box",
             resolvedChecked && "rui-checkbox__box--checked",
             indeterminate && !resolvedChecked && "rui-checkbox__box--indeterminate"
           )}
@@ -110,11 +109,15 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(functi
         </span>
       </span>
       <span className="rui-checkbox__text">
-        <span className="rui-checkbox__label">{label}</span>
+        <span className="rui-checkbox__label rui-text-wrap">{label}</span>
         {description ? (
-          <span className="rui-checkbox__description">{description}</span>
+          <span className="rui-checkbox__description rui-text-wrap">{description}</span>
         ) : null}
       </span>
     </label>
   );
 });
+
+
+
+

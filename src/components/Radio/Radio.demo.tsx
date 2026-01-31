@@ -100,29 +100,37 @@ const layoutOptions: LayoutOption[] = [
 
 function LayoutPreference() {
   const [density, setDensity] = useState<LayoutOption["id"]>("cozy");
+  const densityColors: Record<LayoutOption["id"], RadioProps["color"]> = {
+    airy: "blue",
+    cozy: "green",
+    compact: "red",
+  };
 
   return (
     <DemoExample
       title="Layout density"
       className="rui-radio-demo__u-border-radius-1-5rem--ea189a088a rui-radio-demo__u-border-width-1px--ca6bcd4b6f rui-radio-demo__u-rui-border-opacity-1--52f4da2ca5 rui-radio-demo__u-background-color-rgb-255-255-255--6c21de570d rui-radio-demo__u-padding-1rem--8e63407b5c rui-radio-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-radio-demo__u-rui-border-opacity-1--2072c87505 rui-radio-demo__u-background-color-rgb-15-23-42-0---5212cbf15b"
     >
-      <div className="rui-radio-demo__u-display-grid--f3c543ad5f rui-radio-demo__u-gap-0-5rem--77a2a20e90 rui-radio-demo__u-grid-template-columns-repeat-3-m--ab1b20c229">
-        {layoutOptions.map((option) => (
-          <Radio
-            key={option.id}
-            name="layout"
-            label={option.title}
-            description={option.copy}
-            checked={density === option.id}
-            onChange={() => setDensity(option.id)}
-            className="rui-radio-demo__compact-shadow rui-radio-demo__u-height-100--668b21aa54 rui-radio-demo__u-width-100--6da6a3c3f7 rui-radio-demo__u-border-radius-1rem--68f2db624d rui-radio-demo__u-border-width-1px--ca6bcd4b6f rui-radio-demo__u-rui-border-opacity-1--52f4da2ca5 rui-radio-demo__u-background-color-rgb-255-255-255--845918557e rui-radio-demo__u-padding-left-0-75rem--0e17f2bd90 rui-radio-demo__u-padding-top-0-75rem--1b2d54a3fd rui-radio-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-radio-demo__u-rui-border-opacity-1--262753c115 rui-radio-demo__u-rui-border-opacity-1--30fb741464 rui-radio-demo__u-background-color-rgb-15-23-42-0---43aaa5e5c1"
-          />
-        ))}
+      <div className="rui-radio-demo__layout-density">
+        <div className="rui-radio-demo__density-grid rui-radio-demo__u-display-grid--f3c543ad5f rui-radio-demo__u-gap-0-5rem--77a2a20e90 rui-radio-demo__u-grid-template-columns-repeat-3-m--ab1b20c229">
+          {layoutOptions.map((option) => (
+            <Radio
+              key={option.id}
+              name="layout"
+              label={option.title}
+              description={option.copy}
+              color={densityColors[option.id]}
+              checked={density === option.id}
+              onChange={() => setDensity(option.id)}
+              className="rui-radio-demo__density-card rui-radio-demo__u-width-100--6da6a3c3f7 rui-radio-demo__u-border-radius-1rem--68f2db624d rui-radio-demo__u-padding-left-0-75rem--0e17f2bd90 rui-radio-demo__u-padding-top-0-75rem--1b2d54a3fd"
+            />
+          ))}
+        </div>
+        <p className="rui-radio-demo__u-border-radius-0-75rem--a217b4eaa9 rui-radio-demo__u-border-width-1px--ca6bcd4b6f rui-radio-demo__u-border-style-dashed--a29b7a649c rui-radio-demo__u-rui-border-opacity-1--52f4da2ca5 rui-radio-demo__u-rui-bg-opacity-1--f97e9d36d1 rui-radio-demo__u-padding-left-0-75rem--0e17f2bd90 rui-radio-demo__u-padding-top-0-5rem--03b4dd7f17 rui-radio-demo__u-font-size-0-75rem--359090c2d5 rui-radio-demo__u-rui-text-opacity-1--2d6fbf48fa rui-radio-demo__u-rui-border-opacity-1--2072c87505 rui-radio-demo__u-background-color-rgb-2-6-23-0-5--719d9a74b1 rui-radio-demo__u-rui-text-opacity-1--ca11017ff7">
+          Current mode:{" "}
+          <span className="rui-radio-demo__u-font-weight-600--e83a7042bc rui-radio-demo__u-rui-text-opacity-1--f5f136c41d rui-radio-demo__u-rui-text-opacity-1--e1d41ccd69">{density}</span>
+        </p>
       </div>
-      <p className="rui-radio-demo__u-margin-top-0-75rem--eccd13ef4f rui-radio-demo__u-border-radius-0-75rem--a217b4eaa9 rui-radio-demo__u-border-width-1px--ca6bcd4b6f rui-radio-demo__u-border-style-dashed--a29b7a649c rui-radio-demo__u-rui-border-opacity-1--52f4da2ca5 rui-radio-demo__u-rui-bg-opacity-1--f97e9d36d1 rui-radio-demo__u-padding-left-0-75rem--0e17f2bd90 rui-radio-demo__u-padding-top-0-5rem--03b4dd7f17 rui-radio-demo__u-font-size-0-75rem--359090c2d5 rui-radio-demo__u-rui-text-opacity-1--2d6fbf48fa rui-radio-demo__u-rui-border-opacity-1--2072c87505 rui-radio-demo__u-background-color-rgb-2-6-23-0-5--719d9a74b1 rui-radio-demo__u-rui-text-opacity-1--ca11017ff7">
-        Current mode:{" "}
-        <span className="rui-radio-demo__u-font-weight-600--e83a7042bc rui-radio-demo__u-rui-text-opacity-1--f5f136c41d rui-radio-demo__u-rui-text-opacity-1--e1d41ccd69">{density}</span>
-      </p>
     </DemoExample>
   );
 }
@@ -212,3 +220,7 @@ const entry: ComponentRegistryEntry = {
 export default entry;
 export { Radio };
 export type { RadioProps };
+
+
+
+

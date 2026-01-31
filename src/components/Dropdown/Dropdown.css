@@ -119,3 +119,10 @@
 [data-theme="dark"] .rui-dropdown__input::placeholder {
   color: rgb(113 113 122 / 1);
 }
+
+.rui-dropdown__shell,
+.rui-dropdown__input,
+.rui-dropdown__leading,
+.rui-dropdown__inline {
+  min-width: 0;
+}

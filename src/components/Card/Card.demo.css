@@ -242,7 +242,7 @@
 }
 
 .rui-card-demo__u-border-color-rgb-30-41-59-1--2072c87505:is(.dark *) {
-  border-color: rgb(30 41 59 / 1);
+  border-color: rgb(63 63 70 / 0.6);
 }
 
 .rui-card-demo__u-background-color-rgb-24-24-27-1--dbfefd7c07:is(.dark *) {
@@ -279,3 +279,4 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
+

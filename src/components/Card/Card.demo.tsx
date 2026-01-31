@@ -105,10 +105,10 @@ function CardPreview() {
         <PlanComparison />
       </DemoExample>
       <div className="card-demo-secondary-grid">
-        <DemoExample title="Uptime" framed={false}>
+        <DemoExample title="Uptime">
           <AnalyticsCardExample />
         </DemoExample>
-        <DemoExample title="Muted" framed={false}>
+        <DemoExample title="Muted">
           <MutedCardExample />
         </DemoExample>
       </div>

@@ -7,6 +7,8 @@ import { DemoExample } from "../../../demo/src/components/DemoExample";
 function MetricCard() {
   const [latency, setLatency] = useState(122);
   const [status, setStatus] = useState<"neutral" | "success" | "warning" | "danger">("success");
+  const cardClassName =
+    "rui-output-chip-demo__u-border-radius-1-5rem--ea189a088a rui-output-chip-demo__u-border-width-1px--ca6bcd4b6f rui-output-chip-demo__u-border-color-rgb-226-232-240-1--52f4da2ca5 rui-output-chip-demo__u-background-color-rgb-255-255-255--6c21de570d rui-output-chip-demo__u-padding-1rem--8e63407b5c rui-output-chip-demo__u-box-shadow-0-0-0000-0-0-0000-0-1--438b2237b8 rui-output-chip-demo__u-border-color-rgb-30-41-59-1--2072c87505 rui-output-chip-demo__u-background-color-rgb-15-23-42-0---5212cbf15b";
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -22,10 +24,7 @@ function MetricCard() {
   }, []);
 
   return (
-    <DemoExample
-      title="Latency"
-      className="rui-output-chip-demo__u-border-radius-1-5rem--ea189a088a rui-output-chip-demo__u-border-width-1px--ca6bcd4b6f rui-output-chip-demo__u-border-color-rgb-226-232-240-1--52f4da2ca5 rui-output-chip-demo__u-background-color-rgb-255-255-255--6c21de570d rui-output-chip-demo__u-padding-1rem--8e63407b5c rui-output-chip-demo__u-box-shadow-0-0-0000-0-0-0000-0-1--438b2237b8 rui-output-chip-demo__u-border-color-rgb-30-41-59-1--2072c87505 rui-output-chip-demo__u-background-color-rgb-15-23-42-0---5212cbf15b"
-    >
+    <DemoExample title="Latency" className={cardClassName}>
       <div
         className="rui-output-chip-demo__u-display-flex--60fbb77139 rui-output-chip-demo__u-align-items-center--3960ffc248 rui-output-chip-demo__u-justify-content-space-between--8ef2268efb"
         style={{ margin: "0px", justifyContent: "flex-end" }}
@@ -46,12 +45,40 @@ function MetricCard() {
   );
 }
 
+function UsageSummary() {
+  return (
+    <DemoExample
+      title="Usage summary"
+      className="rui-output-chip-demo__u-border-radius-1-5rem--ea189a088a rui-output-chip-demo__u-border-width-1px--ca6bcd4b6f rui-output-chip-demo__u-border-color-rgb-226-232-240-1--52f4da2ca5 rui-output-chip-demo__u-background-color-rgb-255-255-255--6c21de570d rui-output-chip-demo__u-padding-1rem--8e63407b5c rui-output-chip-demo__u-box-shadow-0-0-0000-0-0-0000-0-1--438b2237b8 rui-output-chip-demo__u-border-color-rgb-30-41-59-1--2072c87505 rui-output-chip-demo__u-background-color-rgb-15-23-42-0---5212cbf15b"
+    >
+      <div className="output-chip-demo-row">
+        <span className="output-chip-demo-label">Monthly volume</span>
+        <OutputChip tone="neutral" label="tokens">
+          12.4k
+        </OutputChip>
+      </div>
+      <p className="output-chip-demo-note">
+        OutputChip uses an HTML output element for computed values.
+      </p>
+    </DemoExample>
+  );
+}
+
+function OutputChipPreview() {
+  return (
+    <div className="output-chip-demo-grid">
+      <MetricCard />
+      <UsageSummary />
+    </div>
+  );
+}
+
 const entry: ComponentRegistryEntry = {
   slug: "output-chip",
   name: "Output Chip",
   description: "HTMLOutput styled as a pill for computed values and statuses.",
   tags: ["feedback", "status"],
-  Preview: MetricCard,
+  Preview: OutputChipPreview,
   sourcePath: "src/components/OutputChip/OutputChip.tsx",
 };
 

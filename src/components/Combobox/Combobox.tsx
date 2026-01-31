@@ -46,6 +46,7 @@ function InnerCombobox<T>(
   const [activeIndex, setActiveIndex] = React.useState<number>(-1);
   const suppressNextOpenRef = React.useRef(false);
   const suppressToggleRef = React.useRef(false);
+  const closeAfterSelectRef = React.useRef(false);
   const prevOpenRef = React.useRef(open);
 
   const [selected, setSelected] = useControlledState<ComboboxOption<T> | null>(
@@ -165,16 +166,27 @@ function InnerCombobox<T>(
     }
   }, [open]);
 
+  React.useEffect(() => {
+    if (!closeAfterSelectRef.current) return;
+    if (open) {
+      setOpen(false);
+      return;
+    }
+    closeAfterSelectRef.current = false;
+  }, [open]);
+
   // Accept HTMLElement | null refs (matches hook signature)
   useOutsideClick(outsideClickRefs, closeOnOutsideClick);
 
   function commitSelection(opt: ComboboxOption<T> | null, opts: { refocus?: boolean } = {}) {
     const { refocus = true } = opts;
+    closeAfterSelectRef.current = true;
     setSelected(opt);
     onChange?.(opt);
     if (opt) setQuery("");
     setOpen(false);
     if (refocus) {
+      suppressNextOpenRef.current = true;
       requestAnimationFrame(() => inputRef.current?.focus());
     }
   }
@@ -336,7 +348,7 @@ function InnerCombobox<T>(
       }}
     >
       {isEffectivelyOpen && (
-        <Popover className={clsx(listboxHighlight, listClassName)}>
+        <Popover anchorRef={containerRef} className={clsx(listboxHighlight, listClassName)}>
           {({ scrollRef }) => (
             <Listbox
               id={listboxId}
@@ -359,3 +371,7 @@ function InnerCombobox<T>(
 export const Combobox = React.forwardRef(InnerCombobox) as <T>(
   props: ComboboxProps<T> & React.RefAttributes<HTMLInputElement>
 ) => React.ReactElement | null;
+
+
+
+

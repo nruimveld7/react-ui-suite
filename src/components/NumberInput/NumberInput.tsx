@@ -1,11 +1,13 @@
 import * as React from "react";
 import clsx from "clsx";
+import Button from "../Button/Button";
 import "./NumberInput.css";
 export type NumberInputProps = {
   label?: string;
   description?: string;
   error?: string;
   className?: string;
+  style?: React.CSSProperties;
   disabled?: boolean;
   value?: number;
   defaultValue?: number;
@@ -14,6 +16,7 @@ export type NumberInputProps = {
   suffix?: React.ReactNode;
   min?: number;
   max?: number;
+  scale?: number;
 };
 
 export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
@@ -23,6 +26,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
       description,
       error,
       className,
+      style,
       disabled,
       value,
       defaultValue = 0,
@@ -31,6 +35,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
       suffix,
       min,
       max,
+      scale = 1,
     },
     ref
   ) {
@@ -44,10 +49,23 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
       onChange?.(clamped);
     };
 
+    const resolvedText = `${resolved}`;
+    const valueChars = Math.max(resolvedText.length, 1);
+
+    const rootStyle = React.useMemo(
+      () =>
+        ({
+          "--rui-number-input-scale": scale,
+          "--rui-number-input-value-ch": valueChars,
+          ...style,
+        }) as React.CSSProperties,
+      [scale, style, valueChars]
+    );
+
     return (
-      <div className="rui-number-input__u-style--5a2508227c">
+      <div className="rui-number-input__u-style--5a2508227c rui-root" style={rootStyle}>
         {label ? (
-          <p className="rui-number-input__u-font-size-0-75rem--359090c2d5 rui-number-input__u-font-weight-600--e83a7042bc rui-number-input__u-text-transform-uppercase--117ec720ea rui-number-input__u-letter-spacing-0-2em--2da1a7016e rui-number-input__u-color-rgb-100-116-139-1--30426eb75c rui-number-input__u-color-rgb-161-161-170-1--6462b86910">
+          <p className="rui-number-input__u-font-size-0-75rem--359090c2d5 rui-number-input__u-font-weight-600--e83a7042bc rui-number-input__u-text-transform-uppercase--117ec720ea rui-number-input__u-letter-spacing-0-2em--2da1a7016e rui-number-input__u-color-rgb-100-116-139-1--30426eb75c rui-number-input__u-color-rgb-161-161-170-1--6462b86910 rui-text-wrap">
             {label}
           </p>
         ) : null}
@@ -60,24 +78,48 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
           )}
         >
           <div className="rui-number-input__u-display-flex--60fbb77139 rui-number-input__u-flex-direction-column--8dddea0773 rui-number-input__u-gap-0-25rem--44ee8ba0a4">
-            <button
+            <Button
               type="button"
               aria-label="Increase"
               onClick={() => update(resolved + step)}
-              className="rui-number-input__u-display-grid--f3c543ad5f rui-number-input__u-width-1-75rem--cc46d0fa27 rui-number-input__u-place-items-center--67d66567ca rui-number-input__u-border-radius-0-75rem--a217b4eaa9 rui-number-input__u-border-width-1px--ca6bcd4b6f rui-number-input__u-border-color-rgb-226-232-240-1--52f4da2ca5 rui-number-input__u-background-color-rgb-255-255-255--5e10cdb8f1 rui-number-input__u-font-size-0-75rem--359090c2d5 rui-number-input__u-font-weight-600--e83a7042bc rui-number-input__u-color-rgb-51-65-85-1--bcbca7a5be rui-number-input__u-box-shadow-0-0-0000-0-0-0000-0-1--438b2237b8 rui-number-input__u-transition-property-color-backgr--56bf8ae82a rui-number-input__u-transform-translate-0-1px-rotate--2464a58ddc rui-number-input__u-box-shadow-0-0-0000-0-0-0000-0-4--9e85ac05ca rui-number-input__u-opacity-0-5--b29d8adbad rui-number-input__u-border-color-rgb-63-63-70-1--4e12bcf58d rui-number-input__u-background-color-rgb-24-24-27-1--6319578a41 rui-number-input__u-color-rgb-244-244-245-1--3ddc1cab99"
+              className="rui-number-input__step-button rui-number-input__u-display-grid--f3c543ad5f rui-number-input__u-width-1-75rem--cc46d0fa27 rui-number-input__u-place-items-center--67d66567ca rui-number-input__u-border-radius-0-75rem--a217b4eaa9 rui-number-input__u-border-width-1px--ca6bcd4b6f rui-number-input__u-border-color-rgb-226-232-240-1--52f4da2ca5 rui-number-input__u-background-color-rgb-255-255-255--5e10cdb8f1 rui-number-input__u-font-size-0-75rem--359090c2d5 rui-number-input__u-font-weight-600--e83a7042bc rui-number-input__u-color-rgb-51-65-85-1--bcbca7a5be rui-number-input__u-box-shadow-0-0-0000-0-0-0000-0-1--438b2237b8 rui-number-input__u-transition-property-color-backgr--56bf8ae82a rui-number-input__u-transform-translate-0-1px-rotate--2464a58ddc rui-number-input__u-box-shadow-0-0-0000-0-0-0000-0-4--9e85ac05ca rui-number-input__u-opacity-0-5--b29d8adbad rui-number-input__u-border-color-rgb-63-63-70-1--4e12bcf58d rui-number-input__u-background-color-rgb-24-24-27-1--6319578a41 rui-number-input__u-color-rgb-244-244-245-1--3ddc1cab99"
               disabled={disabled}
             >
-              +
-            </button>
-            <button
+              <svg
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+                width="1.1em"
+                height="1.1em"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M5.23 12.79a.75.75 0 0 0 1.06-.02L10 8.828l3.71 3.94a.75.75 0 1 0 1.08-1.04l-4.24-4.5a.75.75 0 0 0-1.08 0l-4.24 4.5a.75.75 0 0 0 .02 1.06z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </Button>
+            <Button
               type="button"
               aria-label="Decrease"
               onClick={() => update(resolved - step)}
-              className="rui-number-input__u-display-grid--f3c543ad5f rui-number-input__u-width-1-75rem--cc46d0fa27 rui-number-input__u-place-items-center--67d66567ca rui-number-input__u-border-radius-0-75rem--a217b4eaa9 rui-number-input__u-border-width-1px--ca6bcd4b6f rui-number-input__u-border-color-rgb-226-232-240-1--52f4da2ca5 rui-number-input__u-background-color-rgb-255-255-255--5e10cdb8f1 rui-number-input__u-font-size-0-75rem--359090c2d5 rui-number-input__u-font-weight-600--e83a7042bc rui-number-input__u-color-rgb-51-65-85-1--bcbca7a5be rui-number-input__u-box-shadow-0-0-0000-0-0-0000-0-1--438b2237b8 rui-number-input__u-transition-property-color-backgr--56bf8ae82a rui-number-input__u-transform-translate-0-1px-rotate--2464a58ddc rui-number-input__u-box-shadow-0-0-0000-0-0-0000-0-4--9e85ac05ca rui-number-input__u-opacity-0-5--b29d8adbad rui-number-input__u-border-color-rgb-63-63-70-1--4e12bcf58d rui-number-input__u-background-color-rgb-24-24-27-1--6319578a41 rui-number-input__u-color-rgb-244-244-245-1--3ddc1cab99"
+              className="rui-number-input__step-button rui-number-input__u-display-grid--f3c543ad5f rui-number-input__u-width-1-75rem--cc46d0fa27 rui-number-input__u-place-items-center--67d66567ca rui-number-input__u-border-radius-0-75rem--a217b4eaa9 rui-number-input__u-border-width-1px--ca6bcd4b6f rui-number-input__u-border-color-rgb-226-232-240-1--52f4da2ca5 rui-number-input__u-background-color-rgb-255-255-255--5e10cdb8f1 rui-number-input__u-font-size-0-75rem--359090c2d5 rui-number-input__u-font-weight-600--e83a7042bc rui-number-input__u-color-rgb-51-65-85-1--bcbca7a5be rui-number-input__u-box-shadow-0-0-0000-0-0-0000-0-1--438b2237b8 rui-number-input__u-transition-property-color-backgr--56bf8ae82a rui-number-input__u-transform-translate-0-1px-rotate--2464a58ddc rui-number-input__u-box-shadow-0-0-0000-0-0-0000-0-4--9e85ac05ca rui-number-input__u-opacity-0-5--b29d8adbad rui-number-input__u-border-color-rgb-63-63-70-1--4e12bcf58d rui-number-input__u-background-color-rgb-24-24-27-1--6319578a41 rui-number-input__u-color-rgb-244-244-245-1--3ddc1cab99"
               disabled={disabled}
             >
-              -
-            </button>
+              <svg
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+                width="1.1em"
+                height="1.1em"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 11.172l3.71-3.94a.75.75 0 1 1 1.08 1.04l-4.24 4.5a.75.75 0 0 1-1.08 0l-4.24-4.5a.75.75 0 0 1 .02-1.06z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </Button>
           </div>
           <input
             ref={ref}
@@ -94,18 +136,25 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
             )}
           />
           {suffix ? (
-            <span className="rui-number-input__u-font-size-0-875rem--fc7473ca09 rui-number-input__u-font-weight-600--e83a7042bc rui-number-input__u-text-transform-uppercase--117ec720ea rui-number-input__u-letter-spacing-0-025em--8baf13a3e9 rui-number-input__u-color-rgb-100-116-139-1--30426eb75c rui-number-input__u-color-rgb-212-212-216-1--5b8efd1d78">
+            <span className="rui-number-input__u-font-size-0-875rem--fc7473ca09 rui-number-input__u-font-weight-600--e83a7042bc rui-number-input__u-text-transform-uppercase--117ec720ea rui-number-input__u-letter-spacing-0-025em--8baf13a3e9 rui-number-input__u-color-rgb-100-116-139-1--30426eb75c rui-number-input__u-color-rgb-212-212-216-1--5b8efd1d78 rui-text-wrap">
               {suffix}
             </span>
           ) : null}
         </div>
         {description ? (
-          <p className="rui-number-input__u-font-size-0-75rem--359090c2d5 rui-number-input__u-color-rgb-100-116-139-1--30426eb75c rui-number-input__u-color-rgb-161-161-170-1--6462b86910">{description}</p>
+          <p className="rui-number-input__helper rui-number-input__u-font-size-0-75rem--359090c2d5 rui-number-input__u-color-rgb-100-116-139-1--30426eb75c rui-number-input__u-color-rgb-161-161-170-1--6462b86910 rui-text-wrap">
+            {description}
+          </p>
         ) : null}
         {error ? (
-          <p className="rui-number-input__u-font-size-0-75rem--359090c2d5 rui-number-input__u-font-weight-500--2689f39580 rui-number-input__u-color-rgb-244-63-94-1--fa51279820 rui-number-input__u-color-rgb-251-113-133-1--897de47303">{error}</p>
+          <p className="rui-number-input__helper rui-number-input__u-font-size-0-75rem--359090c2d5 rui-number-input__u-font-weight-500--2689f39580 rui-number-input__u-color-rgb-244-63-94-1--fa51279820 rui-number-input__u-color-rgb-251-113-133-1--897de47303 rui-text-wrap">
+            {error}
+          </p>
         ) : null}
       </div>
     );
   }
 );
+
+
+

@@ -185,9 +185,9 @@ export function Select({
   const listboxHighlight = open ? highlightBorder : "";
 
   return (
-    <div className="rui-select__u-style--5a2508227c">
+    <div className="rui-select__u-style--5a2508227c rui-root">
       {label ? (
-        <p className="rui-select__u-font-size-0-75rem--359090c2d5 rui-select__u-font-weight-600--e83a7042bc rui-select__u-text-transform-uppercase--117ec720ea rui-select__u-letter-spacing-0-2em--2da1a7016e rui-select__u-rui-text-opacity-1--30426eb75c rui-select__u-rui-text-opacity-1--6462b86910">
+        <p className="rui-select__u-font-size-0-75rem--359090c2d5 rui-select__u-font-weight-600--e83a7042bc rui-select__u-text-transform-uppercase--117ec720ea rui-select__u-letter-spacing-0-2em--2da1a7016e rui-select__u-rui-text-opacity-1--30426eb75c rui-select__u-rui-text-opacity-1--6462b86910 rui-text-wrap">
           {label}
         </p>
       ) : null}
@@ -248,7 +248,7 @@ export function Select({
         }}
       >
         {open && (
-          <Popover className={listboxHighlight}>
+          <Popover anchorRef={containerRef} className={listboxHighlight}>
             {({ scrollRef }) => {
               popoverListRef.current = scrollRef;
               return (
@@ -271,28 +271,28 @@ export function Select({
                           onMouseEnter={() => !opt.disabled && setActiveIndex(index)}
                           onClick={() => commitSelection(index)}
                           className={clsx(
-                            "rui-select__option-button rui-select__u-display-flex--60fbb77139 rui-select__u-width-100--6da6a3c3f7 rui-select__u-align-items-center--3960ffc248 rui-select__u-gap-0-75rem--1004c0c395 rui-select__u-border-radius-0-75rem--a217b4eaa9 rui-select__u-padding-left-0-75rem--0e17f2bd90 rui-select__u-padding-top-0-5rem--03b4dd7f17 rui-select__u-text-align-left--2eba0d65d0 rui-select__u-font-size-0-875rem--fc7473ca09 rui-select__u-transition-property-color-backgr--56bf8ae82a",
+                            "rui-select__option-button rui-select__u-display-flex--60fbb77139 rui-select__u-width-100--6da6a3c3f7 rui-select__u-align-items-center--3960ffc248 rui-select__u-gap-0-75rem--1004c0c395 rui-select__u-border-radius-0-75rem--a217b4eaa9 rui-select__u-padding-left-0-75rem--0e17f2bd90 rui-select__u-padding-top-0-5rem--03b4dd7f17 rui-select__u-text-align-left--2eba0d65d0 rui-select__u-font-size-0-875rem--fc7473ca09 rui-select__u-font-weight-500--2689f39580 rui-select__u-transition-property-color-backgr--56bf8ae82a",
                             isActive
                               ? "rui-select__u-rui-bg-opacity-1--34d54ab9e5 rui-select__u-rui-text-opacity-1--f5f136c41d rui-select__u-background-color-rgb-39-39-42-0---b37a7836e7 rui-select__u-rui-text-opacity-1--3ddc1cab99"
                               : "rui-select__u-rui-text-opacity-1--bcbca7a5be rui-select__u-rui-bg-opacity-1--f3653f7e77 rui-select__u-rui-text-opacity-1--270353156a rui-select__u-background-color-rgb-39-39-42-0---2531b09202",
-                            isSelected && "rui-select__u-font-weight-600--e83a7042bc",
+                            isSelected && "rui-select__option-button--selected",
                             opt.disabled && "rui-select__u-cursor-not-allowed--29b733e4c1 rui-select__u-opacity-0-5--0b8c506a05"
                           )}
                         >
                           <span className="rui-select__u-flex-1-1-0--36e579c0b4 rui-select__u-text-align-left--2eba0d65d0">
-                            <span className="rui-select__option-label rui-select__u-display-block--0214b4b355 rui-select__u-rui-text-opacity-1--f5f136c41d rui-select__u-rui-text-opacity-1--3ddc1cab99">
+                            <span className="rui-select__option-label rui-select__u-display-block--0214b4b355 rui-select__u-rui-text-opacity-1--f5f136c41d rui-select__u-rui-text-opacity-1--3ddc1cab99 rui-text-wrap">
                               {opt.label}
                             </span>
                             {opt.description ? (
-                              <span className="rui-select__option-description rui-select__u-display-block--0214b4b355 rui-select__u-font-size-0-75rem--359090c2d5 rui-select__u-rui-text-opacity-1--30426eb75c rui-select__u-rui-text-opacity-1--6462b86910">
+                              <span className="rui-select__option-description rui-select__u-display-block--0214b4b355 rui-select__u-font-size-0-75rem--359090c2d5 rui-select__u-rui-text-opacity-1--30426eb75c rui-select__u-rui-text-opacity-1--6462b86910 rui-text-wrap">
                                 {opt.description}
                               </span>
                             ) : null}
                           </span>
                           {isSelected ? (
-                            <Check className="rui-select__u-margin-left-auto--fb56d9cff3 rui-select__u-height-0-75rem--6a60c09e6a rui-select__u-width-0-75rem--9cea05671a rui-select__u-rui-text-opacity-1--2d6fbf48fa rui-select__u-rui-text-opacity-1--5b8efd1d78" />
+                            <Check className="rui-select__option-check rui-select__u-rui-text-opacity-1--2d6fbf48fa rui-select__u-rui-text-opacity-1--5b8efd1d78" />
                           ) : (
-                            <span className="rui-select__u-margin-left-auto--fb56d9cff3 rui-select__u-display-inline-flex--52083e7da4 rui-select__u-height-0-75rem--6a60c09e6a rui-select__u-width-0-75rem--9cea05671a" />
+                            <span className="rui-select__option-check-placeholder" />
                           )}
                         </button>
                       </li>
@@ -306,12 +306,14 @@ export function Select({
       </Dropdown>
 
       {description ? (
-        <p className="rui-select__u-font-size-0-75rem--359090c2d5 rui-select__u-rui-text-opacity-1--30426eb75c rui-select__u-rui-text-opacity-1--6462b86910">{description}</p>
+        <p className="rui-select__u-font-size-0-75rem--359090c2d5 rui-select__u-rui-text-opacity-1--30426eb75c rui-select__u-rui-text-opacity-1--6462b86910 rui-text-wrap">{description}</p>
       ) : null}
 
       {error ? (
-        <p className="rui-select__u-font-size-0-75rem--359090c2d5 rui-select__u-font-weight-500--2689f39580 rui-select__u-rui-text-opacity-1--fa51279820 rui-select__u-rui-text-opacity-1--897de47303">{error}</p>
+        <p className="rui-select__u-font-size-0-75rem--359090c2d5 rui-select__u-font-weight-500--2689f39580 rui-select__u-rui-text-opacity-1--fa51279820 rui-select__u-rui-text-opacity-1--897de47303 rui-text-wrap">{error}</p>
       ) : null}
     </div>
   );
 }
+
+

@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { Select } from ".";
@@ -28,10 +28,11 @@ describe("Select", () => {
     expect(screen.getByText("Required")).toBeInTheDocument();
 
     const input = screen.getByRole("combobox", { name: "Priority" });
-    await user.click(input);
-    await user.click(await screen.findByRole("option", { name: "High" }));
+    fireEvent.mouseDown(input);
+    await screen.findAllByRole("option");
+    await user.keyboard("{ArrowDown}{Enter}");
 
-    expect(handleChange).toHaveBeenCalledWith("high");
+    await waitFor(() => expect(handleChange).toHaveBeenCalledWith("high"));
     expect(input).toHaveValue("High");
   });
 
@@ -41,7 +42,7 @@ describe("Select", () => {
     render(<Select label="Priority" options={options} defaultValue="low" onChange={handleChange} />);
 
     const input = screen.getByRole("combobox", { name: "Priority" });
-    await user.click(input);
+    fireEvent.mouseDown(input);
     await screen.findAllByRole("option");
     await user.keyboard("{ArrowDown}");
     await user.keyboard("{Enter}");

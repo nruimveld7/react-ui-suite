@@ -142,6 +142,7 @@
 .rui-table-demo__u-font-size-0-875rem--fc7473ca09 {
   font-size: 0.875rem;
   line-height: 1.25rem;
+  margin: 0px;
 }
 
 .rui-table-demo__u-font-size-0-75rem--359090c2d5 {
@@ -316,3 +317,25 @@
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
+
+.rui-table-demo__billing-align-table th {
+  text-align: center;
+}
+
+.rui-table-demo__billing-align-table td {
+  height: 80px;
+}
+
+.rui-table-demo__billing-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.rui-table-demo__billing-cell {
+  height: 100%;
+}
+
+.rui-table-demo__billing-cell__spacer {
+  flex: 1;
+}
+

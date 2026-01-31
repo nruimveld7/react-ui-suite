@@ -94,7 +94,7 @@
 }
 
 .rui-checkbox-demo__u-border-color-rgb-30-41-59-1--2072c87505:is(.dark *) {
-  border-color: rgb(30 41 59 / 1);
+  border-color: rgb(63 63 70 / 0.6);
 }
 
 .rui-checkbox-demo__u-background-color-rgb-15-23-42-0---43aaa5e5c1:is(.dark *) {
@@ -119,3 +119,4 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+

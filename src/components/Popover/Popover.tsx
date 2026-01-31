@@ -1,14 +1,32 @@
 import * as React from "react";
+import { createPortal } from "react-dom";
 import clsx from "clsx";
 import "./Popover.css";
+
 type ThumbState = {
   visible: boolean;
   size: number;
   offset: number;
 };
 
+type PopoverPosition = {
+  top: number;
+  left: number;
+  width: number;
+};
+
 const MIN_THUMB_SIZE = 28;
 const TRACK_PADDING = 6;
+
+function getAnchorPosition(anchor: HTMLElement | null): PopoverPosition | null {
+  if (!anchor) return null;
+  const rect = anchor.getBoundingClientRect();
+  return {
+    top: rect.bottom - 1,
+    left: rect.left,
+    width: rect.width,
+  };
+}
 
 function Scrollbar({ scrollRef }: { scrollRef: React.MutableRefObject<HTMLElement | null> }) {
   const [{ visible, size, offset }, setThumbState] = React.useState<ThumbState>({
@@ -156,20 +174,61 @@ function Scrollbar({ scrollRef }: { scrollRef: React.MutableRefObject<HTMLElemen
 
 export type PopoverProps = {
   className?: string;
+  anchorRef?: React.RefObject<HTMLElement>;
   children: (props: {
     scrollRef: React.MutableRefObject<HTMLUListElement | null>;
   }) => React.ReactNode;
 };
 
-export function Popover({ className, children }: PopoverProps) {
+export function Popover({ className, anchorRef, children }: PopoverProps) {
   const scrollRef: React.MutableRefObject<HTMLUListElement | null> = React.useRef(null);
+  const [position, setPosition] = React.useState<PopoverPosition | null>(() =>
+    getAnchorPosition(anchorRef?.current ?? null)
+  );
+  const shouldPortal = Boolean(anchorRef) && typeof document !== "undefined";
 
-  return (
+  React.useLayoutEffect(() => {
+    if (!anchorRef?.current) return;
+    let raf = 0;
+
+    const update = () => {
+      cancelAnimationFrame(raf);
+      raf = window.requestAnimationFrame(() => {
+        setPosition(getAnchorPosition(anchorRef.current));
+      });
+    };
+
+    update();
+
+    const onScroll = () => update();
+    window.addEventListener("resize", update);
+    window.addEventListener("scroll", onScroll, true);
+    const observer = typeof ResizeObserver !== "undefined" ? new ResizeObserver(update) : null;
+    observer?.observe(anchorRef.current);
+
+    return () => {
+      window.removeEventListener("resize", update);
+      window.removeEventListener("scroll", onScroll, true);
+      observer?.disconnect();
+      cancelAnimationFrame(raf);
+    };
+  }, [anchorRef]);
+
+  const popoverStyle = shouldPortal
+    ? position
+      ? { top: position.top, left: position.left, width: position.width }
+      : { visibility: "hidden" }
+    : undefined;
+
+  const popover = (
     <div
       className={clsx(
         "rui-popover",
+        "rui-overlay-root",
+        shouldPortal && "rui-popover--portal",
         className
       )}
+      style={popoverStyle}
     >
       <div className="rui-popover__inner">
         {children({ scrollRef })}
@@ -177,4 +236,6 @@ export function Popover({ className, children }: PopoverProps) {
       </div>
     </div>
   );
+
+  return shouldPortal ? createPortal(popover, document.body) : popover;
 }

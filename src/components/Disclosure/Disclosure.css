@@ -234,3 +234,7 @@
 .rui-disclosure[open] .rui-disclosure__caret {
   transform: rotate(180deg);
 }
+
+.rui-disclosure__u-flex-1-1-0--36e579c0b4 {
+  min-width: 0;
+}

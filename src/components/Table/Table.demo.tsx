@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Checkbox, InputField, Table } from "react-ui-suite";
+import { Button, Checkbox, InputField, Table } from "react-ui-suite";
 import type { TableColumn } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../../../demo/component-registry";
 import clsx from "clsx";
@@ -158,7 +158,7 @@ function MembersTable() {
       </div>
       <div className="rui-table-demo__u-margin-top-0-75rem--eccd13ef4f rui-table-demo__u-display-flex--60fbb77139 rui-table-demo__u-flex-wrap-wrap--1eb5c6df38 rui-table-demo__u-gap-0-5rem--77a2a20e90">
         {filters.map((item) => (
-          <button
+          <Button
             key={item}
             type="button"
             onClick={() => setFilter(item)}
@@ -170,7 +170,7 @@ function MembersTable() {
             )}
           >
             {item}
-          </button>
+          </Button>
         ))}
       </div>
       <div className="rui-table-demo__u-margin-top-0-75rem--eccd13ef4f">
@@ -180,56 +180,71 @@ function MembersTable() {
   );
 }
 
-type InvoiceRow = {
+type BillingAlignRow = {
   invoice: string;
-  amount: number;
-  status: "Paid" | "Pending" | "Overdue";
-  issued: string;
+  amount: string;
+  colLT: string;
+  colCT: string;
+  colRT: string;
+  colLM: string;
+  colCM: string;
+  colRM: string;
+  colLB: string;
+  colCB: string;
+  colRB: string;
 };
 
-const invoiceRows: InvoiceRow[] = [
-  { invoice: "INV-2041", amount: 1280, status: "Paid", issued: "2025-10-04" },
-  { invoice: "INV-2042", amount: 760, status: "Pending", issued: "2025-10-12" },
-  { invoice: "INV-2043", amount: 420, status: "Paid", issued: "2025-11-01" },
-  { invoice: "INV-2044", amount: 1520, status: "Overdue", issued: "2025-11-15" },
-  { invoice: "INV-2045", amount: 940, status: "Pending", issued: "2025-11-20" },
+function createBillingRow(invoice: string, amount: string): BillingAlignRow {
+  return {
+    invoice,
+    amount,
+    colLT: invoice,
+    colCT: invoice,
+    colRT: invoice,
+    colLM: invoice,
+    colCM: invoice,
+    colRM: invoice,
+    colLB: invoice,
+    colCB: invoice,
+    colRB: invoice,
+  };
+}
+
+const billingRows: BillingAlignRow[] = [
+  createBillingRow("INV-2041", "$1,280.00"),
+  createBillingRow("INV-2042", "$760.00"),
+  createBillingRow("INV-2043", "$420.00"),
 ];
 
-const invoiceTone: Record<InvoiceRow["status"], string> = {
-  Paid: "rui-table-demo__u-background-color-rgb-16-185-129---5a31c1c8ef rui-table-demo__u-rui-text-opacity-1--72a4c7cdee",
-  Pending: "rui-table-demo__u-background-color-rgb-251-191-36---2d0a4f72fa rui-table-demo__u-rui-text-opacity-1--f5f136c41d",
-  Overdue: "rui-table-demo__u-background-color-rgb-244-63-94-0--9c84066f4b rui-table-demo__u-rui-text-opacity-1--72a4c7cdee",
-};
-
 function BillingTable() {
-  const [onlyOpen, setOnlyOpen] = useState(false);
-  const rows = useMemo(
-    () => (onlyOpen ? invoiceRows.filter((row) => row.status !== "Paid") : invoiceRows),
-    [onlyOpen]
-  );
+    const renderBillingCell = (_value: string, row: BillingAlignRow, alignY?: "top" | "middle" | "bottom") => {
+    const showTopSpacer = alignY === "bottom" || alignY === "middle";
+    const showBottomSpacer = alignY === "top" || alignY === "middle";
 
-  const columns: TableColumn<InvoiceRow>[] = [
-    { key: "invoice", header: "Invoice" },
-    {
-      key: "amount",
-      header: "Amount",
-      align: "right",
-      render: (value: number) => (
+    return (
+      <span className="rui-table-demo__billing-cell">
+        {showTopSpacer ? <span className="rui-table-demo__billing-cell__spacer" aria-hidden="true" /> : null}
         <span className="rui-table-demo__u-font-weight-600--e83a7042bc rui-table-demo__u-rui-text-opacity-1--f5f136c41d rui-table-demo__u-rui-text-opacity-1--e1d41ccd69">
-          ${value.toFixed(2)}
+          {row.invoice}
         </span>
-      ),
-    },
-    { key: "issued", header: "Issued" },
-    {
-      key: "status",
-      header: "Status",
-      render: (value: InvoiceRow["status"]) => (
-        <span className={clsx("rui-table-demo__statusPill", invoiceTone[value])}>
-          {value}
+        <span className="rui-table-demo__u-font-size-0-75rem--359090c2d5 rui-table-demo__u-rui-text-opacity-1--30426eb75c rui-table-demo__u-rui-text-opacity-1--cc0274aad9">
+          {row.amount}
         </span>
-      ),
-    },
+        {showBottomSpacer ? <span className="rui-table-demo__billing-cell__spacer" aria-hidden="true" /> : null}
+      </span>
+    );
+  };
+
+    const columns: TableColumn<BillingAlignRow>[] = [
+    { key: "colLT", header: "L/T", alignX: "left", alignY: "top", render: (value, row) => renderBillingCell(value, row, "top") },
+    { key: "colCT", header: "C/T", alignX: "center", alignY: "top", render: (value, row) => renderBillingCell(value, row, "top") },
+    { key: "colRT", header: "R/T", alignX: "right", alignY: "top", render: (value, row) => renderBillingCell(value, row, "top") },
+    { key: "colLM", header: "L/M", alignX: "left", alignY: "middle", render: (value, row) => renderBillingCell(value, row, "middle") },
+    { key: "colCM", header: "C/M", alignX: "center", alignY: "middle", render: (value, row) => renderBillingCell(value, row, "middle") },
+    { key: "colRM", header: "R/M", alignX: "right", alignY: "middle", render: (value, row) => renderBillingCell(value, row, "middle") },
+    { key: "colLB", header: "L/B", alignX: "left", alignY: "bottom", render: (value, row) => renderBillingCell(value, row, "bottom") },
+    { key: "colCB", header: "C/B", alignX: "center", alignY: "bottom", render: (value, row) => renderBillingCell(value, row, "bottom") },
+    { key: "colRB", header: "R/B", alignX: "right", alignY: "bottom", render: (value, row) => renderBillingCell(value, row, "bottom") },
   ];
 
   return (
@@ -240,18 +255,17 @@ function BillingTable() {
       <div className="rui-table-demo__u-display-flex--60fbb77139 rui-table-demo__u-align-items-center--3960ffc248 rui-table-demo__u-justify-content-space-between--8ef2268efb rui-table-demo__u-gap-0-75rem--1004c0c395">
         <div>
           <p className="rui-table-demo__u-font-size-0-875rem--fc7473ca09 rui-table-demo__u-rui-text-opacity-1--2d6fbf48fa rui-table-demo__u-rui-text-opacity-1--cc0274aad9">
-            Zebra rows with amount column.
+            Alignment matrix (X/Y).
           </p>
         </div>
-        <Checkbox
-          label="Open only"
-          checked={onlyOpen}
-          onChange={setOnlyOpen}
-          className="rui-table-demo__u-width-moz-fit-content--92e7450ad2 rui-table-demo__u-border-radius-0-75rem--a217b4eaa9 rui-table-demo__u-border-width-1px--ca6bcd4b6f rui-table-demo__u-rui-border-opacity-1--52f4da2ca5 rui-table-demo__u-rui-bg-opacity-1--5e10cdb8f1 rui-table-demo__u-padding-left-0-5rem--d5eab218aa rui-table-demo__u-padding-top-0-25rem--660d2effb8 rui-table-demo__u-rui-border-opacity-1--4e12bcf58d rui-table-demo__u-background-color-rgb-24-24-27-0---5cd2915a74"
-        />
       </div>
       <div className="rui-table-demo__u-margin-top-0-75rem--eccd13ef4f">
-        <Table<InvoiceRow> columns={columns} data={rows} caption="Invoices" />
+        <Table<BillingAlignRow>
+          className="rui-table-demo__billing-align-table"
+          columns={columns}
+          data={billingRows}
+          caption="Alignment grid"
+        />
       </div>
     </DemoExample>
   );
@@ -429,3 +443,12 @@ const entry: ComponentRegistryEntry = {
 
 export default entry;
 export { Table };
+
+
+
+
+
+
+
+
+

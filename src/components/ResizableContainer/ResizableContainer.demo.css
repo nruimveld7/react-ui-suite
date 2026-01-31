@@ -1,0 +1,119 @@
+@import "../../styles/tokens.css";
+
+.rui-resizable-demo {
+  display: grid;
+  gap: var(--rui-space-4);
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.rui-resizable-demo__card {
+  border-radius: 1.5rem;
+}
+
+.rui-resizable-demo__panel {
+  --rui-resize-border: 1px solid var(--rui-color-border-strong);
+  --rui-resize-handle-bg: var(--rui-color-surface-muted);
+  --rui-resize-handle-fg: var(--rui-color-text-muted);
+}
+
+.rui-resizable-demo__panel--vertical {
+  width: min(100%, 520px);
+}
+
+.rui-resizable-demo__panel--horizontal {
+  width: min(100%, 520px);
+}
+
+.rui-resizable-demo__panel-content {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--rui-color-text-muted);
+}
+
+.rui-resizable-demo__panel-content strong {
+  color: var(--rui-color-text-strong);
+}
+
+.rui-resizable-demo__signal {
+  display: grid;
+  gap: var(--rui-space-3);
+}
+
+.rui-resizable-demo__signal-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--rui-space-2);
+  align-items: flex-start;
+}
+
+.rui-resizable-demo__signal-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--rui-color-text-strong);
+}
+
+.rui-resizable-demo__signal-subtitle {
+  margin: 0.25rem 0 0;
+  font-size: 0.75rem;
+  color: var(--rui-color-text-muted);
+}
+
+.rui-resizable-demo__signal-badges {
+  display: flex;
+  gap: var(--rui-space-1-5);
+  align-items: center;
+}
+
+.rui-resizable-demo__signal-stats {
+  display: grid;
+  gap: var(--rui-space-2);
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  padding: 0.5rem 0;
+  border-top: 1px dashed var(--rui-color-border);
+  border-bottom: 1px dashed var(--rui-color-border);
+}
+
+.rui-resizable-demo__stat-label {
+  margin: 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--rui-color-text-muted);
+}
+
+.rui-resizable-demo__stat-value {
+  margin: 0.25rem 0 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--rui-color-text-strong);
+}
+
+.rui-resizable-demo__signal-progress {
+  display: grid;
+  gap: var(--rui-space-2);
+}
+
+.rui-resizable-demo__signal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--rui-space-2);
+  justify-content: space-between;
+}
+
+.rui-resizable-demo__signal-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rui-space-1-5);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rui-color-text-muted);
+}

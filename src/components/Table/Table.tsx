@@ -6,6 +6,8 @@ export type TableColumn<T> = {
   header: string;
   render?: (value: T[keyof T], row: T) => React.ReactNode;
   align?: "left" | "right" | "center";
+  alignX?: "left" | "right" | "center";
+  alignY?: "top" | "middle" | "bottom";
 };
 
 export type TableProps<T> = {
@@ -224,7 +226,7 @@ export function Table<T extends Record<string, unknown>>({
   return (
     <div
       className={clsx(
-        "rui-table__u-overflow-hidden--2cd02d11d1 rui-table__u-border-radius-1-5rem--ea189a088a rui-table__u-border-width-1px--ca6bcd4b6f rui-table__u-rui-border-opacity-1--52f4da2ca5 rui-table__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-table__u-rui-border-opacity-1--139f099dfa",
+        "rui-table__outer-border rui-root rui-surface rui-table__u-overflow-hidden--2cd02d11d1 rui-table__u-border-radius-1-5rem--ea189a088a rui-table__u-border-width-1px--ca6bcd4b6f rui-table__u-rui-border-opacity-1--52f4da2ca5 rui-table__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-table__u-rui-border-opacity-1--139f099dfa",
         className
       )}
       style={style}
@@ -240,26 +242,29 @@ export function Table<T extends Record<string, unknown>>({
         >
           <table className="rui-table__u-width-100--6da6a3c3f7 rui-table__u-border-collapse-collapse--4583f90cd9 rui-table__u-font-size-0-875rem--fc7473ca09 rui-table__u-rui-text-opacity-1--bcbca7a5be rui-table__u-rui-text-opacity-1--270353156a">
             {caption ? (
-              <caption className="rui-table__u-rui-bg-opacity-1--f97e9d36d1 rui-table__u-padding-left-1rem--f0faeb26d6 rui-table__u-padding-top-0-5rem--03b4dd7f17 rui-table__u-text-align-left--2eba0d65d0 rui-table__u-font-size-0-75rem--359090c2d5 rui-table__u-font-weight-600--e83a7042bc rui-table__u-text-transform-uppercase--117ec720ea rui-table__u-letter-spacing-0-25em--854c830ad6 rui-table__u-rui-text-opacity-1--30426eb75c rui-table__u-background-color-rgb-24-24-27-0---5cd2915a74 rui-table__u-rui-text-opacity-1--6462b86910">
+              <caption className="rui-table__u-rui-bg-opacity-1--f97e9d36d1 rui-table__u-padding-left-1rem--f0faeb26d6 rui-table__u-padding-top-0-5rem--03b4dd7f17 rui-table__u-text-align-left--2eba0d65d0 rui-table__u-font-size-0-75rem--359090c2d5 rui-table__u-font-weight-600--e83a7042bc rui-table__u-text-transform-uppercase--117ec720ea rui-table__u-letter-spacing-0-25em--854c830ad6 rui-table__u-rui-text-opacity-1--30426eb75c rui-table__u-background-color-rgb-24-24-27-0---5cd2915a74 rui-table__u-rui-text-opacity-1--6462b86910 rui-text-wrap">
                 {caption}
               </caption>
             ) : null}
             <thead className="rui-table__u-background-color-rgb-255-255-255--6c21de570d rui-table__u-font-size-0-75rem--359090c2d5 rui-table__u-text-transform-uppercase--117ec720ea rui-table__u-letter-spacing-0-16em--9dbf48b2ab rui-table__u-rui-text-opacity-1--30426eb75c rui-table__u-background-color-rgb-24-24-27-0---67553a7cb3 rui-table__u-rui-text-opacity-1--6462b86910">
               <tr>
-                {columns.map((col) => (
-                  <th
-                    key={String(col.key)}
-                    scope="col"
-                    className={clsx(
-                      "rui-table__u-padding-left-1rem--f0faeb26d6 rui-table__u-padding-top-0-75rem--1b2d54a3fd rui-table__u-text-align-left--2eba0d65d0 rui-table__u-font-weight-600--e83a7042bc",
-                      col.align === "right" && "rui-table__u-text-align-right--308fc069e4",
-                      col.align === "center" && "rui-table__u-text-align-center--ca6bf63030"
-                    )}
-                  >
-                    {col.header}
-                  </th>
-                ))}
-              </tr>
+  {columns.map((col) => {
+    const alignX = col.alignX ?? col.align;
+    return (
+      <th
+        key={String(col.key)}
+        scope="col"
+        className={clsx(
+          "rui-table__u-padding-left-1rem--f0faeb26d6 rui-table__u-padding-top-0-75rem--1b2d54a3fd rui-table__u-text-align-left--2eba0d65d0 rui-table__u-font-weight-600--e83a7042bc",
+          alignX === "right" && "rui-table__u-text-align-right--308fc069e4",
+          alignX === "center" && "rui-table__u-text-align-center--ca6bf63030"
+        )}
+      >
+        {col.header}
+      </th>
+    );
+  })}
+</tr>
             </thead>
             <tbody>
               {data.map((row, rowIndex) => (
@@ -272,20 +277,24 @@ export function Table<T extends Record<string, unknown>>({
                       : "rui-table__u-background-color-rgb-255-255-255--845918557e rui-table__u-rui-bg-opacity-1--706569e6a5 rui-table__u-background-color-rgb-24-24-27-0---5cb47d6e2f rui-table__u-rui-bg-opacity-1--1a5d9aa0b0"
                   )}
                 >
-                  {columns.map((col) => (
-                    <td
-                      key={String(col.key)}
-                      className={clsx(
-                        "rui-table__u-padding-left-1rem--f0faeb26d6 rui-table__u-padding-top-0-75rem--1b2d54a3fd rui-table__u-vertical-align-middle--8d3c01126f",
-                        col.align === "right" && "rui-table__u-text-align-right--308fc069e4",
-                        col.align === "center" && "rui-table__u-text-align-center--ca6bf63030"
-                      )}
-                    >
-                      {col.render
-                        ? col.render(row[col.key], row)
-                        : (row[col.key] as React.ReactNode)}
-                    </td>
-                  ))}
+                  {columns.map((col) => {
+  const alignX = col.alignX ?? col.align;
+  const alignY = col.alignY ?? "middle";
+  return (
+    <td
+      key={String(col.key)}
+      className={clsx(
+        "rui-table__u-padding-left-1rem--f0faeb26d6 rui-table__u-padding-top-0-75rem--1b2d54a3fd rui-table__u-vertical-align-middle--8d3c01126f",
+        alignX === "right" && "rui-table__u-text-align-right--308fc069e4",
+        alignX === "center" && "rui-table__u-text-align-center--ca6bf63030",
+        alignY === "top" && "rui-table__u-vertical-align-top--4a97b595d1",
+        alignY === "bottom" && "rui-table__u-vertical-align-bottom--f6b31759c6"
+      )}
+    >
+      {col.render ? col.render(row[col.key], row) : (row[col.key] as React.ReactNode)}
+    </td>
+  );
+})}
                 </tr>
               ))}
             </tbody>
@@ -341,3 +350,7 @@ export function Table<T extends Record<string, unknown>>({
     </div>
   );
 }
+
+
+
+

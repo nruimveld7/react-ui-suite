@@ -505,9 +505,9 @@ export const ColorPicker = React.forwardRef<HTMLInputElement, ColorPickerProps>(
     const activeLabels = channelLabels[format];
 
     return (
-      <div className="rui-color-picker__u-position-relative--d89972fe17 rui-color-picker__u-display-inline-flex--52083e7da4 rui-color-picker__u-flex-direction-column--8dddea0773 rui-color-picker__u-align-items-center--3960ffc248 rui-color-picker__u-gap-0-5rem--77a2a20e90">
+      <div className="rui-root rui-color-picker__u-position-relative--d89972fe17 rui-color-picker__u-display-inline-flex--52083e7da4 rui-color-picker__u-flex-direction-column--8dddea0773 rui-color-picker__u-align-items-center--3960ffc248 rui-color-picker__u-gap-0-5rem--77a2a20e90">
         {label ? (
-          <p className="rui-color-picker__u-font-size-10px--1dc571a360 rui-color-picker__u-font-weight-600--e83a7042bc rui-color-picker__u-text-transform-uppercase--117ec720ea rui-color-picker__u-letter-spacing-0-3em--bf7342eeb7 rui-color-picker__u-color-rgb-148-163-184-1--8d44cef396 rui-color-picker__u-color-rgb-113-113-122-1--28db7d8770">
+          <p className="rui-color-picker__u-font-size-10px--1dc571a360 rui-color-picker__u-font-weight-600--e83a7042bc rui-color-picker__u-text-transform-uppercase--117ec720ea rui-color-picker__u-letter-spacing-0-3em--bf7342eeb7 rui-color-picker__u-color-rgb-148-163-184-1--8d44cef396 rui-color-picker__u-color-rgb-113-113-122-1--28db7d8770 rui-text-wrap">
             {label}
           </p>
         ) : null}
@@ -690,3 +690,5 @@ export const ColorPicker = React.forwardRef<HTMLInputElement, ColorPickerProps>(
     );
   }
 );
+
+

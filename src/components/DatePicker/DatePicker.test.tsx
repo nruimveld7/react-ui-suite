@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { DatePicker } from ".";
@@ -10,7 +10,8 @@ describe("DatePicker", () => {
     render(<DatePicker label="Due date" defaultValue="2024-01-15" onChange={handleChange} />);
 
     const input = screen.getByRole("combobox", { name: "Due date" });
-    await user.click(input);
+    fireEvent.click(screen.getByRole("button", { name: "Open" }));
+    await screen.findByRole("button", { name: /January 2024/i });
 
     const day = await screen.findByRole("button", { name: "20" });
     await user.click(day);
@@ -29,7 +30,7 @@ describe("DatePicker", () => {
     render(<DatePicker label="Due date" defaultValue="2024-01-15" />);
 
     const input = screen.getByRole("combobox", { name: "Due date" });
-    await user.click(input);
+    fireEvent.click(screen.getByRole("button", { name: "Open" }));
 
     const headerButton = screen.getByRole("button", { name: /January 2024/i });
     await user.click(headerButton);
@@ -52,7 +53,7 @@ describe("DatePicker", () => {
     );
 
     const input = screen.getByRole("combobox", { name: "Due date" });
-    await user.click(input);
+    fireEvent.click(screen.getByRole("button", { name: "Open" }));
 
     const headerButton = screen.getByRole("button", { name: /January 2024/i });
     await user.click(headerButton); // month view
@@ -77,7 +78,8 @@ describe("DatePicker", () => {
         <DatePicker
           label="Meeting"
           type="time"
-          timeIntervalMinutes={5}
+          timeIntervalMinutes={15}
+          defaultValue="00:00"
           use24HourClock
           onChange={handleTimeChange}
         />
@@ -85,12 +87,13 @@ describe("DatePicker", () => {
     );
 
     const disabledInput = screen.getByRole("combobox", { name: "Disabled" });
-    await user.click(disabledInput);
+    fireEvent.click(screen.getAllByRole("button", { name: "Open" })[0]);
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
 
     const timeInput = screen.getByRole("combobox", { name: "Meeting" });
-    await user.click(timeInput);
-    await user.click(await screen.findByRole("option", { name: "00:15" }));
+    fireEvent.mouseDown(timeInput);
+    await screen.findAllByRole("option");
+    await user.keyboard("{ArrowDown}{Enter}");
 
     expect(handleTimeChange).toHaveBeenCalledWith("00:15");
     expect(timeInput).toHaveValue("00:15");

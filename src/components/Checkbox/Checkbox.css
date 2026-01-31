@@ -346,3 +346,7 @@
 .rui-checkbox__u-background-color-rgb-24-24-27-0---68117f3a86:hover:is(.dark *) {
   background-color: rgb(24 24 27 / 0.6);
 }
+
+.rui-checkbox__text {
+  min-width: 0;
+}

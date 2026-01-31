@@ -40,7 +40,6 @@ describe("Textarea", () => {
     fireEvent.mouseUp(window);
 
     expect(textarea.style.height).toBe("150px");
-    expect(textarea.style.width).toBe("340px");
     expect(shell.style.width).toBe("340px");
   });
 

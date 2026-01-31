@@ -1,0 +1,22 @@
+@import "../../../src/styles/tokens.css";
+
+.rui-demo-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 2;
+  margin: 0;
+}
+
+.rui-demo-example .rui-demo-badge {
+  margin-block: 0 !important;
+  margin-inline: 0 !important;
+}
+
+.rui-demo-badge--gradient {
+  --rui-badge-surface: transparent;
+  --rui-badge-text: #ffffff;
+  --rui-badge-ring: transparent;
+  background-image: linear-gradient(90deg, #fb923c, #f43f5e);
+  box-shadow: 0 1px 2px rgb(15 23 42 / 0.2);
+}

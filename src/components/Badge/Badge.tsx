@@ -17,10 +17,11 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(function Badg
     <span
       {...rest}
       ref={ref}
-      className={clsx("rui-badge", `rui-badge--${variant}`, className)}
+      className={clsx("rui-badge", "rui-root", "rui-text-wrap", `rui-badge--${variant}`, className)}
     >
       {icon ? <span aria-hidden="true">{icon}</span> : null}
       {children}
     </span>
   );
 });
+

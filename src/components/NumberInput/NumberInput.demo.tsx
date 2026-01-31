@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { NumberInput } from "react-ui-suite";
+import { NumberInput, Slider } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../../../demo/component-registry";
 import "./NumberInput.demo.css";
 import { DemoExample } from "../../../demo/src/components/DemoExample";
@@ -45,32 +45,35 @@ function BudgetPlanner() {
   );
 }
 
-function CompactNumberExamples() {
-  const [tickets, setTickets] = useState(12);
-  const [hours, setHours] = useState(32);
+function ScaleNumberInputDemo() {
+  const [scale, setScale] = useState(1);
+  const [value, setValue] = useState(6);
+
   return (
     <DemoExample
-      title="Compact"
+      title="Scale"
       className="rui-number-input-demo__example"
     >
-      <div className="rui-number-input-demo__compact">
-        <div className="rui-number-input-demo__compact-item">
-          <NumberInput
-            label="Tickets per sprint"
-            value={tickets}
-            onChange={setTickets}
-            min={0}
-            step={1}
+      <div className="rui-number-input-demo__scale">
+        <div className="rui-number-input-demo__scale-control">
+          <Slider
+            label="Scale"
+            min={0.25}
+            max={2}
+            step={0.05}
+            value={scale}
+            onChange={setScale}
+            formatValue={(val) => `${val.toFixed(2)}x`}
           />
         </div>
-        <div className="rui-number-input-demo__compact-item">
+        <div className="rui-number-input-demo__scale-preview">
           <NumberInput
-            label="Hours allocated"
-            value={hours}
-            onChange={setHours}
+            label="Seats"
+            value={value}
+            onChange={setValue}
             min={0}
-            step={4}
-            suffix="h"
+            step={1}
+            scale={scale}
           />
         </div>
       </div>
@@ -82,7 +85,7 @@ function NumberInputPreview() {
   return (
     <div className="rui-number-input-demo__u-display-grid--f3c543ad5f rui-number-input-demo__u-gap-1rem--0c3bc98565">
       <BudgetPlanner />
-      <CompactNumberExamples />
+      <ScaleNumberInputDemo />
     </div>
   );
 }

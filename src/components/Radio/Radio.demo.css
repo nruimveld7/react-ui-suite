@@ -1,3 +1,23 @@
+.rui-radio-demo__layout-density {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.rui-radio-demo__density-grid {
+  align-items: stretch;
+}
+
+.rui-radio-demo__density-card {
+  border: 1px solid rgb(226 232 240 / 1);
+  background-color: rgb(255 255 255 / 1);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+}
+
+[data-theme="dark"] .rui-radio-demo__density-card {
+  border-color: rgb(30 41 59 / 1);
+  background-color: rgba(24, 24, 27, 0.75);
+}
 .rui-radio-demo__u-margin-top-0-25rem--b6b02c0ebe {
   margin-top: 0.25rem;
 }
@@ -331,3 +351,28 @@
 .rui-radio-demo__u-text-transform-uppercase--117ec720ea {
   text-transform: uppercase;
 }
+
+
+
+
+.rui-radio-demo__density-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: 100%;
+  min-width: 0;
+}
+
+.rui-radio-demo__density-card {
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+@media (max-width: 639px) {
+  .rui-radio-demo__density-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.rui-radio-demo__density-card .rui-radio__u-flex-direction-column--8dddea0773 {
+  align-items: center;
+  text-align: center;
+}
+

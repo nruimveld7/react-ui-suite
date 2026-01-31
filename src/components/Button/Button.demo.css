@@ -8,14 +8,27 @@
 
 .button-demo-showcase {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
   gap: var(--rui-space-3);
+}
+
+.button-demo-showcase__actions {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: var(--rui-space-3);
+  width: 100%;
+}
+
+.button-demo-showcase__button {
+  width: 100%;
 }
 
 .button-demo-counter {
   font-size: 0.875rem;
   color: var(--rui-color-text-muted);
+  text-align: center;
 }
 
 .button-demo-grid {
@@ -30,8 +43,10 @@
 }
 
 .button-demo-card__note {
+  margin: 0;
   font-size: 0.75rem;
   color: var(--rui-color-text-muted);
+  text-align: center;
 }
 
 .bg-demo-accent {
@@ -71,6 +86,13 @@
 
 [data-theme="dark"] .text-demo-ghost {
   color: #f4f4f5;
+}
+
+.demo-button-solo {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 5px;
 }
 
 .bg-demo-emerald {

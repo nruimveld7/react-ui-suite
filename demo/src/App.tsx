@@ -9,6 +9,12 @@ import { DemoPage } from "./components/DemoPage";
 const THEME_STORAGE_KEY = "component-gallery-theme";
 type Theme = "light" | "dark";
 
+function getInitialSlug(): string | null {
+  if (typeof window === "undefined") return null;
+  const params = new URLSearchParams(window.location.search);
+  return params.get("component");
+}
+
 function getInitialTheme(): Theme {
   if (typeof window === "undefined") return "dark";
   const stored = window.localStorage.getItem(THEME_STORAGE_KEY) as Theme | null;
@@ -21,7 +27,7 @@ function getInitialTheme(): Theme {
 export default function App() {
   const registry = useComponentRegistry();
   const [theme, setTheme] = useState<Theme>(() => getInitialTheme());
-  const [activeSlug, setActiveSlug] = useState<string | null>(null);
+  const [activeSlug, setActiveSlug] = useState<string | null>(() => getInitialSlug());
   const comboboxOptions = useMemo<ComboboxOption<string>[]>(
     () =>
       registry.map((entry) => ({

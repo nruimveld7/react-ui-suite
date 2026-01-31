@@ -229,3 +229,12 @@
 .rui-card__u-box-shadow-0-0-0000-0-0-0000-0-0--2ac3c2fc68:is(.dark *) {
   box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000;
 }
+
+.rui-card__header,
+.rui-card__eyebrow,
+.rui-card__actions,
+.rui-card__title,
+.rui-card__body,
+.rui-card__footer {
+  min-width: 0;
+}

@@ -49,10 +49,7 @@ function BadgeLegend() {
 
 function BadgeUsageShowcase() {
   return (
-    <DemoExample title="Quick patterns">
-      <div className="badge-demo-panel__header">
-        <span className="badge-demo-panel__pill">Inline</span>
-      </div>
+    <DemoExample title="Quick patterns" badge="Inline">
       <div className="badge-demo-chip-line">
         <Badge variant="info" icon="🔔">
           Reminder
@@ -90,3 +87,4 @@ const entry: ComponentRegistryEntry = {
 export default entry;
 export { Badge };
 export type { BadgeProps, BadgeVariant };
+

@@ -23,16 +23,8 @@ function CommandPalette() {
   );
 
   return (
-    <DemoExample title="Command palette">
-      <div
-        className="rui-datalist-input-demo__u-display-flex--60fbb77139 rui-datalist-input-demo__u-align-items-center--3960ffc248"
-        style={{ justifyContent: "flex-end" }}
-      >
-        <span className="rui-datalist-input-demo__u-border-radius-9999px--ac204c1088 rui-datalist-input-demo__u-border-width-1px--ca6bcd4b6f rui-datalist-input-demo__u-border-color-rgb-226-232-240-1--52f4da2ca5 rui-datalist-input-demo__u-background-color-rgb-255-255-255--5e10cdb8f1 rui-datalist-input-demo__u-padding-left-0-75rem--0e17f2bd90 rui-datalist-input-demo__u-padding-top-0-25rem--660d2effb8 rui-datalist-input-demo__u-font-size-11px--d058ca6de6 rui-datalist-input-demo__u-font-weight-600--e83a7042bc rui-datalist-input-demo__u-text-transform-uppercase--117ec720ea rui-datalist-input-demo__u-letter-spacing-0-025em--8baf13a3e9 rui-datalist-input-demo__u-color-rgb-100-116-139-1--30426eb75c rui-datalist-input-demo__u-box-shadow-0-0-0000-0-0-0000-0-1--438b2237b8 rui-datalist-input-demo__u-border-color-rgb-51-65-85-1--30fb741464 rui-datalist-input-demo__u-background-color-rgb-15-23-42-0---5212cbf15b rui-datalist-input-demo__u-color-rgb-203-213-225-1--ca11017ff7">
-          Custom popover
-        </span>
-      </div>
-      <div className="rui-datalist-input-demo__u-margin-top-0-75rem--eccd13ef4f rui-datalist-input-demo__u-style--6ed543e2fb">
+    <DemoExample title="Command palette" badge="Custom popover">
+      <div className="rui-datalist-input-demo__u-style--6ed543e2fb">
         <DatalistInput
           label="Search actions"
           placeholder="Type to filter commands"

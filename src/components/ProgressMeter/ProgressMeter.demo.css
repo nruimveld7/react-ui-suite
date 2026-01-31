@@ -59,6 +59,7 @@
 }
 
 .rui-progress-meter-demo__u-style--6ed543e2fb > :not([hidden]) ~ :not([hidden]) {
+  justify-content: center;
   --rui-space-y-reverse: 0;
   margin-top: calc(0.75rem * calc(1 - var(--rui-space-y-reverse)));
   margin-bottom: calc(0.75rem * var(--rui-space-y-reverse));

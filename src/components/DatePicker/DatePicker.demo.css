@@ -2,6 +2,10 @@
   margin-top: 0.75rem;
 }
 
+.rui-date-picker-demo__u-margin-bottom-0-75rem--eccd13ef4f {
+  margin-bottom: 0.75rem;
+}
+
 .rui-date-picker-demo__u-align-items-center--3960ffc248 {
   align-items: center;
 }
@@ -84,6 +88,7 @@
 .rui-date-picker-demo__u-font-size-0-875rem--fc7473ca09 {
   font-size: 0.875rem;
   line-height: 1.25rem;
+  margin: 0px;
 }
 
 .rui-date-picker-demo__u-font-size-0-75rem--359090c2d5 {
@@ -124,7 +129,7 @@
 }
 
 .rui-date-picker-demo__u-border-color-rgb-30-41-59-1--2072c87505:is(.dark *) {
-  border-color: rgb(30 41 59 / 1);
+  border-color: rgb(63 63 70 / 0.6);
 }
 
 .rui-date-picker-demo__u-background-color-rgb-15-23-42-0---5212cbf15b:is(.dark *) {
@@ -189,3 +194,4 @@
 .rui-date-picker-demo__u-text-transform-uppercase--117ec720ea {
   text-transform: uppercase;
 }
+

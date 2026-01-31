@@ -1,3 +1,15 @@
+.rui-table__outer-border {
+  border-style: solid;
+  border-color: var(--rui-color-border);
+}
+
+.rui-table__u-vertical-align-top--4a97b595d1 {
+  vertical-align: top;
+}
+
+.rui-table__u-vertical-align-bottom--f6b31759c6 {
+  vertical-align: bottom;
+}
 .rui-table__u-pointer-events-auto--7d5d4c29be {
   pointer-events: auto;
 }
@@ -277,4 +289,11 @@
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
+}
+
+
+
+.table-scrollbar {
+  max-width: 100%;
+  min-width: 0;
 }

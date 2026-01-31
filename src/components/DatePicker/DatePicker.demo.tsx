@@ -12,6 +12,7 @@ function Scheduling() {
   return (
     <DemoExample
       title="Scheduling"
+      badge="Native-free"
       className="rui-date-picker-demo__u-border-radius-1-5rem--ea189a088a rui-date-picker-demo__u-border-width-1px--ca6bcd4b6f rui-date-picker-demo__u-border-color-rgb-226-232-240-1--52f4da2ca5 rui-date-picker-demo__u-background-color-rgb-255-255-255--6c21de570d rui-date-picker-demo__u-padding-1rem--8e63407b5c rui-date-picker-demo__u-box-shadow-0-0-0000-0-0-0000-0-1--438b2237b8 rui-date-picker-demo__u-border-color-rgb-30-41-59-1--2072c87505 rui-date-picker-demo__u-background-color-rgb-15-23-42-0---5212cbf15b"
     >
       <div className="rui-date-picker-demo__u-display-flex--60fbb77139 rui-date-picker-demo__u-align-items-center--3960ffc248 rui-date-picker-demo__u-justify-content-space-between--8ef2268efb">
@@ -20,11 +21,8 @@ function Scheduling() {
             Custom date pickers with select-based time.
           </p>
         </div>
-        <span className="rui-date-picker-demo__u-border-radius-9999px--ac204c1088 rui-date-picker-demo__u-background-color-rgb-15-23-42-1--15821c2ff2 rui-date-picker-demo__u-padding-left-0-75rem--0e17f2bd90 rui-date-picker-demo__u-padding-top-0-25rem--660d2effb8 rui-date-picker-demo__u-font-size-11px--d058ca6de6 rui-date-picker-demo__u-font-weight-600--e83a7042bc rui-date-picker-demo__u-text-transform-uppercase--117ec720ea rui-date-picker-demo__u-letter-spacing-0-025em--8baf13a3e9 rui-date-picker-demo__u-color-rgb-255-255-255-1--72a4c7cdee rui-date-picker-demo__u-box-shadow-0-0-0000-0-0-0000-0-1--438b2237b8 rui-date-picker-demo__u-background-color-rgb-255-255-255--e598448d8a rui-date-picker-demo__u-color-rgb-15-23-42-1--ea4519095b">
-          Native-free
-        </span>
       </div>
-      <div className="rui-date-picker-demo__u-margin-top-0-75rem--eccd13ef4f rui-date-picker-demo__u-display-grid--f3c543ad5f rui-date-picker-demo__u-gap-0-75rem--1004c0c395 rui-date-picker-demo__u-grid-template-columns-repeat-3-m--9a638cfe82">
+      <div className="rui-date-picker-demo__u-margin-bottom-0-75rem--eccd13ef4f rui-date-picker-demo__u-display-grid--f3c543ad5f rui-date-picker-demo__u-gap-0-75rem--1004c0c395 rui-date-picker-demo__u-grid-template-columns-repeat-3-m--9a638cfe82">
         <DatePicker label="Start date" value={start} onChange={setStart} type="date" />
         <DatePicker label="Deadline" value={deadline} onChange={setDeadline} type="date" />
         <DatePicker label="Daily checkpoint" value={daily} onChange={setDaily} type="time" />

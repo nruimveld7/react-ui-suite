@@ -227,3 +227,7 @@
 .rui-progress-meter__label {
   margin: 0;
 }
+
+.rui-progress-meter__label {
+  min-width: 0;
+}

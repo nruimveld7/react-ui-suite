@@ -123,11 +123,6 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
     };
   }, [height]);
 
-  React.useLayoutEffect(() => {
-    if (!shellRef.current || width !== undefined) return;
-    setWidth(shellRef.current.offsetWidth);
-  }, [width]);
-
   React.useEffect(() => {
     return () => {
       if (resizeListenersRef.current.move) {
@@ -213,15 +208,16 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
     [thumb.size]
   );
 
+  const rootClasses = clsx("rui-textarea", "rui-root", disabled && "rui-textarea--disabled");
   const shellClasses = clsx(
-    "rui-textarea__u-position-relative--d89972fe17 rui-textarea__u-border-radius-1rem--68f2db624d rui-textarea__u-border-width-1px--ca6bcd4b6f rui-textarea__u-rui-border-opacity-1--85684b007e rui-textarea__u-background-color-rgb-255-255-255--845918557e rui-textarea__u-padding-left-0-75rem--0e17f2bd90 rui-textarea__u-padding-top-0-5rem--03b4dd7f17 rui-textarea__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-textarea__u-transition-property-color-backgr--56bf8ae82a rui-textarea__u-rui-border-opacity-1--0b0890deff rui-textarea__u-rui-shadow-0-0-0-1px-rgba-148-16--e431ff085e rui-textarea__u-rui-border-opacity-1--4e12bcf58d rui-textarea__u-background-color-rgb-24-24-27-0---5cd2915a74 rui-textarea__u-rui-border-opacity-1--7e4150ed84",
-    disabled && "rui-textarea__u-opacity-0-6--f2868c227f",
-    error &&
-      "rui-textarea__u-rui-border-opacity-1--3b7f978155 rui-textarea__u-rui-border-opacity-1--6fe003501e rui-textarea__u-rui-shadow-0-0-0-1px-rgba-248-11--633a78b9cd rui-textarea__u-border-color-rgb-244-63-94-0-6--99963c86d9"
+    "rui-textarea__shell",
+    disabled && "rui-textarea__shell--disabled",
+    error && "rui-textarea__shell--error"
   );
 
   const textareaClasses = clsx(
-    "textarea-scrollbar rui-textarea__u-min-height-120px--7ee36c2691 rui-textarea__u-width-100--6da6a3c3f7 rui-textarea__u-resize-none--6aef320168 rui-textarea__u-border-style-none--4a5f0ea046 rui-textarea__u-background-color-transparent--7f19cdf4c5 rui-textarea__u-padding-bottom-1rem--9fcd8a1382 rui-textarea__u-padding-right-1-25rem--752a63b747 rui-textarea__u-font-size-0-875rem--fc7473ca09 rui-textarea__u-rui-text-opacity-1--f5f136c41d rui-textarea__u-rui-text-opacity-1--02904d54b5 rui-textarea__u-outline-2px-solid-transparent--55d048ebfb rui-textarea__u-rui-text-opacity-1--3ddc1cab99 rui-textarea__u-rui-text-opacity-1--8a97e48efc",
+    "rui-textarea__control",
+    `rui-textarea__control--resize-${resizeDirection}`,
     className
   );
 
@@ -231,17 +227,16 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
   const textareaStyle = {
     ...style,
     ...(height !== undefined ? { height } : null),
-    ...(width !== undefined ? { width } : null),
-    maxWidth: "100%",
   };
-  const shellStyle = width !== undefined ? { width, maxWidth: "100%" } : { maxWidth: "100%" };
+  const allowX = resizeDirection === "horizontal" || resizeDirection === "both";
+  const shellStyle = width !== undefined && allowX ? { width } : undefined;
 
   return (
-    <div className="rui-textarea__u-style--5a2508227c">
+    <div className={rootClasses}>
       {label ? (
         <label
           htmlFor={textareaId}
-          className="rui-textarea__u-font-size-0-75rem--359090c2d5 rui-textarea__u-font-weight-600--e83a7042bc rui-textarea__u-text-transform-uppercase--117ec720ea rui-textarea__u-letter-spacing-0-2em--2da1a7016e rui-textarea__u-rui-text-opacity-1--30426eb75c rui-textarea__u-rui-text-opacity-1--6462b86910"
+          className="rui-textarea__label rui-text-wrap"
         >
           {label}
         </label>
@@ -265,7 +260,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
         />
         {thumb.visible ? (
           <div
-            className="rui-textarea__u-pointer-events-auto--7d5d4c29be rui-textarea__u-position-absolute--da4dbfbc4f rui-textarea__u-z-index-20--145745bf52 rui-textarea__u-border-radius-9999px--ac204c1088 rui-textarea__u-background-color-rgb-255-255-255--d2fa6cb50a rui-textarea__u-rui-shadow-inset-0-2px-4px-0-rgb--eca5782b24 rui-textarea__u-rui-backdrop-blur-blur-4px--1ca6dd1e47 rui-textarea__u-transition-property-color-backgr--ceb69a6b0e rui-textarea__u-background-color-rgb-39-39-42-0---b37a7836e7"
+            className="rui-textarea__scrollbar"
             style={{
               right: 4,
               top: TRACK_TOP + TRACK_REDUCTION_HALF,
@@ -290,9 +285,9 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
               handleThumbDrag(event as unknown as React.PointerEvent<HTMLDivElement>, target);
             }}
           >
-            <div className="rui-textarea__u-position-relative--d89972fe17 rui-textarea__u-height-100--668b21aa54 rui-textarea__u-width-100--6da6a3c3f7 rui-textarea__u-border-radius-9999px--ac204c1088 rui-textarea__u-background-color-rgb-15-23-42-0---b1e59fba64 rui-textarea__u-rui-shadow-inset-0-2px-4px-0-rgb--eca5782b24 rui-textarea__u-background-color-rgb-255-255-255--93a1f57e1e">
+            <div className="rui-textarea__scrollbar-track">
               <div
-                className="rui-textarea__u-position-absolute--da4dbfbc4f rui-textarea__u-left-50--e632769ad7 rui-textarea__u-width-100--6da6a3c3f7 rui-textarea__u-rui-translate-x-50--efaa070148 rui-textarea__u-border-radius-9999px--ac204c1088 rui-textarea__u-background-color-rgb-148-163-184--91c0d51da3 rui-textarea__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-textarea__u-transition-property-color-backgr--ceb69a6b0e rui-textarea__u-background-color-rgb-113-113-122--fe8680199c"
+                className="rui-textarea__scrollbar-thumb"
                 style={{ height: `${thumb.size}px`, top: `${thumb.offset}px` }}
                 onPointerDown={(event) => {
                   event.stopPropagation();
@@ -303,9 +298,9 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
           </div>
         ) : null}
         {resizeDirection !== "none" ? (
-          <div className="rui-textarea__u-pointer-events-none--a4326536b8 rui-textarea__u-position-absolute--da4dbfbc4f rui-textarea__u-bottom-0-5rem--f6babb334d rui-textarea__u-right-0-5rem--7b2d63937d rui-textarea__u-display-flex--60fbb77139 rui-textarea__u-align-items-center--3960ffc248 rui-textarea__u-gap-0-5rem--77a2a20e90 rui-textarea__u-font-size-11px--d058ca6de6 rui-textarea__u-font-weight-600--e83a7042bc rui-textarea__u-text-transform-uppercase--117ec720ea rui-textarea__u-letter-spacing-0-18em--a82f6f96ca rui-textarea__u-rui-text-opacity-1--8d44cef396 rui-textarea__u-rui-text-opacity-1--28db7d8770">
+          <div className="rui-textarea__footer">
             {showCount && limit ? (
-              <div className="rui-textarea__u-pointer-events-auto--7d5d4c29be">
+              <div className="rui-textarea__footer-count">
                 {count}/{limit}
               </div>
             ) : null}
@@ -313,7 +308,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
               type="button"
               aria-label="Resize textarea"
               onMouseDown={handleResizeStart}
-              className="rui-textarea__u-pointer-events-auto--7d5d4c29be rui-textarea__u-display-inline-flex--52083e7da4 rui-textarea__u-height-14px--e16500fc5e rui-textarea__u-width-14px--fcc6b6c329 rui-textarea__u-align-items-center--3960ffc248 rui-textarea__u-justify-content-center--86843cf1e2 rui-textarea__u-border-radius-3px--cdbc510d96 rui-textarea__u-background-color-transparent--7f19cdf4c5 rui-textarea__u-rui-text-opacity-1--8d44cef396 rui-textarea__u-outline-2px-solid-transparent--df37b1fd94 rui-textarea__u-transition-property-color-backgr--56bf8ae82a rui-textarea__u-rui-text-opacity-1--110ae816be rui-textarea__u-rui-ring-offset-shadow-var-rui-r--793c80e97f rui-textarea__u-rui-ring-opacity-1--8fa0a71c86 rui-textarea__u-rui-ring-offset-width-1px--ce4edccf4c rui-textarea__u-rui-ring-offset-color-fff--cccba99ae0 rui-textarea__u-cursor-grab--9ced4fb4ec rui-textarea__u-background-color-transparent--f8dca23f7d rui-textarea__u-rui-text-opacity-1--6462b86910 rui-textarea__u-rui-text-opacity-1--370c6ccaec rui-textarea__u-rui-ring-opacity-1--44329df62f rui-textarea__u-rui-ring-offset-color-18181b--900e4559ba"
+              className="rui-textarea__resize-handle"
               style={{
                 border: "none",
                 boxShadow: "none",
@@ -322,15 +317,15 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
               }}
             >
               <svg
-                viewBox="0 0 12 12"
+                viewBox="0 0 16 16"
                 aria-hidden="true"
-                className="rui-textarea__u-height-0-75rem--6a60c09e6a rui-textarea__u-width-0-75rem--9cea05671a rui-textarea__u-rui-text-opacity-1--8d44cef396 rui-textarea__u-rui-text-opacity-1--6462b86910"
+                className="rui-textarea__resize-handle-icon"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
               >
-                <path
-                  d="M2 10.5 10.5 2M4.5 10.5 10.5 4.5M7 10.5 10.5 7"
-                  stroke="currentColor"
-                  strokeWidth="1.1"
-                />
+                <path d="M7 15 L15 7 M11 15 L15 11 M3 15 L15 3" />
               </svg>
             </button>
           </div>
@@ -338,16 +333,17 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
       </div>
 
       {description ? (
-        <p id={descriptionId} className="rui-textarea__u-font-size-0-75rem--359090c2d5 rui-textarea__u-rui-text-opacity-1--30426eb75c rui-textarea__u-rui-text-opacity-1--6462b86910">
+        <p id={descriptionId} className="rui-textarea__description rui-text-wrap">
           {description}
         </p>
       ) : null}
 
       {error ? (
-        <p id={errorId} className="rui-textarea__u-font-size-0-75rem--359090c2d5 rui-textarea__u-font-weight-500--2689f39580 rui-textarea__u-rui-text-opacity-1--fa51279820 rui-textarea__u-rui-text-opacity-1--897de47303">
+        <p id={errorId} className="rui-textarea__error rui-text-wrap">
           {error}
         </p>
       ) : null}
     </div>
   );
 });
+

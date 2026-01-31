@@ -104,11 +104,11 @@ export const DatalistInput = React.forwardRef<HTMLInputElement, DatalistInputPro
     };
 
     return (
-      <div className="rui-datalist-input__u-style--5a2508227c">
+      <div className="rui-datalist-input__u-style--5a2508227c rui-root">
         {label ? (
           <label
             htmlFor={inputId}
-            className="rui-datalist-input__u-font-size-0-75rem--359090c2d5 rui-datalist-input__u-font-weight-600--e83a7042bc rui-datalist-input__u-text-transform-uppercase--117ec720ea rui-datalist-input__u-letter-spacing-0-2em--2da1a7016e rui-datalist-input__u-color-rgb-100-116-139-1--30426eb75c rui-datalist-input__u-color-rgb-161-161-170-1--6462b86910"
+            className="rui-datalist-input__u-font-size-0-75rem--359090c2d5 rui-datalist-input__u-font-weight-600--e83a7042bc rui-datalist-input__u-text-transform-uppercase--117ec720ea rui-datalist-input__u-letter-spacing-0-2em--2da1a7016e rui-datalist-input__u-color-rgb-100-116-139-1--30426eb75c rui-datalist-input__u-color-rgb-161-161-170-1--6462b86910 rui-text-wrap"
           >
             {label}
           </label>
@@ -143,7 +143,7 @@ export const DatalistInput = React.forwardRef<HTMLInputElement, DatalistInputPro
           }}
         >
           {open && filtered.length ? (
-            <Popover>
+            <Popover anchorRef={dropdownRef}>
               {({ scrollRef }) => (
                 <ul
                   ref={(node) => setListRef(node, scrollRef)}
@@ -171,7 +171,7 @@ export const DatalistInput = React.forwardRef<HTMLInputElement, DatalistInputPro
                         <span className="rui-datalist-input__option-key">
                           cmd
                         </span>
-                        <span className="rui-datalist-input__option-text">{opt}</span>
+                        <span className="rui-datalist-input__option-text rui-text-truncate">{opt}</span>
                       </button>
                     </li>
                   ))}
@@ -181,7 +181,7 @@ export const DatalistInput = React.forwardRef<HTMLInputElement, DatalistInputPro
           ) : null}
         </Dropdown>
         {description ? (
-          <p id={descriptionId} className="rui-datalist-input__u-font-size-0-75rem--359090c2d5 rui-datalist-input__u-color-rgb-100-116-139-1--30426eb75c rui-datalist-input__u-color-rgb-161-161-170-1--6462b86910">
+          <p id={descriptionId} className="rui-datalist-input__u-font-size-0-75rem--359090c2d5 rui-datalist-input__u-color-rgb-100-116-139-1--30426eb75c rui-datalist-input__u-color-rgb-161-161-170-1--6462b86910 rui-text-wrap">
             {description}
           </p>
         ) : null}
@@ -189,3 +189,5 @@ export const DatalistInput = React.forwardRef<HTMLInputElement, DatalistInputPro
     );
   }
 );
+
+

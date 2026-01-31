@@ -23,19 +23,11 @@
   gap: 0.5rem;
 }
 
-.rui-combobox-demo__combobox {
-  max-width: 28rem;
-}
-
-.rui-combobox-demo__selected {
+.rui-combobox-demo__selected,.rui-combobox-demo__hint {
+  margin: 0px;
   font-size: 0.75rem;
   line-height: 1rem;
-  color: var(--rui-color-text-muted);
-}
-
-.rui-combobox-demo__hint {
-  font-size: 0.75rem;
-  line-height: 1rem;
+  text-align: center;
   color: var(--rui-color-text-muted);
 }
 

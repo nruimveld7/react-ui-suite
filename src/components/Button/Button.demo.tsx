@@ -27,16 +27,31 @@ const demoFocusRingCss = `
 
 function ButtonShowcase() {
   const [count, setCount] = useState(0);
+  const handleClick = () => setCount((value) => value + 1);
 
   return (
     <div className="button-demo-showcase">
-      <Button onClick={() => setCount((value) => value + 1)}>Primary</Button>
       <style>{demoFocusRingCss}</style>
-      <Button className="bg-demo-accent text-demo-white button-demo-focus-ring--accent">
-        Accent
-      </Button>
-      <Button className="bg-demo-ghost text-demo-ghost">Ghost</Button>
-      <Button disabled className="opacity-demo-70">Disabled</Button>
+      <div className="button-demo-showcase__actions">
+        <Button onClick={handleClick} className="button-demo-showcase__button">
+          Primary
+        </Button>
+        <Button
+          onClick={handleClick}
+          className="bg-demo-accent text-demo-white button-demo-focus-ring--accent button-demo-showcase__button"
+        >
+          Accent
+        </Button>
+        <Button
+          onClick={handleClick}
+          className="bg-demo-ghost text-demo-ghost button-demo-showcase__button"
+        >
+          Ghost
+        </Button>
+        <Button disabled className="opacity-demo-70 button-demo-showcase__button">
+          Disabled
+        </Button>
+      </div>
       <span className="button-demo-counter">Clicks: {count}</span>
     </div>
   );
@@ -45,30 +60,30 @@ function ButtonShowcase() {
 function ButtonUsageExamples() {
   return (
     <div className="button-demo-grid">
-      <DemoExample title="Forms" style={{ gap: "var(--rui-space-1)" }}>
-        <Button type="submit" className="bg-demo-emerald text-demo-white">
+      <DemoExample title="Forms">
+        <Button type="submit" className="demo-button-solo bg-demo-emerald text-demo-white">
           Save changes
         </Button>
-        <p className="button-demo-card__note" style={{ margin: "0.125rem 0 0" }}>
+        <p className="button-demo-card__note">
           Use the type prop to hook into forms.
         </p>
       </DemoExample>
-      <DemoExample title="Destructive" style={{ gap: "var(--rui-space-1)" }}>
-        <Button className="bg-demo-rose text-demo-white button-demo-focus-ring--danger">
+      <DemoExample title="Destructive" className="button-demo-example">
+        <Button className="demo-button-solo bg-demo-rose text-demo-white button-demo-focus-ring--danger">
           Delete
         </Button>
-        <p className="button-demo-card__note" style={{ margin: "0.125rem 0 0" }}>
+        <p className="button-demo-card__note">
           Override the base look with custom classes.
         </p>
       </DemoExample>
-      <DemoExample title="Icons" style={{ gap: "var(--rui-space-1)" }}>
-        <Button>
+      <DemoExample title="Icons" className="button-demo-example">
+        <Button className="demo-button-solo">
           <span role="img" aria-hidden="true">
             ✨
           </span>
           Magic
         </Button>
-        <p className="button-demo-card__note" style={{ margin: "0.125rem 0 0" }}>
+        <p className="button-demo-card__note">
           Buttons accept arbitrary children including icons.
         </p>
       </DemoExample>
@@ -99,3 +114,6 @@ const entry: ComponentRegistryEntry = {
 export default entry;
 export { Button };
 export type { ButtonProps };
+
+
+

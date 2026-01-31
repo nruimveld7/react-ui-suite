@@ -41,17 +41,17 @@ export const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(fu
   ) : null;
 
   const trailingElm = trailingLabel ? (
-    <span className="rui-input-field__u-font-size-0-75rem--359090c2d5 rui-input-field__u-font-weight-600--e83a7042bc rui-input-field__u-text-transform-uppercase--117ec720ea rui-input-field__u-letter-spacing-0-025em--8baf13a3e9 rui-input-field__u-color-rgb-148-163-184-1--8d44cef396 rui-input-field__u-color-rgb-113-113-122-1--28db7d8770">
+    <span className="rui-input-field__u-font-size-0-75rem--359090c2d5 rui-input-field__u-font-weight-600--e83a7042bc rui-input-field__u-text-transform-uppercase--117ec720ea rui-input-field__u-letter-spacing-0-025em--8baf13a3e9 rui-input-field__u-color-rgb-148-163-184-1--8d44cef396 rui-input-field__u-color-rgb-113-113-122-1--28db7d8770 rui-text-wrap">
       {trailingLabel}
     </span>
   ) : null;
 
   return (
-    <div className="rui-input-field__u-style--5a2508227c">
+    <div className="rui-input-field__u-style--5a2508227c rui-root">
       {label ? (
         <label
           htmlFor={inputId}
-          className="rui-input-field__u-font-size-0-75rem--359090c2d5 rui-input-field__u-font-weight-600--e83a7042bc rui-input-field__u-text-transform-uppercase--117ec720ea rui-input-field__u-letter-spacing-0-2em--2da1a7016e rui-input-field__u-color-rgb-100-116-139-1--30426eb75c rui-input-field__u-color-rgb-161-161-170-1--6462b86910"
+          className="rui-input-field__u-font-size-0-75rem--359090c2d5 rui-input-field__u-font-weight-600--e83a7042bc rui-input-field__u-text-transform-uppercase--117ec720ea rui-input-field__u-letter-spacing-0-2em--2da1a7016e rui-input-field__u-color-rgb-100-116-139-1--30426eb75c rui-input-field__u-color-rgb-161-161-170-1--6462b86910 rui-text-wrap"
         >
           {label}
         </label>
@@ -72,16 +72,17 @@ export const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(fu
       </div>
 
       {description ? (
-        <p id={descriptionId} className="rui-input-field__u-font-size-0-75rem--359090c2d5 rui-input-field__u-color-rgb-100-116-139-1--30426eb75c rui-input-field__u-color-rgb-161-161-170-1--6462b86910">
+        <p id={descriptionId} className="rui-input-field__u-font-size-0-75rem--359090c2d5 rui-input-field__u-color-rgb-100-116-139-1--30426eb75c rui-input-field__u-color-rgb-161-161-170-1--6462b86910 rui-text-wrap">
           {description}
         </p>
       ) : null}
 
       {error ? (
-        <p id={errorId} className="rui-input-field__u-font-size-0-75rem--359090c2d5 rui-input-field__u-font-weight-500--2689f39580 rui-input-field__u-color-rgb-244-63-94-1--fa51279820 rui-input-field__u-color-rgb-251-113-133-1--897de47303">
+        <p id={errorId} className="rui-input-field__u-font-size-0-75rem--359090c2d5 rui-input-field__u-font-weight-500--2689f39580 rui-input-field__u-color-rgb-244-63-94-1--fa51279820 rui-input-field__u-color-rgb-251-113-133-1--897de47303 rui-text-wrap">
           {error}
         </p>
       ) : null}
     </div>
   );
 });
+

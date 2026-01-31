@@ -52,8 +52,17 @@
   color: rgb(15 23 42 / 1);
 }
 
+.rui-combobox__option-row--selected {
+  font-weight: 600;
+  background-color: rgb(226 232 240 / 0.7);
+}
+
 .rui-combobox__option-row:not(.rui-combobox__option-row--disabled):hover {
   background-color: rgb(241 245 249 / 1);
+}
+
+.rui-combobox__option-row--selected:not(.rui-combobox__option-row--disabled):hover {
+  background-color: rgb(226 232 240 / 0.95);
 }
 
 .rui-combobox__option-row--disabled {
@@ -70,8 +79,16 @@
   color: rgb(244 244 245 / 1);
 }
 
+[data-theme="dark"] .rui-combobox__option-row--selected {
+  background-color: rgb(24 24 27 / 0.9);
+}
+
 [data-theme="dark"] .rui-combobox__option-row:not(.rui-combobox__option-row--disabled):hover {
   background-color: rgb(39 39 42 / 0.7);
+}
+
+[data-theme="dark"] .rui-combobox__option-row--selected:not(.rui-combobox__option-row--disabled):hover {
+  background-color: rgb(39 39 42 / 0.9);
 }
 
 .rui-combobox__option-label {
@@ -83,9 +100,9 @@
 .rui-combobox__option-icon,
 .rui-combobox__option-icon-placeholder {
   margin-left: auto;
-  width: 0.75rem;
-  height: 0.75rem;
-  flex: 0 0 0.75rem;
+  width: 0.875rem;
+  height: 0.875rem;
+  flex: 0 0 0.875rem;
 }
 
 .rui-combobox__option-icon {
@@ -94,4 +111,14 @@
 
 [data-theme="dark"] .rui-combobox__option-icon {
   color: rgb(212 212 216 / 1);
+}
+
+.rui-combobox__listbox,
+.rui-combobox__option-row {
+  min-width: 0;
+}
+
+.rui-combobox__option-label {
+  flex: 1 1 0%;
+  min-width: 0;
 }

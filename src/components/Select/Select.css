@@ -240,12 +240,49 @@
   box-shadow: 0 0 0 2px rgba(148, 163, 184, 0.6);
 }
 
+.rui-select__option-button:not(:disabled):not(.rui-select__option-button--selected):hover {
+  background-color: rgb(241 245 249 / 1);
+}
+
+.rui-select__option-button:not(:disabled):not(.rui-select__option-button--selected):hover:is(.dark *) {
+  background-color: rgb(39 39 42 / 0.7);
+}
+
 .rui-select__option-label {
-  font-weight: 600;
+  font-weight: inherit;
 }
 
 .rui-select__option-description {
+  font-weight: inherit;
+}
+
+.rui-select__option-check,
+.rui-select__option-check-placeholder {
+  margin-left: auto;
+  width: 0.875rem;
+  height: 0.875rem;
+  flex: 0 0 0.875rem;
+}
+
+.rui-select__option-check-placeholder {
+  display: inline-flex;
+}
+
+.rui-select__option-button--selected {
   font-weight: 600;
+  background-color: rgb(226 232 240 / 0.7);
+}
+
+.rui-select__option-button--selected:hover {
+  background-color: rgb(226 232 240 / 0.95);
+}
+
+.rui-select__option-button--selected:is(.dark *) {
+  background-color: rgb(24 24 27 / 0.9);
+}
+
+.rui-select__option-button--selected:hover:is(.dark *) {
+  background-color: rgb(39 39 42 / 0.9);
 }
 
 .rui-select__u-display-block--0214b4b355 {
@@ -270,4 +307,10 @@
   --rui-shadow: 0 0 0 1px rgba(248,113,113,0.35);
   --rui-shadow-colored: 0 0 0 1px var(--rui-shadow-color);
   box-shadow: var(--rui-ring-offset-shadow, 0 0 #0000), var(--rui-ring-shadow, 0 0 #0000), var(--rui-shadow);
+}
+
+.rui-select__u-flex-1-1-0--36e579c0b4,
+.rui-select__option-label,
+.rui-select__option-description {
+  min-width: 0;
 }

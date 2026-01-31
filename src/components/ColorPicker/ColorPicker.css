@@ -973,3 +973,11 @@
   border: none;
   box-shadow: none;
 }
+
+.rui-color-picker__label,
+.rui-color-picker__panel-body,
+.rui-color-picker__channels-header,
+.rui-color-picker__format-toggle,
+.rui-color-picker__channel-grid {
+  min-width: 0;
+}

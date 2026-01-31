@@ -153,15 +153,13 @@ function TemperatureControl() {
   return (
     <DemoExample
       title="Studio climate"
+      badge={{ label: "Custom thumb", appearance: "gradient" }}
       className="rui-slider-demo__u-style--6ed543e2fb rui-slider-demo__u-border-radius-1-5rem--ea189a088a rui-slider-demo__u-border-width-1px--ca6bcd4b6f rui-slider-demo__u-rui-border-opacity-1--52f4da2ca5 rui-slider-demo__u-background-color-rgb-255-255-255--6c21de570d rui-slider-demo__u-padding-1rem--8e63407b5c rui-slider-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-slider-demo__u-rui-border-opacity-1--2072c87505 rui-slider-demo__u-background-color-rgb-15-23-42-0---43aaa5e5c1"
     >
       <div className="rui-slider-demo__u-display-flex--60fbb77139 rui-slider-demo__u-align-items-center--3960ffc248 rui-slider-demo__u-justify-content-space-between--8ef2268efb">
         <div>
           <p className="rui-slider-demo__u-font-size-0-875rem--fc7473ca09 rui-slider-demo__u-rui-text-opacity-1--30426eb75c rui-slider-demo__u-rui-text-opacity-1--cc0274aad9">Manage room temperature</p>
         </div>
-        <span className="rui-slider-demo__u-border-radius-9999px--ac204c1088 rui-slider-demo__u-background-image-linear-gradient--6ae7db2cff rui-slider-demo__u-rui-gradient-from-fb923c-var-rui--085f0086b7 rui-slider-demo__u-rui-gradient-to-f43f5e-var-rui-g--932a260682 rui-slider-demo__u-padding-left-0-75rem--0e17f2bd90 rui-slider-demo__u-padding-top-0-25rem--660d2effb8 rui-slider-demo__u-font-size-11px--d058ca6de6 rui-slider-demo__u-font-weight-600--e83a7042bc rui-slider-demo__u-text-transform-uppercase--117ec720ea rui-slider-demo__u-letter-spacing-0-025em--8baf13a3e9 rui-slider-demo__u-rui-text-opacity-1--72a4c7cdee rui-slider-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8">
-          Custom thumb
-        </span>
       </div>
       <Slider
         label="Temperature"
@@ -188,24 +186,13 @@ function OrientationPlayground() {
   const [vertical, setVertical] = useState(35);
   const [verticalReverse, setVerticalReverse] = useState(80);
 
-  const renderBadge = (label: string) => (
-    <span className="rui-slider-demo__u-border-radius-9999px--ac204c1088 rui-slider-demo__u-background-color-rgb-255-255-255--6c21de570d rui-slider-demo__u-padding-left-0-5rem--d5eab218aa rui-slider-demo__u-padding-top-0-125rem--465609a240 rui-slider-demo__u-font-size-11px--d058ca6de6 rui-slider-demo__u-font-weight-600--e83a7042bc rui-slider-demo__u-text-transform-uppercase--117ec720ea rui-slider-demo__u-letter-spacing-0-025em--8baf13a3e9 rui-slider-demo__u-rui-text-opacity-1--2d6fbf48fa rui-slider-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-slider-demo__u-rui-ring-offset-shadow-var-rui-r--3daca9af08 rui-slider-demo__u-rui-ring-opacity-1--b63063b264 rui-slider-demo__u-background-color-rgb-15-23-42-0---96db0407f2 rui-slider-demo__u-rui-text-opacity-1--7b1a91a31e rui-slider-demo__u-rui-ring-opacity-1--3e516f5522">
-      {label}
-    </span>
-  );
-
   return (
     <div className="rui-slider-demo__u-display-grid--f3c543ad5f rui-slider-demo__u-gap-1-5rem--0d304f904c rui-slider-demo__u-grid-template-columns-repeat-2-m--e4d6f343b9">
       <DemoExample
         title="Horizontal"
+        badge="Default"
         className="rui-slider-demo__u-style--6f7e013d64 rui-slider-demo__u-border-radius-1-5rem--ea189a088a rui-slider-demo__u-border-width-1px--ca6bcd4b6f rui-slider-demo__u-rui-border-opacity-1--52f4da2ca5 rui-slider-demo__u-background-color-rgb-255-255-255--6c21de570d rui-slider-demo__u-padding-1rem--8e63407b5c rui-slider-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-slider-demo__u-rui-border-opacity-1--2072c87505 rui-slider-demo__u-background-color-rgb-15-23-42-0---43aaa5e5c1"
       >
-        <div
-          className="rui-slider-demo__u-display-flex--60fbb77139 rui-slider-demo__u-align-items-center--3960ffc248 rui-slider-demo__u-justify-content-space-between--8ef2268efb"
-          style={{ justifyContent: "flex-end" }}
-        >
-          {renderBadge("Default")}
-        </div>
         <Slider
           value={horizontal}
           onChange={setHorizontal}
@@ -216,14 +203,9 @@ function OrientationPlayground() {
 
       <DemoExample
         title="Horizontal reversed"
+        badge="Reversed"
         className="rui-slider-demo__u-style--6f7e013d64 rui-slider-demo__u-border-radius-1-5rem--ea189a088a rui-slider-demo__u-border-width-1px--ca6bcd4b6f rui-slider-demo__u-rui-border-opacity-1--52f4da2ca5 rui-slider-demo__u-background-color-rgb-255-255-255--6c21de570d rui-slider-demo__u-padding-1rem--8e63407b5c rui-slider-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-slider-demo__u-rui-border-opacity-1--2072c87505 rui-slider-demo__u-background-color-rgb-15-23-42-0---43aaa5e5c1"
       >
-        <div
-          className="rui-slider-demo__u-display-flex--60fbb77139 rui-slider-demo__u-align-items-center--3960ffc248 rui-slider-demo__u-justify-content-space-between--8ef2268efb"
-          style={{ justifyContent: "flex-end" }}
-        >
-          {renderBadge("Reversed")}
-        </div>
         <Slider
           reversed
           value={horizontalReverse}
@@ -235,14 +217,9 @@ function OrientationPlayground() {
 
       <DemoExample
         title="Vertical"
+        badge="Vertical"
         className="rui-slider-demo__u-style--6f7e013d64 rui-slider-demo__u-border-radius-1-5rem--ea189a088a rui-slider-demo__u-border-width-1px--ca6bcd4b6f rui-slider-demo__u-rui-border-opacity-1--52f4da2ca5 rui-slider-demo__u-background-color-rgb-255-255-255--6c21de570d rui-slider-demo__u-padding-1rem--8e63407b5c rui-slider-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-slider-demo__u-rui-border-opacity-1--2072c87505 rui-slider-demo__u-background-color-rgb-15-23-42-0---43aaa5e5c1"
       >
-        <div
-          className="rui-slider-demo__u-display-flex--60fbb77139 rui-slider-demo__u-align-items-center--3960ffc248 rui-slider-demo__u-justify-content-space-between--8ef2268efb"
-          style={{ justifyContent: "flex-end" }}
-        >
-          {renderBadge("Vertical")}
-        </div>
         <div className="rui-slider-demo__u-display-flex--60fbb77139 rui-slider-demo__u-justify-content-center--86843cf1e2">
           <Slider
             orientation="vertical"
@@ -257,14 +234,9 @@ function OrientationPlayground() {
 
       <DemoExample
         title="Vertical reversed"
+        badge="Vertical + reversed"
         className="rui-slider-demo__u-style--6f7e013d64 rui-slider-demo__u-border-radius-1-5rem--ea189a088a rui-slider-demo__u-border-width-1px--ca6bcd4b6f rui-slider-demo__u-rui-border-opacity-1--52f4da2ca5 rui-slider-demo__u-background-color-rgb-255-255-255--6c21de570d rui-slider-demo__u-padding-1rem--8e63407b5c rui-slider-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-slider-demo__u-rui-border-opacity-1--2072c87505 rui-slider-demo__u-background-color-rgb-15-23-42-0---43aaa5e5c1"
       >
-        <div
-          className="rui-slider-demo__u-display-flex--60fbb77139 rui-slider-demo__u-align-items-center--3960ffc248 rui-slider-demo__u-justify-content-space-between--8ef2268efb"
-          style={{ justifyContent: "flex-end" }}
-        >
-          {renderBadge("Vertical + reversed")}
-        </div>
         <div className="rui-slider-demo__u-display-flex--60fbb77139 rui-slider-demo__u-justify-content-center--86843cf1e2">
           <Slider
             orientation="vertical"

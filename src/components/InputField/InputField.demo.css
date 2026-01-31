@@ -70,7 +70,7 @@
 }
 
 .rui-input-field-demo__u-border-color-rgb-30-41-59-1--2072c87505:is(.dark *) {
-  border-color: rgb(30 41 59 / 1);
+  border-color: rgb(63 63 70 / 0.6);
 }
 
 .rui-input-field-demo__u-background-color-rgb-15-23-42-0---5212cbf15b:is(.dark *) {
@@ -103,3 +103,4 @@
 .rui-input-field-demo__u-text-transform-uppercase--117ec720ea {
   text-transform: uppercase;
 }
+

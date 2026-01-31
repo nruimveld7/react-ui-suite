@@ -10,7 +10,7 @@ function ModalPlayground() {
   const [remind, setRemind] = useState(true);
 
   return (
-    <div className="rui-dialog-demo__u-style--3e7ce58d64">
+    <div className="dialog-demo-stack">
       <style>{`
         .rui-dialog-demo__confirm.rui-button {
           border-color: rgb(5 150 105 / 1);

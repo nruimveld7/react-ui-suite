@@ -211,3 +211,13 @@
   font-weight: 600;
   color: inherit;
 }
+
+.rui-datalist-input__list,
+.rui-datalist-input__option-button {
+  min-width: 0;
+}
+
+.rui-datalist-input__option-text {
+  flex: 1 1 0%;
+  min-width: 0;
+}

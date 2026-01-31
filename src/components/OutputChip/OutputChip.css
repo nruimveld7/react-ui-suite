@@ -108,3 +108,7 @@
 .rui-output-chip__u-text-transform-uppercase--117ec720ea {
   text-transform: uppercase;
 }
+
+.rui-output-chip__value {
+  min-width: 0;
+}

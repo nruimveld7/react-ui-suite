@@ -1,11 +1,18 @@
+.rui-number-input__step-button.rui-button {
+  display: grid;
+  padding: 0;
+  min-width: calc(1.75rem * var(--rui-number-input-scale, 1));
+}
+
 .rui-number-input__u-width-1-75rem--cc46d0fa27 {
-  width: 1.75rem;
-  height: 1.75rem;
+  width: calc(1.75rem * var(--rui-number-input-scale, 1));
+  height: calc(1.75rem * var(--rui-number-input-scale, 1));
 }
 
 .rui-number-input__u-flex-1-1-0--36e579c0b4 {
-  flex: 1 1 0%;
+  flex: 0 0 auto;
   min-width: 0;
+  width: calc(var(--rui-number-input-value-ch, 1) * 1ch);
 }
 
 .rui-number-input__u-webkit-appearance-none--eeea43674c {
@@ -27,11 +34,19 @@
 }
 
 .rui-number-input__u-gap-0-25rem--44ee8ba0a4 {
-  gap: 0.25rem;
+  gap: calc(0.25rem * var(--rui-number-input-scale, 1));
 }
 
 .rui-number-input__u-gap-0-75rem--1004c0c395 {
-  gap: 0.75rem;
+  gap: calc(0.75rem * var(--rui-number-input-scale, 1));
+}
+
+.rui-number-input__u-style--5a2508227c {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+  text-align: center;
 }
 
 .rui-number-input__u-style--5a2508227c > :not([hidden]) ~ :not([hidden]) {
@@ -40,11 +55,11 @@
 }
 
 .rui-number-input__u-border-radius-1rem--68f2db624d {
-  border-radius: 1rem;
+  border-radius: calc(1rem * var(--rui-number-input-scale, 1));
 }
 
 .rui-number-input__u-border-radius-0-75rem--a217b4eaa9 {
-  border-radius: 0.75rem;
+  border-radius: calc(0.75rem * var(--rui-number-input-scale, 1));
 }
 
 .rui-number-input__u-border-style-none--4a5f0ea046 {
@@ -92,28 +107,28 @@
 }
 
 .rui-number-input__u-padding-left-0-75rem--0e17f2bd90 {
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
+  padding-left: calc(0.75rem * var(--rui-number-input-scale, 1));
+  padding-right: calc(0.75rem * var(--rui-number-input-scale, 1));
 }
 
 .rui-number-input__u-padding-top-0-5rem--03b4dd7f17 {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: calc(0.5rem * var(--rui-number-input-scale, 1));
+  padding-bottom: calc(0.5rem * var(--rui-number-input-scale, 1));
 }
 
 .rui-number-input__u-font-size-1-5rem--3febee094e {
-  font-size: 1.5rem;
-  line-height: 2rem;
+  font-size: calc(1.5rem * var(--rui-number-input-scale, 1));
+  line-height: calc(2rem * var(--rui-number-input-scale, 1));
 }
 
 .rui-number-input__u-font-size-0-875rem--fc7473ca09 {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
+  font-size: calc(0.875rem * var(--rui-number-input-scale, 1));
+  line-height: calc(1.25rem * var(--rui-number-input-scale, 1));
 }
 
 .rui-number-input__u-font-size-0-75rem--359090c2d5 {
-  font-size: 0.75rem;
-  line-height: 1rem;
+  font-size: calc(0.75rem * var(--rui-number-input-scale, 1));
+  line-height: calc(1rem * var(--rui-number-input-scale, 1));
 }
 
 .rui-number-input__u-font-weight-500--2689f39580 {
@@ -319,4 +334,17 @@
 .rui-number-input__shell:is(.dark *),
 .rui-number-input__shell:is([data-theme="dark"] *) {
   box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+
+.rui-number-input__shell {
+  min-width: 0;
+  width: max-content;
+  max-width: 100%;
+}
+
+.rui-number-input__helper {
+  align-self: stretch;
+  width: 100%;
+  max-width: 100%;
 }

@@ -73,12 +73,9 @@ function ThemeEditor() {
   const [background, setBackground] = useState("#0f172a");
 
   return (
-    <div className="rui-color-picker-demo__u-style--b43b4c086d rui-color-picker-demo__u-padding-1-25rem--c07e54fd14">
+    <div className="color-picker-demo-theme-layout">
       <div className="rui-color-picker-demo__u-display-grid--f3c543ad5f rui-color-picker-demo__u-gap-1-25rem--b39e60c339 rui-color-picker-demo__u-grid-template-columns-repeat-2-m--e4d6f343b9">
-        <section
-          className="rui-color-picker-demo__u-style--3e7ce58d64 rui-color-picker-demo__u-border-radius-1rem--68f2db624d rui-color-picker-demo__u-border-width-1px--ca6bcd4b6f rui-color-picker-demo__u-border-color-rgb-226-232-240-0-7--3dffc0683b rui-color-picker-demo__u-background-color-rgb-255-255-255--6c21de570d rui-color-picker-demo__u-padding-1-25rem--c07e54fd14 rui-color-picker-demo__u-text-align-center--ca6bf63030 rui-color-picker-demo__u-box-shadow-0-0-0000-0-0-0000-0-1--438b2237b8 rui-color-picker-demo__u-border-color-rgb-51-65-85-0-8--aeee5a4541 rui-color-picker-demo__u-background-color-rgb-15-23-42-0---96db0407f2"
-          style={surfaceStyle}
-        >
+        <section className="color-picker-demo-swatch">
           <p className="rui-color-picker-demo__u-font-size-11px--d058ca6de6 rui-color-picker-demo__u-font-weight-600--e83a7042bc rui-color-picker-demo__u-text-transform-uppercase--117ec720ea rui-color-picker-demo__u-letter-spacing-0-3em--bf7342eeb7 rui-color-picker-demo__u-color-rgb-148-163-184-1--8d44cef396 rui-color-picker-demo__u-color-rgb-100-116-139-1--15b16954d1">
             Accent
           </p>
@@ -89,10 +86,7 @@ function ThemeEditor() {
             Used for links, buttons, and key highlights.
           </p>
         </section>
-        <section
-          className="rui-color-picker-demo__u-style--3e7ce58d64 rui-color-picker-demo__u-border-radius-1rem--68f2db624d rui-color-picker-demo__u-border-width-1px--ca6bcd4b6f rui-color-picker-demo__u-border-color-rgb-226-232-240-0-7--3dffc0683b rui-color-picker-demo__u-background-color-rgb-255-255-255--6c21de570d rui-color-picker-demo__u-padding-1-25rem--c07e54fd14 rui-color-picker-demo__u-text-align-center--ca6bf63030 rui-color-picker-demo__u-box-shadow-0-0-0000-0-0-0000-0-1--438b2237b8 rui-color-picker-demo__u-border-color-rgb-51-65-85-0-8--aeee5a4541 rui-color-picker-demo__u-background-color-rgb-15-23-42-0---96db0407f2"
-          style={surfaceStyle}
-        >
+        <section className="color-picker-demo-swatch">
           <p className="rui-color-picker-demo__u-font-size-11px--d058ca6de6 rui-color-picker-demo__u-font-weight-600--e83a7042bc rui-color-picker-demo__u-text-transform-uppercase--117ec720ea rui-color-picker-demo__u-letter-spacing-0-3em--bf7342eeb7 rui-color-picker-demo__u-color-rgb-148-163-184-1--8d44cef396 rui-color-picker-demo__u-color-rgb-100-116-139-1--15b16954d1">
             Background
           </p>
@@ -212,11 +206,11 @@ function MinimalPickerExample() {
   const surfaceStyle = useDemoSurfaceStyle();
   return (
     <DemoExample
-      title="Quick select"
-      className="rui-color-picker-demo__u-display-flex--60fbb77139 rui-color-picker-demo__u-align-items-center--3960ffc248 rui-color-picker-demo__u-justify-content-center--86843cf1e2 rui-color-picker-demo__u-border-radius-1-5rem--ea189a088a rui-color-picker-demo__u-border-width-1px--ca6bcd4b6f rui-color-picker-demo__u-border-color-rgb-226-232-240-0-7--3dffc0683b rui-color-picker-demo__u-background-color-rgb-255-255-255--845918557e rui-color-picker-demo__u-padding-1-5rem--0478c89a15 rui-color-picker-demo__u-text-align-center--ca6bf63030 rui-color-picker-demo__u-box-shadow-0-0-0000-0-0-0000-0-1--438b2237b8 rui-color-picker-demo__u-border-color-rgb-30-41-59-1--2072c87505 rui-color-picker-demo__u-background-color-rgb-15-23-42-0---5212cbf15b"
+      title="Quick Select"
+      className="color-picker-demo-quick-select rui-color-picker-demo__u-align-items-center--3960ffc248 rui-color-picker-demo__u-justify-content-center--86843cf1e2 rui-color-picker-demo__u-border-radius-1-5rem--ea189a088a rui-color-picker-demo__u-border-width-1px--ca6bcd4b6f rui-color-picker-demo__u-border-color-rgb-226-232-240-0-7--3dffc0683b rui-color-picker-demo__u-background-color-rgb-255-255-255--845918557e rui-color-picker-demo__u-box-shadow-0-0-0000-0-0-0000-0-1--438b2237b8 rui-color-picker-demo__u-border-color-rgb-30-41-59-1--2072c87505 rui-color-picker-demo__u-background-color-rgb-15-23-42-0---5212cbf15b"
       style={surfaceStyle}
     >
-      <div>
+      <div className="rui-color-picker-demo__quick-select-container">
         <div className="rui-color-picker-demo__u-display-flex--60fbb77139 rui-color-picker-demo__u-justify-content-center--86843cf1e2">
           <ColorPicker aria-label="Accent color" />
         </div>
@@ -266,3 +260,4 @@ const entry: ComponentRegistryEntry = {
 export default entry;
 export { ColorPicker };
 export type { ColorPickerProps };
+
