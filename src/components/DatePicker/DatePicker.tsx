@@ -307,8 +307,8 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
         disabled={disabled}
         className={className}
         leadingContent={
-          <span className="rui-date-picker__u-pointer-events-none--a4326536b8 rui-date-picker__u-border-radius-0-75rem--a217b4eaa9 rui-date-picker__u-background-color-rgb-241-245-249--34d54ab9e5 rui-date-picker__u-padding-left-0-5rem--d5eab218aa rui-date-picker__u-padding-top-0-25rem--660d2effb8 rui-date-picker__u-box-shadow-0-0-0000-0-0-0000-ins--eca5782b24 rui-date-picker__u-background-color-rgb-39-39-42-0---b37a7836e7">
-            <Clock className="rui-date-picker__u-height-1rem--11e59c6d5f rui-date-picker__u-width-1rem--dc7972ebf3 rui-date-picker__u-color-rgb-100-116-139-1--30426eb75c rui-date-picker__u-color-rgb-212-212-216-1--5b8efd1d78" />
+          <span className="rui-date-picker__leading-icon">
+            <Clock className="rui-date-picker__leading-icon-mark" />
           </span>
         }
       />
@@ -316,14 +316,14 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
   }
 
   return (
-    <div className="rui-date-picker__u-style--5a2508227c rui-root">
+    <div className="rui-date-picker rui-root">
       {label ? (
-        <p className="rui-date-picker__u-font-size-0-75rem--359090c2d5 rui-date-picker__u-font-weight-600--e83a7042bc rui-date-picker__u-text-transform-uppercase--117ec720ea rui-date-picker__u-letter-spacing-0-2em--2da1a7016e rui-date-picker__u-color-rgb-100-116-139-1--30426eb75c rui-date-picker__u-color-rgb-161-161-170-1--6462b86910 rui-text-wrap">
+        <p className="rui-date-picker__label rui-text-wrap">
           {label}
         </p>
       ) : null}
 
-      <div className="rui-date-picker__u-position-relative--d89972fe17">
+      <div className="rui-date-picker__field">
         <Dropdown
           ref={dropdownRef}
           isOpen={open}
@@ -331,15 +331,15 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
           placeholder=""
           displayValue={displayLabel}
           query={displayLabel}
-          className="rui-date-picker__u-width-100--6da6a3c3f7"
-          inputClassName={clsx("rui-date-picker__u-min-width-0px--7e0b7cdf1a rui-date-picker__u-font-weight-600--e83a7042bc", className)}
+          className="rui-date-picker__dropdown"
+          inputClassName={clsx("rui-date-picker__input", className)}
           shellClassName={clsx(
             error &&
-              "rui-date-picker__u-border-color-rgb-253-164-175-1--3b7f978155 rui-date-picker__u-border-color-rgb-251-113-133-1--6fe003501e rui-date-picker__u-box-shadow-0-0-0000-0-0-0000-0-0--633a78b9cd rui-date-picker__u-border-color-rgb-244-63-94-0-6--99963c86d9"
+              "rui-date-picker__shell--error"
           )}
           leadingContent={
-            <span className="rui-date-picker__u-pointer-events-none--a4326536b8 rui-date-picker__u-border-radius-0-75rem--a217b4eaa9 rui-date-picker__u-background-color-rgb-241-245-249--34d54ab9e5 rui-date-picker__u-padding-left-0-5rem--d5eab218aa rui-date-picker__u-padding-top-0-25rem--660d2effb8 rui-date-picker__u-box-shadow-0-0-0000-0-0-0000-ins--eca5782b24 rui-date-picker__u-background-color-rgb-39-39-42-0---b37a7836e7">
-              <Calendar className="rui-date-picker__u-height-1rem--11e59c6d5f rui-date-picker__u-width-1rem--dc7972ebf3 rui-date-picker__u-color-rgb-100-116-139-1--30426eb75c rui-date-picker__u-color-rgb-212-212-216-1--5b8efd1d78" />
+            <span className="rui-date-picker__leading-icon">
+              <Calendar className="rui-date-picker__leading-icon-mark" />
             </span>
           }
           highlightClass={highlightBorder}
@@ -387,14 +387,14 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
           }}
         >
           {open && (
-            <Popover anchorRef={dropdownRef} className={clsx("rui-date-picker__u-padding-0-75rem--eb6e8b881a", highlightBorder)}>
+            <Popover anchorRef={dropdownRef} className={clsx("rui-date-picker__popover", highlightBorder)}>
               {() => (
-                <div className="rui-date-picker__u-style--6ed543e2fb" id={popoverId}>
-                  <div className="rui-date-picker__u-display-flex--60fbb77139 rui-date-picker__u-align-items-center--3960ffc248 rui-date-picker__u-justify-content-space-between--8ef2268efb rui-date-picker__u-font-size-0-875rem--fc7473ca09 rui-date-picker__u-color-rgb-71-85-105-1--2d6fbf48fa rui-date-picker__u-color-rgb-212-212-216-1--5b8efd1d78">
+                <div className="rui-date-picker__panel" id={popoverId}>
+                  <div className="rui-date-picker__header">
                     <Button
                       type="button"
                       onClick={goPrev}
-                      className="rui-date-picker__u-height-2rem--ed8a5df7b2 rui-date-picker__u-width-2rem--2bbcfc3b51 rui-date-picker__u-min-width-0px--7e0b7cdf1a rui-date-picker__u-border-radius-0-75rem--a217b4eaa9 rui-date-picker__u-border-width-1px--ca6bcd4b6f rui-date-picker__u-border-color-rgb-226-232-240-1--52f4da2ca5 rui-date-picker__u-background-color-rgb-255-255-255--5e10cdb8f1 rui-date-picker__u-padding-0px--8a539c7fe2 rui-date-picker__u-font-size-0-875rem--fc7473ca09 rui-date-picker__u-font-weight-600--e83a7042bc rui-date-picker__u-color-rgb-51-65-85-1--bcbca7a5be rui-date-picker__u-box-shadow-0-0-0000-0-0-0000-0-1--438b2237b8 rui-date-picker__u-border-color-rgb-63-63-70-1--4e12bcf58d rui-date-picker__u-background-color-rgb-24-24-27-1--6319578a41 rui-date-picker__u-color-rgb-244-244-245-1--3ddc1cab99"
+                      className="rui-date-picker__nav-button"
                     >
                       <span style={{ transform: "translateY(-1.5px)" }}>{"<"}</span>
                     </Button>
@@ -414,7 +414,7 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
                     <Button
                       type="button"
                       onClick={goNext}
-                      className="rui-date-picker__u-height-2rem--ed8a5df7b2 rui-date-picker__u-width-2rem--2bbcfc3b51 rui-date-picker__u-min-width-0px--7e0b7cdf1a rui-date-picker__u-border-radius-0-75rem--a217b4eaa9 rui-date-picker__u-border-width-1px--ca6bcd4b6f rui-date-picker__u-border-color-rgb-226-232-240-1--52f4da2ca5 rui-date-picker__u-background-color-rgb-255-255-255--5e10cdb8f1 rui-date-picker__u-padding-0px--8a539c7fe2 rui-date-picker__u-font-size-0-875rem--fc7473ca09 rui-date-picker__u-font-weight-600--e83a7042bc rui-date-picker__u-color-rgb-51-65-85-1--bcbca7a5be rui-date-picker__u-box-shadow-0-0-0000-0-0-0000-0-1--438b2237b8 rui-date-picker__u-border-color-rgb-63-63-70-1--4e12bcf58d rui-date-picker__u-background-color-rgb-24-24-27-1--6319578a41 rui-date-picker__u-color-rgb-244-244-245-1--3ddc1cab99"
+                      className="rui-date-picker__nav-button"
                     >
                       <span style={{ transform: "translateY(-1.5px)" }}>{">"}</span>
                     </Button>
@@ -422,12 +422,12 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
 
                   {viewMode === "day" ? (
                     <>
-                      <div className="rui-date-picker__u-display-grid--f3c543ad5f rui-date-picker__u-grid-template-columns-repeat-7-m--67d5ae4238 rui-date-picker__u-gap-0-25rem--44ee8ba0a4 rui-date-picker__u-text-align-center--ca6bf63030 rui-date-picker__u-font-size-11px--d058ca6de6 rui-date-picker__u-font-weight-600--e83a7042bc rui-date-picker__u-text-transform-uppercase--117ec720ea rui-date-picker__u-letter-spacing-0-2em--2da1a7016e rui-date-picker__u-color-rgb-148-163-184-1--8d44cef396 rui-date-picker__u-color-rgb-113-113-122-1--28db7d8770">
+                      <div className="rui-date-picker__weekday-row">
                         {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((d) => (
                           <span key={d}>{d}</span>
                         ))}
                       </div>
-                      <div className="rui-date-picker__u-display-grid--f3c543ad5f rui-date-picker__u-grid-template-columns-repeat-7-m--67d5ae4238 rui-date-picker__u-gap-0-25rem--44ee8ba0a4">
+                      <div className="rui-date-picker__day-grid">
                         {getMonthDays(month.year, month.month).map((cell, idx) => {
                           const isSelected = cell.date === current;
                           return (
@@ -452,7 +452,7 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
                       </div>
                     </>
                   ) : viewMode === "month" ? (
-                    <div className="rui-date-picker__u-display-grid--f3c543ad5f rui-date-picker__u-grid-template-columns-repeat-3-m--be2e831be5 rui-date-picker__u-gap-0-5rem--77a2a20e90">
+                    <div className="rui-date-picker__month-grid">
                       {monthNames.map((name, idx) => {
                         const isSelected =
                           parsedDate?.getFullYear() === month.year &&
@@ -476,7 +476,7 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
                       })}
                     </div>
                   ) : (
-                    <div className="rui-date-picker__u-display-grid--f3c543ad5f rui-date-picker__u-grid-template-columns-repeat-3-m--be2e831be5 rui-date-picker__u-gap-0-5rem--77a2a20e90">
+                    <div className="rui-date-picker__year-grid">
                       {Array.from({ length: 12 }, (_, i) => rangeStart + i).map((yr) => {
                         const isSelected = parsedDate?.getFullYear() === yr;
                         return (
@@ -506,10 +506,10 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
       </div>
 
       {description ? (
-        <p className="rui-date-picker__u-font-size-0-75rem--359090c2d5 rui-date-picker__u-color-rgb-100-116-139-1--30426eb75c rui-date-picker__u-color-rgb-161-161-170-1--6462b86910 rui-text-wrap">{description}</p>
+        <p className="rui-date-picker__description rui-text-wrap">{description}</p>
       ) : null}
       {error ? (
-        <p className="rui-date-picker__u-font-size-0-75rem--359090c2d5 rui-date-picker__u-font-weight-600--e83a7042bc rui-date-picker__u-color-rgb-244-63-94-1--fa51279820 rui-date-picker__u-color-rgb-251-113-133-1--897de47303 rui-text-wrap">{error}</p>
+        <p className="rui-date-picker__error rui-text-wrap">{error}</p>
       ) : null}
     </div>
   );

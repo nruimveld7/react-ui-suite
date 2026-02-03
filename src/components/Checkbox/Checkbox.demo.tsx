@@ -32,7 +32,7 @@ function NotificationPreferences() {
 
   return (
     <DemoExample title="Notifications">
-      <div className="rui-checkbox-demo__u-style--da7c36cd88">
+      <div className="checkbox-demo-list">
         {preferences.map((pref) => (
           <Checkbox
             key={pref.id}
@@ -85,7 +85,7 @@ function IndeterminateExample() {
         <Checkbox
           key={key}
           label={`Task: ${key}`}
-          className="rui-checkbox-demo__u-padding-left-1-5rem--9079b62ef1"
+          className="checkbox-demo-subtask"
           checked={value}
           onChange={(next) => setTasks((prev) => ({ ...prev, [key]: next }))}
         />
@@ -103,7 +103,7 @@ function DisabledCheckboxExample() {
         defaultChecked
         disabled
       />
-      <p className="rui-checkbox-demo__u-font-size-0-75rem--359090c2d5 rui-checkbox-demo__u-color-rgb-100-116-139-1--30426eb75c rui-checkbox-demo__u-color-rgb-148-163-184-1--cc0274aad9">
+      <p className="checkbox-demo-note">
         Disabled state keeps layout stable.
       </p>
     </DemoExample>
@@ -112,9 +112,9 @@ function DisabledCheckboxExample() {
 
 function CheckboxPreview() {
   return (
-    <div className="rui-checkbox-demo__u-style--3e7ce58d64">
+    <div className="checkbox-demo-stack">
       <NotificationPreferences />
-      <div className="rui-checkbox-demo__u-display-grid--f3c543ad5f rui-checkbox-demo__u-gap-1rem--0c3bc98565 rui-checkbox-demo__u-grid-template-columns-repeat-2-m--e4d6f343b9">
+      <div className="checkbox-demo-grid">
         <IndeterminateExample />
         <DisabledCheckboxExample />
       </div>

@@ -175,12 +175,13 @@ function Scrollbar({ scrollRef }: { scrollRef: React.MutableRefObject<HTMLElemen
 export type PopoverProps = {
   className?: string;
   anchorRef?: React.RefObject<HTMLElement>;
+  rootRef?: React.RefObject<HTMLDivElement>;
   children: (props: {
     scrollRef: React.MutableRefObject<HTMLUListElement | null>;
   }) => React.ReactNode;
 };
 
-export function Popover({ className, anchorRef, children }: PopoverProps) {
+export function Popover({ className, anchorRef, rootRef, children }: PopoverProps) {
   const scrollRef: React.MutableRefObject<HTMLUListElement | null> = React.useRef(null);
   const [position, setPosition] = React.useState<PopoverPosition | null>(() =>
     getAnchorPosition(anchorRef?.current ?? null)
@@ -222,6 +223,7 @@ export function Popover({ className, anchorRef, children }: PopoverProps) {
 
   const popover = (
     <div
+      ref={rootRef}
       className={clsx(
         "rui-popover",
         "rui-overlay-root",

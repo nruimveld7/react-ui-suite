@@ -104,11 +104,11 @@ export const DatalistInput = React.forwardRef<HTMLInputElement, DatalistInputPro
     };
 
     return (
-      <div className="rui-datalist-input__u-style--5a2508227c rui-root">
+      <div className="rui-datalist-input rui-root">
         {label ? (
           <label
             htmlFor={inputId}
-            className="rui-datalist-input__u-font-size-0-75rem--359090c2d5 rui-datalist-input__u-font-weight-600--e83a7042bc rui-datalist-input__u-text-transform-uppercase--117ec720ea rui-datalist-input__u-letter-spacing-0-2em--2da1a7016e rui-datalist-input__u-color-rgb-100-116-139-1--30426eb75c rui-datalist-input__u-color-rgb-161-161-170-1--6462b86910 rui-text-wrap"
+            className="rui-datalist-input__label rui-text-wrap"
           >
             {label}
           </label>
@@ -123,7 +123,7 @@ export const DatalistInput = React.forwardRef<HTMLInputElement, DatalistInputPro
           inputRef={mergedRef}
           showChevron={false}
           inlineContent={
-            <span className="rui-datalist-input__u-font-size-11px--d058ca6de6 rui-datalist-input__u-font-weight-600--e83a7042bc rui-datalist-input__u-text-transform-uppercase--117ec720ea rui-datalist-input__u-letter-spacing-0-2em--2da1a7016e rui-datalist-input__u-color-rgb-148-163-184-1--8d44cef396 rui-datalist-input__u-color-rgb-113-113-122-1--28db7d8770">
+            <span className="rui-datalist-input__inline-key">
               CMD
             </span>
           }
@@ -181,7 +181,7 @@ export const DatalistInput = React.forwardRef<HTMLInputElement, DatalistInputPro
           ) : null}
         </Dropdown>
         {description ? (
-          <p id={descriptionId} className="rui-datalist-input__u-font-size-0-75rem--359090c2d5 rui-datalist-input__u-color-rgb-100-116-139-1--30426eb75c rui-datalist-input__u-color-rgb-161-161-170-1--6462b86910 rui-text-wrap">
+          <p id={descriptionId} className="rui-datalist-input__description rui-text-wrap">
             {description}
           </p>
         ) : null}

@@ -505,11 +505,9 @@ export const ColorPicker = React.forwardRef<HTMLInputElement, ColorPickerProps>(
     const activeLabels = channelLabels[format];
 
     return (
-      <div className="rui-root rui-color-picker__u-position-relative--d89972fe17 rui-color-picker__u-display-inline-flex--52083e7da4 rui-color-picker__u-flex-direction-column--8dddea0773 rui-color-picker__u-align-items-center--3960ffc248 rui-color-picker__u-gap-0-5rem--77a2a20e90">
+      <div className="rui-root rui-color-picker">
         {label ? (
-          <p className="rui-color-picker__u-font-size-10px--1dc571a360 rui-color-picker__u-font-weight-600--e83a7042bc rui-color-picker__u-text-transform-uppercase--117ec720ea rui-color-picker__u-letter-spacing-0-3em--bf7342eeb7 rui-color-picker__u-color-rgb-148-163-184-1--8d44cef396 rui-color-picker__u-color-rgb-113-113-122-1--28db7d8770 rui-text-wrap">
-            {label}
-          </p>
+          <p className="rui-color-picker__label rui-text-wrap">{label}</p>
         ) : null}
         <button
           type="button"
@@ -518,15 +516,15 @@ export const ColorPicker = React.forwardRef<HTMLInputElement, ColorPickerProps>(
           aria-haspopup="dialog"
           aria-expanded={isOpen}
           aria-label={label ? `Adjust ${label}` : "Choose color"}
-          className="rui-color-picker__u-position-relative--d89972fe17 rui-color-picker__u-display-inline-flex--52083e7da4 rui-color-picker__u-box-shadow-0-4px-10px-rgb-15-23---508ebf85b1 rui-color-picker__u-width-3rem--e7e371071b rui-color-picker__u-align-items-center--3960ffc248 rui-color-picker__u-justify-content-center--86843cf1e2 rui-color-picker__u-border-radius-9999px--ac204c1088 rui-color-picker__u-border-width-1px--ca6bcd4b6f rui-color-picker__u-border-color-rgb-226-232-240-1--52f4da2ca5 rui-color-picker__u-background-color-rgb-255-255-255--5e10cdb8f1 rui-color-picker__u-box-shadow-0-0-0000-0-0-0000-0-1--438b2237b8 rui-color-picker__u-transition-property-color-backgr--56bf8ae82a rui-color-picker__u-box-shadow-0-0-0000-0-0-0000-0-1--9c02094c0d rui-color-picker__u-outline-2px-solid-transparent--f10f771f87 rui-color-picker__u-box-shadow-0-0-0-0px-fff-0-0-0-c--793c80e97f rui-color-picker__u-style--25cf37df2c rui-color-picker__u-border-color-rgb-63-63-70-1--4e12bcf58d rui-color-picker__u-background-color-rgb-24-24-27-1--6319578a41"
+          className="rui-color-picker__trigger"
         >
           <span
-            className="rui-color-picker__u-position-absolute--da4dbfbc4f rui-color-picker__u-inset-0-25rem--fff78388e6 rui-color-picker__u-border-radius-9999px--ac204c1088 rui-color-picker__u-border-width-1px--ca6bcd4b6f rui-color-picker__u-border-color-rgb-255-255-255-0-3--0f9b8dce19 rui-color-picker__u-box-shadow-0-0-0000-0-0-0000-ins--eca5782b24 rui-color-picker__u-border-color-rgb-24-24-27-0-6--47c07a490e"
+            className="rui-color-picker__trigger-fill"
             style={{ background: resolvedValue }}
             aria-hidden="true"
           />
           <span
-            className="rui-color-picker__u-position-relative--d89972fe17 rui-color-picker__u-font-size-1-25rem--d5c9b0001e rui-color-picker__u-filter-drop-shadow-0-1px-1px-rgb--e46b8660b9"
+            className="rui-color-picker__trigger-icon"
             style={{ transform: "translateX(0.5px) translateY(-1.5px)" }}
             aria-hidden="true"
           >
@@ -538,14 +536,14 @@ export const ColorPicker = React.forwardRef<HTMLInputElement, ColorPickerProps>(
             ref={panelRef}
             role="dialog"
             aria-label={label ? `${label} color picker` : "Color picker dialog"}
-            className="rui-color-picker__panel rui-color-picker__u-position-absolute--da4dbfbc4f rui-color-picker__u-left-50--e632769ad7 rui-color-picker__u-top-100--5e8a03e061 rui-color-picker__u-z-index-20--145745bf52 rui-color-picker__u-margin-top-0-75rem--eccd13ef4f rui-color-picker__u-width-340px--21dd0c0d28 rui-color-picker__u-max-width-90vw--be38309b0e rui-color-picker__u-transform-translate-50-0-rotate---efaa070148 rui-color-picker__u-border-radius-1rem--68f2db624d rui-color-picker__u-border-width-1px--ca6bcd4b6f rui-color-picker__u-border-color-rgb-226-232-240-0-8--0066d85199 rui-color-picker__u-background-color-rgb-255-255-255--f5ebd4d019 rui-color-picker__u-padding-1rem--8e63407b5c rui-color-picker__u-box-shadow-0-0-0000-0-0-0000-0-2--14e46609fd rui-color-picker__u-backdrop-filter-blur-4px--1ca6dd1e47 rui-color-picker__u-border-color-rgb-63-63-70-0-6--2e65f80c00 rui-color-picker__u-background-color-rgb-24-24-27-0---3e2ed48bf6"
+            className="rui-color-picker__panel"
           >
-            <div className="rui-color-picker__u-style--3e7ce58d64">
-              <div className="rui-color-picker__u-style--6ed543e2fb">
+            <div className="rui-color-picker__panel-body">
+              <div className="rui-color-picker__gradient-section">
                 <div
                   ref={gradientRef}
                   onPointerDown={handleGradientPointerDown}
-                  className="rui-color-picker__u-position-relative--d89972fe17 rui-color-picker__u-height-10rem--aadad6871a rui-color-picker__u-width-100--6da6a3c3f7 rui-color-picker__u-cursor-crosshair--92b7f35f04 rui-color-picker__u-overflow-hidden--2cd02d11d1 rui-color-picker__u-border-radius-0-75rem--a217b4eaa9 rui-color-picker__u-box-shadow-0-0-0000-0-0-0000-ins--a9ce402f0b rui-color-picker__u-box-shadow-0-0-0-0px-fff-0-0-0-c--3daca9af08 rui-color-picker__u-style--1e4905f70e rui-color-picker__u-style--e440174b6b"
+                  className="rui-color-picker__gradient"
                   style={{
                     backgroundColor: `hsl(${hue}, 100%, 50%)`,
                     backgroundImage:
@@ -565,7 +563,7 @@ export const ColorPicker = React.forwardRef<HTMLInputElement, ColorPickerProps>(
                 <div
                   ref={hueRef}
                   onPointerDown={handleHuePointerDown}
-                  className="rui-color-picker__u-position-relative--d89972fe17 rui-color-picker__u-height-0-75rem--6a60c09e6a rui-color-picker__u-width-100--6da6a3c3f7 rui-color-picker__u-cursor-pointer--3451683673 rui-color-picker__u-border-radius-9999px--ac204c1088 rui-color-picker__u-border-width-1px--ca6bcd4b6f rui-color-picker__u-border-color-rgb-255-255-255-0-4--9c15994f34 rui-color-picker__u-box-shadow-0-0-0000-0-0-0000-ins--eca5782b24 rui-color-picker__u-border-color-rgb-39-39-42-0-6--efd7e6fbb1"
+                  className="rui-color-picker__hue"
                   style={{
                     background: "linear-gradient(90deg, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00)",
                   }}

@@ -31,9 +31,13 @@ function InnerCombobox<T>(
   const inputRef: React.MutableRefObject<HTMLInputElement | null> = React.useRef(null);
   const containerRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
   const chevronRef: React.MutableRefObject<HTMLButtonElement | null> = React.useRef(null);
+  const popoverRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
   const outsideClickRefs = React.useMemo(
-    () => [containerRef as unknown as React.RefObject<HTMLElement | null>],
-    [containerRef]
+    () => [
+      containerRef as unknown as React.RefObject<HTMLElement | null>,
+      popoverRef as unknown as React.RefObject<HTMLElement | null>,
+    ],
+    [containerRef, popoverRef]
   );
   const mergedInputRef = (node: HTMLInputElement | null) => {
     inputRef.current = node;
@@ -45,7 +49,6 @@ function InnerCombobox<T>(
   const [query, setQuery] = React.useState("");
   const [activeIndex, setActiveIndex] = React.useState<number>(-1);
   const suppressNextOpenRef = React.useRef(false);
-  const suppressToggleRef = React.useRef(false);
   const closeAfterSelectRef = React.useRef(false);
   const prevOpenRef = React.useRef(open);
 
@@ -304,11 +307,9 @@ function InnerCombobox<T>(
       onKeyDownCapture={onKeyDown}
       onShellMouseDown={(e) => {
         if (disabled) return;
-        if (chevronRef.current?.contains(e.target as Node)) return;
         if (!isEffectivelyOpen) {
           e.preventDefault();
           openList();
-          suppressToggleRef.current = true;
         }
       }}
       onInputMouseDown={(e) => {
@@ -338,17 +339,19 @@ function InnerCombobox<T>(
       }}
       onChevronClick={() => {
         if (disabled) return;
-        if (suppressToggleRef.current) {
-          suppressToggleRef.current = false;
-          setOpen((o) => !o);
+        if (!isEffectivelyOpen) {
+          openList();
           return;
         }
-        suppressNextOpenRef.current = false;
-        setOpen((o) => !o);
+        requestAnimationFrame(() => inputRef.current?.focus());
       }}
     >
       {isEffectivelyOpen && (
-        <Popover anchorRef={containerRef} className={clsx(listboxHighlight, listClassName)}>
+        <Popover
+          anchorRef={containerRef}
+          rootRef={popoverRef}
+          className={clsx(listboxHighlight, listClassName)}
+        >
           {({ scrollRef }) => (
             <Listbox
               id={listboxId}

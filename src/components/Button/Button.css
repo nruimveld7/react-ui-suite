@@ -47,11 +47,3 @@
 .rui-button--text-default {
   color: var(--rui-color-text-strong);
 }
-
-.rui-button__u-background-color-rgb-239-68-68-1--7aa79040cd {
-  background-color: rgb(239 68 68 / 1);
-}
-
-.rui-button__u-color-rgb-255-255-255-1--72a4c7cdee {
-  color: rgb(255 255 255 / 1);
-}

@@ -49,42 +49,36 @@
   text-align: center;
 }
 
-.bg-demo-accent {
+.button-demo-showcase__button--accent {
   background-color: #0ea5e9; /* sky-500 */
   border-color: #0ea5e9;
   box-shadow: 0 1px 2px rgb(14 165 233 / 0.35);
-}
-
-.bg-demo-accent:not(:disabled):hover {
-  background-color: #38bdf8; /* sky-400 */
-}
-
-.text-demo-white {
   color: #ffffff;
 }
 
-.bg-demo-ghost {
+.button-demo-showcase__button--accent:not(:disabled):hover {
+  background-color: #38bdf8; /* sky-400 */
+}
+
+.button-demo-showcase__button--ghost {
   background-color: transparent;
   border-color: #cbd5f5;
-}
-
-.bg-demo-ghost:not(:disabled):hover {
-  background-color: rgba(15, 23, 42, 0.05);
-}
-
-[data-theme="dark"] .bg-demo-ghost {
-  border-color: #52525b; /* zinc-600 */
-}
-
-[data-theme="dark"] .bg-demo-ghost:not(:disabled):hover {
-  background-color: rgba(248, 250, 252, 0.08);
-}
-
-.text-demo-ghost {
   color: var(--rui-color-text-strong);
 }
 
-[data-theme="dark"] .text-demo-ghost {
+.button-demo-showcase__button--ghost:not(:disabled):hover {
+  background-color: rgba(15, 23, 42, 0.05);
+}
+
+[data-theme="dark"] .button-demo-showcase__button--ghost {
+  border-color: #52525b; /* zinc-600 */
+}
+
+[data-theme="dark"] .button-demo-showcase__button--ghost:not(:disabled):hover {
+  background-color: rgba(248, 250, 252, 0.08);
+}
+
+[data-theme="dark"] .button-demo-showcase__button--ghost {
   color: #f4f4f5;
 }
 
@@ -95,23 +89,25 @@
   margin: 5px;
 }
 
-.bg-demo-emerald {
+.button-demo-button--emerald {
   background-color: #10b981;
   border-color: #059669;
   box-shadow: 0 1px 2px rgb(5 150 105 / 0.35);
+  color: #ffffff;
 }
 
-.bg-demo-emerald:not(:disabled):hover {
+.button-demo-button--emerald:not(:disabled):hover {
   background-color: #34d399;
 }
 
-.bg-demo-rose {
+.button-demo-button--rose {
   background-color: #f43f5e;
   border-color: #e11d48;
   box-shadow: 0 1px 2px rgb(244 63 94 / 0.35);
+  color: #ffffff;
 }
 
-.bg-demo-rose:not(:disabled):hover {
+.button-demo-button--rose:not(:disabled):hover {
   background-color: #fb7185;
 }
 
@@ -120,11 +116,7 @@
   box-shadow: 0 0 0 4px #ffffff;
 }
 
-.opacity-demo-70 {
+.button-demo-showcase__button--disabled {
   opacity: 0.7;
-}
-
-.button-demo-icon {
-  font-weight: 600;
 }
 

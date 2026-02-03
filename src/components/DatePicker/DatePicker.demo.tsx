@@ -13,22 +13,22 @@ function Scheduling() {
     <DemoExample
       title="Scheduling"
       badge="Native-free"
-      className="rui-date-picker-demo__u-border-radius-1-5rem--ea189a088a rui-date-picker-demo__u-border-width-1px--ca6bcd4b6f rui-date-picker-demo__u-border-color-rgb-226-232-240-1--52f4da2ca5 rui-date-picker-demo__u-background-color-rgb-255-255-255--6c21de570d rui-date-picker-demo__u-padding-1rem--8e63407b5c rui-date-picker-demo__u-box-shadow-0-0-0000-0-0-0000-0-1--438b2237b8 rui-date-picker-demo__u-border-color-rgb-30-41-59-1--2072c87505 rui-date-picker-demo__u-background-color-rgb-15-23-42-0---5212cbf15b"
+      className="rui-date-picker-demo__card"
     >
-      <div className="rui-date-picker-demo__u-display-flex--60fbb77139 rui-date-picker-demo__u-align-items-center--3960ffc248 rui-date-picker-demo__u-justify-content-space-between--8ef2268efb">
+      <div className="rui-date-picker-demo__intro">
         <div>
-          <p className="rui-date-picker-demo__u-font-size-0-875rem--fc7473ca09 rui-date-picker-demo__u-color-rgb-71-85-105-1--2d6fbf48fa rui-date-picker-demo__u-color-rgb-148-163-184-1--cc0274aad9">
+          <p className="rui-date-picker-demo__intro-text">
             Custom date pickers with select-based time.
           </p>
         </div>
       </div>
-      <div className="rui-date-picker-demo__u-margin-bottom-0-75rem--eccd13ef4f rui-date-picker-demo__u-display-grid--f3c543ad5f rui-date-picker-demo__u-gap-0-75rem--1004c0c395 rui-date-picker-demo__u-grid-template-columns-repeat-3-m--9a638cfe82">
+      <div className="rui-date-picker-demo__fields">
         <DatePicker label="Start date" value={start} onChange={setStart} type="date" />
         <DatePicker label="Deadline" value={deadline} onChange={setDeadline} type="date" />
         <DatePicker label="Daily checkpoint" value={daily} onChange={setDaily} type="time" />
       </div>
-      <div className="rui-date-picker-demo__u-margin-top-0-75rem--eccd13ef4f rui-date-picker-demo__u-border-radius-1rem--68f2db624d rui-date-picker-demo__u-border-width-1px--ca6bcd4b6f rui-date-picker-demo__u-border-style-dashed--a29b7a649c rui-date-picker-demo__u-border-color-rgb-226-232-240-1--52f4da2ca5 rui-date-picker-demo__u-background-color-rgb-248-250-252--2579b25ad0 rui-date-picker-demo__u-padding-left-0-75rem--0e17f2bd90 rui-date-picker-demo__u-padding-top-0-5rem--03b4dd7f17 rui-date-picker-demo__u-font-size-0-75rem--359090c2d5 rui-date-picker-demo__u-color-rgb-71-85-105-1--2d6fbf48fa rui-date-picker-demo__u-border-color-rgb-30-41-59-1--2072c87505 rui-date-picker-demo__u-background-color-rgb-2-6-23-0-6--ddf84eea43 rui-date-picker-demo__u-color-rgb-203-213-225-1--ca11017ff7">
-        <p className="rui-date-picker-demo__u-font-weight-600--e83a7042bc rui-date-picker-demo__u-color-rgb-15-23-42-1--f5f136c41d rui-date-picker-demo__u-color-rgb-241-245-249-1--e1d41ccd69">Summary</p>
+      <div className="rui-date-picker-demo__summary">
+        <p className="rui-date-picker-demo__summary-title">Summary</p>
         <p>
           Starts {start}, ends {deadline}. Standups at {daily}.
         </p>
@@ -39,7 +39,7 @@ function Scheduling() {
 
 function DatePickerPreview() {
   return (
-    <div className="rui-date-picker-demo__u-display-grid--f3c543ad5f rui-date-picker-demo__u-gap-1rem--0c3bc98565">
+    <div className="rui-date-picker-demo__preview">
       <Scheduling />
     </div>
   );

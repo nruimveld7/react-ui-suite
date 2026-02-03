@@ -38,17 +38,17 @@ function ButtonShowcase() {
         </Button>
         <Button
           onClick={handleClick}
-          className="bg-demo-accent text-demo-white button-demo-focus-ring--accent button-demo-showcase__button"
+          className="button-demo-showcase__button button-demo-showcase__button--accent button-demo-focus-ring--accent"
         >
           Accent
         </Button>
         <Button
           onClick={handleClick}
-          className="bg-demo-ghost text-demo-ghost button-demo-showcase__button"
+          className="button-demo-showcase__button button-demo-showcase__button--ghost"
         >
           Ghost
         </Button>
-        <Button disabled className="opacity-demo-70 button-demo-showcase__button">
+        <Button disabled className="button-demo-showcase__button button-demo-showcase__button--disabled">
           Disabled
         </Button>
       </div>
@@ -61,7 +61,7 @@ function ButtonUsageExamples() {
   return (
     <div className="button-demo-grid">
       <DemoExample title="Forms">
-        <Button type="submit" className="demo-button-solo bg-demo-emerald text-demo-white">
+        <Button type="submit" className="demo-button-solo button-demo-button--emerald">
           Save changes
         </Button>
         <p className="button-demo-card__note">
@@ -69,7 +69,9 @@ function ButtonUsageExamples() {
         </p>
       </DemoExample>
       <DemoExample title="Destructive" className="button-demo-example">
-        <Button className="demo-button-solo bg-demo-rose text-demo-white button-demo-focus-ring--danger">
+        <Button
+          className="demo-button-solo button-demo-button--rose button-demo-focus-ring--danger"
+        >
           Delete
         </Button>
         <p className="button-demo-card__note">
@@ -114,6 +116,5 @@ const entry: ComponentRegistryEntry = {
 export default entry;
 export { Button };
 export type { ButtonProps };
-
 
 

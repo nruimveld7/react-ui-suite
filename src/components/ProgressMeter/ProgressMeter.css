@@ -1,233 +1,95 @@
-.rui-progress-meter__u-inset-0px--7b7df0449b {
-  inset: 0px;
+.rui-progress-meter {
+  display: block;
 }
 
-.rui-progress-meter__u-top-0px--5f89f14a26 {
-  top: 0px;
-  bottom: 0px;
+.rui-progress-meter > :not([hidden]) ~ :not([hidden]) {
+  margin-top: 0.375rem;
+  margin-bottom: 0px;
 }
 
-.rui-progress-meter__u-left-0px--c78facc7a0 {
-  left: 0px;
-}
-
-.rui-progress-meter__u-height-0-75rem--6a60c09e6a {
-  height: 0.75rem;
-}
-
-.rui-progress-meter__u-height-100--668b21aa54 {
-  height: 100%;
-}
-
-.rui-progress-meter__u-width-100--6da6a3c3f7 {
-  width: 100%;
-}
-
-.rui-progress-meter__u-webkit-appearance-none--eeea43674c {
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-}
-
-.rui-progress-meter__u-align-items-center--3960ffc248 {
+.rui-progress-meter__header {
+  display: flex;
   align-items: center;
-}
-
-.rui-progress-meter__u-justify-content-space-between--8ef2268efb {
   justify-content: space-between;
-}
-
-.rui-progress-meter__u-gap-0-75rem--1004c0c395 {
   gap: 0.75rem;
 }
 
-.rui-progress-meter__u-style--5a2508227c > :not([hidden]) ~ :not([hidden]) {
-  --rui-space-y-reverse: 0;
-  margin-top: calc(0.375rem * calc(1 - var(--rui-space-y-reverse)));
-  margin-bottom: calc(0.375rem * var(--rui-space-y-reverse));
-}
-
-.rui-progress-meter__u-overflow-hidden--2cd02d11d1 {
-  overflow: hidden;
-}
-
-.rui-progress-meter__u-border-radius-9999px--ac204c1088 {
-  border-radius: 9999px;
-}
-
-.rui-progress-meter__u-rui-border-opacity-1--52f4da2ca5 {
-  --rui-border-opacity: 1;
-  border-color: rgb(226 232 240 / var(--rui-border-opacity, 1));
-}
-
-.rui-progress-meter__u-rui-bg-opacity-1--5e10cdb8f1 {
-  --rui-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--rui-bg-opacity, 1));
-}
-
-.rui-progress-meter__u-rui-bg-opacity-1--5e10cdb8f1\/60 {
-  background-color: rgb(255 255 255 / 0.6);
-}
-
-.rui-progress-meter__u-rui-bg-opacity-1--5e10cdb8f1\/70 {
-  background-color: rgb(255 255 255 / 0.7);
-}
-
-.rui-progress-meter__u-rui-bg-opacity-1--5e10cdb8f1\/80 {
-  background-color: rgb(255 255 255 / 0.8);
-}
-
-.rui-progress-meter__u-rui-bg-opacity-1--5e10cdb8f1\/90 {
-  background-color: rgb(255 255 255 / 0.9);
-}
-
-.rui-progress-meter__u-rui-bg-opacity-1--5e10cdb8f1\/95 {
-  background-color: rgb(255 255 255 / 0.95);
-}
-
-.rui-progress-meter__u-background-image-linear-gradient--6ae7db2cff {
-  background-image: linear-gradient(to right, var(--rui-gradient-stops));
-}
-
-.rui-progress-meter__u-rui-gradient-from-0f172a-var-rui--7996bb55e3 {
-  --rui-gradient-from: #0f172a var(--rui-gradient-from-position);
-  --rui-gradient-to: rgb(15 23 42 / 0) var(--rui-gradient-to-position);
-  --rui-gradient-stops: var(--rui-gradient-from), var(--rui-gradient-to);
-}
-
-.rui-progress-meter__u-rui-gradient-from-0f172a-var-rui--7996bb55e3\/5 {
-  --rui-gradient-from: rgb(15 23 42 / 0.05) var(--rui-gradient-from-position);
-  --rui-gradient-to: rgb(15 23 42 / 0) var(--rui-gradient-to-position);
-  --rui-gradient-stops: var(--rui-gradient-from), var(--rui-gradient-to);
-}
-
-.rui-progress-meter__u-rui-gradient-to-rgb-51-65-85-0-v--90d849e870 {
-  --rui-gradient-to: rgb(51 65 85 / 0)  var(--rui-gradient-to-position);
-  --rui-gradient-stops: var(--rui-gradient-from), #334155 var(--rui-gradient-via-position), var(--rui-gradient-to);
-}
-
-.rui-progress-meter__u-rui-gradient-to-0f172a-var-rui-g--68fc6aae70 {
-  --rui-gradient-to: #0f172a var(--rui-gradient-to-position);
-}
-
-.rui-progress-meter__u-rui-gradient-to-0f172a-var-rui-g--68fc6aae70\/10 {
-  --rui-gradient-to: rgb(15 23 42 / 0.1) var(--rui-gradient-to-position);
-}
-
-.rui-progress-meter__u-rui-gradient-to-0f172a-var-rui-g--68fc6aae70\/5 {
-  --rui-gradient-to: rgb(15 23 42 / 0.05) var(--rui-gradient-to-position);
-}
-
-.rui-progress-meter__u-font-size-11px--d058ca6de6 {
-  font-size: 11px;
-}
-
-.rui-progress-meter__u-font-size-0-75rem--359090c2d5 {
+.rui-progress-meter__label {
+  margin: 0;
   font-size: 0.75rem;
   line-height: 1rem;
-}
-
-.rui-progress-meter__u-font-weight-600--e83a7042bc {
   font-weight: 600;
-}
-
-.rui-progress-meter__u-letter-spacing-0-24em--a99336e23f {
+  text-transform: uppercase;
   letter-spacing: 0.24em;
+  color: rgb(100 116 139 / 1);
 }
 
-.rui-progress-meter__u-rui-text-opacity-1--30426eb75c {
-  --rui-text-opacity: 1;
-  color: rgb(100 116 139 / var(--rui-text-opacity, 1));
+.rui-progress-meter__label:is(.dark *) {
+  color: rgb(161 161 170 / 1);
 }
 
-.rui-progress-meter__u-rui-text-opacity-1--2d6fbf48fa {
-  --rui-text-opacity: 1;
-  color: rgb(71 85 105 / var(--rui-text-opacity, 1));
+.rui-progress-meter__value {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 600;
+  color: rgb(71 85 105 / 1);
 }
 
-.rui-progress-meter__u-rui-shadow-inset-0-2px-4px-0-rgb--eca5782b24 {
-  --rui-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
-  --rui-shadow-colored: inset 0 2px 4px 0 var(--rui-shadow-color);
-  box-shadow: var(--rui-ring-offset-shadow, 0 0 #0000), var(--rui-ring-shadow, 0 0 #0000), var(--rui-shadow);
+.rui-progress-meter__value:is(.dark *) {
+  color: rgb(212 212 216 / 1);
 }
 
-.rui-progress-meter__u-rui-ring-offset-shadow-var-rui-r--3daca9af08 {
-  --rui-ring-offset-shadow: var(--rui-ring-inset) 0 0 0 var(--rui-ring-offset-width) var(--rui-ring-offset-color);
-  --rui-ring-shadow: var(--rui-ring-inset) 0 0 0 calc(1px + var(--rui-ring-offset-width)) var(--rui-ring-color);
-  box-shadow: var(--rui-ring-offset-shadow), var(--rui-ring-shadow), var(--rui-shadow, 0 0 #0000);
+.rui-progress-meter__description {
+  font-size: 11px;
+  color: rgb(100 116 139 / 1);
 }
 
-.rui-progress-meter__u-rui-ring-color-rgb-241-245-249-0--a123ea4b12 {
-  --rui-ring-color: rgb(241 245 249 / 0.8);
+.rui-progress-meter__description:is(.dark *) {
+  color: rgb(161 161 170 / 1);
 }
 
-.rui-progress-meter__u-transition-property-width--9824fc78f5 {
+.rui-progress-meter__track {
+  position: relative;
+  height: 0.75rem;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 9999px;
+  border-width: 1px;
+  border-color: rgb(226 232 240 / 1);
+  background-color: rgb(255 255 255 / 1);
+  box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05), 0 0 #0000,
+    0 0 0 calc(1px + 0px) rgb(241 245 249 / 0.8);
+}
+
+.rui-progress-meter__track:is(.dark *) {
+  border-color: rgb(63 63 70 / 1);
+  background-color: rgb(24 24 27 / 0.7);
+  box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05), 0 0 #0000,
+    0 0 0 calc(1px + 0px) rgb(39 39 42 / 0.7);
+}
+
+.rui-progress-meter__native {
+  position: absolute;
+  inset: 0px;
+  height: 100%;
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.rui-progress-meter__fill {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  border-radius: 9999px;
+  box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.2);
   transition-property: width;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
 
-.rui-progress-meter__u-rui-border-opacity-1--4e12bcf58d:is(.dark *) {
-  --rui-border-opacity: 1;
-  border-color: rgb(63 63 70 / var(--rui-border-opacity, 1));
-}
-
-.rui-progress-meter__u-rui-border-opacity-1--4e12bcf58d\/60:is(.dark *) {
-  border-color: rgb(63 63 70 / 0.6);
-}
-
-.rui-progress-meter__u-rui-border-opacity-1--4e12bcf58d\/70:is(.dark *) {
-  border-color: rgb(63 63 70 / 0.7);
-}
-
-.rui-progress-meter__u-background-color-rgb-24-24-27-0---67553a7cb3:is(.dark *) {
-  background-color: rgb(24 24 27 / 0.8);
-}
-
-.rui-progress-meter__u-rui-text-opacity-1--5b8efd1d78:is(.dark *) {
-  --rui-text-opacity: 1;
-  color: rgb(212 212 216 / var(--rui-text-opacity, 1));
-}
-
-.rui-progress-meter__u-rui-text-opacity-1--6462b86910:is(.dark *) {
-  --rui-text-opacity: 1;
-  color: rgb(161 161 170 / var(--rui-text-opacity, 1));
-}
-
-.rui-progress-meter__u-rui-ring-color-rgb-39-39-42-0-7--8ad0820d1f:is(.dark *) {
-  --rui-ring-color: rgb(39 39 42 / 0.7);
-}
-
-.rui-progress-meter__u-position-absolute--da4dbfbc4f {
-  position: absolute;
-}
-
-.rui-progress-meter__u-position-relative--d89972fe17 {
-  position: relative;
-}
-
-.rui-progress-meter__u-display-flex--60fbb77139 {
-  display: flex;
-}
-
-.rui-progress-meter__u-border-width-1px--ca6bcd4b6f {
-  border-width: 1px;
-}
-
-.rui-progress-meter__u-text-transform-uppercase--117ec720ea {
-  text-transform: uppercase;
-}
-
-.rui-progress-meter__u-rui-shadow-0-0-0-1px-rgba-15-23---0550bc23a6 {
-  --rui-shadow: 0 0 0 1px rgba(15,23,42,0.2);
-  --rui-shadow-colored: 0 0 0 1px var(--rui-shadow-color);
-  box-shadow: var(--rui-ring-offset-shadow, 0 0 #0000), var(--rui-ring-shadow, 0 0 #0000), var(--rui-shadow);
-}
-
-.rui-progress-meter__label {
-  margin: 0;
-}
-
-.rui-progress-meter__label {
-  min-width: 0;
+.rui-progress-meter__fill--gradient {
+  background-image: linear-gradient(to right, #0f172a, #334155, #0f172a);
 }

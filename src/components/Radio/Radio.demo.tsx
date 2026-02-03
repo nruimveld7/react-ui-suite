@@ -45,20 +45,20 @@ function PlanSelector() {
   return (
     <DemoExample
       title="Billing"
-      className="rui-radio-demo__u-border-radius-1-5rem--ea189a088a rui-radio-demo__u-border-width-1px--ca6bcd4b6f rui-radio-demo__u-rui-border-opacity-1--52f4da2ca5 rui-radio-demo__u-background-color-rgb-255-255-255--6c21de570d rui-radio-demo__u-padding-1-25rem--c07e54fd14 rui-radio-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-radio-demo__u-rui-shadow-color-rgb-226-232-240--f610086a01 rui-radio-demo__u-rui-border-opacity-1--2072c87505 rui-radio-demo__u-background-color-rgb-15-23-42-0---5212cbf15b"
+      className="radio-demo__panel radio-demo__panel--billing"
     >
-      <div className="rui-radio-demo__u-display-flex--60fbb77139 rui-radio-demo__u-align-items-center--3960ffc248 rui-radio-demo__u-justify-content-space-between--8ef2268efb rui-radio-demo__u-gap-1rem--0c3bc98565">
-        <div>
-          <p className="rui-radio-demo__u-font-size-0-875rem--fc7473ca09 rui-radio-demo__u-rui-text-opacity-1--2d6fbf48fa rui-radio-demo__u-rui-text-opacity-1--cc0274aad9">Pick a workspace plan.</p>
+      <div className="radio-demo__header">
+        <div className="radio-demo__header-text">
+          <p className="radio-demo__header-copy">Pick a workspace plan.</p>
         </div>
         {activePlan ? (
-          <span className="rui-radio-demo__u-border-radius-9999px--ac204c1088 rui-radio-demo__u-background-color-rgb-15-23-42-0---3cfbc66be8 rui-radio-demo__u-padding-left-0-75rem--0e17f2bd90 rui-radio-demo__u-padding-top-0-25rem--660d2effb8 rui-radio-demo__u-font-size-11px--d058ca6de6 rui-radio-demo__u-font-weight-600--e83a7042bc rui-radio-demo__u-text-transform-uppercase--117ec720ea rui-radio-demo__u-letter-spacing-0-25em--854c830ad6 rui-radio-demo__u-rui-text-opacity-1--72a4c7cdee rui-radio-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-radio-demo__u-background-color-rgb-255-255-255--a978c46eef rui-radio-demo__u-rui-text-opacity-1--ea4519095b">
+          <span className="radio-demo__header-badge">
             {activePlan.name}
           </span>
         ) : null}
       </div>
 
-      <div className="rui-radio-demo__u-style--6f7e013d64">
+      <div className="radio-demo__stack">
         {planOptions.map((plan) => (
           <Radio
             key={plan.id}
@@ -68,12 +68,10 @@ function PlanSelector() {
             checked={selectedPlan === plan.id}
             onChange={() => setSelectedPlan(plan.id)}
             extra={
-              <span className="rui-radio-demo__u-display-flex--60fbb77139 rui-radio-demo__u-align-items-center--3960ffc248 rui-radio-demo__u-gap-0-5rem--77a2a20e90">
-                <span className="rui-radio-demo__u-font-size-0-875rem--fc7473ca09 rui-radio-demo__u-font-weight-600--e83a7042bc rui-radio-demo__u-rui-text-opacity-1--f5f136c41d rui-radio-demo__u-rui-text-opacity-1--e1d41ccd69">
-                  {plan.price}
-                </span>
+              <span className="radio-demo__plan-extra">
+                <span className="radio-demo__plan-price">{plan.price}</span>
                 {plan.badge ? (
-                  <span className="rui-radio-demo__u-border-radius-9999px--ac204c1088 rui-radio-demo__u-rui-bg-opacity-1--15821c2ff2 rui-radio-demo__u-padding-left-0-5rem--d5eab218aa rui-radio-demo__u-padding-top-2px--10ecba24d6 rui-radio-demo__u-font-size-10px--1dc571a360 rui-radio-demo__u-font-weight-600--e83a7042bc rui-radio-demo__u-text-transform-uppercase--117ec720ea rui-radio-demo__u-letter-spacing-0-25em--854c830ad6 rui-radio-demo__u-rui-text-opacity-1--72a4c7cdee rui-radio-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-radio-demo__u-rui-bg-opacity-1--e598448d8a rui-radio-demo__u-rui-text-opacity-1--ea4519095b">
+                  <span className="radio-demo__plan-badge">
                     {plan.badge}
                   </span>
                 ) : null}
@@ -109,10 +107,10 @@ function LayoutPreference() {
   return (
     <DemoExample
       title="Layout density"
-      className="rui-radio-demo__u-border-radius-1-5rem--ea189a088a rui-radio-demo__u-border-width-1px--ca6bcd4b6f rui-radio-demo__u-rui-border-opacity-1--52f4da2ca5 rui-radio-demo__u-background-color-rgb-255-255-255--6c21de570d rui-radio-demo__u-padding-1rem--8e63407b5c rui-radio-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-radio-demo__u-rui-border-opacity-1--2072c87505 rui-radio-demo__u-background-color-rgb-15-23-42-0---5212cbf15b"
+      className="radio-demo__panel"
     >
-      <div className="rui-radio-demo__layout-density">
-        <div className="rui-radio-demo__density-grid rui-radio-demo__u-display-grid--f3c543ad5f rui-radio-demo__u-gap-0-5rem--77a2a20e90 rui-radio-demo__u-grid-template-columns-repeat-3-m--ab1b20c229">
+      <div className="radio-demo__layout">
+        <div className="radio-demo__density-grid">
           {layoutOptions.map((option) => (
             <Radio
               key={option.id}
@@ -122,13 +120,13 @@ function LayoutPreference() {
               color={densityColors[option.id]}
               checked={density === option.id}
               onChange={() => setDensity(option.id)}
-              className="rui-radio-demo__density-card rui-radio-demo__u-width-100--6da6a3c3f7 rui-radio-demo__u-border-radius-1rem--68f2db624d rui-radio-demo__u-padding-left-0-75rem--0e17f2bd90 rui-radio-demo__u-padding-top-0-75rem--1b2d54a3fd"
+              className="radio-demo__density-card"
             />
           ))}
         </div>
-        <p className="rui-radio-demo__u-border-radius-0-75rem--a217b4eaa9 rui-radio-demo__u-border-width-1px--ca6bcd4b6f rui-radio-demo__u-border-style-dashed--a29b7a649c rui-radio-demo__u-rui-border-opacity-1--52f4da2ca5 rui-radio-demo__u-rui-bg-opacity-1--f97e9d36d1 rui-radio-demo__u-padding-left-0-75rem--0e17f2bd90 rui-radio-demo__u-padding-top-0-5rem--03b4dd7f17 rui-radio-demo__u-font-size-0-75rem--359090c2d5 rui-radio-demo__u-rui-text-opacity-1--2d6fbf48fa rui-radio-demo__u-rui-border-opacity-1--2072c87505 rui-radio-demo__u-background-color-rgb-2-6-23-0-5--719d9a74b1 rui-radio-demo__u-rui-text-opacity-1--ca11017ff7">
+        <p className="radio-demo__density-note">
           Current mode:{" "}
-          <span className="rui-radio-demo__u-font-weight-600--e83a7042bc rui-radio-demo__u-rui-text-opacity-1--f5f136c41d rui-radio-demo__u-rui-text-opacity-1--e1d41ccd69">{density}</span>
+          <span className="radio-demo__density-value">{density}</span>
         </p>
       </div>
     </DemoExample>
@@ -141,7 +139,7 @@ function DigestPreferences() {
   return (
     <DemoExample
       title="Digest"
-      className="rui-radio-demo__u-style--6ed543e2fb rui-radio-demo__u-border-radius-1-5rem--ea189a088a rui-radio-demo__u-border-width-1px--ca6bcd4b6f rui-radio-demo__u-rui-border-opacity-1--52f4da2ca5 rui-radio-demo__u-background-color-rgb-255-255-255--6c21de570d rui-radio-demo__u-padding-1rem--8e63407b5c rui-radio-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-radio-demo__u-rui-border-opacity-1--2072c87505 rui-radio-demo__u-background-color-rgb-15-23-42-0---5212cbf15b"
+      className="radio-demo__panel radio-demo__panel--stack-lg"
     >
       <Radio
         name="digest"
@@ -165,8 +163,8 @@ function DigestPreferences() {
         onChange={() => setCadence("monthly")}
       />
 
-      <div className="rui-radio-demo__u-border-radius-1rem--68f2db624d rui-radio-demo__u-border-width-1px--ca6bcd4b6f rui-radio-demo__u-border-style-dashed--a29b7a649c rui-radio-demo__u-rui-border-opacity-1--52f4da2ca5 rui-radio-demo__u-background-color-rgb-248-250-252--2579b25ad0 rui-radio-demo__u-padding-left-0-75rem--0e17f2bd90 rui-radio-demo__u-padding-top-0-5rem--03b4dd7f17 rui-radio-demo__u-font-size-0-75rem--359090c2d5 rui-radio-demo__u-rui-text-opacity-1--2d6fbf48fa rui-radio-demo__u-rui-border-opacity-1--2072c87505 rui-radio-demo__u-background-color-rgb-2-6-23-0-6--ddf84eea43 rui-radio-demo__u-rui-text-opacity-1--ca11017ff7">
-        <p className="rui-radio-demo__u-font-weight-600--e83a7042bc rui-radio-demo__u-rui-text-opacity-1--f5f136c41d rui-radio-demo__u-rui-text-opacity-1--e1d41ccd69">
+      <div className="radio-demo__delivery">
+        <p className="radio-demo__delivery-title">
           Delivery:{" "}
           {cadence === "daily"
             ? "Every morning"
@@ -174,8 +172,8 @@ function DigestPreferences() {
               ? "Mondays"
               : "First Monday"}
         </p>
-        <p className="rui-radio-demo__u-font-size-11px--d058ca6de6 rui-radio-demo__u-rui-text-opacity-1--30426eb75c rui-radio-demo__u-rui-text-opacity-1--cc0274aad9">Pause reasons (read only):</p>
-        <div className="rui-radio-demo__u-margin-top-0-25rem--b6b02c0ebe rui-radio-demo__u-style--da7c36cd88">
+        <p className="radio-demo__delivery-subtitle">Pause reasons (read only):</p>
+        <div className="radio-demo__pause-stack">
           <Radio
             name="digest-paused"
             label="Policy hold"
@@ -197,9 +195,9 @@ function DigestPreferences() {
 
 function RadioPreview() {
   return (
-    <div className="rui-radio-demo__u-style--3e7ce58d64">
+    <div className="radio-demo__page">
       <PlanSelector />
-      <div className="rui-radio-demo__u-display-grid--f3c543ad5f rui-radio-demo__u-gap-1rem--0c3bc98565 rui-radio-demo__u-grid-template-columns-1-1fr-0-9f--18b30daf10">
+      <div className="radio-demo__grid">
         <LayoutPreference />
         <DigestPreferences />
       </div>

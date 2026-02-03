@@ -30,7 +30,7 @@ describe("StackedList", () => {
     );
 
     const item = screen.getByRole("listitem");
-    expect(item).toHaveClass("rui-stacked-list__u-padding-top-0-75rem--1b2d54a3fd", { exact: false });
+    expect(item).toHaveClass("rui-stacked-list__item--dense", { exact: false });
     expect(screen.getByTestId("icon")).toBeInTheDocument();
   });
 });

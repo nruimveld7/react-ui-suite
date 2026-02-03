@@ -24,7 +24,7 @@ function CommandPalette() {
 
   return (
     <DemoExample title="Command palette" badge="Custom popover">
-      <div className="rui-datalist-input-demo__u-style--6ed543e2fb">
+      <div className="rui-datalist-input-demo__stack">
         <DatalistInput
           label="Search actions"
           placeholder="Type to filter commands"
@@ -33,15 +33,15 @@ function CommandPalette() {
           onChange={(e) => setQuery(e.target.value)}
           description="Custom suggestions popover that matches the gallery styling."
         />
-        <div className="rui-datalist-input-demo__u-border-radius-1rem--68f2db624d rui-datalist-input-demo__u-border-width-1px--ca6bcd4b6f rui-datalist-input-demo__u-border-style-dashed--a29b7a649c rui-datalist-input-demo__u-border-color-rgb-226-232-240-1--52f4da2ca5 rui-datalist-input-demo__u-background-color-rgb-248-250-252--2579b25ad0 rui-datalist-input-demo__u-padding-0-75rem--eb6e8b881a rui-datalist-input-demo__u-font-size-0-875rem--fc7473ca09 rui-datalist-input-demo__u-color-rgb-71-85-105-1--2d6fbf48fa rui-datalist-input-demo__u-border-color-rgb-30-41-59-1--2072c87505 rui-datalist-input-demo__u-background-color-rgb-2-6-23-0-6--ddf84eea43 rui-datalist-input-demo__u-color-rgb-203-213-225-1--ca11017ff7">
+        <div className="rui-datalist-input-demo__panel">
           {matched.length ? (
-            <ul className="rui-datalist-input-demo__u-style--da7c36cd88">
+            <ul className="rui-datalist-input-demo__list">
               {matched.map((item) => (
-                <li key={item} className="rui-datalist-input-demo__u-display-flex--60fbb77139 rui-datalist-input-demo__u-align-items-center--3960ffc248 rui-datalist-input-demo__u-gap-0-5rem--77a2a20e90">
-                  <span className="rui-datalist-input-demo__u-font-size-10px--1dc571a360 rui-datalist-input-demo__u-text-transform-uppercase--117ec720ea rui-datalist-input-demo__u-letter-spacing-0-2em--2da1a7016e rui-datalist-input-demo__u-color-rgb-148-163-184-1--8d44cef396 rui-datalist-input-demo__u-color-rgb-100-116-139-1--15b16954d1">
+                <li key={item} className="rui-datalist-input-demo__item">
+                  <span className="rui-datalist-input-demo__item-key">
                     cmd
                   </span>
-                  <span className="rui-datalist-input-demo__u-font-weight-600--e83a7042bc rui-datalist-input-demo__u-color-rgb-15-23-42-1--f5f136c41d rui-datalist-input-demo__u-color-rgb-241-245-249-1--e1d41ccd69">{item}</span>
+                  <span className="rui-datalist-input-demo__item-text">{item}</span>
                 </li>
               ))}
             </ul>

@@ -1,5 +1,5 @@
 /* Spacing between demo sections (used on the preview wrapper) */
-.rui-tab-group-demo__u-style--3e7ce58d64 > :not([hidden]) ~ :not([hidden]) {
+.rui-tab-group-demo > :not([hidden]) ~ :not([hidden]) {
   --rui-space-y-reverse: 0;
   margin-top: calc(1rem * calc(1 - var(--rui-space-y-reverse)));
   margin-bottom: calc(1rem * var(--rui-space-y-reverse));

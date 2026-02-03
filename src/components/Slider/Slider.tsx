@@ -362,10 +362,9 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(function S
     <div
       ref={trackRef}
       className={clsx(
-        "rui-slider__u-position-relative--d89972fe17 rui-slider__u-overflow-hidden--2cd02d11d1 rui-slider__u-border-radius-9999px--ac204c1088 rui-slider__u-rui-shadow-inset-0-2px-4px-0-rgb--eca5782b24 rui-slider__u-rui-ring-offset-shadow-var-rui-r--3daca9af08 rui-slider__u-rui-ring-color-rgb-226-232-240-0--dff1289ca3 rui-slider__u-rui-ring-color-rgb-255-255-255-0--e440174b6b",
-        "rui-slider__u-background-size-100-100--7685a877d7",
-        isVertical ? "rui-slider__u-margin-left-auto--0e12dc7de9 rui-slider__u-height-100--668b21aa54 rui-slider__u-width-0-75rem--9cea05671a" : "rui-slider__u-height-0-75rem--6a60c09e6a rui-slider__u-width-100--6da6a3c3f7",
-        disabled && "rui-slider__u-opacity-0-6--f2868c227f",
+        "rui-slider__track",
+        isVertical && "rui-slider__track--vertical",
+        disabled && "rui-slider__track--disabled",
         trackClassName
       )}
       style={{ backgroundImage: trackGradient }}
@@ -373,9 +372,9 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(function S
     >
       <div
         className={clsx(
-          "rui-slider__u-position-absolute--da4dbfbc4f rui-slider__u-border-radius-9999px--ac204c1088 rui-slider__u-rui-shadow-0-0-0-1px-rgba-59-130--25563fe3cd",
-          dragging ? "rui-slider__u-transition-property-none--8c53a2a0df" : "rui-slider__u-transition-property-width-height--3810b15da8 rui-slider__u-transition-duration-150ms--233c0494b4 rui-slider__u-transition-timing-function-cubic--d905a812b4",
-          isVertical ? "rui-slider__u-left-0px--c78facc7a0 rui-slider__u-right-0px--d8cdcad240" : "rui-slider__u-top-0px--5f89f14a26"
+          "rui-slider__track-fill",
+          dragging && "rui-slider__track-fill--dragging",
+          isVertical ? "rui-slider__track-fill--vertical" : "rui-slider__track-fill--horizontal"
         )}
         style={{
           ...progressStyle,
@@ -384,39 +383,45 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(function S
           backgroundPosition: gradientPosition,
         }}
       />
-      <div className="rui-slider__u-pointer-events-none--a4326536b8 rui-slider__u-position-absolute--da4dbfbc4f rui-slider__u-inset-0px--7b7df0449b rui-slider__u-border-radius-9999px--ac204c1088 rui-slider__u-rui-ring-offset-shadow-var-rui-r--3daca9af08 rui-slider__u-rui-ring-color-rgb-0-0-0-0-05--1e4905f70e rui-slider__u-rui-ring-color-rgb-255-255-255-0--e440174b6b" />
+      <div className="rui-slider__track-overlay" />
     </div>
   );
 
   const defaultThumb = (
     <span
       className={clsx(
-        "rui-slider__u-position-absolute--da4dbfbc4f rui-slider__u-top-50--d694ba66e3 rui-slider__u-rui-translate-y-50--36b381be4d rui-slider__u-rui-translate-x-50--efaa070148 rui-slider__u-border-radius-9999px--ac204c1088 rui-slider__u-border-width-1px--ca6bcd4b6f rui-slider__u-rui-border-opacity-1--2fe59630ad rui-slider__u-rui-bg-opacity-1--5e10cdb8f1 rui-slider__u-rui-shadow-0-4px-6px-1px-rgb-0-0--febc34e471 rui-slider__u-rui-shadow-color-rgb-15-23-42-0---6fa334fea1 rui-slider__u-rui-ring-offset-shadow-var-rui-r--3daca9af08 rui-slider__u-rui-ring-opacity-1--b63063b264 rui-slider__u-transition-property-transform--eadef23823 rui-slider__u-transition-duration-150ms--233c0494b4 rui-slider__u-border-color-rgb-63-63-70-0-6--2e65f80c00 rui-slider__u-rui-bg-opacity-1--74e56634bd rui-slider__u-rui-shadow-color-rgb-0-0-0-0-3--5bbe38eab8 rui-slider__u-rui-ring-opacity-1--3c493ef2d8",
-        focused && "rui-slider__u-rui-scale-x-1-04--3ae293a6fd rui-slider__u-rui-ring-opacity-1--ac04a0392c rui-slider__u-rui-ring-opacity-1--8adf4f0314",
-        disabled && "rui-slider__u-opacity-0-6--f2868c227f rui-slider__u-rui-shadow-0-0-0000--ad47d17e60 rui-slider__u-rui-shadow-0-0-0000--2ac3c2fc68",
+        "rui-slider__thumb",
+        focused && "rui-slider__thumb--focused",
+        disabled && "rui-slider__thumb--disabled",
         thumbClassName
       )}
       style={{ ...thumbStyle, width: thumbDiameter, height: thumbDiameter }}
       aria-hidden="true"
     >
-      <span className="rui-slider__u-position-relative--d89972fe17 rui-slider__u-display-block--0214b4b355 rui-slider__u-height-100--668b21aa54 rui-slider__u-width-100--6da6a3c3f7">
-        <span className="rui-slider__u-position-absolute--da4dbfbc4f rui-slider__u-inset-5px--e4b9817df1 rui-slider__u-border-radius-9999px--ac204c1088 rui-slider__u-background-image-linear-gradient--39b2e00348 rui-slider__u-rui-gradient-from-f8fafc-var-rui--0fa43e0e0f rui-slider__u-rui-gradient-to-e2e8f0-var-rui-g--a1c9255bc2 rui-slider__u-rui-gradient-from-475569-var-rui--e98841ae66 rui-slider__u-rui-gradient-to-334155-var-rui-g--99758921bf" />
-        <span className="rui-slider__u-position-absolute--da4dbfbc4f rui-slider__u-inset-0px--7b7df0449b rui-slider__u-border-radius-9999px--ac204c1088 rui-slider__u-background-color-rgb-2-6-23-0-05--2e89c63c5d rui-slider__u-rui-backdrop-blur-blur-1px--d88c782b6b rui-slider__u-background-color-rgb-255-255-255--72e7ae8285" />
+      <span className="rui-slider__thumb-core">
+        <span className="rui-slider__thumb-gradient" />
+        <span className="rui-slider__thumb-overlay" />
       </span>
     </span>
   );
 
   return (
-    <div className={clsx("rui-root rui-slider__u-width-100--6da6a3c3f7 rui-slider__u-style--6f7e013d64", isVertical && "rui-slider__u-max-width-120px--d3f6ecda5b", className)}>
+    <div
+      className={clsx(
+        "rui-root rui-slider",
+        isVertical && "rui-slider--vertical",
+        className
+      )}
+    >
       {label ? (
-        <div className="rui-slider__u-display-flex--60fbb77139 rui-slider__u-align-items-center--3960ffc248 rui-slider__u-justify-content-space-between--8ef2268efb rui-slider__u-gap-0-75rem--1004c0c395">
+        <div className="rui-slider__header">
           <label
             htmlFor={inputId}
-            className="rui-slider__u-font-size-11px--d058ca6de6 rui-slider__u-font-weight-600--e83a7042bc rui-slider__u-text-transform-uppercase--117ec720ea rui-slider__u-letter-spacing-0-25em--854c830ad6 rui-slider__u-rui-text-opacity-1--30426eb75c rui-slider__u-rui-text-opacity-1--6462b86910 rui-text-wrap"
+            className="rui-slider__label rui-text-wrap"
           >
             {label}
           </label>
-          <span className="rui-slider__u-border-radius-9999px--ac204c1088 rui-slider__u-background-color-rgb-255-255-255--6c21de570d rui-slider__u-padding-left-0-5rem--d5eab218aa rui-slider__u-padding-top-0-125rem--465609a240 rui-slider__u-font-size-0-75rem--359090c2d5 rui-slider__u-font-weight-600--e83a7042bc rui-slider__u-rui-text-opacity-1--bcbca7a5be rui-slider__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-slider__u-rui-ring-offset-shadow-var-rui-r--3daca9af08 rui-slider__u-rui-ring-opacity-1--b63063b264 rui-slider__u-background-color-rgb-24-24-27-0---67553a7cb3 rui-slider__u-rui-text-opacity-1--270353156a rui-slider__u-rui-ring-opacity-1--3c493ef2d8">
+          <span className="rui-slider__value">
             {formattedValue}
           </span>
         </div>
@@ -425,8 +430,8 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(function S
       <div
         ref={trackContainerRef}
         className={clsx(
-          "rui-slider__track-container rui-slider__u-position-relative--d89972fe17 rui-slider__u-width-100--6da6a3c3f7 rui-slider__u-padding-top-0-5rem--f46b61a9b3 rui-slider__u-padding-bottom-0-75rem--7fcf9124b5",
-          isVertical && "rui-slider__u-display-flex--60fbb77139 rui-slider__u-height-12rem--3c8ea328c0 rui-slider__u-align-items-center--3960ffc248 rui-slider__u-justify-content-center--86843cf1e2 rui-slider__u-padding-left-1rem--f0faeb26d6 rui-slider__u-padding-bottom-1rem--9fcd8a1382 rui-slider__u-padding-top-1rem--173fa8f067"
+          "rui-slider__track-container",
+          isVertical && "rui-slider__track-container--vertical"
         )}
         data-orientation={orientation}
       >
@@ -450,15 +455,15 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(function S
           aria-valuetext={formattedValue}
           aria-orientation={orientation}
           data-orientation={orientation}
-          className="rui-slider__u-position-absolute--da4dbfbc4f rui-slider__u-inset-0px--7b7df0449b rui-slider__u-height-2-5rem--426b8b7518 rui-slider__u-width-100--6da6a3c3f7 rui-slider__u-webkit-appearance-none--eeea43674c rui-slider__u-opacity-0--7065497e1c rui-slider__u-pointer-events-none--a4326536b8"
+          className="rui-slider__input"
         />
         <div
           ref={interactionRef}
           aria-hidden="true"
           onPointerDown={handlePointerDown}
           className={clsx(
-            "rui-slider__u-position-absolute--da4dbfbc4f rui-slider__u-inset-0px--7b7df0449b rui-slider__u-cursor-pointer--3451683673 rui-slider__u-background-color-transparent--7f19cdf4c5",
-            isVertical ? "rui-slider__u-left-50--e632769ad7 rui-slider__u-width-2rem--2bbcfc3b51 rui-slider__u-rui-translate-x-50--efaa070148" : "rui-slider__u-top-50--d694ba66e3 rui-slider__u-height-2rem--ed8a5df7b2 rui-slider__u-rui-translate-y-50--36b381be4d"
+            "rui-slider__interaction",
+            isVertical ? "rui-slider__interaction--vertical" : "rui-slider__interaction--horizontal"
           )}
         />
       </div>

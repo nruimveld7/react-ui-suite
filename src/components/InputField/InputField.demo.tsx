@@ -13,7 +13,7 @@ function ProfileFormPreview() {
 
   return (
     <form
-      className="rui-input-field-demo__u-style--3e7ce58d64"
+      className="input-field-demo-form"
       onSubmit={(event) => {
         event.preventDefault();
         setSaved(true);
@@ -46,9 +46,9 @@ function ProfileFormPreview() {
         placeholder="Team or department"
         description="Everyone sees this under your avatar."
       />
-      <div className="rui-input-field-demo__u-display-flex--60fbb77139 rui-input-field-demo__u-align-items-center--3960ffc248 rui-input-field-demo__u-gap-0-75rem--1004c0c395 rui-input-field-demo__u-padding-top-0-5rem--f46b61a9b3">
+      <div className="input-field-demo-actions">
         <Button type="submit">Save profile</Button>
-        {saved && <span className="rui-input-field-demo__u-font-size-0-75rem--359090c2d5 rui-input-field-demo__u-color-rgb-16-185-129-1--ab3983747d">Saved!</span>}
+        {saved && <span className="input-field-demo-status">Saved!</span>}
       </div>
     </form>
   );
@@ -93,23 +93,23 @@ function DisabledFieldExample() {
 
 function InputFieldPreview() {
   return (
-    <div className="rui-input-field-demo__u-style--3e7ce58d64">
+    <div className="input-field-demo-stack">
       <DemoExample
         title="Profile"
-        className="rui-input-field-demo__u-border-radius-1-5rem--ea189a088a rui-input-field-demo__u-border-width-1px--ca6bcd4b6f rui-input-field-demo__u-border-color-rgb-226-232-240-1--52f4da2ca5 rui-input-field-demo__u-background-color-rgb-255-255-255--845918557e rui-input-field-demo__u-padding-1-25rem--c07e54fd14 rui-input-field-demo__u-box-shadow-0-0-0000-0-0-0000-0-1--438b2237b8 rui-input-field-demo__u-border-color-rgb-30-41-59-1--2072c87505 rui-input-field-demo__u-background-color-rgb-15-23-42-0---5212cbf15b"
+        className="input-field-demo-card input-field-demo-card--spacious"
       >
         <ProfileFormPreview />
       </DemoExample>
-      <div className="rui-input-field-demo__u-display-grid--f3c543ad5f rui-input-field-demo__u-gap-1rem--0c3bc98565 rui-input-field-demo__u-grid-template-columns-repeat-2-m--e4d6f343b9">
+      <div className="input-field-demo-grid">
         <DemoExample
           title="Validation"
-          className="rui-input-field-demo__u-style--6ed543e2fb rui-input-field-demo__u-border-radius-1-5rem--ea189a088a rui-input-field-demo__u-border-width-1px--ca6bcd4b6f rui-input-field-demo__u-border-color-rgb-226-232-240-1--52f4da2ca5 rui-input-field-demo__u-background-color-rgb-255-255-255--845918557e rui-input-field-demo__u-padding-1rem--8e63407b5c rui-input-field-demo__u-box-shadow-0-0-0000-0-0-0000-0-1--438b2237b8 rui-input-field-demo__u-border-color-rgb-30-41-59-1--2072c87505 rui-input-field-demo__u-background-color-rgb-15-23-42-0---5212cbf15b"
+          className="input-field-demo-card input-field-demo-card--compact input-field-demo-card--stack"
         >
           <PasswordFieldExample />
         </DemoExample>
         <DemoExample
           title="Variations"
-          className="rui-input-field-demo__u-style--6ed543e2fb rui-input-field-demo__u-border-radius-1-5rem--ea189a088a rui-input-field-demo__u-border-width-1px--ca6bcd4b6f rui-input-field-demo__u-border-color-rgb-226-232-240-1--52f4da2ca5 rui-input-field-demo__u-background-color-rgb-255-255-255--845918557e rui-input-field-demo__u-padding-1rem--8e63407b5c rui-input-field-demo__u-box-shadow-0-0-0000-0-0-0000-0-1--438b2237b8 rui-input-field-demo__u-border-color-rgb-30-41-59-1--2072c87505 rui-input-field-demo__u-background-color-rgb-15-23-42-0---5212cbf15b"
+          className="input-field-demo-card input-field-demo-card--compact input-field-demo-card--stack"
         >
           <TrailingLabelExample />
           <DisabledFieldExample />

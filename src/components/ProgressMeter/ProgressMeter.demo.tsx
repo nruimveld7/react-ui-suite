@@ -17,29 +17,29 @@ function UploadCard() {
   return (
     <DemoExample
       title="Uploads"
-      className="rui-progress-meter-demo__u-border-radius-1-5rem--ea189a088a rui-progress-meter-demo__u-border-width-1px--ca6bcd4b6f rui-progress-meter-demo__u-rui-border-opacity-1--52f4da2ca5 rui-progress-meter-demo__u-background-color-rgb-255-255-255--6c21de570d rui-progress-meter-demo__u-padding-1rem--8e63407b5c rui-progress-meter-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-progress-meter-demo__u-rui-border-opacity-1--2072c87505 rui-progress-meter-demo__u-background-color-rgb-15-23-42-0---5212cbf15b"
+      className="progress-meter-demo__card progress-meter-demo__card--uploads"
     >
-      <div className="rui-progress-meter-demo__u-display-flex--60fbb77139 rui-progress-meter-demo__u-align-items-center--3960ffc248 rui-progress-meter-demo__u-justify-content-space-between--8ef2268efb">
+      <div className="progress-meter-demo__header">
         <div>
-          <p className="rui-progress-meter-demo__u-font-size-0-875rem--fc7473ca09 rui-progress-meter-demo__u-rui-text-opacity-1--2d6fbf48fa rui-progress-meter-demo__u-rui-text-opacity-1--cc0274aad9">Syncing brand assets</p>
+        <p className="progress-meter-demo__title rui-text-wrap">Syncing brand assets</p>
         </div>
-        <span className="rui-progress-meter-demo__u-border-radius-9999px--ac204c1088 rui-progress-meter-demo__u-rui-bg-opacity-1--15821c2ff2 rui-progress-meter-demo__u-padding-left-0-75rem--0e17f2bd90 rui-progress-meter-demo__u-padding-top-0-25rem--660d2effb8 rui-progress-meter-demo__u-font-size-11px--d058ca6de6 rui-progress-meter-demo__u-font-weight-600--e83a7042bc rui-progress-meter-demo__u-text-transform-uppercase--117ec720ea rui-progress-meter-demo__u-letter-spacing-0-025em--8baf13a3e9 rui-progress-meter-demo__u-rui-text-opacity-1--72a4c7cdee rui-progress-meter-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-progress-meter-demo__u-rui-bg-opacity-1--e598448d8a rui-progress-meter-demo__u-rui-text-opacity-1--ea4519095b">
+        <span className="progress-meter-demo__status">
           {progress >= 100 ? "Complete" : "Running"}
         </span>
       </div>
-      <div className="rui-progress-meter-demo__u-style--6f7e013d64">
+      <div className="progress-meter-demo__stack">
         <Progress
           value={progress}
           label="Progress"
           description="We keep your browser responsive."
         />
-        <div className="rui-progress-meter-demo__u-display-grid--f3c543ad5f rui-progress-meter-demo__u-grid-template-columns-repeat-2-m--8e75e3db48 rui-progress-meter-demo__u-gap-0-5rem--77a2a20e90 rui-progress-meter-demo__u-font-size-0-75rem--359090c2d5 rui-progress-meter-demo__u-rui-text-opacity-1--2d6fbf48fa rui-progress-meter-demo__u-rui-text-opacity-1--cc0274aad9">
+        <div className="progress-meter-demo__stats rui-text-wrap">
           <span>Remaining files</span>
-          <span className="rui-progress-meter-demo__u-text-align-right--308fc069e4 rui-progress-meter-demo__u-font-weight-600--e83a7042bc">
+          <span className="progress-meter-demo__stat-value">
             {Math.max(0, 10 - Math.round(progress / 10))}
           </span>
           <span>Bandwidth</span>
-          <span className="rui-progress-meter-demo__u-text-align-right--308fc069e4 rui-progress-meter-demo__u-font-weight-600--e83a7042bc">Fast</span>
+          <span className="progress-meter-demo__stat-value">Fast</span>
         </div>
       </div>
     </DemoExample>
@@ -71,27 +71,27 @@ function HealthMeter() {
   return (
     <DemoExample
       title="System health"
-      className="rui-progress-meter-demo__system-health rui-progress-meter-demo__u-display-grid--f3c543ad5f rui-progress-meter-demo__u-gap-0-75rem--1004c0c395 rui-progress-meter-demo__u-border-radius-1-5rem--ea189a088a rui-progress-meter-demo__u-border-width-1px--ca6bcd4b6f rui-progress-meter-demo__u-rui-border-opacity-1--52f4da2ca5 rui-progress-meter-demo__u-background-color-rgb-255-255-255--6c21de570d rui-progress-meter-demo__u-padding-1rem--8e63407b5c rui-progress-meter-demo__u-rui-shadow-0-1px-2px-0-rgb-0-0-0--438b2237b8 rui-progress-meter-demo__u-grid-template-columns-1-1fr-0-9f--5e2f7a1008 rui-progress-meter-demo__u-rui-border-opacity-1--2072c87505 rui-progress-meter-demo__u-background-color-rgb-15-23-42-0---5212cbf15b"
+      className="progress-meter-demo__system-health progress-meter-demo__card progress-meter-demo__card--system"
     >
-      <div className="rui-progress-meter-demo__health-panel">
-        <p className="rui-progress-meter-demo__health-intro rui-progress-meter-demo__u-font-size-0-875rem--fc7473ca09 rui-progress-meter-demo__u-rui-text-opacity-1--2d6fbf48fa rui-progress-meter-demo__u-rui-text-opacity-1--cc0274aad9">
+      <div className="progress-meter-demo__health-panel">
+        <p className="progress-meter-demo__health-intro rui-text-wrap">
           Live risk score with thresholds.
         </p>
-        <div className="rui-progress-meter-demo__u-style--6ed543e2fb">
+        <div className="progress-meter-demo__health-stack">
           <Meter
             value={score}
             label="Signal"
             description="Composite score from uptime, latency, and error rate."
             thresholds={thresholds}
           />
-          <div className="rui-progress-meter-demo__u-display-flex--60fbb77139 rui-progress-meter-demo__u-align-items-center--3960ffc248 rui-progress-meter-demo__u-gap-0-5rem--77a2a20e90 rui-progress-meter-demo__u-font-size-0-75rem--359090c2d5 rui-progress-meter-demo__u-rui-text-opacity-1--30426eb75c rui-progress-meter-demo__u-rui-text-opacity-1--cc0274aad9">
+          <div className="progress-meter-demo__thresholds rui-text-wrap">
             {thresholds.map((t) => (
               <span
                 key={t.value}
-                className="rui-progress-meter-demo__u-display-flex--60fbb77139 rui-progress-meter-demo__u-align-items-center--3960ffc248 rui-progress-meter-demo__u-gap-0-25rem--44ee8ba0a4 rui-progress-meter-demo__u-border-radius-9999px--ac204c1088 rui-progress-meter-demo__u-border-width-1px--ca6bcd4b6f rui-progress-meter-demo__u-rui-border-opacity-1--52f4da2ca5 rui-progress-meter-demo__u-padding-left-0-5rem--d5eab218aa rui-progress-meter-demo__u-padding-top-0-25rem--660d2effb8 rui-progress-meter-demo__u-rui-border-opacity-1--30fb741464"
+                className="progress-meter-demo__threshold"
               >
                 <span
-                  className="rui-progress-meter-demo__u-display-block--0214b4b355 rui-progress-meter-demo__u-width-0-5rem--91aa108e8e rui-progress-meter-demo__u-border-radius-9999px--ac204c1088"
+                  className="progress-meter-demo__threshold-dot"
                   style={{ background: t.color }}
                   aria-hidden="true"
                 />
@@ -101,11 +101,11 @@ function HealthMeter() {
           </div>
         </div>
       </div>
-      <div className="rui-progress-meter-demo__u-display-flex--60fbb77139 rui-progress-meter-demo__u-flex-direction-column--8dddea0773 rui-progress-meter-demo__u-justify-content-center--86843cf1e2 rui-progress-meter-demo__u-gap-0-75rem--1004c0c395 rui-progress-meter-demo__u-border-radius-1rem--68f2db624d rui-progress-meter-demo__u-border-width-1px--ca6bcd4b6f rui-progress-meter-demo__u-border-style-dashed--a29b7a649c rui-progress-meter-demo__u-rui-border-opacity-1--52f4da2ca5 rui-progress-meter-demo__u-background-color-rgb-248-250-252--2579b25ad0 rui-progress-meter-demo__u-padding-0-75rem--eb6e8b881a rui-progress-meter-demo__u-font-size-0-75rem--359090c2d5 rui-progress-meter-demo__u-rui-text-opacity-1--2d6fbf48fa rui-progress-meter-demo__u-rui-border-opacity-1--2072c87505 rui-progress-meter-demo__u-background-color-rgb-2-6-23-0-6--ddf84eea43 rui-progress-meter-demo__u-rui-text-opacity-1--ca11017ff7">
-        <p className="rui-progress-meter-demo__anomaly-title rui-progress-meter-demo__u-font-size-0-875rem--fc7473ca09 rui-progress-meter-demo__u-font-weight-600--e83a7042bc rui-progress-meter-demo__u-rui-text-opacity-1--c69797100a rui-progress-meter-demo__u-rui-text-opacity-1--e1d41ccd69">
+      <div className="progress-meter-demo__anomaly">
+        <p className="progress-meter-demo__anomaly-title">
           Anomaly window
         </p>
-        <p className="rui-progress-meter-demo__anomaly-description">
+        <p className="progress-meter-demo__anomaly-description rui-text-wrap">
           We rotate through thresholds to help readers understand the meter ranges and colors.
         </p>
         <Button onClick={() => setScore((prev) => Math.min(100, prev + 12))}>
@@ -118,7 +118,7 @@ function HealthMeter() {
 
 function ProgressMeterPreview() {
   return (
-    <div className="rui-progress-meter-demo__u-display-grid--f3c543ad5f rui-progress-meter-demo__u-gap-1rem--0c3bc98565">
+    <div className="progress-meter-demo__grid">
       <UploadCard />
       <HealthMeter />
     </div>

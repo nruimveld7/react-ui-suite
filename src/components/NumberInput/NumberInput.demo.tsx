@@ -15,10 +15,10 @@ function BudgetPlanner() {
   return (
     <DemoExample
       title="Budget planner"
-      className="rui-number-input-demo__example"
+      className="number-input-demo__example"
     >
-      <div className="rui-number-input-demo__budget-planner">
-        <div className="rui-number-input-demo__budget-planner__inputs">
+      <div className="number-input-demo__budget-planner">
+        <div className="number-input-demo__budget-planner__inputs">
           <NumberInput
             label="Monthly budget"
             description="Covers vendors, automation, and credits."
@@ -35,10 +35,10 @@ function BudgetPlanner() {
             suffix="Seats"
           />
         </div>
-        <div className="rui-number-input-demo__budget-planner__forecast">
-          <p className="rui-number-input-demo__forecast-title">Forecast</p>
-          <p className="rui-number-input-demo__forecast-value">{burnRate} USD</p>
-          <p className="rui-number-input-demo__forecast-desc">Per seat burn rate.</p>
+        <div className="number-input-demo__budget-planner__forecast">
+          <p className="number-input-demo__forecast-title">Forecast</p>
+          <p className="number-input-demo__forecast-value">{burnRate} USD</p>
+          <p className="number-input-demo__forecast-desc">Per seat burn rate.</p>
         </div>
       </div>
     </DemoExample>
@@ -52,10 +52,10 @@ function ScaleNumberInputDemo() {
   return (
     <DemoExample
       title="Scale"
-      className="rui-number-input-demo__example"
+      className="number-input-demo__example"
     >
-      <div className="rui-number-input-demo__scale">
-        <div className="rui-number-input-demo__scale-control">
+      <div className="number-input-demo__scale">
+        <div className="number-input-demo__scale-control">
           <Slider
             label="Scale"
             min={0.25}
@@ -66,7 +66,7 @@ function ScaleNumberInputDemo() {
             formatValue={(val) => `${val.toFixed(2)}x`}
           />
         </div>
-        <div className="rui-number-input-demo__scale-preview">
+        <div className="number-input-demo__scale-preview">
           <NumberInput
             label="Seats"
             value={value}
@@ -83,7 +83,7 @@ function ScaleNumberInputDemo() {
 
 function NumberInputPreview() {
   return (
-    <div className="rui-number-input-demo__u-display-grid--f3c543ad5f rui-number-input-demo__u-gap-1rem--0c3bc98565">
+    <div className="number-input-demo__grid">
       <BudgetPlanner />
       <ScaleNumberInputDemo />
     </div>

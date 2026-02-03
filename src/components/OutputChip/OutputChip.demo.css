@@ -1,14 +1,55 @@
-.rui-output-chip-demo__u-margin-top-0-5rem--50d0d216a2 {
-  margin-top: 0.5rem;
-}
-
-.rui-output-chip-demo__u-margin-top-0-75rem--eccd13ef4f {
-  margin-top: 0.75rem;
-}
-
 .output-chip-demo-grid {
   display: grid;
   gap: 1rem;
+}
+
+.output-chip-demo-card {
+  border-radius: 1.5rem;
+  border: 1px solid rgb(226 232 240 / 1);
+  background-color: rgb(255 255 255 / 1);
+  padding: 1rem;
+  box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+[data-theme="dark"] .output-chip-demo-card,
+:is(.dark *) .output-chip-demo-card {
+  border-color: rgb(63 63 70 / 0.6);
+  background-color: rgba(24, 24, 27, 0.75);
+}
+
+.output-chip-demo-metric-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 0;
+}
+
+.output-chip-demo-metric-note {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: rgb(71 85 105 / 1);
+}
+
+[data-theme="dark"] .output-chip-demo-metric-note,
+:is(.dark *) .output-chip-demo-metric-note {
+  color: rgb(148 163 184 / 1);
+}
+
+.output-chip-demo-tone-grid {
+  margin-top: 0.75rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgb(148 163 184 / 1);
+}
+
+[data-theme="dark"] .output-chip-demo-tone-grid,
+:is(.dark *) .output-chip-demo-tone-grid {
+  color: rgb(100 116 139 / 1);
 }
 
 .output-chip-demo-row {
@@ -29,110 +70,3 @@
   font-size: 0.75rem;
   color: var(--rui-color-text-muted);
 }
-
-.rui-output-chip-demo__u-grid-template-columns-repeat-3-m--be2e831be5 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.rui-output-chip-demo__u-align-items-center--3960ffc248 {
-  align-items: center;
-}
-
-.rui-output-chip-demo__u-justify-content-space-between--8ef2268efb {
-  justify-content: space-between;
-}
-
-.rui-output-chip-demo__u-gap-0-5rem--77a2a20e90 {
-  gap: 0.5rem;
-}
-
-.rui-output-chip-demo__u-border-radius-1-5rem--ea189a088a {
-  border-radius: 1.5rem;
-}
-
-.rui-output-chip-demo__u-border-color-rgb-226-232-240-1--52f4da2ca5 {
-  border-color: rgb(226 232 240 / 1);
-}
-
-.rui-output-chip-demo__u-background-color-rgb-255-255-255--6c21de570d {
-  background-color: rgb(255 255 255 / 1);
-}
-
-.rui-output-chip-demo__u-padding-1rem--8e63407b5c {
-  padding: 1rem;
-}
-
-.rui-output-chip-demo__u-font-size-11px--d058ca6de6 {
-  font-size: 11px;
-}
-
-.rui-output-chip-demo__u-font-size-0-875rem--fc7473ca09 {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-}
-
-.rui-output-chip-demo__u-font-size-0-75rem--359090c2d5 {
-  font-size: 0.75rem;
-  line-height: 1rem;
-}
-
-.rui-output-chip-demo__u-font-weight-600--e83a7042bc {
-  font-weight: 600;
-}
-
-.rui-output-chip-demo__u-letter-spacing-0-2em--2da1a7016e {
-  letter-spacing: 0.2em;
-}
-
-.rui-output-chip-demo__u-letter-spacing-0-3em--bf7342eeb7 {
-  letter-spacing: 0.3em;
-}
-
-.rui-output-chip-demo__u-color-rgb-148-163-184-1--8d44cef396 {
-  color: rgb(148 163 184 / 1);
-}
-
-.rui-output-chip-demo__u-color-rgb-100-116-139-1--30426eb75c {
-  color: rgb(100 116 139 / 1);
-}
-
-.rui-output-chip-demo__u-color-rgb-71-85-105-1--2d6fbf48fa {
-  color: rgb(71 85 105 / 1);
-}
-
-.rui-output-chip-demo__u-box-shadow-0-0-0000-0-0-0000-0-1--438b2237b8 {
-  box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / 0.05);
-}
-
-.rui-output-chip-demo__u-border-color-rgb-30-41-59-1--2072c87505:is(.dark *) {
-  border-color: rgb(63 63 70 / 0.6);
-}
-
-.rui-output-chip-demo__u-background-color-rgb-15-23-42-0---5212cbf15b:is(.dark *) {
-  background-color: rgba(24, 24, 27, 0.75);
-}
-
-.rui-output-chip-demo__u-color-rgb-148-163-184-1--cc0274aad9:is(.dark *) {
-  color: rgb(148 163 184 / 1);
-}
-
-.rui-output-chip-demo__u-color-rgb-100-116-139-1--15b16954d1:is(.dark *) {
-  color: rgb(100 116 139 / 1);
-}
-
-.rui-output-chip-demo__u-display-flex--60fbb77139 {
-  display: flex;
-}
-
-.rui-output-chip-demo__u-display-grid--f3c543ad5f {
-  display: grid;
-}
-
-.rui-output-chip-demo__u-border-width-1px--ca6bcd4b6f {
-  border-width: 1px;
-}
-
-.rui-output-chip-demo__u-text-transform-uppercase--117ec720ea {
-  text-transform: uppercase;
-}
-

@@ -354,7 +354,7 @@ function VerticalControlsDemo() {
 
 function TabGroupPreview() {
   return (
-    <div className="rui-tab-group-demo__u-style--3e7ce58d64">
+    <div className="rui-tab-group-demo">
       <DemoExample title="Horizontal tabs">
         <p className="rui-tab-group-demo__note">
           Resize horizontally to test left/right scroll buttons.
