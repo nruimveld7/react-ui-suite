@@ -5,7 +5,6 @@
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
 
-.rui-table:is(.dark *),
 .rui-table:is([data-theme="dark"] *) {
   border-color: rgb(39 39 42 / 1);
 }
@@ -16,13 +15,20 @@
   background-color: rgb(255 255 255 / 0.9);
 }
 
-.rui-table__container:is(.dark *),
 .rui-table__container:is([data-theme="dark"] *) {
   background-color: rgb(9 9 11 / 0.8);
 }
 
 .rui-table__scroll {
   overflow: auto;
+  max-width: 100%;
+  min-width: 0;
+  scrollbar-width: none;
+}
+
+.rui-table__scroll::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 
 .rui-table__table {
@@ -34,7 +40,6 @@
   color: rgb(51 65 85 / 1);
 }
 
-.rui-table__table:is(.dark *),
 .rui-table__table:is([data-theme="dark"] *) {
   color: rgb(228 228 231 / 1);
 }
@@ -51,7 +56,6 @@
   background-color: rgb(248 250 252 / 1);
 }
 
-.rui-table__caption:is(.dark *),
 .rui-table__caption:is([data-theme="dark"] *) {
   background-color: rgb(24 24 27 / 0.7);
   color: rgb(161 161 170 / 1);
@@ -66,7 +70,6 @@
   color: rgb(100 116 139 / 1);
 }
 
-.rui-table__head:is(.dark *),
 .rui-table__head:is([data-theme="dark"] *) {
   background-color: rgb(24 24 27 / 0.8);
   color: rgb(161 161 170 / 1);
@@ -87,18 +90,15 @@
   background-color: rgb(245 248 251 / 1);
 }
 
-.rui-table__row:is(.dark *),
 .rui-table__row:is([data-theme="dark"] *) {
   border-top-color: rgb(39 39 42 / 1);
   background-color: rgb(24 24 27 / 0.6);
 }
 
-.rui-table__row--alt:is(.dark *),
 .rui-table__row--alt:is([data-theme="dark"] *) {
   background-color: rgb(9 9 11 / 0.7);
 }
 
-.rui-table__row:hover:is(.dark *),
 .rui-table__row:hover:is([data-theme="dark"] *) {
   background-color: rgb(39 39 42 / 1);
 }
@@ -140,7 +140,6 @@
   box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
 }
 
-.rui-table__track:is(.dark *),
 .rui-table__track:is([data-theme="dark"] *) {
   background-color: rgb(24 24 27 / 0.7);
 }
@@ -154,7 +153,6 @@
   box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
 }
 
-.rui-table__track-inner:is(.dark *),
 .rui-table__track-inner:is([data-theme="dark"] *) {
   background-color: rgb(255 255 255 / 0.1);
 }
@@ -171,7 +169,6 @@
   transition-duration: 150ms;
 }
 
-.rui-table__thumb:is(.dark *),
 .rui-table__thumb:is([data-theme="dark"] *) {
   background-color: rgb(113 113 122 / 0.7);
 }
@@ -185,15 +182,6 @@
   top: 50%;
   transform: translateY(-50%);
 }
-
-.table-scrollbar {
-  max-width: 100%;
-  min-width: 0;
-}
-
-
-
-
 
 
 

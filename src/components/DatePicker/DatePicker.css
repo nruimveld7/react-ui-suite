@@ -163,7 +163,7 @@
   box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.45);
 }
 
-.rui-date-picker__highlightBorder:is(.dark *) {
+.rui-date-picker__highlightBorder:is([data-theme="dark"] *) {
   border-color: #64748b;
 }
 

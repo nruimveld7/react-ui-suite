@@ -20,7 +20,7 @@
   color: rgb(100 116 139 / 1);
 }
 
-.rui-number-input__label:is(.dark *) {
+.rui-number-input__label:is([data-theme="dark"] *) {
   color: rgb(161 161 170 / 1);
 }
 
@@ -63,17 +63,17 @@
   box-shadow: 0 0 #0000, 0 0 #0000, 0 0 0 1px rgba(248, 113, 113, 0.35);
 }
 
-.rui-number-input__shell:is(.dark *) {
+.rui-number-input__shell:is([data-theme="dark"] *) {
   border-color: rgb(63 63 70 / 1);
   background-color: rgb(24 24 27 / 0.7);
   box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
 
-.rui-number-input__shell:focus-within:is(.dark *) {
+.rui-number-input__shell:focus-within:is([data-theme="dark"] *) {
   border-color: rgb(100 116 139 / 1);
 }
 
-.rui-number-input__shell--error:is(.dark *) {
+.rui-number-input__shell--error:is([data-theme="dark"] *) {
   border-color: rgb(244 63 94 / 0.6);
 }
 
@@ -119,7 +119,7 @@
   opacity: 0.5;
 }
 
-.rui-number-input__step-button.rui-button:is(.dark *) {
+.rui-number-input__step-button.rui-button:is([data-theme="dark"] *) {
   border-color: rgb(63 63 70 / 1);
   background-color: rgb(24 24 27 / 1);
   color: rgb(244 244 245 / 1);
@@ -150,11 +150,11 @@
   outline-offset: 2px;
 }
 
-.rui-number-input__input:is(.dark *) {
+.rui-number-input__input:is([data-theme="dark"] *) {
   color: rgb(244 244 245 / 1);
 }
 
-.rui-number-input__input:is(.dark *)::placeholder {
+.rui-number-input__input:is([data-theme="dark"] *)::placeholder {
   color: rgb(113 113 122 / 1);
 }
 
@@ -173,7 +173,7 @@
   color: rgb(100 116 139 / 1);
 }
 
-.rui-number-input__suffix:is(.dark *) {
+.rui-number-input__suffix:is([data-theme="dark"] *) {
   color: rgb(212 212 216 / 1);
 }
 
@@ -189,7 +189,7 @@
   color: rgb(100 116 139 / 1);
 }
 
-.rui-number-input__helper--description:is(.dark *) {
+.rui-number-input__helper--description:is([data-theme="dark"] *) {
   color: rgb(161 161 170 / 1);
 }
 
@@ -198,6 +198,6 @@
   color: rgb(244 63 94 / 1);
 }
 
-.rui-number-input__helper--error:is(.dark *) {
+.rui-number-input__helper--error:is([data-theme="dark"] *) {
   color: rgb(251 113 133 / 1);
 }

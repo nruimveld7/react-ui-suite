@@ -58,11 +58,6 @@ export default function App() {
     if (typeof document === "undefined") return;
     const root = document.documentElement;
     root.dataset.theme = theme;
-    if (theme === "dark") {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
     if (typeof window !== "undefined") {
       window.localStorage.setItem(THEME_STORAGE_KEY, theme);
     }
@@ -120,8 +115,10 @@ export default function App() {
             {activeEntry && (
               <div className="demo-entryCard">
                 <p className="demo-entryName">{activeEntry.name}</p>
-                <p className="demo-entryDescription text-clamp-3">{activeEntry.description}</p>
-                <p className="demo-entrySource text-truncate">{activeEntry.sourcePath}</p>
+                <p className="demo-entryDescription demo-entryDescription--clamped">
+                  {activeEntry.description}
+                </p>
+                <p className="demo-entrySource rui-text-truncate">{activeEntry.sourcePath}</p>
               </div>
             )}
           </div>

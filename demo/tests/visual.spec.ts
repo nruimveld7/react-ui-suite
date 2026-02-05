@@ -116,7 +116,7 @@ test.describe("Demo gallery snapshots", () => {
       if (slug === "color-picker") {
         await expect(examples.nth(0)).toHaveScreenshot("example-1.png");
         const pairedGrid = page.locator(
-          ".demo-previewPanel .rui-color-picker-demo__u-grid-template-columns-2fr-1fr--8074f1c106"
+          ".demo-previewPanel .color-picker-demo-layout"
         );
         await expect(pairedGrid).toHaveScreenshot("example-2.png");
       } else if (slug === "dialog") {

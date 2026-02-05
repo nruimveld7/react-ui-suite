@@ -6,7 +6,7 @@
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
 
-.radio-demo__panel:is(.dark *) {
+.radio-demo__panel:is([data-theme="dark"] *) {
   border-color: rgb(30 41 59 / 1);
   background-color: rgba(24, 24, 27, 0.75);
 }
@@ -39,7 +39,7 @@
   color: rgb(100 116 139 / 1);
 }
 
-.radio-demo__header-copy:is(.dark *) {
+.radio-demo__header-copy:is([data-theme="dark"] *) {
   color: rgb(148 163 184 / 1);
 }
 
@@ -55,7 +55,7 @@
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
 
-.radio-demo__header-badge:is(.dark *) {
+.radio-demo__header-badge:is([data-theme="dark"] *) {
   background-color: rgb(255 255 255 / 0.9);
   color: rgb(15 23 42 / 1);
 }
@@ -78,7 +78,7 @@
   color: rgb(15 23 42 / 1);
 }
 
-.radio-demo__plan-extra .radio-demo__plan-price:is(.dark *) {
+.radio-demo__plan-extra .radio-demo__plan-price:is([data-theme="dark"] *) {
   color: rgb(241 245 249 / 1);
 }
 
@@ -94,7 +94,7 @@
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
 
-.radio-demo__plan-extra .radio-demo__plan-badge:is(.dark *) {
+.radio-demo__plan-extra .radio-demo__plan-badge:is([data-theme="dark"] *) {
   background-color: rgb(255 255 255 / 1);
   color: rgb(15 23 42 / 1);
 }
@@ -118,8 +118,8 @@
   .radio-demo__density-grid {
     grid-template-columns: 1fr;
   }
-}
 
+}
 .radio-demo__density-card {
   width: 100%;
   min-width: 0;
@@ -147,7 +147,7 @@
   color: rgb(71 85 105 / 1);
 }
 
-.radio-demo__density-note:is(.dark *) {
+.radio-demo__density-note:is([data-theme="dark"] *) {
   border-color: rgb(30 41 59 / 1);
   background-color: #27272a;
   color: rgb(203 213 225 / 1);
@@ -158,7 +158,7 @@
   color: rgb(15 23 42 / 1);
 }
 
-.radio-demo__density-value:is(.dark *) {
+.radio-demo__density-value:is([data-theme="dark"] *) {
   color: rgb(241 245 249 / 1);
 }
 
@@ -172,7 +172,7 @@
   color: rgb(71 85 105 / 1);
 }
 
-.radio-demo__delivery:is(.dark *) {
+.radio-demo__delivery:is([data-theme="dark"] *) {
   border-color: rgb(30 41 59 / 1);
   background-color: #27272a;
   color: rgb(203 213 225 / 1);
@@ -183,7 +183,7 @@
   color: rgb(15 23 42 / 1);
 }
 
-.radio-demo__delivery-title:is(.dark *) {
+.radio-demo__delivery-title:is([data-theme="dark"] *) {
   color: rgb(241 245 249 / 1);
 }
 
@@ -192,7 +192,7 @@
   color: rgb(100 116 139 / 1);
 }
 
-.radio-demo__delivery-subtitle:is(.dark *) {
+.radio-demo__delivery-subtitle:is([data-theme="dark"] *) {
   color: rgb(148 163 184 / 1);
 }
 
@@ -219,4 +219,5 @@
   .radio-demo__grid {
     grid-template-columns: 1.1fr 0.9fr;
   }
+
 }

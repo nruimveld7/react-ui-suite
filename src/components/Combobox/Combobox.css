@@ -12,6 +12,12 @@
   padding-left: 0.25rem;
   padding-right: 1rem;
   margin: 0px;
+  scrollbar-width: none;
+}
+
+.rui-combobox__listbox::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 
 .rui-combobox__empty {

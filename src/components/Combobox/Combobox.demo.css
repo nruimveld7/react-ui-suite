@@ -9,14 +9,14 @@
   .rui-combobox-demo__container {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-}
 
 @media (min-width: 768px) {
   .rui-combobox-demo__card--span2 {
     grid-column: span 2 / span 2;
   }
-}
 
+}
+}
 .rui-combobox-demo__stack {
   display: flex;
   flex-direction: column;

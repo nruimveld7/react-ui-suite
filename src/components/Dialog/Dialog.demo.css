@@ -17,7 +17,7 @@
   margin: 0px;
 }
 
-.dialog-demo-card:is(.dark *) {
+.dialog-demo-card:is([data-theme="dark"] *) {
   border-color: rgb(63 63 70 / 0.6);
   background-color: rgba(24, 24, 27, 0.75);
 }
@@ -33,7 +33,7 @@
   color: rgb(71 85 105 / 1);
 }
 
-.dialog-demo-card__text:is(.dark *) {
+.dialog-demo-card__text:is([data-theme="dark"] *) {
   color: rgb(148 163 184 / 1);
 }
 
@@ -55,7 +55,7 @@
   color: rgb(255 255 255 / 1);
 }
 
-.dialog-demo-footer-button--confirm:is(.dark *) {
+.dialog-demo-footer-button--confirm:is([data-theme="dark"] *) {
   background-color: rgb(16 185 129 / 1);
   color: rgb(15 23 42 / 1);
 }
@@ -66,7 +66,7 @@
   color: rgb(100 116 139 / 1);
 }
 
-.dialog-demo-tip:is(.dark *) {
+.dialog-demo-tip:is([data-theme="dark"] *) {
   color: rgb(148 163 184 / 1);
 }
 
@@ -84,6 +84,6 @@
   color: rgb(51 65 85 / 1);
 }
 
-.dialog-demo-inline-description:is(.dark *) {
+.dialog-demo-inline-description:is([data-theme="dark"] *) {
   color: rgb(203 213 225 / 1);
 }

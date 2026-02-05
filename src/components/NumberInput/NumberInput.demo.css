@@ -72,8 +72,8 @@
   .number-input-demo__budget-planner {
     flex-direction: column;
   }
-}
 
+}
 .number-input-demo__scale {
   display: grid;
   gap: 1rem;
@@ -91,21 +91,17 @@
   max-width: 14rem;
 }
 
-.number-input-demo__budget-planner__forecast:is(.dark *),
 .number-input-demo__budget-planner__forecast:is([data-theme="dark"] *) {
   border-color: rgb(63 63 70 / 0.6);
   background-color: #27272a;
   color: rgb(203 213 225 / 1);
 }
 
-.number-input-demo__forecast-title:is(.dark *),
 .number-input-demo__forecast-title:is([data-theme="dark"] *),
-.number-input-demo__forecast-desc:is(.dark *),
 .number-input-demo__forecast-desc:is([data-theme="dark"] *) {
   color: rgb(148 163 184 / 1);
 }
 
-.number-input-demo__forecast-value:is(.dark *),
 .number-input-demo__forecast-value:is([data-theme="dark"] *) {
   color: rgb(241 245 249 / 1);
 }

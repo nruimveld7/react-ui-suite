@@ -39,7 +39,7 @@ export function Listbox<T>({
       ref={listRef}
       id={id}
       role="listbox"
-      className={clsx("combobox-scrollbar rui-combobox__listbox")}
+      className={clsx("rui-combobox__listbox")}
     >
       {options.length === 0 && (
         <li aria-disabled className="rui-combobox__empty">

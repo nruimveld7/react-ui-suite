@@ -235,7 +235,7 @@ export function Table<T extends Record<string, unknown>>({
       >
         <div
           ref={scrollRef}
-          className="table-scrollbar rui-table__scroll"
+          className="rui-table__scroll"
           style={{ ...scrollAreaStyle }}
         >
           <table className="rui-table__table">
@@ -301,7 +301,6 @@ export function Table<T extends Record<string, unknown>>({
             <div className="rui-table__track-inner">
               <div
                 className={clsx(
-                  "table-scrollbar-thumb table-scrollbar-thumb--vertical",
                   "rui-table__thumb rui-table__thumb--vertical"
                 )}
                 style={{ height: `${vThumb.size}px`, top: `${vThumb.offset}px` }}
@@ -324,7 +323,6 @@ export function Table<T extends Record<string, unknown>>({
             <div className="rui-table__track-inner">
               <div
                 className={clsx(
-                  "table-scrollbar-thumb table-scrollbar-thumb--horizontal",
                   "rui-table__thumb rui-table__thumb--horizontal"
                 )}
                 style={{ width: `${hThumb.size}px`, left: `${hThumb.offset}px` }}

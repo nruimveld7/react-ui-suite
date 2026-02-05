@@ -15,8 +15,8 @@
   .checkbox-demo-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-}
 
+}
 .checkbox-demo-list > :not([hidden]) ~ :not([hidden]) {
   margin-top: 0.25rem;
 }
@@ -32,6 +32,6 @@
 }
 
 [data-theme="dark"] .checkbox-demo-note,
-:is(.dark *) .checkbox-demo-note {
+:is([data-theme="dark"] *) .checkbox-demo-note {
   color: rgb(148 163 184 / 1);
 }

@@ -39,8 +39,8 @@
   .rui-date-picker-demo__fields {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-}
 
+}
 .rui-date-picker-demo__summary {
   margin-top: 0.75rem;
   border-radius: 1rem;

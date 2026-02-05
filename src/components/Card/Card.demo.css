@@ -15,8 +15,8 @@
   .card-demo-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-}
 
+}
 .card-demo-plan-card {
   padding-top: 1.25rem;
 }
@@ -82,8 +82,8 @@
   .card-demo-secondary-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-}
 
+}
 .card-demo-stat-positive {
   color: #10b981;
   font-weight: 600;

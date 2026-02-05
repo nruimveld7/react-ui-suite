@@ -9,7 +9,6 @@
   color: rgb(71 85 105 / 1);
 }
 
-.rui-select-demo__copy:is(.dark *),
 .rui-select-demo__copy:is([data-theme="dark"] *) {
   color: rgb(148 163 184 / 1);
 }
@@ -23,8 +22,8 @@
   .rui-select-demo__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-}
 
+}
 .rui-select-demo__header {
   display: flex;
   align-items: center;
@@ -46,7 +45,6 @@
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
 
-.rui-select-demo__accent-badge:is(.dark *),
 .rui-select-demo__accent-badge:is([data-theme="dark"] *) {
   background-color: rgb(15 23 42 / 0.9);
   color: rgb(255 255 255 / 1);

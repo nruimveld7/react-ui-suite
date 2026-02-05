@@ -149,7 +149,7 @@ export const DatalistInput = React.forwardRef<HTMLInputElement, DatalistInputPro
                   ref={(node) => setListRef(node, scrollRef)}
                   id={listboxId}
                   role="listbox"
-                  className="combobox-scrollbar rui-datalist-input__list"
+                  className="rui-datalist-input__list"
                 >
                   {filtered.map((opt, index) => (
                     <li

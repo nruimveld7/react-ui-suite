@@ -2,7 +2,7 @@
   color-scheme: light;
 }
 
-.dark {
+[data-theme="dark"] {
   color-scheme: dark;
 }
 
@@ -19,49 +19,7 @@ body {
     sans-serif;
 }
 
-.dark body {
+[data-theme="dark"] body {
   background: #18181b;
   color: #f4f4f5;
-}
-
-/* Combobox dropdown scrollbar styling */
-.combobox-scrollbar {
-  scrollbar-width: none; /* Firefox */
-}
-
-.combobox-scrollbar::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-}
-
-.table-scrollbar {
-  scrollbar-width: none; /* hide native */
-}
-
-.table-scrollbar::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-}
-
-.textarea-scrollbar {
-  scrollbar-width: none;
-}
-
-.textarea-scrollbar::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-}
-
-/* Utility: clamp text to three lines with ellipsis */
-.text-clamp-3 {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.text-truncate {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }

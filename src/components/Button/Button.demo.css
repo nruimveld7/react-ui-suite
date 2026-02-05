@@ -40,8 +40,8 @@
   .button-demo-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-}
 
+}
 .button-demo-card__note {
   margin: 0;
   font-size: 0.75rem;

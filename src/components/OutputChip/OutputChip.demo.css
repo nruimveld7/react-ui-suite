@@ -12,7 +12,7 @@
 }
 
 [data-theme="dark"] .output-chip-demo-card,
-:is(.dark *) .output-chip-demo-card {
+:is([data-theme="dark"] *) .output-chip-demo-card {
   border-color: rgb(63 63 70 / 0.6);
   background-color: rgba(24, 24, 27, 0.75);
 }
@@ -32,7 +32,7 @@
 }
 
 [data-theme="dark"] .output-chip-demo-metric-note,
-:is(.dark *) .output-chip-demo-metric-note {
+:is([data-theme="dark"] *) .output-chip-demo-metric-note {
   color: rgb(148 163 184 / 1);
 }
 
@@ -48,7 +48,7 @@
 }
 
 [data-theme="dark"] .output-chip-demo-tone-grid,
-:is(.dark *) .output-chip-demo-tone-grid {
+:is([data-theme="dark"] *) .output-chip-demo-tone-grid {
   color: rgb(100 116 139 / 1);
 }
 

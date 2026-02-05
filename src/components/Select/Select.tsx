@@ -255,7 +255,7 @@ export function Select({
                   ref={scrollRef}
                   id={listboxId}
                   role="listbox"
-                  className="combobox-scrollbar rui-select__list"
+                  className="rui-select__list"
                 >
                   {options.map((opt, index) => {
                     const isSelected = selected === opt.value;

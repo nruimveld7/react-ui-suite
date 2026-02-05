@@ -50,7 +50,7 @@ describe("Table", () => {
       />
     );
 
-    const scrollArea = container.querySelector(".table-scrollbar") as HTMLDivElement;
+    const scrollArea = container.querySelector(".rui-table__scroll") as HTMLDivElement;
     Object.defineProperty(scrollArea, "scrollHeight", { configurable: true, value: 600 });
     Object.defineProperty(scrollArea, "clientHeight", { configurable: true, value: 200 });
     Object.defineProperty(scrollArea, "scrollWidth", { configurable: true, value: 400 });
@@ -70,8 +70,8 @@ describe("Table", () => {
     });
 
     await waitFor(() => {
-      expect(container.querySelector(".table-scrollbar-thumb--vertical")).toBeTruthy();
-      expect(container.querySelector(".table-scrollbar-thumb--horizontal")).toBeTruthy();
+      expect(container.querySelector(".rui-table__thumb--vertical")).toBeTruthy();
+      expect(container.querySelector(".rui-table__thumb--horizontal")).toBeTruthy();
     });
   });
 });

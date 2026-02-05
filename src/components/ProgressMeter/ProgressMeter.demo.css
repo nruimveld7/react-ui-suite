@@ -12,12 +12,12 @@
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
 
-.progress-meter-demo__card--uploads:is(.dark *) {
+.progress-meter-demo__card--uploads:is([data-theme="dark"] *) {
   border-color: rgb(30 41 59 / 1);
   background-color: rgba(24, 24, 27, 0.75);
 }
 
-.progress-meter-demo__card--system:is(.dark *) {
+.progress-meter-demo__card--system:is([data-theme="dark"] *) {
   border-color: rgb(30 41 59 / 1);
   background-color: rgba(24, 24, 27, 0.75);
 }
@@ -34,7 +34,7 @@
   color: rgb(71 85 105 / 1);
 }
 
-.progress-meter-demo__title:is(.dark *) {
+.progress-meter-demo__title:is([data-theme="dark"] *) {
   color: rgb(148 163 184 / 1);
 }
 
@@ -50,7 +50,7 @@
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
 
-.progress-meter-demo__status:is(.dark *) {
+.progress-meter-demo__status:is([data-theme="dark"] *) {
   background-color: rgb(255 255 255 / 1);
   color: rgb(15 23 42 / 1);
 }
@@ -69,7 +69,7 @@
   color: rgb(71 85 105 / 1);
 }
 
-.progress-meter-demo__stats:is(.dark *) {
+.progress-meter-demo__stats:is([data-theme="dark"] *) {
   color: rgb(148 163 184 / 1);
 }
 
@@ -87,8 +87,8 @@
   .progress-meter-demo__system-health {
     grid-template-columns: 1.1fr 0.9fr;
   }
-}
 
+}
 .progress-meter-demo__system-health > .rui-demo-example__title {
   grid-column: 1 / -1;
 }
@@ -107,7 +107,7 @@
   color: rgb(71 85 105 / 1);
 }
 
-.progress-meter-demo__health-intro:is(.dark *) {
+.progress-meter-demo__health-intro:is([data-theme="dark"] *) {
   color: rgb(148 163 184 / 1);
 }
 
@@ -126,7 +126,7 @@
   color: rgb(100 116 139 / 1);
 }
 
-.progress-meter-demo__thresholds:is(.dark *) {
+.progress-meter-demo__thresholds:is([data-theme="dark"] *) {
   color: rgb(148 163 184 / 1);
 }
 
@@ -140,7 +140,7 @@
   padding: 0.25rem 0.5rem;
 }
 
-.progress-meter-demo__threshold:is(.dark *) {
+.progress-meter-demo__threshold:is([data-theme="dark"] *) {
   border-color: rgb(51 65 85 / 1);
 }
 
@@ -167,7 +167,7 @@
   color: rgb(71 85 105 / 1);
 }
 
-.progress-meter-demo__anomaly:is(.dark *) {
+.progress-meter-demo__anomaly:is([data-theme="dark"] *) {
   border-color: rgb(30 41 59 / 1);
   background-color: #27272a;
   color: rgb(203 213 225 / 1);
@@ -185,6 +185,6 @@
   color: rgb(30 41 59 / 1);
 }
 
-.progress-meter-demo__anomaly-title:is(.dark *) {
+.progress-meter-demo__anomaly-title:is([data-theme="dark"] *) {
   color: rgb(241 245 249 / 1);
 }

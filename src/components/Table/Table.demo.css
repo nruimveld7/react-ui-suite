@@ -12,8 +12,8 @@
   .rui-table-demo__grid--two {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-}
 
+}
 .rui-table-demo__card {
   border-radius: 1.5rem;
   border: 1px solid rgb(226 232 240 / 1);
@@ -23,7 +23,6 @@
   overflow: hidden;
 }
 
-.rui-table-demo__card:is(.dark *),
 .rui-table-demo__card:is([data-theme="dark"] *) {
   border-color: rgb(30 41 59 / 1);
   background-color: rgba(24, 24, 27, 0.75);
@@ -48,7 +47,6 @@
   color: rgb(71 85 105 / 1);
 }
 
-.rui-table-demo__copy:is(.dark *),
 .rui-table-demo__copy:is([data-theme="dark"] *) {
   color: rgb(148 163 184 / 1);
 }
@@ -61,7 +59,6 @@
   padding: 0.25rem 0.5rem;
 }
 
-.rui-table-demo__filter-checkbox:is(.dark *),
 .rui-table-demo__filter-checkbox:is([data-theme="dark"] *) {
   border-color: rgb(63 63 70 / 1);
   background-color: rgb(24 24 27 / 0.7);
@@ -112,14 +109,12 @@
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
 
-.rui-table-demo__filter-button:is(.dark *),
 .rui-table-demo__filter-button:is([data-theme="dark"] *) {
   border-color: rgb(51 65 85 / 1);
   background-color: rgb(15 23 42 / 1);
   color: rgb(203 213 225 / 1);
 }
 
-.rui-table-demo__filter-button--active:is(.dark *),
 .rui-table-demo__filter-button--active:is([data-theme="dark"] *) {
   border-color: rgb(71 85 105 / 1);
   background-color: rgb(30 41 59 / 1);
@@ -171,7 +166,6 @@
   color: rgb(15 23 42 / 1);
 }
 
-.rui-table-demo__metric:is(.dark *),
 .rui-table-demo__metric:is([data-theme="dark"] *) {
   color: rgb(241 245 249 / 1);
 }
@@ -200,7 +194,6 @@
   color: rgb(15 23 42 / 1);
 }
 
-.rui-table-demo__billing-title:is(.dark *),
 .rui-table-demo__billing-title:is([data-theme="dark"] *) {
   color: rgb(241 245 249 / 1);
 }
@@ -211,7 +204,6 @@
   color: rgb(100 116 139 / 1);
 }
 
-.rui-table-demo__billing-amount:is(.dark *),
 .rui-table-demo__billing-amount:is([data-theme="dark"] *) {
   color: rgb(148 163 184 / 1);
 }
