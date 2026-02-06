@@ -1,4 +1,5 @@
 node_modules/
+test-results/
 demo/node_modules/
 dist/
 src/dist/
