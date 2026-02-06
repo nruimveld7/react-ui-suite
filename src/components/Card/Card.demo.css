@@ -1,0 +1,91 @@
+@import "../../styles/tokens.css";
+
+.card-demo-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rui-space-4);
+}
+
+.card-demo-grid {
+  display: grid;
+  gap: var(--rui-space-4);
+}
+
+@media (min-width: 768px) {
+  .card-demo-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+}
+.card-demo-plan-card {
+  padding-top: 1.25rem;
+}
+
+.card-demo-plan-title {
+  display: flex;
+  align-items: center;
+  gap: var(--rui-space-2);
+}
+
+.card-demo-plan-badge {
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+}
+
+.card-demo-plan-price {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--rui-color-text-strong);
+}
+
+.card-demo-plan-description {
+  margin: 0.5rem 0 0;
+  font-size: 0.9rem;
+  color: var(--rui-color-text-muted);
+  line-height: 1.5;
+}
+
+.card-demo-inline-chip {
+  border-radius: 999px;
+  background-color: #0f172a;
+  color: #ffffff;
+  padding: 0.2rem 0.85rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+[data-theme="dark"] .card-demo-inline-chip {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #0f172a;
+}
+
+.card-demo-choose-button {
+  background-color: #ffffff;
+  color: #0f172a;
+  border-color: #e2e8f0;
+}
+
+[data-theme="dark"] .card-demo-choose-button {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.card-demo-secondary-grid {
+  display: grid;
+  gap: var(--rui-space-4);
+}
+
+@media (min-width: 768px) {
+  .card-demo-secondary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+}
+.card-demo-stat-positive {
+  color: #10b981;
+  font-weight: 600;
+}
+

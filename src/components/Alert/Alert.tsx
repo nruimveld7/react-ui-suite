@@ -27,14 +27,14 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert
       {...rest}
       ref={ref}
       role="alert"
-      className={clsx("rui-alert", `rui-alert--${variant}`, className)}
+      className={clsx("rui-alert", "rui-root", "rui-surface", `rui-alert--${variant}`, className)}
     >
       <span className="rui-alert__icon" aria-hidden="true">
         {variantIcons[variant]}
       </span>
       <div className="rui-alert__content">
-        <p className="rui-alert__title">{title}</p>
-        {description ? <p className="rui-alert__description">{description}</p> : null}
+        <p className="rui-alert__title rui-text-wrap">{title}</p>
+        {description ? <p className="rui-alert__description rui-text-wrap">{description}</p> : null}
       </div>
       {onDismiss ? (
         <button
@@ -43,10 +43,11 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert
           className="rui-alert__dismiss"
           aria-label="Dismiss alert"
         >
-          x
+          ×
         </button>
       ) : null}
       <span className="rui-alert__accent" aria-hidden="true" />
     </div>
   );
 });
+

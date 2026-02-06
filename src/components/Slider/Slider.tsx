@@ -1,6 +1,7 @@
 import * as React from "react";
-import { twMerge } from "tailwind-merge";
 import { assignRef } from "../../utils/ref";
+import clsx from "clsx";
+import "./Slider.css";
 
 type SliderRenderProps = {
   value: number;
@@ -169,7 +170,7 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(function S
   const trackOffset = trackMetrics.mainOffset;
   const trackCrossOffset = trackMetrics.crossOffset;
   const trackThickness = trackMetrics.thickness;
-  const overlap = Math.max(edgeOverlap, 0);
+  const overlap = Math.max(renderThumb ? 0 : edgeOverlap, 0);
   const minCenter = Math.max(thumbRadius - overlap, 0);
   const maxCenter = Math.max(trackLength - thumbRadius + overlap, minCenter);
   const usableLength = Math.max(maxCenter - minCenter, 0);
@@ -290,10 +291,16 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(function S
     [isControlled, max, min, onChange, step]
   );
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const next = Number(event.target.value);
+  const applyInputValue = (value: string) => {
+    const next = Number(value);
     if (Number.isNaN(next)) return;
     commitValue(next);
+  };
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    applyInputValue(event.currentTarget.value);
+  };
+  const handleInputEvent = (event: React.FormEvent<HTMLInputElement>) => {
+    applyInputValue(event.currentTarget.value);
   };
 
   const formattedValue = formatValue(resolvedValue);
@@ -360,21 +367,20 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(function S
   const defaultTrack = (
     <div
       ref={trackRef}
-      className={twMerge(
-        "relative overflow-hidden rounded-full shadow-inner ring-1 ring-slate-200/80 dark:ring-white/10",
-        "bg-[length:100%_100%]",
-        isVertical ? "mx-auto h-full w-3" : "h-3 w-full",
-        disabled && "opacity-60",
+      className={clsx(
+        "rui-slider__track",
+        isVertical && "rui-slider__track--vertical",
+        disabled && "rui-slider__track--disabled",
         trackClassName
       )}
       style={{ backgroundImage: trackGradient }}
       aria-hidden="true"
     >
       <div
-        className={twMerge(
-          "absolute rounded-full shadow-[0_0_0_1px_rgba(59,130,246,0.18)]",
-          dragging ? "transition-none" : "transition-[width,height] duration-150 ease-out",
-          isVertical ? "left-0 right-0" : "inset-y-0"
+        className={clsx(
+          "rui-slider__track-fill",
+          dragging && "rui-slider__track-fill--dragging",
+          isVertical ? "rui-slider__track-fill--vertical" : "rui-slider__track-fill--horizontal"
         )}
         style={{
           ...progressStyle,
@@ -383,39 +389,45 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(function S
           backgroundPosition: gradientPosition,
         }}
       />
-      <div className="pointer-events-none absolute inset-0 rounded-full ring-1 ring-black/5 dark:ring-white/10" />
+      <div className="rui-slider__track-overlay" />
     </div>
   );
 
   const defaultThumb = (
     <span
-      className={twMerge(
-        "absolute top-1/2 -translate-y-1/2 -translate-x-1/2 rounded-full border border-white bg-white shadow-md shadow-slate-900/20 ring-1 ring-slate-200 transition-transform duration-150 dark:border-zinc-700/60 dark:bg-zinc-800 dark:shadow-black/30 dark:ring-zinc-700",
-        focused && "scale-[1.04] ring-slate-300 dark:ring-slate-500",
-        disabled && "opacity-60 shadow-none dark:shadow-none",
+      className={clsx(
+        "rui-slider__thumb",
+        focused && "rui-slider__thumb--focused",
+        disabled && "rui-slider__thumb--disabled",
         thumbClassName
       )}
       style={{ ...thumbStyle, width: thumbDiameter, height: thumbDiameter }}
       aria-hidden="true"
     >
-      <span className="relative block h-full w-full">
-        <span className="absolute inset-[5px] rounded-full bg-gradient-to-br from-slate-50 to-slate-200 dark:from-slate-600 dark:to-slate-700" />
-        <span className="absolute inset-0 rounded-full bg-slate-950/5 backdrop-blur-[1px] dark:bg-white/5" />
+      <span className="rui-slider__thumb-core">
+        <span className="rui-slider__thumb-gradient" />
+        <span className="rui-slider__thumb-overlay" />
       </span>
     </span>
   );
 
   return (
-    <div className={twMerge("w-full space-y-2", isVertical && "max-w-[120px]", className)}>
+    <div
+      className={clsx(
+        "rui-root rui-slider",
+        isVertical && "rui-slider--vertical",
+        className
+      )}
+    >
       {label ? (
-        <div className="flex items-center justify-between gap-3">
+        <div className="rui-slider__header">
           <label
             htmlFor={inputId}
-            className="text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-500 dark:text-zinc-400"
+            className="rui-slider__label rui-text-wrap"
           >
             {label}
           </label>
-          <span className="rounded-full bg-white/90 px-2 py-0.5 text-xs font-semibold text-slate-700 shadow-sm ring-1 ring-slate-200 dark:bg-zinc-900/80 dark:text-zinc-200 dark:ring-zinc-700">
+          <span className="rui-slider__value">
             {formattedValue}
           </span>
         </div>
@@ -423,9 +435,9 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(function S
 
       <div
         ref={trackContainerRef}
-        className={twMerge(
-          "relative w-full pt-2 pb-3",
-          isVertical && "flex h-48 items-center justify-center px-4 pb-4 pt-4"
+        className={clsx(
+          "rui-slider__track-container",
+          isVertical && "rui-slider__track-container--vertical"
         )}
         data-orientation={orientation}
       >
@@ -442,25 +454,27 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(function S
           step={step}
           value={resolvedValue}
           onChange={handleInputChange}
-          onInput={handleInputChange}
+          onInput={handleInputEvent}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           disabled={disabled}
           aria-valuetext={formattedValue}
           aria-orientation={orientation}
           data-orientation={orientation}
-          className="absolute inset-0 h-10 w-full appearance-none opacity-0 pointer-events-none"
+          className="rui-slider__input"
         />
         <div
           ref={interactionRef}
           aria-hidden="true"
           onPointerDown={handlePointerDown}
-          className={twMerge(
-            "absolute inset-0 cursor-pointer bg-transparent",
-            isVertical ? "left-1/2 w-8 -translate-x-1/2" : "top-1/2 h-8 -translate-y-1/2"
+          className={clsx(
+            "rui-slider__interaction",
+            isVertical ? "rui-slider__interaction--vertical" : "rui-slider__interaction--horizontal"
           )}
         />
       </div>
     </div>
   );
 });
+
+

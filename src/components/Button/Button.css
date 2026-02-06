@@ -12,6 +12,7 @@
   line-height: 1.25rem;
   box-shadow: var(--rui-shadow-button);
   background-color: transparent;
+  cursor: pointer;
   transition:
     border-color 150ms ease,
     background-color 150ms ease,
@@ -21,11 +22,13 @@
 
 .rui-button:not(:disabled):hover {
   border-color: var(--rui-color-border-strong);
+  box-shadow: var(--rui-shadow-button), 0 0 0 1px var(--rui-color-border-strong);
 }
 
 .rui-button:focus-visible {
-  outline: 2px solid var(--rui-color-focus-ring);
-  outline-offset: 2px;
+  outline: none;
+  border-color: var(--rui-color-focus-ring);
+  box-shadow: var(--rui-shadow-button), 0 0 0 2px var(--rui-color-focus-ring);
 }
 
 .rui-button:disabled {

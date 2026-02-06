@@ -1,5 +1,7 @@
 import * as React from "react";
-import { twMerge } from "tailwind-merge";
+import { createPortal } from "react-dom";
+import clsx from "clsx";
+import "./Popover.css";
 
 type ThumbState = {
   visible: boolean;
@@ -7,8 +9,24 @@ type ThumbState = {
   offset: number;
 };
 
+type PopoverPosition = {
+  top: number;
+  left: number;
+  width: number;
+};
+
 const MIN_THUMB_SIZE = 28;
 const TRACK_PADDING = 6;
+
+function getAnchorPosition(anchor: HTMLElement | null): PopoverPosition | null {
+  if (!anchor) return null;
+  const rect = anchor.getBoundingClientRect();
+  return {
+    top: rect.bottom - 1,
+    left: rect.left,
+    width: rect.width,
+  };
+}
 
 function Scrollbar({ scrollRef }: { scrollRef: React.MutableRefObject<HTMLElement | null> }) {
   const [{ visible, size, offset }, setThumbState] = React.useState<ThumbState>({
@@ -138,14 +156,14 @@ function Scrollbar({ scrollRef }: { scrollRef: React.MutableRefObject<HTMLElemen
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute inset-y-[6px] right-[2px] flex w-3 justify-center"
+      className="rui-popover__scrollbar"
     >
       <div
-        className="pointer-events-auto relative h-full w-1 rounded-full bg-slate-900/5 shadow-inner dark:bg-white/10"
+        className="rui-popover__scrollbar-track"
         onPointerDown={handleTrackPointerDown}
       >
         <div
-          className="pointer-events-auto absolute left-1/2 w-1.5 -translate-x-1/2 rounded-full bg-slate-400/80 shadow-sm transition-colors dark:bg-zinc-200/70"
+          className="rui-popover__scrollbar-thumb"
           style={{ height: `${size}px`, top: `${offset}px` }}
           onPointerDown={handleThumbPointerDown}
         />
@@ -156,25 +174,70 @@ function Scrollbar({ scrollRef }: { scrollRef: React.MutableRefObject<HTMLElemen
 
 export type PopoverProps = {
   className?: string;
+  anchorRef?: React.RefObject<HTMLElement | null>;
+  rootRef?: React.RefObject<HTMLDivElement | null>;
   children: (props: {
     scrollRef: React.MutableRefObject<HTMLUListElement | null>;
   }) => React.ReactNode;
 };
 
-export function Popover({ className, children }: PopoverProps) {
+export function Popover({ className, anchorRef, rootRef, children }: PopoverProps) {
   const scrollRef: React.MutableRefObject<HTMLUListElement | null> = React.useRef(null);
+  const [position, setPosition] = React.useState<PopoverPosition | null>(() =>
+    getAnchorPosition(anchorRef?.current ?? null)
+  );
+  const shouldPortal = Boolean(anchorRef) && typeof document !== "undefined";
 
-  return (
+  React.useLayoutEffect(() => {
+    if (!anchorRef?.current) return;
+    let raf = 0;
+
+    const update = () => {
+      cancelAnimationFrame(raf);
+      raf = window.requestAnimationFrame(() => {
+        setPosition(getAnchorPosition(anchorRef.current));
+      });
+    };
+
+    update();
+
+    const onScroll = () => update();
+    window.addEventListener("resize", update);
+    window.addEventListener("scroll", onScroll, true);
+    const observer = typeof ResizeObserver !== "undefined" ? new ResizeObserver(update) : null;
+    observer?.observe(anchorRef.current);
+
+    return () => {
+      window.removeEventListener("resize", update);
+      window.removeEventListener("scroll", onScroll, true);
+      observer?.disconnect();
+      cancelAnimationFrame(raf);
+    };
+  }, [anchorRef]);
+
+  const popoverStyle = shouldPortal
+    ? position
+      ? { top: position.top, left: position.left, width: position.width }
+      : { visibility: "hidden" as const }
+    : undefined;
+
+  const popover = (
     <div
-      className={twMerge(
-        "absolute left-0 right-0 top-full z-[999] -mt-px rounded-b-2xl rounded-t-none border border-slate-300 bg-white/95 py-1 shadow-xl shadow-slate-200/60 backdrop-blur dark:border-zinc-600 dark:bg-zinc-900/95 dark:shadow-zinc-900/40",
+      ref={rootRef}
+      className={clsx(
+        "rui-popover",
+        "rui-overlay-root",
+        shouldPortal && "rui-popover--portal",
         className
       )}
+      style={popoverStyle}
     >
-      <div className="relative">
+      <div className="rui-popover__inner">
         {children({ scrollRef })}
         <Scrollbar scrollRef={scrollRef} />
       </div>
     </div>
   );
+
+  return shouldPortal ? createPortal(popover, document.body) : popover;
 }

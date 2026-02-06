@@ -1,0 +1,26 @@
+@import "../../../src/styles/tokens.css";
+
+.rui-demo-example__title {
+  margin: 0px 0px 10px 5px;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--rui-color-text-muted);
+}
+
+.rui-demo-example__title + * {
+  margin: 0px;
+}
+
+.rui-demo-example--plain {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.rui-demo-example {
+  position: relative;
+}

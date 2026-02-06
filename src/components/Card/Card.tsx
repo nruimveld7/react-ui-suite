@@ -1,6 +1,6 @@
 import * as React from "react";
-import { twMerge } from "tailwind-merge";
-
+import clsx from "clsx";
+import "./Card.css";
 export type CardProps = Omit<React.HTMLAttributes<HTMLDivElement>, "title"> & {
   eyebrow?: string;
   title?: React.ReactNode;
@@ -13,50 +13,39 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(function Card(
   { eyebrow, title, actions, children, footer, muted, className, ...rest },
   ref
 ) {
-  const hasHeader = eyebrow || actions;
+  const hasHeader = Boolean(eyebrow || actions);
 
   return (
     <div
       {...rest}
       ref={ref}
-      className={twMerge(
-        "flex h-full flex-col rounded-3xl border border-slate-200 bg-white p-5 shadow-lg shadow-slate-200/40 dark:border-zinc-700/60 dark:bg-zinc-900/70 dark:shadow-none",
-        muted && "bg-slate-50/70 dark:bg-zinc-900/40",
-        className
-      )}
+      className={clsx("rui-card", "rui-root", "rui-surface", muted && "rui-card--muted", className)}
     >
       {hasHeader && (
-        <div className="flex items-center justify-between gap-4">
+        <div className="rui-card__header">
           {eyebrow ? (
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400 dark:text-zinc-400">
-              {eyebrow}
-            </p>
+            <p className="rui-card__eyebrow rui-text-wrap">{eyebrow}</p>
           ) : (
-            <span />
+            <p className="rui-card__eyebrow rui-text-wrap rui-card__eyebrow--placeholder">Eyebrow</p>
           )}
-          {actions ? (
-            <div className="text-sm text-slate-500 dark:text-zinc-400">{actions}</div>
-          ) : null}
+          {actions ? <div className="rui-card__actions">{actions}</div> : null}
         </div>
       )}
       {title ? (
         <h3
-          className={twMerge(
-            "text-lg font-semibold text-slate-900 dark:text-zinc-100",
-            hasHeader ? "mt-3" : "mt-0"
+          className={clsx(
+            "rui-card__title rui-text-wrap",
+            hasHeader && "rui-card__title--offset"
           )}
         >
           {title}
         </h3>
       ) : null}
-      {children ? (
-        <div className="mt-3 flex-1 text-sm text-slate-600 dark:text-zinc-300">{children}</div>
-      ) : null}
+      {children ? <div className="rui-card__body rui-text-wrap">{children}</div> : null}
       {footer ? (
-        <div className="mt-4 border-t border-slate-100 pt-3 text-xs text-slate-500 dark:border-zinc-800 dark:text-zinc-400">
-          {footer}
-        </div>
+        <div className="rui-card__footer rui-text-wrap">{footer}</div>
       ) : null}
     </div>
   );
 });
+

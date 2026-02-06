@@ -1,11 +1,12 @@
 import * as React from "react";
-import { twMerge } from "tailwind-merge";
 import { Dropdown } from "../Dropdown/Dropdown";
 import { Popover } from "../Popover/Popover";
 import { useControlledState, useOutsideClick } from "./hooks";
 import { Listbox } from "./Listbox";
 import type { ComboboxOption, ComboboxProps } from "./types";
 import { assignRef } from "../../utils/ref";
+import clsx from "clsx";
+import "./Combobox.css";
 
 // Generic-preserving forwardRef wrapper
 function InnerCombobox<T>(
@@ -30,9 +31,13 @@ function InnerCombobox<T>(
   const inputRef: React.MutableRefObject<HTMLInputElement | null> = React.useRef(null);
   const containerRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
   const chevronRef: React.MutableRefObject<HTMLButtonElement | null> = React.useRef(null);
+  const popoverRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
   const outsideClickRefs = React.useMemo(
-    () => [containerRef as unknown as React.RefObject<HTMLElement | null>],
-    [containerRef]
+    () => [
+      containerRef as unknown as React.RefObject<HTMLElement | null>,
+      popoverRef as unknown as React.RefObject<HTMLElement | null>,
+    ],
+    [containerRef, popoverRef]
   );
   const mergedInputRef = (node: HTMLInputElement | null) => {
     inputRef.current = node;
@@ -44,7 +49,7 @@ function InnerCombobox<T>(
   const [query, setQuery] = React.useState("");
   const [activeIndex, setActiveIndex] = React.useState<number>(-1);
   const suppressNextOpenRef = React.useRef(false);
-  const suppressToggleRef = React.useRef(false);
+  const closeAfterSelectRef = React.useRef(false);
   const prevOpenRef = React.useRef(open);
 
   const [selected, setSelected] = useControlledState<ComboboxOption<T> | null>(
@@ -164,16 +169,27 @@ function InnerCombobox<T>(
     }
   }, [open]);
 
+  React.useEffect(() => {
+    if (!closeAfterSelectRef.current) return;
+    if (open) {
+      setOpen(false);
+      return;
+    }
+    closeAfterSelectRef.current = false;
+  }, [open]);
+
   // Accept HTMLElement | null refs (matches hook signature)
   useOutsideClick(outsideClickRefs, closeOnOutsideClick);
 
   function commitSelection(opt: ComboboxOption<T> | null, opts: { refocus?: boolean } = {}) {
     const { refocus = true } = opts;
+    closeAfterSelectRef.current = true;
     setSelected(opt);
     onChange?.(opt);
     if (opt) setQuery("");
     setOpen(false);
     if (refocus) {
+      suppressNextOpenRef.current = true;
       requestAnimationFrame(() => inputRef.current?.focus());
     }
   }
@@ -258,7 +274,7 @@ function InnerCombobox<T>(
   const selectedLabel = selected?.label ?? "";
   const selectedId = selected?.id ?? null;
 
-  const highlightBorder = "border-slate-400 dark:border-slate-500";
+  const highlightBorder = "rui-combobox__highlightBorder";
 
   const listboxHighlight = isEffectivelyOpen ? highlightBorder : "";
 
@@ -291,11 +307,9 @@ function InnerCombobox<T>(
       onKeyDownCapture={onKeyDown}
       onShellMouseDown={(e) => {
         if (disabled) return;
-        if (chevronRef.current?.contains(e.target as Node)) return;
         if (!isEffectivelyOpen) {
           e.preventDefault();
           openList();
-          suppressToggleRef.current = true;
         }
       }}
       onInputMouseDown={(e) => {
@@ -325,17 +339,19 @@ function InnerCombobox<T>(
       }}
       onChevronClick={() => {
         if (disabled) return;
-        if (suppressToggleRef.current) {
-          suppressToggleRef.current = false;
-          setOpen((o) => !o);
+        if (!isEffectivelyOpen) {
+          openList();
           return;
         }
-        suppressNextOpenRef.current = false;
-        setOpen((o) => !o);
+        requestAnimationFrame(() => inputRef.current?.focus());
       }}
     >
       {isEffectivelyOpen && (
-        <Popover className={twMerge(listboxHighlight, listClassName)}>
+        <Popover
+          anchorRef={containerRef}
+          rootRef={popoverRef}
+          className={clsx(listboxHighlight, listClassName)}
+        >
           {({ scrollRef }) => (
             <Listbox
               id={listboxId}
@@ -358,3 +374,7 @@ function InnerCombobox<T>(
 export const Combobox = React.forwardRef(InnerCombobox) as <T>(
   props: ComboboxProps<T> & React.RefAttributes<HTMLInputElement>
 ) => React.ReactElement | null;
+
+
+
+

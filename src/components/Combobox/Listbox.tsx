@@ -1,7 +1,8 @@
 import * as React from "react";
-import { twMerge } from "tailwind-merge";
 import { Check } from "./icons";
 import type { ComboboxOption, ComboboxRenderState } from "./types";
+import clsx from "clsx";
+import "./Combobox.css";
 
 export type ListboxProps<T> = {
   id: string; // listbox id for aria-controls
@@ -10,7 +11,7 @@ export type ListboxProps<T> = {
   selectedId?: string | null; // current selection id (if any)
   onHoverIndex: (i: number) => void; // set active on hover
   onSelectIndex: (i: number) => void; // commit selection on click
-  listRef: React.RefObject<HTMLUListElement>; // scroll container
+  listRef: React.RefObject<HTMLUListElement | null>; // scroll container
   emptyState?: React.ReactNode;
   renderOption?: (opt: ComboboxOption<T>, state: ComboboxRenderState) => React.ReactNode;
 };
@@ -38,11 +39,11 @@ export function Listbox<T>({
       ref={listRef}
       id={id}
       role="listbox"
-      className={twMerge("combobox-scrollbar max-h-64 overflow-auto px-1 pr-4")}
+      className={clsx("rui-combobox__listbox")}
     >
       {options.length === 0 && (
-        <li aria-disabled className="select-none">
-          <div className="px-3 py-2 text-sm text-slate-500 dark:text-zinc-500">
+        <li aria-disabled className="rui-combobox__empty">
+          <div className="rui-combobox__empty-content">
             {emptyState ?? "No results"}
           </div>
         </li>
@@ -60,28 +61,31 @@ export function Listbox<T>({
             aria-selected={selected}
             aria-disabled={opt.disabled}
             data-index={i}
-            className="list-none"
+            className="rui-combobox__option"
             onMouseEnter={() => !opt.disabled && onHoverIndex(i)}
-            onMouseDown={(e) => e.preventDefault()} // keep focus on input
-            onClick={() => !opt.disabled && onSelectIndex(i)}
+            onPointerDown={(e) => {
+              if (opt.disabled) return;
+              e.preventDefault();
+              e.stopPropagation();
+              onSelectIndex(i);
+            }} // keep focus on input
           >
             {renderOption ? (
               renderOption(opt, optionState)
             ) : (
               <div
-                className={twMerge(
-                  "flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2 text-sm",
-                  active
-                    ? "bg-slate-100 text-slate-900 dark:bg-zinc-800/70 dark:text-zinc-100"
-                    : "text-slate-700 hover:bg-slate-100 dark:text-zinc-200 dark:hover:bg-zinc-800/70",
-                  opt.disabled && "cursor-not-allowed opacity-50"
+                className={clsx(
+                  "rui-combobox__option-row",
+                  active && "rui-combobox__option-row--active",
+                  selected && "rui-combobox__option-row--selected",
+                  opt.disabled && "rui-combobox__option-row--disabled"
                 )}
               >
-                <span className="truncate">{opt.label}</span>
+                <span className="rui-combobox__option-label">{opt.label}</span>
                 {selected ? (
-                  <Check className="ml-auto h-3 w-3 text-slate-600 dark:text-zinc-300" />
+                  <Check className="rui-combobox__option-icon" />
                 ) : (
-                  <span className="ml-auto inline-flex h-3 w-3" />
+                  <span className="rui-combobox__option-icon-placeholder" />
                 )}
               </div>
             )}
@@ -91,3 +95,5 @@ export function Listbox<T>({
     </ul>
   );
 }
+
+

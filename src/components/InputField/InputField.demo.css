@@ -1,0 +1,60 @@
+.input-field-demo-form > :not([hidden]) ~ :not([hidden]) {
+  margin-top: 1rem;
+  margin-bottom: 0px;
+}
+
+.input-field-demo-stack > :not([hidden]) ~ :not([hidden]) {
+  margin-top: 1rem;
+  margin-bottom: 0px;
+}
+
+.input-field-demo-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-top: 0.5rem;
+}
+
+.input-field-demo-status {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: rgb(16 185 129 / 1);
+}
+
+.input-field-demo-card {
+  border-radius: 1.5rem;
+  border-width: 1px;
+  border-color: rgb(226 232 240 / 1);
+  background-color: rgb(255 255 255 / 1);
+  box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.input-field-demo-card:is([data-theme="dark"] *) {
+  border-color: rgb(63 63 70 / 0.6);
+  background-color: rgba(24, 24, 27, 0.75);
+}
+
+.input-field-demo-card--spacious {
+  padding: 1.25rem;
+}
+
+.input-field-demo-card--compact {
+  padding: 1rem;
+}
+
+.input-field-demo-card--stack > :not([hidden]) ~ :not([hidden]) {
+  margin-top: 0.75rem;
+  margin-bottom: 0px;
+}
+
+.input-field-demo-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .input-field-demo-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+}

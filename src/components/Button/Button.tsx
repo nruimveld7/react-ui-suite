@@ -27,6 +27,7 @@ export default function Button({
       {...rest}
       className={clsx(
         "rui-button",
+        "rui-root",
         !hasCustomBackground && "rui-button--bg-default",
         !hasCustomText && "rui-button--text-default",
         className
@@ -36,3 +37,7 @@ export default function Button({
     </button>
   );
 }
+
+
+
+

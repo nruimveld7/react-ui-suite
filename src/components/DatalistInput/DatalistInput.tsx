@@ -1,9 +1,10 @@
 import * as React from "react";
-import { twMerge } from "tailwind-merge";
 import { useOutsideClick } from "../Combobox/hooks";
 import { Dropdown } from "../Dropdown/Dropdown";
 import { Popover } from "../Popover/Popover";
 import { assignRef } from "../../utils/ref";
+import clsx from "clsx";
+import "./DatalistInput.css";
 
 export type DatalistInputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   label?: string;
@@ -55,6 +56,7 @@ export const DatalistInput = React.forwardRef<HTMLInputElement, DatalistInputPro
     };
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+      if (disabled) return;
       if (!open && (e.key === "ArrowDown" || e.key === "ArrowUp")) {
         setOpen(true);
         setActiveIndex(0);
@@ -88,6 +90,7 @@ export const DatalistInput = React.forwardRef<HTMLInputElement, DatalistInputPro
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (disabled) return;
       setQuery(e.target.value);
       setOpen(true);
       setActiveIndex(0);
@@ -103,11 +106,11 @@ export const DatalistInput = React.forwardRef<HTMLInputElement, DatalistInputPro
     };
 
     return (
-      <div className="space-y-1.5">
+      <div className="rui-datalist-input rui-root">
         {label ? (
           <label
             htmlFor={inputId}
-            className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-zinc-400"
+            className="rui-datalist-input__label rui-text-wrap"
           >
             {label}
           </label>
@@ -122,14 +125,14 @@ export const DatalistInput = React.forwardRef<HTMLInputElement, DatalistInputPro
           inputRef={mergedRef}
           showChevron={false}
           inlineContent={
-            <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-400 dark:text-zinc-500">
+            <span className="rui-datalist-input__inline-key">
               CMD
             </span>
           }
           onKeyDownCapture={handleKeyDown}
-          onShellMouseDown={() => setOpen(true)}
-          onInputFocus={() => setOpen(true)}
-          onInputMouseDown={() => setOpen(true)}
+          onShellMouseDown={() => !disabled && setOpen(true)}
+          onInputFocus={() => !disabled && setOpen(true)}
+          onInputMouseDown={() => !disabled && setOpen(true)}
           onInputChange={handleInputChange}
           ariaControls={listboxId}
           ariaActiveDescendant={activeDescendant}
@@ -142,13 +145,13 @@ export const DatalistInput = React.forwardRef<HTMLInputElement, DatalistInputPro
           }}
         >
           {open && filtered.length ? (
-            <Popover>
+            <Popover anchorRef={dropdownRef}>
               {({ scrollRef }) => (
                 <ul
                   ref={(node) => setListRef(node, scrollRef)}
                   id={listboxId}
                   role="listbox"
-                  className="combobox-scrollbar max-h-56 overflow-auto py-1 text-sm text-slate-800 dark:text-zinc-100"
+                  className="rui-datalist-input__list"
                 >
                   {filtered.map((opt, index) => (
                     <li
@@ -156,20 +159,21 @@ export const DatalistInput = React.forwardRef<HTMLInputElement, DatalistInputPro
                       id={`${listboxId}-option-${index}`}
                       role="option"
                       aria-selected={index === activeIndex}
+                      className="rui-datalist-input__option"
                     >
                       <button
                         type="button"
                         onMouseEnter={() => setActiveIndex(index)}
                         onClick={() => handleSelect(opt)}
-                        className={twMerge(
-                          "flex w-full items-center gap-3 px-3 py-2 text-left transition hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400/70 dark:hover:bg-zinc-800/60",
-                          index === activeIndex && "bg-slate-50 dark:bg-zinc-800/60"
+                        className={clsx(
+                          "rui-datalist-input__option-button",
+                          index === activeIndex && "is-active"
                         )}
                       >
-                        <span className="text-[10px] uppercase tracking-[0.2em] text-slate-400 dark:text-zinc-500">
+                        <span className="rui-datalist-input__option-key">
                           cmd
                         </span>
-                        <span className="font-semibold">{opt}</span>
+                        <span className="rui-datalist-input__option-text rui-text-truncate">{opt}</span>
                       </button>
                     </li>
                   ))}
@@ -179,7 +183,7 @@ export const DatalistInput = React.forwardRef<HTMLInputElement, DatalistInputPro
           ) : null}
         </Dropdown>
         {description ? (
-          <p id={descriptionId} className="text-xs text-slate-500 dark:text-zinc-400">
+          <p id={descriptionId} className="rui-datalist-input__description rui-text-wrap">
             {description}
           </p>
         ) : null}
@@ -187,3 +191,5 @@ export const DatalistInput = React.forwardRef<HTMLInputElement, DatalistInputPro
     );
   }
 );
+
+

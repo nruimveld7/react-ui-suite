@@ -3,9 +3,17 @@ import { Combobox, Toggle } from "react-ui-suite";
 import type { ComboboxOption } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "component-registry";
 import { useComponentRegistry } from "./lib/useComponentRegistry";
+import "./App.css";
+import { DemoPage } from "./components/DemoPage";
 
 const THEME_STORAGE_KEY = "component-gallery-theme";
 type Theme = "light" | "dark";
+
+function getInitialSlug(): string | null {
+  if (typeof window === "undefined") return null;
+  const params = new URLSearchParams(window.location.search);
+  return params.get("component");
+}
 
 function getInitialTheme(): Theme {
   if (typeof window === "undefined") return "dark";
@@ -19,7 +27,7 @@ function getInitialTheme(): Theme {
 export default function App() {
   const registry = useComponentRegistry();
   const [theme, setTheme] = useState<Theme>(() => getInitialTheme());
-  const [activeSlug, setActiveSlug] = useState<string | null>(null);
+  const [activeSlug, setActiveSlug] = useState<string | null>(() => getInitialSlug());
   const comboboxOptions = useMemo<ComboboxOption<string>[]>(
     () =>
       registry.map((entry) => ({
@@ -50,11 +58,6 @@ export default function App() {
     if (typeof document === "undefined") return;
     const root = document.documentElement;
     root.dataset.theme = theme;
-    if (theme === "dark") {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
     if (typeof window !== "undefined") {
       window.localStorage.setItem(THEME_STORAGE_KEY, theme);
     }
@@ -68,10 +71,10 @@ export default function App() {
 
   if (!registry.length) {
     return (
-      <main className="flex h-screen items-center justify-center bg-zinc-900 text-zinc-100">
-        <div className="text-center">
-          <p className="text-lg font-semibold">No component demos found.</p>
-          <p className="text-sm text-zinc-400">
+      <main className="demo-emptyState">
+        <div className="demo-emptyStateInner">
+          <p className="demo-emptyTitle">No component demos found.</p>
+          <p className="demo-emptyHint">
             Add a *.demo.tsx file (e.g. Button.demo.tsx) next to each component to register it.
           </p>
         </div>
@@ -80,16 +83,14 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-100 text-slate-900 transition-colors dark:bg-zinc-900 dark:text-zinc-100">
-      <div className="flex flex-col lg:grid lg:h-screen lg:grid-cols-[280px_minmax(0,1fr)]">
-        <aside className="border-b border-r border-slate-200 bg-white/90 p-4 text-slate-900 shadow-sm lg:border-b-0 dark:border-zinc-800 dark:bg-demo-panel/60 dark:text-zinc-100">
+    <div className="demo-app">
+      <div className="demo-shell">
+        <aside className="demo-sidebar">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-zinc-400">
-              Components
-            </p>
+            <p className="demo-sidebarTitle">Components</p>
           </div>
-          <div className="mt-6 flex items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 px-2 py-2 text-lg shadow-inner dark:border-zinc-800 dark:bg-zinc-900/70">
-            <span role="img" aria-hidden="true" className="text-slate-700 dark:text-zinc-400">
+          <div className="demo-themeToggle">
+            <span role="img" aria-hidden="true" className="demo-themeIcon">
               ☀️
             </span>
             <Toggle
@@ -97,41 +98,37 @@ export default function App() {
               checked={theme === "dark"}
               onChange={handleThemeToggle}
             />
-            <span role="img" aria-hidden="true" className="text-slate-700 dark:text-zinc-200">
+            <span role="img" aria-hidden="true" className="demo-themeIconStrong">
               🌙
             </span>
           </div>
 
-          <div className="mt-4 lg:max-h-[calc(100vh-140px)]">
+          <div className="demo-sidebarBody">
             <Combobox
               ariaLabel="Component demos"
               options={comboboxOptions}
               value={selectedComboboxOption}
               onChange={(option) => setActiveSlug(option?.value ?? null)}
               placeholder="Select a component"
-              className="w-full"
+              className="demo-combobox"
             />
             {activeEntry && (
-              <div className="mt-4 rounded-2xl border border-slate-200 bg-white/80 p-4 text-sm text-slate-600 shadow-inner shadow-slate-200/40 dark:border-zinc-800 dark:bg-zinc-900/60 dark:text-zinc-300 dark:shadow-none">
-                <p className="text-sm font-semibold text-slate-900 dark:text-zinc-100">
-                  {activeEntry.name}
-                </p>
-                <p className="mt-1 text-xs text-slate-500 line-clamp-3 dark:text-zinc-400">
+              <div className="demo-entryCard">
+                <p className="demo-entryName">{activeEntry.name}</p>
+                <p className="demo-entryDescription demo-entryDescription--clamped">
                   {activeEntry.description}
                 </p>
-                <p className="mt-3 text-[0.65rem] uppercase tracking-wide text-slate-400 dark:text-zinc-500 truncate">
-                  {activeEntry.sourcePath}
-                </p>
+                <p className="demo-entrySource rui-text-truncate">{activeEntry.sourcePath}</p>
               </div>
             )}
           </div>
         </aside>
 
-        <main className="bg-slate-50 p-6 dark:bg-zinc-950/40 lg:h-full lg:min-h-0 lg:overflow-auto">
+        <main className="demo-main">
           {activeEntry ? (
             <ComponentDetail entry={activeEntry} />
           ) : (
-            <div className="flex h-full items-center justify-center text-slate-500 dark:text-zinc-400">
+            <div className="demo-mainEmpty">
               Select a component to view its preview.
             </div>
           )}
@@ -143,34 +140,8 @@ export default function App() {
 
 function ComponentDetail({ entry }: { entry: ComponentRegistryEntry }) {
   return (
-    <div className="mx-auto max-w-5xl space-y-8 px-4 sm:px-6">
-      <div className="relative rounded-3xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/50 dark:border-zinc-800 dark:bg-demo-panel dark:shadow-zinc-900/30">
-        <div className="pr-28">
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-zinc-100">{entry.name}</h1>
-          <p className="mt-1 text-slate-600 dark:text-zinc-400">{entry.description}</p>
-        </div>
-        <div className="absolute right-6 top-6 text-sm text-slate-500 dark:text-zinc-400 whitespace-nowrap">
-          <span className="font-semibold text-slate-800 dark:text-zinc-200">Source:</span>{" "}
-          {entry.sourcePath}
-        </div>
-
-        {entry.tags?.length ? (
-          <div className="mt-4 flex flex-wrap gap-2">
-            {entry.tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full border border-slate-200 px-3 py-1 text-xs uppercase tracking-wide text-slate-500 dark:border-zinc-700 dark:text-zinc-300"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        ) : null}
-
-        <div className="mt-6 rounded-3xl border border-slate-200 bg-slate-50 p-4 dark:border-zinc-800 dark:bg-zinc-950/60">
-          <entry.Preview />
-        </div>
-      </div>
-    </div>
+    <DemoPage entry={entry}>
+      <entry.Preview />
+    </DemoPage>
   );
 }

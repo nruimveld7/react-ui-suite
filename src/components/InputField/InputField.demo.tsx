@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Button, InputField } from "react-ui-suite";
 import type { InputFieldProps } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../../../demo/component-registry";
+import "./InputField.demo.css";
+import { DemoExample } from "../../../demo/src/components/DemoExample";
 
 function ProfileFormPreview() {
   const [name, setName] = useState("Ada Lovelace");
@@ -11,7 +13,7 @@ function ProfileFormPreview() {
 
   return (
     <form
-      className="space-y-4"
+      className="input-field-demo-form"
       onSubmit={(event) => {
         event.preventDefault();
         setSaved(true);
@@ -44,9 +46,9 @@ function ProfileFormPreview() {
         placeholder="Team or department"
         description="Everyone sees this under your avatar."
       />
-      <div className="flex items-center gap-3 pt-2">
+      <div className="input-field-demo-actions">
         <Button type="submit">Save profile</Button>
-        {saved && <span className="text-xs text-emerald-500">Saved!</span>}
+        {saved && <span className="input-field-demo-status">Saved!</span>}
       </div>
     </form>
   );
@@ -91,24 +93,27 @@ function DisabledFieldExample() {
 
 function InputFieldPreview() {
   return (
-    <div className="space-y-4">
-      <div className="rounded-3xl border border-slate-200 bg-white/80 p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
+    <div className="input-field-demo-stack">
+      <DemoExample
+        title="Profile"
+        className="input-field-demo-card input-field-demo-card--spacious"
+      >
         <ProfileFormPreview />
-      </div>
-      <div className="grid gap-4 md:grid-cols-2">
-        <div className="space-y-3 rounded-3xl border border-slate-200 bg-white/80 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-            Validation
-          </p>
+      </DemoExample>
+      <div className="input-field-demo-grid">
+        <DemoExample
+          title="Validation"
+          className="input-field-demo-card input-field-demo-card--compact input-field-demo-card--stack"
+        >
           <PasswordFieldExample />
-        </div>
-        <div className="space-y-3 rounded-3xl border border-slate-200 bg-white/80 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-            Variations
-          </p>
+        </DemoExample>
+        <DemoExample
+          title="Variations"
+          className="input-field-demo-card input-field-demo-card--compact input-field-demo-card--stack"
+        >
           <TrailingLabelExample />
           <DisabledFieldExample />
-        </div>
+        </DemoExample>
       </div>
     </div>
   );

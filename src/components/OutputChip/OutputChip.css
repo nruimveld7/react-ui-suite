@@ -1,0 +1,37 @@
+.rui-output-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  padding: 0.25rem 0.75rem;
+  text-align: center;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--rui-output-chip-text, rgb(255 255 255 / 1));
+  background-color: var(--rui-output-chip-bg, rgb(15 23 42 / 1));
+  box-shadow: 0 0 0 0px #fff, 0 0 0 calc(1px + 0px) rgb(59 130 246 / 0.5), 0 0 #0000;
+}
+
+.rui-output-chip[data-tone="success"] {
+  --rui-output-chip-bg: rgb(16 185 129 / 1);
+}
+
+.rui-output-chip[data-tone="warning"] {
+  --rui-output-chip-bg: rgb(245 158 11 / 1);
+}
+
+.rui-output-chip[data-tone="danger"] {
+  --rui-output-chip-bg: rgb(244 63 94 / 1);
+}
+
+.rui-output-chip__label {
+  opacity: 0.7;
+}
+
+.rui-output-chip__value {
+  min-width: 0;
+}

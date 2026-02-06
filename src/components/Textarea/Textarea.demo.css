@@ -1,0 +1,99 @@
+@import "../../styles/tokens.css";
+
+.rui-textarea-demo {
+  display: grid;
+  gap: var(--rui-space-4);
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.rui-textarea-demo__card {
+  border-radius: 1.5rem;
+}
+
+.rui-textarea-demo__stack {
+  margin-top: var(--rui-space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--rui-space-2);
+}
+
+.rui-textarea-demo__preview {
+  border-radius: 1rem;
+  border: 1px dashed var(--rui-color-border);
+  background-color: var(--rui-color-surface-muted);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--rui-color-text-muted);
+}
+
+.rui-textarea-demo__preview-text {
+  margin-top: 0.25rem;
+  white-space: pre-wrap;
+  color: var(--rui-color-text-strong);
+}
+
+.rui-textarea-demo__support {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rui-space-3);
+  min-width: 0;
+}
+
+.rui-textarea-demo__support-field,
+.rui-textarea-demo__support-tips {
+  min-width: 0;
+  flex: 1 1 0%;
+}
+
+.rui-textarea-demo__tips-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--rui-space-3);
+  height: 100%;
+  border-radius: 1rem;
+  border: 1px solid var(--rui-color-border);
+  background-color: var(--rui-color-surface-muted);
+  padding: 0.75rem;
+  font-size: 0.875rem;
+  color: var(--rui-color-text-muted);
+  box-shadow: inset 0 2px 4px rgb(0 0 0 / 0.05);
+}
+
+.rui-textarea-demo__tips-title {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  color: var(--rui-color-text-muted);
+}
+
+.rui-textarea-demo__tips-list {
+  margin: 0;
+  padding-left: 1rem;
+  font-size: 0.75rem;
+  line-height: 1.625;
+  color: var(--rui-color-text-muted);
+}
+
+.rui-textarea-demo__tips-submit {
+  align-self: flex-start;
+}
+
+@media (min-width: 768px) {
+  .rui-textarea-demo__support {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .rui-textarea-demo__support-tips {
+    flex: 0 1 260px;
+  }
+
+}

@@ -1,0 +1,72 @@
+.output-chip-demo-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.output-chip-demo-card {
+  border-radius: 1.5rem;
+  border: 1px solid rgb(226 232 240 / 1);
+  background-color: rgb(255 255 255 / 1);
+  padding: 1rem;
+  box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+[data-theme="dark"] .output-chip-demo-card,
+:is([data-theme="dark"] *) .output-chip-demo-card {
+  border-color: rgb(63 63 70 / 0.6);
+  background-color: rgba(24, 24, 27, 0.75);
+}
+
+.output-chip-demo-metric-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 0;
+}
+
+.output-chip-demo-metric-note {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: rgb(71 85 105 / 1);
+}
+
+[data-theme="dark"] .output-chip-demo-metric-note,
+:is([data-theme="dark"] *) .output-chip-demo-metric-note {
+  color: rgb(148 163 184 / 1);
+}
+
+.output-chip-demo-tone-grid {
+  margin-top: 0.75rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgb(148 163 184 / 1);
+}
+
+[data-theme="dark"] .output-chip-demo-tone-grid,
+:is([data-theme="dark"] *) .output-chip-demo-tone-grid {
+  color: rgb(100 116 139 / 1);
+}
+
+.output-chip-demo-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.output-chip-demo-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--rui-color-text-strong);
+}
+
+.output-chip-demo-note {
+  margin: 0.5rem 0 0;
+  font-size: 0.75rem;
+  color: var(--rui-color-text-muted);
+}

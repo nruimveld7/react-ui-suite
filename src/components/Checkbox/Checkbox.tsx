@@ -1,7 +1,8 @@
 import * as React from "react";
-import { twMerge } from "tailwind-merge";
 import { Check } from "../Combobox/icons";
 import { assignRef } from "../../utils/ref";
+import clsx from "clsx";
+import "./Checkbox.css";
 
 export type CheckboxProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -13,6 +14,10 @@ export type CheckboxProps = Omit<
   defaultChecked?: boolean;
   onChange?: (checked: boolean) => void;
   indeterminate?: boolean;
+  uncheckedBoxColor?: string;
+  checkedBoxColor?: string;
+  uncheckedBorderColor?: string;
+  checkedBorderColor?: string;
 };
 
 export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(
@@ -25,6 +30,10 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(functi
     disabled,
     className,
     indeterminate,
+    uncheckedBoxColor,
+    checkedBoxColor,
+    uncheckedBorderColor,
+    checkedBorderColor,
     id,
     ...rest
   },
@@ -62,45 +71,53 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(functi
   return (
     <label
       htmlFor={checkboxId}
-      className={twMerge(
-        "flex cursor-pointer gap-3 rounded-2xl border border-transparent px-2 py-2 text-left transition hover:bg-slate-50 dark:hover:bg-zinc-900/60",
-        "items-center",
-        disabled && "cursor-not-allowed opacity-60",
+      className={clsx("rui-root", 
+        "rui-checkbox",
+        disabled && "rui-checkbox--disabled",
         className
       )}
+      style={{
+        "--rui-checkbox-box-bg": uncheckedBoxColor,
+        "--rui-checkbox-box-bg-checked": checkedBoxColor,
+        "--rui-checkbox-box-border": uncheckedBorderColor,
+        "--rui-checkbox-box-border-checked": checkedBorderColor,
+      } as React.CSSProperties}
     >
-      <span className="flex h-6 w-6 items-center justify-center">
+      <span className="rui-checkbox__control">
         <input
           {...rest}
           ref={mergedRef}
           id={checkboxId}
           type="checkbox"
-          className="peer sr-only"
+          className="rui-checkbox__input"
           checked={resolvedChecked}
           onChange={handleChange}
           disabled={disabled}
         />
         <span
-          className={twMerge(
-            "grid size-5 place-items-center rounded-lg border border-slate-300 bg-white text-[0.65rem] font-semibold text-slate-600 transition drop-shadow-sm peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-slate-400 dark:border-zinc-600 dark:bg-zinc-950/70 dark:text-zinc-200",
-            resolvedChecked &&
-              "border-slate-400 bg-slate-100 text-slate-900 shadow-[0_0_0_1px_rgba(148,163,184,0.45)] dark:border-zinc-500 dark:bg-zinc-500 dark:text-white"
+          className={clsx("rui-checkbox__box",
+            resolvedChecked && "rui-checkbox__box--checked",
+            indeterminate && !resolvedChecked && "rui-checkbox__box--indeterminate"
           )}
           aria-hidden="true"
         >
           {resolvedChecked ? (
-            <Check className="h-3 w-3" />
+            <Check className="rui-checkbox__check" />
           ) : indeterminate ? (
-            <span className="h-[2px] w-2 rounded-full bg-current" />
+            <span className="rui-checkbox__dash" />
           ) : null}
         </span>
       </span>
-      <span className="flex flex-1 flex-col">
-        <span className="text-sm font-semibold text-slate-900 dark:text-zinc-100">{label}</span>
+      <span className="rui-checkbox__text">
+        <span className="rui-checkbox__label rui-text-wrap">{label}</span>
         {description ? (
-          <span className="text-xs text-slate-500 dark:text-zinc-400">{description}</span>
+          <span className="rui-checkbox__description rui-text-wrap">{description}</span>
         ) : null}
       </span>
     </label>
   );
 });
+
+
+
+

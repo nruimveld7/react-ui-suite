@@ -1,0 +1,231 @@
+.rui-textarea {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rui-space-1-5);
+}
+
+.rui-textarea__label {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--rui-color-text-muted);
+}
+
+.rui-textarea__shell {
+  --rui-textarea-footer-height: 1.75rem;
+  --rui-textarea-footer-offset: 0.5rem;
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 1px solid var(--rui-color-border);
+  background-color: var(--rui-color-surface);
+  padding: 0.5rem 0.75rem;
+  box-shadow: var(--rui-shadow-button);
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.rui-textarea__shell:focus-within {
+  border-color: var(--rui-color-border-strong);
+}
+
+.rui-textarea__shell--error {
+  border-color: rgb(244 63 94 / 0.6);
+}
+
+.rui-textarea__shell--error:focus-within {
+  border-color: rgb(244 63 94);
+}
+
+.rui-textarea__shell--disabled {
+  background-color: var(--rui-color-surface-muted);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.rui-textarea__control {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 120px;
+  border: none;
+  background: transparent;
+  padding: 0 1.25rem 0 0;
+  padding-bottom: calc(
+    1rem + var(--rui-textarea-footer-height) + var(--rui-textarea-footer-offset)
+  );
+  font-family: inherit;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--rui-color-text-strong);
+  outline: none;
+  resize: none !important;
+  scrollbar-width: none;
+}
+
+.rui-textarea__control::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.rui-textarea__control::placeholder {
+  color: var(--rui-color-text-muted);
+}
+
+.rui-textarea__control:disabled {
+  cursor: not-allowed;
+  color: var(--rui-color-text-muted);
+}
+
+.rui-textarea__control:disabled::placeholder {
+  color: var(--rui-color-text-muted);
+}
+
+.rui-textarea__control--resize-vertical {
+  resize: none;
+}
+
+.rui-textarea__control--resize-horizontal {
+  resize: none;
+}
+
+.rui-textarea__control--resize-both {
+  resize: none;
+}
+
+.rui-textarea__control--resize-none {
+  resize: none;
+}
+
+.rui-textarea__scrollbar {
+  position: absolute;
+  z-index: 20;
+  border-radius: 9999px;
+  background-color: rgb(255 255 255 / 0.6);
+  box-shadow: inset 0 2px 4px rgb(0 0 0 / 0.05);
+  backdrop-filter: blur(4px);
+}
+
+.rui-textarea__scrollbar-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  background-color: rgb(15 23 42 / 0.05);
+  box-shadow: inset 0 2px 4px rgb(0 0 0 / 0.05);
+}
+
+.rui-textarea__scrollbar-thumb {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  border-radius: 9999px;
+  background-color: rgb(148 163 184 / 0.8);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+}
+
+.rui-textarea__footer {
+  position: absolute;
+  left: 0.75rem;
+  right: 0.25rem;
+  bottom: 0rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+  height: var(--rui-textarea-footer-height);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--rui-color-text-muted);
+  pointer-events: none;
+}
+
+.rui-textarea__footer-count {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: right;
+  white-space: nowrap;
+  pointer-events: auto;
+}
+
+.rui-textarea__resize-handle {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5em;
+  height: 1.5em;
+  margin-left: auto;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--rui-color-text-muted);
+  cursor: grab;
+  transition: color 150ms ease;
+}
+
+.rui-textarea__resize-handle:hover {
+  color: var(--rui-color-text-strong);
+}
+
+.rui-textarea__resize-handle:focus-visible {
+  outline: none;
+}
+
+.rui-textarea__shell--disabled .rui-textarea__resize-handle {
+  cursor: not-allowed;
+  color: var(--rui-color-text-muted);
+}
+
+.rui-textarea__resize-handle-icon {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.rui-textarea__description {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--rui-color-text-muted);
+}
+
+.rui-textarea__error {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 500;
+  color: rgb(244 63 94);
+}
+
+[data-theme="dark"] .rui-textarea__scrollbar {
+  background-color: rgb(39 39 42 / 0.7);
+}
+
+[data-theme="dark"] .rui-textarea__scrollbar-track {
+  background-color: rgb(255 255 255 / 0.1);
+}
+
+[data-theme="dark"] .rui-textarea__scrollbar-thumb {
+  background-color: rgb(113 113 122 / 0.7);
+}
+
+.rui-textarea__shell,
+.rui-textarea__control {
+  min-width: 0;
+}

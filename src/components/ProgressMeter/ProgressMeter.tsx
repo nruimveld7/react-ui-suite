@@ -1,6 +1,6 @@
 import * as React from "react";
-import { twMerge } from "tailwind-merge";
-
+import clsx from "clsx";
+import "./ProgressMeter.css";
 type CommonProps = {
   label?: string;
   description?: string;
@@ -25,31 +25,31 @@ export function Progress({
   const percent = max === 0 ? 0 : Math.round((clamped / max) * 100);
 
   return (
-    <div className={twMerge("space-y-1.5", className)}>
+    <div className={clsx("rui-progress-meter rui-root", className)}>
       {label ? (
-        <div className="flex items-center justify-between gap-3">
-          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500 dark:text-zinc-400">
+        <div className="rui-progress-meter__header">
+          <p className="rui-progress-meter__label rui-text-wrap">
             {label}
           </p>
           {showValue ? (
-            <span className="text-xs font-semibold text-slate-600 dark:text-zinc-300">
+            <span className="rui-progress-meter__value">
               {percent}%
             </span>
           ) : null}
         </div>
       ) : null}
       {description ? (
-        <p className="text-[11px] text-slate-500 dark:text-zinc-400">{description}</p>
+        <p className="rui-progress-meter__description rui-text-wrap">{description}</p>
       ) : null}
-      <div className="relative h-3 w-full overflow-hidden rounded-full border border-slate-200 bg-white shadow-inner ring-1 ring-slate-100/80 dark:border-zinc-700 dark:bg-zinc-900/80 dark:ring-zinc-800/70">
+      <div className="rui-progress-meter__track">
         <progress
           value={clamped}
           max={max}
-          className="absolute inset-0 h-full w-full appearance-none"
+          className="rui-progress-meter__native"
           aria-label={label}
         />
         <div
-          className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 shadow-[0_0_0_1px_rgba(15,23,42,0.2)] transition-[width]"
+          className="rui-progress-meter__fill rui-progress-meter__fill--gradient"
           style={{ width: `${percent}%` }}
         />
       </div>
@@ -83,31 +83,32 @@ export function Meter({
     : "linear-gradient(90deg, #22c55e, #0ea5e9)";
 
   return (
-    <div className={twMerge("space-y-1.5", className)}>
+    <div className={clsx("rui-progress-meter rui-root", className)}>
       {label ? (
-        <div className="flex items-center justify-between gap-3">
-          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500 dark:text-zinc-400">
+        <div className="rui-progress-meter__header">
+          <p className="rui-progress-meter__label rui-text-wrap">
             {label}
           </p>
-          <span className="text-xs font-semibold text-slate-600 dark:text-zinc-300">{clamped}</span>
+          <span className="rui-progress-meter__value">{clamped}</span>
         </div>
       ) : null}
       {description ? (
-        <p className="text-[11px] text-slate-500 dark:text-zinc-400">{description}</p>
+        <p className="rui-progress-meter__description rui-text-wrap">{description}</p>
       ) : null}
-      <div className="relative h-3 w-full overflow-hidden rounded-full border border-slate-200 bg-white shadow-inner ring-1 ring-slate-100/80 dark:border-zinc-700 dark:bg-zinc-900/80 dark:ring-zinc-800/70">
+      <div className="rui-progress-meter__track">
         <meter
           value={clamped}
           min={min}
           max={max}
-          className="absolute inset-0 h-full w-full appearance-none"
+          className="rui-progress-meter__native"
           aria-label={label}
         />
         <div
-          className="absolute inset-y-0 left-0 rounded-full shadow-[0_0_0_1px_rgba(15,23,42,0.2)] transition-[width]"
+          className="rui-progress-meter__fill"
           style={{ width: `${percent}%`, background: activeColor }}
         />
       </div>
     </div>
   );
 }
+

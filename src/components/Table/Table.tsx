@@ -1,6 +1,6 @@
 import * as React from "react";
-import { twMerge } from "tailwind-merge";
-
+import clsx from "clsx";
+import "./Table.css";
 export type TableColumn<T> = {
   key: keyof T;
   header: string;
@@ -26,7 +26,7 @@ const V_TRACK_INSET = 10; // extra inset to shorten the vertical track
 type ThumbState = { visible: boolean; size: number; offset: number };
 
 function useScrollbarMetrics(
-  ref: React.RefObject<HTMLDivElement>,
+  ref: React.RefObject<HTMLDivElement | null>,
   axis: "vertical" | "horizontal",
   extraSpace: number
 ) {
@@ -94,7 +94,7 @@ function useScrollbarMetrics(
 }
 
 function useThumbDrag(
-  ref: React.RefObject<HTMLDivElement>,
+  ref: React.RefObject<HTMLDivElement | null>,
   axis: "vertical" | "horizontal",
   thumbState: ThumbState,
   extraSpace: number
@@ -223,37 +223,37 @@ export function Table<T extends Record<string, unknown>>({
 
   return (
     <div
-      className={twMerge(
-        "overflow-hidden rounded-3xl border border-slate-200 shadow-sm dark:border-zinc-800",
+      className={clsx(
+        "rui-table",
         className
       )}
       style={style}
     >
       <div
-        className="relative overflow-hidden bg-white/90 dark:bg-zinc-950/80"
+        className="rui-table__container"
         style={{ paddingRight: padRight, paddingBottom: padBottom }}
       >
         <div
           ref={scrollRef}
-          className="table-scrollbar overflow-auto"
+          className="rui-table__scroll"
           style={{ ...scrollAreaStyle }}
         >
-          <table className="w-full border-collapse text-sm text-slate-700 dark:text-zinc-200">
+          <table className="rui-table__table">
             {caption ? (
-              <caption className="bg-slate-50 px-4 py-2 text-left text-xs font-semibold uppercase tracking-[0.25em] text-slate-500 dark:bg-zinc-900/70 dark:text-zinc-400">
+              <caption className="rui-table__caption rui-text-wrap">
                 {caption}
               </caption>
             ) : null}
-            <thead className="bg-white/90 text-xs uppercase tracking-[0.16em] text-slate-500 dark:bg-zinc-900/80 dark:text-zinc-400">
+            <thead className="rui-table__head">
               <tr>
                 {columns.map((col) => (
                   <th
                     key={String(col.key)}
                     scope="col"
-                    className={twMerge(
-                      "px-4 py-3 text-left font-semibold",
-                      col.align === "right" && "text-right",
-                      col.align === "center" && "text-center"
+                    className={clsx(
+                      "rui-table__header-cell",
+                      col.align === "right" && "rui-table__header-cell--align-right",
+                      col.align === "center" && "rui-table__header-cell--align-center"
                     )}
                   >
                     {col.header}
@@ -265,25 +265,21 @@ export function Table<T extends Record<string, unknown>>({
               {data.map((row, rowIndex) => (
                 <tr
                   key={rowIndex}
-                  className={twMerge(
-                    "border-t border-slate-100 transition dark:border-zinc-800",
-                    rowIndex % 2 === 0
-                      ? "bg-slate-100/70 hover:bg-slate-200 dark:bg-zinc-950/70 dark:hover:bg-zinc-800"
-                      : "bg-white/80 hover:bg-slate-200 dark:bg-zinc-900/60 dark:hover:bg-zinc-800"
+                  className={clsx(
+                    "rui-table__row",
+                    rowIndex % 2 === 0 && "rui-table__row--alt"
                   )}
                 >
                   {columns.map((col) => (
                     <td
                       key={String(col.key)}
-                      className={twMerge(
-                        "px-4 py-3 align-middle",
-                        col.align === "right" && "text-right",
-                        col.align === "center" && "text-center"
+                      className={clsx(
+                        "rui-table__cell",
+                        col.align === "right" && "rui-table__cell--align-right",
+                        col.align === "center" && "rui-table__cell--align-center"
                       )}
                     >
-                      {col.render
-                        ? col.render(row[col.key], row)
-                        : (row[col.key] as React.ReactNode)}
+                      {col.render ? col.render(row[col.key], row) : (row[col.key] as React.ReactNode)}
                     </td>
                   ))}
                 </tr>
@@ -293,7 +289,7 @@ export function Table<T extends Record<string, unknown>>({
         </div>
         {vThumb.visible ? (
           <div
-            className="absolute z-20 pointer-events-auto rounded-full bg-white/80 shadow-inner dark:bg-zinc-900/70"
+            className="rui-table__track rui-table__track--vertical"
             style={{
               right: vOffset,
               top: TRACK_PADDING + V_TRACK_INSET,
@@ -302,9 +298,11 @@ export function Table<T extends Record<string, unknown>>({
             }}
             onPointerDown={(e) => handleTrackPointerDown("vertical", vThumb, startVDrag, e)}
           >
-            <div className="relative h-full w-full rounded-full bg-slate-900/5 shadow-inner dark:bg-white/10">
+            <div className="rui-table__track-inner">
               <div
-                className="absolute left-1/2 w-full -translate-x-1/2 rounded-full bg-slate-400/80 shadow-sm transition-colors dark:bg-zinc-500/70"
+                className={clsx(
+                  "rui-table__thumb rui-table__thumb--vertical"
+                )}
                 style={{ height: `${vThumb.size}px`, top: `${vThumb.offset}px` }}
                 onPointerDown={handleVThumbDown}
               />
@@ -313,7 +311,7 @@ export function Table<T extends Record<string, unknown>>({
         ) : null}
         {hThumb.visible ? (
           <div
-            className="absolute z-20 pointer-events-auto rounded-full bg-white/80 shadow-inner dark:bg-zinc-900/70"
+            className="rui-table__track rui-table__track--horizontal"
             style={{
               left: hOffset + TRACK_INSET,
               right: hOffset + TRACK_INSET,
@@ -322,9 +320,11 @@ export function Table<T extends Record<string, unknown>>({
             }}
             onPointerDown={(e) => handleTrackPointerDown("horizontal", hThumb, startHDrag, e)}
           >
-            <div className="relative h-full w-full rounded-full bg-slate-900/5 shadow-inner dark:bg-white/10">
+            <div className="rui-table__track-inner">
               <div
-                className="absolute top-1/2 h-full -translate-y-1/2 rounded-full bg-slate-400/80 shadow-sm transition-colors dark:bg-zinc-500/70"
+                className={clsx(
+                  "rui-table__thumb rui-table__thumb--horizontal"
+                )}
                 style={{ width: `${hThumb.size}px`, left: `${hThumb.offset}px` }}
                 onPointerDown={handleHThumbDown}
               />
@@ -335,3 +335,7 @@ export function Table<T extends Record<string, unknown>>({
     </div>
   );
 }
+
+
+
+

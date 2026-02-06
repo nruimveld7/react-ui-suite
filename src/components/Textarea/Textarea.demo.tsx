@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { Textarea } from "react-ui-suite";
+import { Button } from "react-ui-suite";
 import type { TextareaProps } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../../../demo/component-registry";
+import "./Textarea.demo.css";
+import { DemoExample } from "../../../demo/src/components/DemoExample";
 
 function ReleaseNotes() {
   const [notes, setNotes] = useState(
@@ -9,22 +12,11 @@ function ReleaseNotes() {
   );
 
   return (
-    <div className="rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-            Release notes
-          </p>
-          <p className="text-sm text-slate-600 dark:text-slate-400">
-            Ship a concise weekly update.
-          </p>
-        </div>
-        <span className="rounded-full bg-slate-900 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-white shadow-sm dark:bg-white dark:text-slate-900">
-          Public
-        </span>
-      </div>
-
-      <div className="mt-3 space-y-2">
+    <DemoExample
+      title="Release notes"
+      className="rui-textarea-demo__card"
+    >
+      <div className="rui-textarea-demo__stack">
         <Textarea
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
@@ -32,21 +24,24 @@ function ReleaseNotes() {
           label="Summary"
           description="Use short, scannable bullet points."
         />
-        <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-500 dark:border-slate-700 dark:bg-slate-950/60 dark:text-slate-400">
+        <div className="rui-textarea-demo__preview">
           Preview:
-          <div className="mt-1 whitespace-pre-wrap text-slate-900 dark:text-slate-100">{notes}</div>
+          <div className="rui-textarea-demo__preview-text">{notes}</div>
         </div>
       </div>
-    </div>
+    </DemoExample>
   );
 }
 
 function SupportPrompt() {
   const [message, setMessage] = useState("");
   return (
-    <div className="rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
-      <div className="flex flex-col gap-3 md:flex-row md:flex-wrap md:items-start">
-        <div className="min-w-[260px] flex-1 md:min-w-[320px]">
+    <DemoExample
+      title="Support prompt"
+      className="rui-textarea-demo__card"
+    >
+      <div className="rui-textarea-demo__support">
+        <div className="rui-textarea-demo__support-field">
           <Textarea
             label="Ask for help"
             placeholder="Tell us what happened..."
@@ -56,32 +51,29 @@ function SupportPrompt() {
             showCount={false}
           />
         </div>
-        <div className="min-w-[220px] flex-1 md:flex-[0_1_260px] md:shrink-0">
-          <div className="flex h-full flex-col justify-between gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 p-3 text-sm text-slate-600 shadow-inner dark:border-slate-800 dark:bg-slate-950/60 dark:text-slate-300">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">
+        <div className="rui-textarea-demo__support-tips">
+          <div className="rui-textarea-demo__tips-card">
+            <p className="rui-textarea-demo__tips-title">
               Tips
             </p>
-            <ul className="space-y-1 text-xs leading-relaxed text-slate-500 dark:text-slate-400">
+            <ul className="rui-textarea-demo__tips-list">
               <li>Include a link to the page you were on.</li>
               <li>Mention steps to reproduce and expected behavior.</li>
               <li>Attach screenshots or a short Loom if possible.</li>
             </ul>
-            <button
-              type="button"
-              className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-[1px] hover:shadow-md dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
-            >
+            <Button className="rui-textarea-demo__tips-submit">
               Submit
-            </button>
+            </Button>
           </div>
         </div>
       </div>
-    </div>
+    </DemoExample>
   );
 }
 
 function TextareaPreview() {
   return (
-    <div className="grid gap-4">
+    <div className="rui-textarea-demo">
       <ReleaseNotes />
       <SupportPrompt />
     </div>

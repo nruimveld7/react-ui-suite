@@ -20,14 +20,11 @@ describe("DatalistInput", () => {
     await user.click(input);
     await user.type(input, "Reb");
 
-    const optionButton = await screen.findByRole("button", { name: /Rebuild Project/i });
-    await user.click(optionButton);
+    await user.keyboard("{Enter}");
 
-    expect(handleChange).toHaveBeenCalled();
-    const values = handleChange.mock.calls.map(
-      ([event]) => (event as ChangeEvent<HTMLInputElement>).target.value
-    );
-    expect(values).toContain("Rebuild Project");
+    await waitFor(() => expect(handleChange).toHaveBeenCalled());
+    const event = handleChange.mock.calls.at(-1)?.[0] as ChangeEvent<HTMLInputElement>;
+    expect(event.target.value).toBe("Rebuild Project");
     expect(input).toHaveValue("Rebuild Project");
   });
 
@@ -84,7 +81,7 @@ describe("DatalistInput", () => {
     expect(screen.queryByRole("button", { name: /reload window/i })).toBeNull();
 
     await user.click(input);
-    fireEvent.mouseDown(document.body);
+    fireEvent.pointerDown(document.body);
     await waitFor(() =>
       expect(screen.queryByRole("button", { name: /reload window/i })).toBeNull()
     );

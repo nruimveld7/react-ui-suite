@@ -62,12 +62,14 @@ describe("Dropdown", () => {
 
   it("applies aria attributes and readOnly state", () => {
     const inputRef = vi.fn();
+    const handleInputChange = vi.fn();
     const { rerender } = render(
       <Dropdown
         isOpen={false}
         displayValue="Value"
         query="Query"
         inputRef={inputRef}
+        onInputChange={handleInputChange}
         ariaControls="listbox-id"
         ariaActiveDescendant="listbox-id-option-1"
       />
@@ -84,6 +86,7 @@ describe("Dropdown", () => {
         displayValue="Value"
         query="Query"
         inputRef={inputRef}
+        onInputChange={handleInputChange}
         ariaControls="listbox-id"
         ariaActiveDescendant="listbox-id-option-1"
       />

@@ -1,0 +1,107 @@
+.number-input-demo__grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.number-input-demo__example {
+  display: flex;
+  flex-direction: column;
+}
+
+.number-input-demo__budget-planner {
+  display: flex;
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+.number-input-demo__budget-planner__inputs {
+  flex: 1 1 0%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.number-input-demo__budget-planner__forecast {
+  text-align: center;
+  flex: 0 1 20rem;
+  min-width: 16rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.75rem;
+  border-radius: 1rem;
+  border-width: 1px;
+  border-style: dashed;
+  border-color: rgb(226 232 240 / 1);
+  background-color: rgb(248 250 252 / 0.8);
+  padding: 1.25rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: rgb(71 85 105 / 1);
+  box-shadow: 0 0 #0000, 0 0 #0000, inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+}
+
+.number-input-demo__forecast-title {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: rgb(100 116 139 / 1);
+}
+
+.number-input-demo__forecast-value {
+  margin: 0;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 600;
+  color: rgb(15 23 42 / 1);
+}
+
+.number-input-demo__forecast-desc {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: rgb(100 116 139 / 1);
+}
+
+@media (max-width: 767px) {
+  .number-input-demo__budget-planner {
+    flex-direction: column;
+  }
+
+}
+.number-input-demo__scale {
+  display: grid;
+  gap: 1rem;
+  align-items: start;
+  justify-items: center;
+}
+
+.number-input-demo__scale-control {
+  width: min(28rem, 100%);
+}
+
+.number-input-demo__scale-preview {
+  display: flex;
+  justify-content: center;
+  max-width: 14rem;
+}
+
+.number-input-demo__budget-planner__forecast:is([data-theme="dark"] *) {
+  border-color: rgb(63 63 70 / 0.6);
+  background-color: #27272a;
+  color: rgb(203 213 225 / 1);
+}
+
+.number-input-demo__forecast-title:is([data-theme="dark"] *),
+.number-input-demo__forecast-desc:is([data-theme="dark"] *) {
+  color: rgb(148 163 184 / 1);
+}
+
+.number-input-demo__forecast-value:is([data-theme="dark"] *) {
+  color: rgb(241 245 249 / 1);
+}

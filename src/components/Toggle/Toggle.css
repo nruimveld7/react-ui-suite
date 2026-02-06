@@ -1,0 +1,125 @@
+.rui-toggle__button {
+  appearance: none;
+  position: relative;
+  display: inline-flex;
+  width: 3rem;
+  height: 1.75rem;
+  flex-shrink: 0;
+  align-items: center;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 9999px;
+  border-color: rgb(203 213 225 / 1);
+  background-color: rgb(226 232 240 / 1);
+  padding: 0;
+  box-sizing: border-box;
+  background-clip: padding-box;
+  cursor: pointer;
+  --rui-toggle-border-color: rgb(203 213 225 / 1);
+  --rui-toggle-focus-color: var(--rui-toggle-border-color);
+  --rui-toggle-focus-bg-color: rgb(226 232 240 / 1);
+  --rui-toggle-focus-ring-width: 1px;
+  --rui-toggle-focus-ring-offset: 1px;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.rui-toggle__button:focus-visible,
+.rui-toggle__focus-visible:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  --rui-ring-offset-width: 2px;
+  --rui-ring-offset-color: #f1f5f9;
+  --rui-ring-color: rgb(100 116 139 / 1);
+  --rui-ring-offset-shadow: var(--rui-ring-inset) 0 0 0 var(--rui-ring-offset-width) var(--rui-ring-offset-color);
+  --rui-ring-shadow: var(--rui-ring-inset) 0 0 0 calc(2px + var(--rui-ring-offset-width)) var(--rui-ring-color);
+  box-shadow: var(--rui-ring-offset-shadow), var(--rui-ring-shadow), var(--rui-shadow, 0 0 #0000);
+  border-color: var(--rui-toggle-focus-color, var(--rui-toggle-border-color, var(--rui-toggle-focus-bg-color, currentColor)));
+  outline: var(--rui-toggle-focus-ring-width, 1px) solid
+    var(--rui-toggle-focus-color, var(--rui-toggle-border-color, var(--rui-toggle-focus-bg-color, currentColor)));
+  outline-offset: var(--rui-toggle-focus-ring-offset, 1px);
+}
+
+.rui-toggle__button--checked {
+  border-color: rgb(148 163 184 / 1);
+  background-color: rgb(100 116 139 / 0.4);
+  --rui-toggle-border-color: rgb(148 163 184 / 1);
+  --rui-toggle-focus-color: var(--rui-toggle-border-color);
+  --rui-toggle-focus-bg-color: rgb(100 116 139 / 0.4);
+}
+
+.rui-toggle__button--disabled,
+.rui-toggle__is-disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  background-color: rgb(226 232 240 / 0.6);
+  border-color: rgb(203 213 225 / 0.6);
+}
+
+.rui-toggle__thumb {
+  pointer-events: none;
+  position: absolute;
+  top: 3px;
+  left: 0.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 9999px;
+  background-color: rgb(255 255 255 / 1);
+  transform: translateX(0px);
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+  box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.45);
+}
+
+.rui-toggle__thumb--checked {
+  transform: translateX(19px);
+}
+
+.rui-toggle__thumb--disabled {
+  background-color: rgb(255 255 255 / 0.7);
+}
+
+.rui-toggle__button:is([data-theme="dark"] *) {
+  border-color: rgb(113 113 122 / 1);
+  background-color: rgb(113 113 122 / 1);
+  --rui-toggle-border-color: rgb(113 113 122 / 1);
+  --rui-toggle-focus-color: var(--rui-toggle-border-color);
+  --rui-toggle-focus-bg-color: rgb(113 113 122 / 1);
+}
+
+.rui-toggle__button:not(.rui-toggle__button--checked):is([data-theme="dark"] *) {
+  border-color: rgb(63 63 70 / 0.7);
+  background-color: rgb(24 24 27 / 0.7);
+  --rui-toggle-border-color: rgb(63 63 70 / 0.7);
+  --rui-toggle-focus-color: var(--rui-toggle-border-color);
+  --rui-toggle-focus-bg-color: rgb(24 24 27 / 0.7);
+}
+
+.rui-toggle__button:focus-visible:is([data-theme="dark"] *),
+.rui-toggle__focus-visible:focus-visible:is([data-theme="dark"] *) {
+  --rui-ring-offset-color: #020617;
+}
+
+.rui-toggle__button--checked:is([data-theme="dark"] *) {
+  border-color: rgb(63 63 70 / 0.7);
+  background-color: rgb(24 24 27 / 0.7);
+  --rui-toggle-border-color: rgb(63 63 70 / 0.7);
+  --rui-toggle-focus-color: var(--rui-toggle-border-color);
+  --rui-toggle-focus-bg-color: rgb(24 24 27 / 0.7);
+}
+
+.rui-toggle__button--disabled:is([data-theme="dark"] *),
+.rui-toggle__is-disabled:is([data-theme="dark"] *) {
+  background-color: rgb(24 24 27 / 0.45);
+  border-color: rgb(63 63 70 / 0.5);
+}
+
+.rui-toggle__thumb:is([data-theme="dark"] *) {
+  box-shadow: none;
+}
+
+.rui-toggle__thumb--disabled:is([data-theme="dark"] *) {
+  background-color: rgb(39 39 42 / 0.8);
+}

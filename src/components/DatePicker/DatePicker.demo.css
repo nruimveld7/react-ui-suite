@@ -1,0 +1,75 @@
+.rui-date-picker-demo__card {
+  border-radius: 1.5rem;
+  border-width: 1px;
+  border-color: rgb(226 232 240 / 1);
+  background-color: rgb(255 255 255 / 1);
+  padding: 1rem;
+  box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+[data-theme="dark"] .rui-date-picker-demo__card {
+  border-color: rgb(63 63 70 / 0.6);
+  background-color: rgba(24, 24, 27, 0.75);
+}
+
+.rui-date-picker-demo__intro {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rui-date-picker-demo__intro-text {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  margin: 0;
+  color: rgb(71 85 105 / 1);
+}
+
+[data-theme="dark"] .rui-date-picker-demo__intro-text {
+  color: rgb(148 163 184 / 1);
+}
+
+.rui-date-picker-demo__fields {
+  margin-bottom: 0.75rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .rui-date-picker-demo__fields {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+}
+.rui-date-picker-demo__summary {
+  margin-top: 0.75rem;
+  border-radius: 1rem;
+  border-width: 1px;
+  border-style: dashed;
+  border-color: rgb(226 232 240 / 1);
+  background-color: rgb(248 250 252 / 0.8);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: rgb(71 85 105 / 1);
+}
+
+[data-theme="dark"] .rui-date-picker-demo__summary {
+  border-color: rgb(63 63 70 / 0.6);
+  background-color: #27272a;
+  color: rgb(203 213 225 / 1);
+}
+
+.rui-date-picker-demo__summary-title {
+  font-weight: 600;
+  color: rgb(15 23 42 / 1);
+}
+
+[data-theme="dark"] .rui-date-picker-demo__summary-title {
+  color: rgb(241 245 249 / 1);
+}
+
+.rui-date-picker-demo__preview {
+  display: grid;
+  gap: 1rem;
+}

@@ -1,5 +1,4 @@
 import * as React from "react";
-import { twMerge } from "tailwind-merge";
 import { Dropdown } from "../Dropdown/Dropdown";
 import { Popover } from "../Popover/Popover";
 import { Calendar, Clock } from "../Combobox/icons";
@@ -7,6 +6,8 @@ import { useOutsideClick } from "../Combobox/hooks";
 import { Select, type SelectOption } from "../Select/Select";
 import Button from "../Button/Button";
 import { assignRef } from "../../utils/ref";
+import clsx from "clsx";
+import "./DatePicker.css";
 
 export type DatePickerProps = {
   label?: string;
@@ -20,9 +21,11 @@ export type DatePickerProps = {
   type?: "date" | "time";
   timeIntervalMinutes?: number; // only used when type === "time"
   use24HourClock?: boolean; // only used when type === "time"
+  dateMode?: "local" | "utc"; // only used when type === "date"
 };
 
 type ViewMode = "day" | "month" | "year";
+type DateMode = "local" | "utc";
 
 function formatLocalDateString(year: number, month: number, day: number) {
   const y = String(year).padStart(4, "0");
@@ -31,7 +34,11 @@ function formatLocalDateString(year: number, month: number, day: number) {
   return `${y}-${m}-${d}`;
 }
 
-function parseLocalDateString(value?: string) {
+function toDateFromParts(mode: DateMode, year: number, month: number, day: number) {
+  return mode === "utc" ? new Date(Date.UTC(year, month, day)) : new Date(year, month, day);
+}
+
+function parseDateString(value: string | undefined, mode: DateMode) {
   if (!value) return null;
   const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value.trim());
   if (!match) return null;
@@ -39,20 +46,20 @@ function parseLocalDateString(value?: string) {
   const year = Number(y);
   const month = Number(m) - 1;
   const day = Number(d);
-  const date = new Date(year, month, day);
+  const date = toDateFromParts(mode, year, month, day);
   if (Number.isNaN(date.getTime())) return null;
   return { date, year, month, day };
 }
 
-function getMonthDays(year: number, month: number) {
-  const first = new Date(year, month, 1);
-  const start = first.getDay();
-  const days = new Date(year, month + 1, 0).getDate();
+function getMonthDays(year: number, month: number, mode: DateMode) {
+  const first = toDateFromParts(mode, year, month, 1);
+  const start = mode === "utc" ? first.getUTCDay() : first.getDay();
+  const endOfMonth = toDateFromParts(mode, year, month + 1, 0);
+  const days = mode === "utc" ? endOfMonth.getUTCDate() : endOfMonth.getDate();
   const grid: Array<{ day: number | null; date?: string }> = [];
   for (let i = 0; i < start; i += 1) grid.push({ day: null });
   for (let d = 1; d <= days; d += 1) {
-    const date = new Date(year, month, d);
-    grid.push({ day: d, date: date.toISOString().slice(0, 10) });
+    grid.push({ day: d, date: formatLocalDateString(year, month, d) });
   }
   return grid;
 }
@@ -70,6 +77,7 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
     type = "date",
     timeIntervalMinutes = 30,
     use24HourClock = true,
+    dateMode = "local",
   },
   ref
 ) {
@@ -113,26 +121,35 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
         })()
       );
     }
-    const normalized = parseLocalDateString(value ?? defaultValue)?.date;
-    if (normalized)
-      return formatLocalDateString(
-        normalized.getFullYear(),
-        normalized.getMonth(),
-        normalized.getDate()
-      );
+    const normalized = parseDateString(value ?? defaultValue, dateMode);
+    if (normalized) return formatLocalDateString(normalized.year, normalized.month, normalized.day);
     const today = new Date();
-    return formatLocalDateString(today.getFullYear(), today.getMonth(), today.getDate());
+    const year = dateMode === "utc" ? today.getUTCFullYear() : today.getFullYear();
+    const month = dateMode === "utc" ? today.getUTCMonth() : today.getMonth();
+    const day = dateMode === "utc" ? today.getUTCDate() : today.getDate();
+    return formatLocalDateString(year, month, day);
   })();
   const [open, setOpen] = React.useState(false);
   const [current, setCurrent] = React.useState(initial);
   const [month, setMonth] = React.useState(() => {
-    const base = parseLocalDateString(initial)?.date ?? new Date();
-    return { year: base.getFullYear(), month: base.getMonth() };
+    const parsed = parseDateString(initial, dateMode)?.date;
+    if (parsed) {
+      return {
+        year: dateMode === "utc" ? parsed.getUTCFullYear() : parsed.getFullYear(),
+        month: dateMode === "utc" ? parsed.getUTCMonth() : parsed.getMonth(),
+      };
+    }
+    const now = new Date();
+    return {
+      year: dateMode === "utc" ? now.getUTCFullYear() : now.getFullYear(),
+      month: dateMode === "utc" ? now.getUTCMonth() : now.getMonth(),
+    };
   });
   const [viewMode, setViewMode] = React.useState<ViewMode>("day");
   const dropdownRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
   const toggleRef: React.MutableRefObject<HTMLButtonElement | null> = React.useRef(null);
   const inputInnerRef: React.MutableRefObject<HTMLInputElement | null> = React.useRef(null);
+  const popoverRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
   const suppressToggleRef = React.useRef(false);
   const canvasRef: React.MutableRefObject<HTMLCanvasElement | null> = React.useRef(null);
   const [useShortLabel, setUseShortLabel] = React.useState(false);
@@ -147,9 +164,14 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
     [ref]
   );
 
-  useOutsideClick([dropdownRef as unknown as React.RefObject<HTMLElement | null>], () =>
-    setOpen(false)
+  const outsideClickRefs = React.useMemo(
+    () => [
+      dropdownRef as unknown as React.RefObject<HTMLElement | null>,
+      popoverRef as unknown as React.RefObject<HTMLElement | null>,
+    ],
+    []
   );
+  useOutsideClick(outsideClickRefs, () => setOpen(false));
 
   const commit = (next: string) => {
     setCurrent(next);
@@ -159,9 +181,9 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
   };
 
   const parsedDate = React.useMemo(() => {
-    const parsed = parseLocalDateString(current);
+    const parsed = parseDateString(current, dateMode);
     return parsed?.date ?? null;
-  }, [current]);
+  }, [current, dateMode]);
 
   const longDisplayLabel = React.useMemo(() => {
     if (!parsedDate) return current;
@@ -170,8 +192,9 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
       month: "short",
       day: "numeric",
       year: "numeric",
+      timeZone: dateMode === "utc" ? "UTC" : undefined,
     });
-  }, [parsedDate, current]);
+  }, [parsedDate, current, dateMode]);
 
   const shortDisplayLabel = React.useMemo(() => {
     if (!parsedDate) return current;
@@ -179,8 +202,9 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
       month: "2-digit",
       day: "2-digit",
       year: "2-digit",
+      timeZone: dateMode === "utc" ? "UTC" : undefined,
     });
-  }, [parsedDate, current]);
+  }, [parsedDate, current, dateMode]);
 
   const displayLabel = useShortLabel ? shortDisplayLabel : longDisplayLabel;
 
@@ -197,8 +221,7 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
     return opts;
   }, [clampInterval, formatTimeLabel]);
 
-  const highlightBorder =
-    "border-slate-400 shadow-[0_0_0_1px_rgba(148,163,184,0.45)] dark:border-slate-500";
+  const highlightBorder = "rui-date-picker__highlightBorder";
 
   const monthNames = React.useMemo(
     () => ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
@@ -240,15 +263,19 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
       ? `${rangeStart} - ${rangeEnd}`
       : viewMode === "month"
         ? `${month.year}`
-        : new Date(month.year, month.month).toLocaleString("default", {
+        : toDateFromParts(dateMode, month.year, month.month, 1).toLocaleString("default", {
             month: "long",
             year: "numeric",
+            timeZone: dateMode === "utc" ? "UTC" : undefined,
           });
 
   function openPicker() {
     if (disabled) return;
     const base = parsedDate ?? new Date();
-    setMonth({ year: base.getFullYear(), month: base.getMonth() });
+    setMonth({
+      year: dateMode === "utc" ? base.getUTCFullYear() : base.getFullYear(),
+      month: dateMode === "utc" ? base.getUTCMonth() : base.getMonth(),
+    });
     setViewMode("day");
     setOpen(true);
   }
@@ -307,8 +334,8 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
         disabled={disabled}
         className={className}
         leadingContent={
-          <span className="pointer-events-none rounded-xl bg-slate-100 px-2 py-1 shadow-inner dark:bg-zinc-800/70">
-            <Clock className="h-4 w-4 text-slate-500 dark:text-zinc-300" />
+          <span className="rui-date-picker__leading-icon">
+            <Clock className="rui-date-picker__leading-icon-mark" />
           </span>
         }
       />
@@ -316,14 +343,14 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
   }
 
   return (
-    <div className="space-y-1.5">
+    <div className="rui-date-picker rui-root">
       {label ? (
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-zinc-400">
+        <p className="rui-date-picker__label rui-text-wrap">
           {label}
         </p>
       ) : null}
 
-      <div className="relative">
+      <div className="rui-date-picker__field">
         <Dropdown
           ref={dropdownRef}
           isOpen={open}
@@ -331,15 +358,15 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
           placeholder=""
           displayValue={displayLabel}
           query={displayLabel}
-          className="w-full"
-          inputClassName={twMerge("min-w-0 font-semibold", className)}
-          shellClassName={twMerge(
+          className="rui-date-picker__dropdown"
+          inputClassName={clsx("rui-date-picker__input", className)}
+          shellClassName={clsx(
             error &&
-              "border-rose-300 focus-within:border-rose-400 focus-within:shadow-[0_0_0_1px_rgba(248,113,113,0.35)] dark:border-rose-500/60"
+              "rui-date-picker__shell--error"
           )}
           leadingContent={
-            <span className="pointer-events-none rounded-xl bg-slate-100 px-2 py-1 shadow-inner dark:bg-zinc-800/70">
-              <Calendar className="h-4 w-4 text-slate-500 dark:text-zinc-300" />
+            <span className="rui-date-picker__leading-icon">
+              <Calendar className="rui-date-picker__leading-icon-mark" />
             </span>
           }
           highlightClass={highlightBorder}
@@ -387,26 +414,30 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
           }}
         >
           {open && (
-            <Popover className={twMerge("p-3", highlightBorder)}>
+            <Popover
+              anchorRef={dropdownRef}
+              rootRef={popoverRef}
+              className={clsx("rui-date-picker__popover", highlightBorder)}
+            >
               {() => (
-                <div className="space-y-3" id={popoverId}>
-                  <div className="flex items-center justify-between text-sm text-slate-600 dark:text-zinc-300">
+                <div className="rui-date-picker__panel" id={popoverId}>
+                  <div className="rui-date-picker__header">
                     <Button
                       type="button"
                       onClick={goPrev}
-                      className="h-8 w-8 min-w-0 rounded-xl border border-slate-200 bg-white p-0 text-sm font-semibold text-slate-700 shadow-sm dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
+                      className="rui-date-picker__nav-button"
                     >
                       <span style={{ transform: "translateY(-1.5px)" }}>{"<"}</span>
                     </Button>
                     {viewMode === "year" ? (
-                      <span className="font-semibold text-slate-900 dark:text-zinc-100">
+                      <span className="rui-date-picker__header-title rui-text-wrap">
                         {headerLabel}
                       </span>
                     ) : (
                       <button
                         type="button"
                         onClick={() => setViewMode((prev) => (prev === "day" ? "month" : "year"))}
-                        className="font-semibold text-slate-900 transition hover:underline dark:text-zinc-100"
+                        className="rui-date-picker__header-title rui-text-wrap rui-date-picker__header-title-button"
                       >
                         {headerLabel}
                       </button>
@@ -414,7 +445,7 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
                     <Button
                       type="button"
                       onClick={goNext}
-                      className="h-8 w-8 min-w-0 rounded-xl border border-slate-200 bg-white p-0 text-sm font-semibold text-slate-700 shadow-sm dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
+                      className="rui-date-picker__nav-button"
                     >
                       <span style={{ transform: "translateY(-1.5px)" }}>{">"}</span>
                     </Button>
@@ -422,13 +453,13 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
 
                   {viewMode === "day" ? (
                     <>
-                      <div className="grid grid-cols-7 gap-1 text-center text-[11px] uppercase tracking-[0.2em] text-slate-400 dark:text-zinc-500">
+                      <div className="rui-date-picker__weekday-row">
                         {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((d) => (
                           <span key={d}>{d}</span>
                         ))}
                       </div>
-                      <div className="grid grid-cols-7 gap-1">
-                        {getMonthDays(month.year, month.month).map((cell, idx) => {
+                      <div className="rui-date-picker__day-grid">
+                        {getMonthDays(month.year, month.month, dateMode).map((cell, idx) => {
                           const isSelected = cell.date === current;
                           return (
                             <button
@@ -439,11 +470,10 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
                                 if (!cell.date) return;
                                 commit(cell.date);
                               }}
-                              className={twMerge(
-                                "h-9 rounded-xl text-sm font-semibold text-slate-700 transition hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400/70 dark:text-zinc-200 dark:hover:bg-zinc-800",
-                                isSelected &&
-                                  "bg-slate-200 text-slate-900 ring-1 ring-slate-400/70 shadow-sm dark:bg-zinc-800 dark:hover:bg-zinc-700/80 dark:text-zinc-100 dark:ring-zinc-500/70",
-                                !cell.date && "opacity-30"
+                              className={clsx(
+                                "rui-date-picker__day",
+                                isSelected && "is-selected",
+                                !cell.date && "is-empty"
                               )}
                             >
                               {cell.day ?? ""}
@@ -453,7 +483,7 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
                       </div>
                     </>
                   ) : viewMode === "month" ? (
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="rui-date-picker__month-grid">
                       {monthNames.map((name, idx) => {
                         const isSelected =
                           parsedDate?.getFullYear() === month.year &&
@@ -466,10 +496,9 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
                               setMonth((prev) => ({ ...prev, month: idx }));
                               setViewMode("day");
                             }}
-                            className={twMerge(
-                              "h-10 rounded-xl border border-slate-200 bg-white text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-[1px] hover:shadow-md dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100",
-                              isSelected &&
-                                "border-slate-400 bg-slate-100 dark:border-slate-500 dark:bg-zinc-800"
+                            className={clsx(
+                              "rui-date-picker__tile",
+                              isSelected && "is-selected"
                             )}
                           >
                             {name}
@@ -478,7 +507,7 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
                       })}
                     </div>
                   ) : (
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="rui-date-picker__year-grid">
                       {Array.from({ length: 12 }, (_, i) => rangeStart + i).map((yr) => {
                         const isSelected = parsedDate?.getFullYear() === yr;
                         return (
@@ -489,10 +518,9 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
                               setMonth((prev) => ({ ...prev, year: yr }));
                               setViewMode("month");
                             }}
-                            className={twMerge(
-                              "h-10 rounded-xl border border-slate-200 bg-white text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-[1px] hover:shadow-md dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100",
-                              isSelected &&
-                                "border-slate-400 bg-slate-100 dark:border-slate-500 dark:bg-zinc-800"
+                            className={clsx(
+                              "rui-date-picker__tile",
+                              isSelected && "is-selected"
                             )}
                           >
                             {yr}
@@ -509,11 +537,13 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
       </div>
 
       {description ? (
-        <p className="text-xs text-slate-500 dark:text-zinc-400">{description}</p>
+        <p className="rui-date-picker__description rui-text-wrap">{description}</p>
       ) : null}
       {error ? (
-        <p className="text-xs font-medium text-rose-500 dark:text-rose-400">{error}</p>
+        <p className="rui-date-picker__error rui-text-wrap">{error}</p>
       ) : null}
     </div>
   );
 });
+
+

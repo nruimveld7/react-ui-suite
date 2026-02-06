@@ -1,0 +1,170 @@
+/* Spacing between demo sections (used on the preview wrapper) */
+.rui-tab-group-demo > :not([hidden]) ~ :not([hidden]) {
+  --rui-space-y-reverse: 0;
+  margin-top: calc(1rem * calc(1 - var(--rui-space-y-reverse)));
+  margin-bottom: calc(1rem * var(--rui-space-y-reverse));
+}
+
+/* Demo layout */
+.rui-tab-group-demo__stack {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.rui-tab-group-demo__note {
+  margin: 0 0 0.25rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--rui-color-text-muted);
+}
+
+.rui-tab-group-demo__resizable {
+  width: min(100%, 520px);
+}
+
+.rui-tab-group-demo__resizable--horizontal {
+  width: 100%;
+  max-width: 100%;
+}
+
+.rui-tab-group-demo__resizable-wrap {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.rui-tab-group-demo__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.rui-tab-group-demo__panel {
+  display: grid;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 0.9rem;
+  border: 1px solid var(--rui-color-border);
+  background: var(--rui-color-surface-muted);
+}
+
+.rui-tab-group-demo__panel-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.rui-tab-group-demo__panel-subtitle {
+  margin: 0.15rem 0 0;
+  font-size: 0.75rem;
+  color: var(--rui-color-text-muted);
+}
+
+.rui-tab-group-demo__panel-badge {
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid var(--rui-color-border);
+  background: var(--rui-color-surface);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--rui-color-text-muted);
+}
+
+.rui-tab-group-demo__panel-body {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.75rem;
+}
+
+.rui-tab-group-demo__panel-block {
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--rui-color-border);
+  background: var(--rui-color-surface);
+}
+
+.rui-tab-group-demo__panel-label {
+  margin: 0;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--rui-color-text-muted);
+}
+
+.rui-tab-group-demo__panel-value {
+  margin: 0.25rem 0 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--rui-color-text-strong);
+}
+
+.rui-tab-group-demo__panel-note {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--rui-color-text-muted);
+}
+
+/* Control styling */
+.rui-tab-group-demo__control,
+.rui-tab-group-demo__group {
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
+
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--rui-color-text-muted);
+}
+
+.rui-tab-group-demo__group {
+  border: 0;
+  margin: 0;
+  padding: 0.3rem 0.3rem;
+  border: 1px solid var(--rui-color-border);
+  border-radius: 0.65rem;
+  justify-content: center;
+}
+
+.rui-tab-group-demo__group legend {
+  padding: 0;
+  margin-right: 0.35rem;
+}
+
+.rui-tab-group-demo__group .rui-number-input__shell {
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+}
+
+.rui-tab-group-demo__group .rui-number-input__shell:focus-within {
+  box-shadow: none;
+}
+
+.rui-tab-group-demo__control span {
+  display: inline-flex;
+  min-width: 48px;
+}
+
+.rui-tab-group-demo__control input[type="number"] {
+  width: 72px;
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--rui-color-border);
+  background: var(--rui-color-surface);
+  color: var(--rui-color-text-strong);
+}
+
+.rui-tab-group-demo__group label {
+  display: inline-flex;
+  gap: 0.25rem;
+  align-items: center;
+
+  font-size: 0.75rem;
+  text-transform: none;
+  letter-spacing: 0;
+}

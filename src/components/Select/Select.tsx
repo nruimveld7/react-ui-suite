@@ -1,9 +1,10 @@
 import * as React from "react";
-import { twMerge } from "tailwind-merge";
 import { Dropdown } from "../Dropdown/Dropdown";
 import { Popover } from "../Popover/Popover";
 import { Check } from "../Combobox/icons";
 import { useControlledState, useOutsideClick } from "../Combobox/hooks";
+import clsx from "clsx";
+import "./Select.css";
 
 export type SelectOption = {
   label: string;
@@ -44,7 +45,7 @@ export function Select({
   const containerRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
   const inputRef: React.MutableRefObject<HTMLInputElement | null> = React.useRef(null);
   const chevronRef: React.MutableRefObject<HTMLButtonElement | null> = React.useRef(null);
-  const popoverListRef: React.MutableRefObject<React.RefObject<HTMLUListElement> | null> =
+  const popoverListRef: React.MutableRefObject<React.RefObject<HTMLUListElement | null> | null> =
     React.useRef(null);
   const suppressToggleRef = React.useRef(false);
   const id = React.useId();
@@ -180,13 +181,13 @@ export function Select({
   }, [open, activeIndex]);
 
   const displayValue = selectedOption?.label ?? "";
-  const highlightBorder = "border-slate-400 dark:border-slate-500";
+  const highlightBorder = "rui-select__highlightBorder";
   const listboxHighlight = open ? highlightBorder : "";
 
   return (
-    <div className="space-y-1.5">
+    <div className="rui-select rui-root">
       {label ? (
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-zinc-400">
+        <p className="rui-select__label rui-text-wrap">
           {label}
         </p>
       ) : null}
@@ -198,13 +199,12 @@ export function Select({
         placeholder={placeholder}
         displayValue={displayValue}
         query={displayValue}
-        className={twMerge(
-          "w-full",
-          error &&
-            "border-rose-300 focus-within:border-rose-400 focus-within:shadow-[0_0_0_1px_rgba(248,113,113,0.35)] dark:border-rose-500/60",
+        className={clsx(
+          "rui-select__dropdown",
+          error && "rui-select__dropdown--error",
           className
         )}
-        inputClassName="font-semibold"
+        inputClassName="rui-select__input"
         highlightClass={highlightBorder}
         ariaControls={listboxId}
         ariaLabel={label}
@@ -247,7 +247,7 @@ export function Select({
         }}
       >
         {open && (
-          <Popover className={listboxHighlight}>
+          <Popover anchorRef={containerRef} className={listboxHighlight}>
             {({ scrollRef }) => {
               popoverListRef.current = scrollRef;
               return (
@@ -255,13 +255,13 @@ export function Select({
                   ref={scrollRef}
                   id={listboxId}
                   role="listbox"
-                  className="combobox-scrollbar max-h-64 overflow-auto px-1 pr-4"
+                  className="rui-select__list"
                 >
                   {options.map((opt, index) => {
                     const isSelected = selected === opt.value;
                     const isActive = activeIndex === index;
                     return (
-                      <li key={opt.value} className="list-none" data-index={index}>
+                      <li key={opt.value} className="rui-select__option" data-index={index}>
                         <button
                           type="button"
                           role="option"
@@ -269,29 +269,26 @@ export function Select({
                           disabled={opt.disabled}
                           onMouseEnter={() => !opt.disabled && setActiveIndex(index)}
                           onClick={() => commitSelection(index)}
-                          className={twMerge(
-                            "flex w-full items-center gap-3 rounded-xl px-3 py-2 text-left text-sm transition",
-                            isActive
-                              ? "bg-slate-100 text-slate-900 dark:bg-zinc-800/70 dark:text-zinc-100"
-                              : "text-slate-700 hover:bg-slate-100 dark:text-zinc-200 dark:hover:bg-zinc-800/70",
-                            isSelected && "font-semibold",
-                            opt.disabled && "cursor-not-allowed opacity-50"
+                          className={clsx(
+                            "rui-select__option-button",
+                            isActive && "rui-select__option-button--active",
+                            isSelected && "rui-select__option-button--selected"
                           )}
                         >
-                          <span className="flex-1 text-left">
-                            <span className="block text-slate-900 dark:text-zinc-100">
+                          <span className="rui-select__option-content">
+                            <span className="rui-select__option-label rui-text-wrap">
                               {opt.label}
                             </span>
                             {opt.description ? (
-                              <span className="block text-xs text-slate-500 dark:text-zinc-400">
+                              <span className="rui-select__option-description rui-text-wrap">
                                 {opt.description}
                               </span>
                             ) : null}
                           </span>
                           {isSelected ? (
-                            <Check className="ml-auto h-3 w-3 text-slate-600 dark:text-zinc-300" />
+                            <Check className="rui-select__option-check" />
                           ) : (
-                            <span className="ml-auto inline-flex h-3 w-3" />
+                            <span className="rui-select__option-check-placeholder" />
                           )}
                         </button>
                       </li>
@@ -305,12 +302,14 @@ export function Select({
       </Dropdown>
 
       {description ? (
-        <p className="text-xs text-slate-500 dark:text-zinc-400">{description}</p>
+        <p className="rui-select__description rui-text-wrap">{description}</p>
       ) : null}
 
       {error ? (
-        <p className="text-xs font-medium text-rose-500 dark:text-rose-400">{error}</p>
+        <p className="rui-select__error rui-text-wrap">{error}</p>
       ) : null}
     </div>
   );
 }
+
+

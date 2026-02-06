@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Button, Checkbox, Dialog } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../../../demo/component-registry";
+import "./Dialog.demo.css";
+import { DemoExample } from "../../../demo/src/components/DemoExample";
 
 function ModalPlayground() {
   const [open, setOpen] = useState(false);
@@ -8,34 +10,44 @@ function ModalPlayground() {
   const [remind, setRemind] = useState(true);
 
   return (
-    <div className="space-y-4">
-      <div className="space-y-4 rounded-3xl border border-slate-200 bg-white/90 p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
-        <div className="space-y-1">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-            Schedule weekly digest
-          </p>
-          <p className="text-sm text-slate-600 dark:text-slate-400">
+    <div className="dialog-demo-stack">
+      <style>{`
+        .rui-dialog-demo__confirm.rui-button {
+          border-color: rgb(5 150 105 / 1);
+        }
+        .rui-dialog-demo__confirm.rui-button:not(:disabled):hover {
+          background-color: rgb(16 185 129 / 1);
+          border-color: rgb(16 185 129 / 1);
+          box-shadow: var(--rui-shadow-button);
+        }
+      `}</style>
+      <DemoExample
+        title="Schedule weekly digest"
+        className="dialog-demo-card"
+      >
+        <div className="dialog-demo-card__body">
+          <p className="dialog-demo-card__text">
             Open a modal to confirm reminders and recipients.
           </p>
         </div>
-        <Button onClick={() => setOpen(true)} className="w-full">
+        <Button onClick={() => setOpen(true)} className="dialog-demo-card__launch">
           Launch digest modal
         </Button>
-      </div>
+      </DemoExample>
 
-      <div className="space-y-4 rounded-3xl border border-slate-200 bg-white/90 p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
-        <div className="space-y-1">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-            Site Assistant
-          </p>
-          <p className="text-sm text-slate-600 dark:text-slate-400">
+      <DemoExample
+        title="Site assistant"
+        className="dialog-demo-card"
+      >
+        <div className="dialog-demo-card__body">
+          <p className="dialog-demo-card__text">
             Open a floating helper that stays while you work.
           </p>
         </div>
-        <Button onClick={() => setInlineOpen(true)} className="w-full">
+        <Button onClick={() => setInlineOpen(true)} className="dialog-demo-card__launch">
           Launch assistant
         </Button>
-      </div>
+      </DemoExample>
 
       <Dialog
         open={open}
@@ -46,13 +58,13 @@ function ModalPlayground() {
           <>
             <Button
               onClick={() => setOpen(false)}
-              className="min-w-[120px] uppercase tracking-wide"
+              className="dialog-demo-footer-button dialog-demo-footer-button--cancel"
             >
               CANCEL
             </Button>
             <Button
               onClick={() => setOpen(false)}
-              className="min-w-[120px] bg-emerald-600 text-white hover:bg-emerald-700 hover:border-emerald-600 dark:bg-emerald-500 dark:text-slate-900"
+              className="rui-dialog-demo__confirm dialog-demo-footer-button dialog-demo-footer-button--confirm"
             >
               CONFIRM
             </Button>
@@ -60,7 +72,7 @@ function ModalPlayground() {
         }
       >
         <Checkbox label="Also send a reminder on Fridays." checked={remind} onChange={setRemind} />
-        <p className="text-xs text-slate-500 dark:text-slate-400">
+        <p className="dialog-demo-tip">
           Tip: click outside the card or press Esc to close.
         </p>
       </Dialog>
@@ -71,14 +83,14 @@ function ModalPlayground() {
         title="Persistent helper"
         description="Stays open while you work; click outside or Esc to close."
         footer={
-          <Button onClick={() => setInlineOpen(false)} className="px-3 py-2">
+          <Button onClick={() => setInlineOpen(false)} className="dialog-demo-inline-dismiss">
             Dismiss
           </Button>
         }
         modal={false}
         draggable={false}
       >
-        <p className="text-sm text-slate-700 dark:text-slate-300">
+        <p className="dialog-demo-inline-description">
           This non-modal dialog allows interacting with the rest of the page. Click outside or press
           Esc to close.
         </p>

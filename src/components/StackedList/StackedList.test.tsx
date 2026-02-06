@@ -30,7 +30,7 @@ describe("StackedList", () => {
     );
 
     const item = screen.getByRole("listitem");
-    expect(item).toHaveClass("py-3", { exact: false });
+    expect(item).toHaveClass("rui-stacked-list__item--dense", { exact: false });
     expect(screen.getByTestId("icon")).toBeInTheDocument();
   });
 });

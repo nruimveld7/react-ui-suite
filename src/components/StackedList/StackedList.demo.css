@@ -1,0 +1,35 @@
+.rui-stacked-list-demo > :not([hidden]) ~ :not([hidden]) {
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+
+.rui-stacked-list-demo__card {
+  border-radius: 1.5rem;
+  border: 1px solid rgb(226 232 240 / 1);
+  background-color: rgb(255 255 255 / 1);
+  padding: 1rem;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.rui-stacked-list-demo__card:is([data-theme="dark"] *) {
+  border-color: rgb(30 41 59 / 1);
+  background-color: rgba(24, 24, 27, 0.75);
+  box-shadow: none;
+}
+
+.rui-stacked-list-demo__grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .rui-stacked-list-demo__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+}
+.rui-stacked-list-demo__action {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}

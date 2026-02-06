@@ -1,8 +1,10 @@
 import { useMemo, useState } from "react";
-import { twMerge } from "tailwind-merge";
 import { Checkbox, InputField, Table } from "react-ui-suite";
 import type { TableColumn } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../../../demo/component-registry";
+import clsx from "clsx";
+import "./Table.demo.css";
+import { DemoExample } from "../../../demo/src/components/DemoExample";
 
 type Row = {
   name: string;
@@ -20,9 +22,9 @@ const baseRows: Row[] = [
 ];
 
 const statusTone: Record<Row["status"], string> = {
-  Active: "bg-emerald-500/90 text-white",
-  Paused: "bg-amber-400/90 text-slate-900",
-  Error: "bg-rose-500/90 text-white",
+  Active: "rui-table-demo__status-pill--active",
+  Paused: "rui-table-demo__status-pill--paused",
+  Error: "rui-table-demo__status-pill--error",
 };
 
 function ServiceTable() {
@@ -39,9 +41,9 @@ function ServiceTable() {
       header: "Status",
       render: (value: Row["status"]) => (
         <span
-          className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] ${statusTone[value]}`}
+          className={clsx("rui-table-demo__status-pill", statusTone[value])}
         >
-          <span className="block size-1.5 rounded-full bg-white/80" />
+          <span className="rui-table-demo__status-dot" />
           {value}
         </span>
       ),
@@ -51,7 +53,7 @@ function ServiceTable() {
       header: "p95",
       align: "right",
       render: (value: number) => (
-        <span className="font-semibold text-slate-900 dark:text-slate-100">
+        <span className="rui-table-demo__metric">
           {value ? `${value}ms` : "N/A"}
         </span>
       ),
@@ -60,13 +62,13 @@ function ServiceTable() {
   ];
 
   return (
-    <div className="rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/70 overflow-hidden">
-      <div className="flex items-center justify-between gap-3">
+    <DemoExample
+      title="Services"
+      className="rui-table-demo__card"
+    >
+      <div className="rui-table-demo__header">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-            Services
-          </p>
-          <p className="text-sm text-slate-600 dark:text-slate-400">
+          <p className="rui-table-demo__copy">
             Native table with soft zebra styling.
           </p>
         </div>
@@ -74,13 +76,13 @@ function ServiceTable() {
           label="Hide paused"
           checked={hidePaused}
           onChange={setHidePaused}
-          className="w-fit rounded-xl border border-slate-200 bg-white px-2 py-1 dark:border-zinc-700 dark:bg-zinc-900/70"
+          className="rui-table-demo__filter-checkbox"
         />
       </div>
-      <div className="mt-3">
+      <div className="rui-table-demo__table-wrap">
         <Table<Row> columns={columns} data={rows} caption="Service health" />
       </div>
-    </div>
+    </DemoExample>
   );
 }
 
@@ -100,9 +102,9 @@ const memberRows: MemberRow[] = [
 ];
 
 const memberStatusTone: Record<MemberRow["status"], string> = {
-  Active: "bg-emerald-500/90 text-white",
-  Invited: "bg-sky-400/90 text-white",
-  Suspended: "bg-rose-500/90 text-white",
+  Active: "rui-table-demo__status-pill--active",
+  Invited: "rui-table-demo__status-pill--invited",
+  Suspended: "rui-table-demo__status-pill--error",
 };
 
 function MembersTable() {
@@ -127,9 +129,7 @@ function MembersTable() {
       key: "status",
       header: "Status",
       render: (value: MemberRow["status"]) => (
-        <span
-          className={`inline-flex items-center justify-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] ${memberStatusTone[value]}`}
-        >
+        <span className={clsx("rui-table-demo__status-pill", memberStatusTone[value])}>
           {value}
         </span>
       ),
@@ -139,123 +139,133 @@ function MembersTable() {
   const filters: Array<MemberRow["status"] | "All"> = ["All", "Active", "Invited", "Suspended"];
 
   return (
-    <div className="rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/70 overflow-hidden">
-      <div className="flex flex-wrap items-center justify-between gap-3">
+    <DemoExample
+      title="Members"
+      className="rui-table-demo__card"
+    >
+      <div className="rui-table-demo__header rui-table-demo__header--wrap">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-            Members
-          </p>
-          <p className="text-sm text-slate-600 dark:text-slate-400">Quick filter chips + search.</p>
+          <p className="rui-table-demo__copy">Quick filter chips + search.</p>
         </div>
-        <div className="w-full max-w-lg">
+        <div className="rui-table-demo__search">
           <InputField
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search people or teams"
-            className="w-full"
+            className="rui-table-demo__search-input"
           />
         </div>
       </div>
-      <div className="mt-3 flex flex-wrap gap-2">
+      <div className="rui-table-demo__filters">
         {filters.map((item) => (
           <button
             key={item}
             type="button"
             onClick={() => setFilter(item)}
-            className={twMerge(
-              "rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500 transition hover:-translate-y-[1px] hover:shadow-sm dark:text-slate-300",
-              filter === item
-                ? "border-slate-400 bg-white shadow-sm dark:border-slate-600 dark:bg-slate-800"
-                : "border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-900"
+            className={clsx(
+              "rui-table-demo__filter-button",
+              filter === item && "rui-table-demo__filter-button--active"
             )}
           >
             {item}
           </button>
         ))}
       </div>
-      <div className="mt-3">
+      <div className="rui-table-demo__table-wrap">
         <Table<MemberRow> columns={columns} data={filtered} caption="Workspace members" />
       </div>
-    </div>
+    </DemoExample>
   );
 }
 
-type InvoiceRow = {
+type BillingAlignRow = {
   invoice: string;
-  amount: number;
-  status: "Paid" | "Pending" | "Overdue";
-  issued: string;
+  amount: string;
+  colLT: string;
+  colCT: string;
+  colRT: string;
+  colLM: string;
+  colCM: string;
+  colRM: string;
+  colLB: string;
+  colCB: string;
+  colRB: string;
 };
 
-const invoiceRows: InvoiceRow[] = [
-  { invoice: "INV-2041", amount: 1280, status: "Paid", issued: "2025-10-04" },
-  { invoice: "INV-2042", amount: 760, status: "Pending", issued: "2025-10-12" },
-  { invoice: "INV-2043", amount: 420, status: "Paid", issued: "2025-11-01" },
-  { invoice: "INV-2044", amount: 1520, status: "Overdue", issued: "2025-11-15" },
-  { invoice: "INV-2045", amount: 940, status: "Pending", issued: "2025-11-20" },
+function createBillingRow(invoice: string, amount: string): BillingAlignRow {
+  return {
+    invoice,
+    amount,
+    colLT: invoice,
+    colCT: invoice,
+    colRT: invoice,
+    colLM: invoice,
+    colCM: invoice,
+    colRM: invoice,
+    colLB: invoice,
+    colCB: invoice,
+    colRB: invoice,
+  };
+}
+
+const billingRows: BillingAlignRow[] = [
+  createBillingRow("INV-2041", "$1,280.00"),
+  createBillingRow("INV-2042", "$760.00"),
+  createBillingRow("INV-2043", "$420.00"),
 ];
 
-const invoiceTone: Record<InvoiceRow["status"], string> = {
-  Paid: "bg-emerald-500/90 text-white",
-  Pending: "bg-amber-400/90 text-slate-900",
-  Overdue: "bg-rose-500/90 text-white",
-};
-
 function BillingTable() {
-  const [onlyOpen, setOnlyOpen] = useState(false);
-  const rows = useMemo(
-    () => (onlyOpen ? invoiceRows.filter((row) => row.status !== "Paid") : invoiceRows),
-    [onlyOpen]
-  );
+  const renderBillingCell = (_value: string, row: BillingAlignRow, alignY?: "top" | "middle" | "bottom") => {
+    const showTopSpacer = alignY === "bottom" || alignY === "middle";
+    const showBottomSpacer = alignY === "top" || alignY === "middle";
 
-  const columns: TableColumn<InvoiceRow>[] = [
-    { key: "invoice", header: "Invoice" },
-    {
-      key: "amount",
-      header: "Amount",
-      align: "right",
-      render: (value: number) => (
-        <span className="font-semibold text-slate-900 dark:text-slate-100">
-          ${value.toFixed(2)}
+    return (
+      <span className="rui-table-demo__billing-cell">
+        {showTopSpacer ? <span className="rui-table-demo__billing-spacer" aria-hidden="true" /> : null}
+        <span className="rui-table-demo__billing-title">
+          {row.invoice}
         </span>
-      ),
-    },
-    { key: "issued", header: "Issued" },
-    {
-      key: "status",
-      header: "Status",
-      render: (value: InvoiceRow["status"]) => (
-        <span
-          className={`inline-flex items-center justify-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] ${invoiceTone[value]}`}
-        >
-          {value}
+        <span className="rui-table-demo__billing-amount">
+          {row.amount}
         </span>
-      ),
-    },
+        {showBottomSpacer ? <span className="rui-table-demo__billing-spacer" aria-hidden="true" /> : null}
+      </span>
+    );
+  };
+
+  const columns: TableColumn<BillingAlignRow>[] = [
+    { key: "colLT", header: "L/T", align: "left", render: (value, row) => renderBillingCell(value, row, "top") },
+    { key: "colCT", header: "C/T", align: "center", render: (value, row) => renderBillingCell(value, row, "top") },
+    { key: "colRT", header: "R/T", align: "right", render: (value, row) => renderBillingCell(value, row, "top") },
+    { key: "colLM", header: "L/M", align: "left", render: (value, row) => renderBillingCell(value, row, "middle") },
+    { key: "colCM", header: "C/M", align: "center", render: (value, row) => renderBillingCell(value, row, "middle") },
+    { key: "colRM", header: "R/M", align: "right", render: (value, row) => renderBillingCell(value, row, "middle") },
+    { key: "colLB", header: "L/B", align: "left", render: (value, row) => renderBillingCell(value, row, "bottom") },
+    { key: "colCB", header: "C/B", align: "center", render: (value, row) => renderBillingCell(value, row, "bottom") },
+    { key: "colRB", header: "R/B", align: "right", render: (value, row) => renderBillingCell(value, row, "bottom") },
   ];
 
   return (
-    <div className="rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/70 overflow-hidden">
-      <div className="flex items-center justify-between gap-3">
+    <DemoExample
+      title="Billing"
+      className="rui-table-demo__card"
+    >
+      <div className="rui-table-demo__header">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-            Billing
-          </p>
-          <p className="text-sm text-slate-600 dark:text-slate-400">
-            Zebra rows with amount column.
+          <p className="rui-table-demo__copy">
+            Alignment matrix (X/Y).
           </p>
         </div>
-        <Checkbox
-          label="Open only"
-          checked={onlyOpen}
-          onChange={setOnlyOpen}
-          className="w-fit rounded-xl border border-slate-200 bg-white px-2 py-1 dark:border-zinc-700 dark:bg-zinc-900/70"
+      </div>
+      <div className="rui-table-demo__table-wrap">
+        <Table<BillingAlignRow>
+          className="rui-table-demo__billing-align-table"
+          columns={columns}
+          data={billingRows}
+          caption="Alignment grid"
         />
       </div>
-      <div className="mt-3">
-        <Table<InvoiceRow> columns={columns} data={rows} caption="Invoices" />
-      </div>
-    </div>
+    </DemoExample>
   );
 }
 
@@ -351,16 +361,16 @@ function TicketsTable() {
   ];
 
   return (
-    <div className="rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/70 overflow-hidden">
-      <div className="flex items-center justify-between gap-3">
+    <DemoExample
+      title="Tickets"
+      className="rui-table-demo__card"
+    >
+      <div className="rui-table-demo__header">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-            Tickets
-          </p>
-          <p className="text-sm text-slate-600 dark:text-slate-400">Vertical overflow example.</p>
+          <p className="rui-table-demo__copy">Vertical overflow example.</p>
         </div>
       </div>
-      <div className="mt-3">
+      <div className="rui-table-demo__table-wrap">
         <Table<TicketRow>
           columns={columns}
           data={ticketRows}
@@ -368,7 +378,7 @@ function TicketsTable() {
           scrollAreaStyle={{ maxHeight: 320 }}
         />
       </div>
-    </div>
+    </DemoExample>
   );
 }
 
@@ -383,18 +393,18 @@ function TicketsTableDuplicate() {
   ];
 
   return (
-    <div className="rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/70 overflow-hidden">
-      <div className="flex items-center justify-between gap-3">
+    <DemoExample
+      title="Initiatives"
+      className="rui-table-demo__card"
+    >
+      <div className="rui-table-demo__header">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-            Initiatives
-          </p>
-          <p className="text-sm text-slate-600 dark:text-slate-400">
+          <p className="rui-table-demo__copy">
             Vertical + horizontal overflow example.
           </p>
         </div>
       </div>
-      <div className="mt-3">
+      <div className="rui-table-demo__table-wrap">
         <Table<TicketRow>
           columns={columns}
           data={ticketRowsWide}
@@ -402,7 +412,7 @@ function TicketsTableDuplicate() {
           scrollAreaStyle={{ maxHeight: 320 }}
         />
       </div>
-    </div>
+    </DemoExample>
   );
 }
 
@@ -413,13 +423,13 @@ const entry: ComponentRegistryEntry = {
   tags: ["data", "table"],
   Preview: function TablePreview() {
     return (
-      <div className="grid gap-4">
+      <div className="rui-table-demo">
         <ServiceTable />
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="rui-table-demo__grid rui-table-demo__grid--two">
           <MembersTable />
           <BillingTable />
         </div>
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="rui-table-demo__grid rui-table-demo__grid--two">
           <TicketsTable />
           <TicketsTableDuplicate />
         </div>
@@ -431,3 +441,12 @@ const entry: ComponentRegistryEntry = {
 
 export default entry;
 export { Table };
+
+
+
+
+
+
+
+
+

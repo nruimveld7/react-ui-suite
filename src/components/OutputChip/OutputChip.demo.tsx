@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { OutputChip } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../../../demo/component-registry";
+import "./OutputChip.demo.css";
+import { DemoExample } from "../../../demo/src/components/DemoExample";
 
 function MetricCard() {
   const [latency, setLatency] = useState(122);
@@ -20,23 +22,50 @@ function MetricCard() {
   }, []);
 
   return (
-    <div className="rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
-      <div className="flex items-center justify-between">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-          Latency
-        </p>
+    <DemoExample title="Latency" className="output-chip-demo-card">
+      <div
+        className="output-chip-demo-metric-row"
+      >
         <OutputChip tone={status} label="p95">
           {latency}ms
         </OutputChip>
       </div>
-      <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+      <p className="output-chip-demo-metric-note">
         Output element doubled as a status chip.
       </p>
-      <div className="mt-3 grid grid-cols-3 gap-2 text-[11px] uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">
+      <div className="output-chip-demo-tone-grid">
         <OutputChip tone="success">Fast</OutputChip>
         <OutputChip tone="warning">Average</OutputChip>
         <OutputChip tone="danger">Slow</OutputChip>
       </div>
+    </DemoExample>
+  );
+}
+
+function UsageSummary() {
+  return (
+    <DemoExample
+      title="Usage summary"
+      className="output-chip-demo-card"
+    >
+      <div className="output-chip-demo-row">
+        <span className="output-chip-demo-label">Monthly volume</span>
+        <OutputChip tone="neutral" label="tokens">
+          12.4k
+        </OutputChip>
+      </div>
+      <p className="output-chip-demo-note">
+        OutputChip uses an HTML output element for computed values.
+      </p>
+    </DemoExample>
+  );
+}
+
+function OutputChipPreview() {
+  return (
+    <div className="output-chip-demo-grid">
+      <MetricCard />
+      <UsageSummary />
     </div>
   );
 }
@@ -46,7 +75,7 @@ const entry: ComponentRegistryEntry = {
   name: "Output Chip",
   description: "HTMLOutput styled as a pill for computed values and statuses.",
   tags: ["feedback", "status"],
-  Preview: MetricCard,
+  Preview: OutputChipPreview,
   sourcePath: "src/components/OutputChip/OutputChip.tsx",
 };
 

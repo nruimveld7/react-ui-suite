@@ -1,6 +1,8 @@
 import { useMemo, useState } from "react";
-import { NumberInput } from "react-ui-suite";
+import { NumberInput, Slider } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../../../demo/component-registry";
+import "./NumberInput.demo.css";
+import { DemoExample } from "../../../demo/src/components/DemoExample";
 
 function BudgetPlanner() {
   const [budget, setBudget] = useState(4500);
@@ -11,67 +13,79 @@ function BudgetPlanner() {
   );
 
   return (
-    <div className="grid gap-3 rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm md:grid-cols-[1.1fr_0.9fr] dark:border-slate-800 dark:bg-slate-900/70">
-      <div className="space-y-3">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-          Budget planner
-        </p>
-        <NumberInput
-          label="Monthly budget"
-          description="Covers vendors, automation, and credits."
-          value={budget}
-          onChange={setBudget}
-          step={250}
-          suffix="USD"
-        />
-        <NumberInput
-          label="Active seats"
-          value={headcount}
-          onChange={setHeadcount}
-          step={1}
-          suffix="Seats"
-        />
+    <DemoExample
+      title="Budget planner"
+      className="number-input-demo__example"
+    >
+      <div className="number-input-demo__budget-planner">
+        <div className="number-input-demo__budget-planner__inputs">
+          <NumberInput
+            label="Monthly budget"
+            description="Covers vendors, automation, and credits."
+            value={budget}
+            onChange={setBudget}
+            step={250}
+            suffix="USD"
+          />
+          <NumberInput
+            label="Active seats"
+            value={headcount}
+            onChange={setHeadcount}
+            step={1}
+            suffix="Seats"
+          />
+        </div>
+        <div className="number-input-demo__budget-planner__forecast">
+          <p className="number-input-demo__forecast-title">Forecast</p>
+          <p className="number-input-demo__forecast-value">{burnRate} USD</p>
+          <p className="number-input-demo__forecast-desc">Per seat burn rate.</p>
+        </div>
       </div>
-      <div className="flex flex-col justify-center gap-3 rounded-2xl border border-dashed border-slate-200 bg-slate-50/80 p-3 text-sm text-slate-600 shadow-inner dark:border-slate-800 dark:bg-slate-950/60 dark:text-slate-300">
-        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-slate-500 dark:text-slate-400">
-          Forecast
-        </p>
-        <p className="text-3xl font-semibold text-slate-900 dark:text-slate-100">{burnRate} USD</p>
-        <p className="text-xs text-slate-500 dark:text-slate-400">Per seat burn rate.</p>
-      </div>
-    </div>
+    </DemoExample>
   );
 }
 
-function CompactNumberExamples() {
-  const [tickets, setTickets] = useState(12);
-  const [hours, setHours] = useState(32);
+function ScaleNumberInputDemo() {
+  const [scale, setScale] = useState(1);
+  const [value, setValue] = useState(6);
+
   return (
-    <div className="grid gap-3 rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm md:grid-cols-2 dark:border-slate-800 dark:bg-slate-900/70">
-      <NumberInput
-        label="Tickets per sprint"
-        value={tickets}
-        onChange={setTickets}
-        min={0}
-        step={1}
-      />
-      <NumberInput
-        label="Hours allocated"
-        value={hours}
-        onChange={setHours}
-        min={0}
-        step={4}
-        suffix="h"
-      />
-    </div>
+    <DemoExample
+      title="Scale"
+      className="number-input-demo__example"
+    >
+      <div className="number-input-demo__scale">
+        <div className="number-input-demo__scale-control">
+          <Slider
+            label="Scale"
+            min={0.25}
+            max={2}
+            step={0.05}
+            value={scale}
+            onChange={setScale}
+            formatValue={(val) => `${val.toFixed(2)}x`}
+          />
+        </div>
+        <div className="number-input-demo__scale-preview">
+          <NumberInput
+            label="Seats"
+            value={value}
+            onChange={setValue}
+            min={0}
+            step={1}
+            scale={scale}
+          />
+        </div>
+      </div>
+    </DemoExample>
   );
 }
 
 function NumberInputPreview() {
   return (
-    <div className="grid gap-4">
+    <div className="number-input-demo__grid">
       <BudgetPlanner />
-      <CompactNumberExamples />
+      <ScaleNumberInputDemo />
     </div>
   );
 }

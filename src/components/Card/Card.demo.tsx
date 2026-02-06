@@ -1,6 +1,8 @@
 import { Badge, Button, Card } from "react-ui-suite";
 import type { CardProps } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../../../demo/component-registry";
+import "./Card.demo.css";
+import { DemoExample } from "../../../demo/src/components/DemoExample";
 
 const plans = [
   {
@@ -28,38 +30,30 @@ const plans = [
 
 function PlanComparison() {
   return (
-    <div className="space-y-2">
-      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">
-        Plan
-      </p>
-      <div className="grid gap-4 md:grid-cols-3">
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--rui-space-3)" }}>
+      <div className="card-demo-grid">
         {plans.map((plan) => (
           <Card
             key={plan.id}
-            className="pt-4"
+            className="card-demo-plan-card"
             title={
-              <span className="flex items-center gap-2">
+              <span className="card-demo-plan-title">
                 <span>{plan.name}</span>
                 {plan.badge ? (
-                  <Badge
-                    variant="info"
-                    className="ml-auto px-2.5 py-[3px] text-[0.65rem] leading-[0.9rem]"
-                  >
+                  <Badge variant="info" className="card-demo-plan-badge" style={{ marginLeft: "auto" }}>
                     {plan.badge}
                   </Badge>
                 ) : null}
               </span>
             }
             footer={
-              <Button className="w-full bg-white text-slate-900 hover:bg-slate-50 dark:bg-white/10 dark:text-white dark:hover:bg-white/20">
+              <Button className="card-demo-choose-button" style={{ width: "100%" }}>
                 Choose plan
               </Button>
             }
           >
-            <div className="text-2xl font-semibold text-slate-900 dark:text-white">
-              {plan.price}
-            </div>
-            <p className="mt-1 text-sm leading-relaxed">{plan.description}</p>
+            <div className="card-demo-plan-price">{plan.price}</div>
+            <p className="card-demo-plan-description">{plan.description}</p>
           </Card>
         ))}
       </div>
@@ -72,7 +66,7 @@ function AnalyticsCardExample() {
     <Card
       eyebrow="Uptime"
       title="99.98%"
-      actions={<span className="text-emerald-500">+0.2%</span>}
+      actions={<span className="card-demo-stat-positive">+0.2%</span>}
       footer="Last updated 5 minutes ago"
     >
       No incidents detected. All systems operational.
@@ -85,7 +79,19 @@ function MutedCardExample() {
     <Card
       muted
       title="Invite your team"
-      footer={<Button className="px-3 py-1 text-xs uppercase tracking-wide">Send invites</Button>}
+      footer={
+        <Button
+          disabled
+          style={{
+            padding: "0.25rem 0.75rem",
+            fontSize: "0.75rem",
+            textTransform: "uppercase",
+            letterSpacing: "0.08em",
+          }}
+        >
+          Send invites
+        </Button>
+      }
     >
       Collaborate with teammates to share drafts, review changes, and sync releases.
     </Card>
@@ -94,13 +100,17 @@ function MutedCardExample() {
 
 function CardPreview() {
   return (
-    <div className="space-y-4">
-      <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-md shadow-slate-200/50 dark:border-slate-800 dark:bg-demo-panel dark:shadow-none">
+    <div className="card-demo-stack">
+      <DemoExample title="Plan">
         <PlanComparison />
-      </div>
-      <div className="grid gap-4 md:grid-cols-2">
-        <AnalyticsCardExample />
-        <MutedCardExample />
+      </DemoExample>
+      <div className="card-demo-secondary-grid">
+        <DemoExample title="Uptime">
+          <AnalyticsCardExample />
+        </DemoExample>
+        <DemoExample title="Muted">
+          <MutedCardExample />
+        </DemoExample>
       </div>
     </div>
   );

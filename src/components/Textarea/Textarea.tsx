@@ -1,6 +1,6 @@
 import * as React from "react";
-import { twMerge } from "tailwind-merge";
-
+import clsx from "clsx";
+import "./Textarea.css";
 export type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> & {
   label?: string;
   description?: string;
@@ -41,8 +41,8 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
   const textareaRef: React.MutableRefObject<HTMLTextAreaElement | null> = React.useRef(null);
   const shellRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
   const resizeListenersRef = React.useRef<{
-    move?: (event: MouseEvent) => void;
-    up?: (event: MouseEvent) => void;
+    move?: (event: PointerEvent) => void;
+    up?: (event: PointerEvent) => void;
   }>({});
   const [thumb, setThumb] = React.useState<ThumbState>({
     visible: false,
@@ -123,23 +123,20 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
     };
   }, [height]);
 
-  React.useLayoutEffect(() => {
-    if (!shellRef.current || width !== undefined) return;
-    setWidth(shellRef.current.offsetWidth);
-  }, [width]);
-
   React.useEffect(() => {
     return () => {
       if (resizeListenersRef.current.move) {
-        window.removeEventListener("mousemove", resizeListenersRef.current.move);
+        window.removeEventListener("pointermove", resizeListenersRef.current.move);
       }
       if (resizeListenersRef.current.up) {
-        window.removeEventListener("mouseup", resizeListenersRef.current.up);
+        window.removeEventListener("pointerup", resizeListenersRef.current.up);
+        window.removeEventListener("pointercancel", resizeListenersRef.current.up);
       }
     };
   }, []);
 
-  const handleResizeStart = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleResizeStart = (event: React.PointerEvent<HTMLButtonElement>) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
     event.preventDefault();
     if (!textareaRef.current) return;
 
@@ -154,7 +151,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
     const minWidth = 240;
     const parentWidth = shellRef.current?.parentElement?.clientWidth ?? startWidth;
 
-    const onMove = (moveEvent: MouseEvent) => {
+    const onMove = (moveEvent: PointerEvent) => {
       if (allowY) {
         const nextHeight = Math.max(minHeight, startHeight + (moveEvent.clientY - startY));
         setHeight(nextHeight);
@@ -167,15 +164,18 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
     };
 
     const onUp = () => {
-      window.removeEventListener("mousemove", onMove);
-      window.removeEventListener("mouseup", onUp);
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+      window.removeEventListener("pointercancel", onUp);
       resizeListenersRef.current = {};
     };
 
     resizeListenersRef.current = { move: onMove, up: onUp };
 
-    window.addEventListener("mousemove", onMove);
-    window.addEventListener("mouseup", onUp);
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerup", onUp);
+    window.addEventListener("pointercancel", onUp);
   };
 
   const handleThumbDrag = React.useCallback(
@@ -213,15 +213,16 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
     [thumb.size]
   );
 
-  const shellClasses = twMerge(
-    "relative rounded-2xl border border-slate-300 bg-white/80 px-3 py-2 shadow-sm transition focus-within:border-slate-400 focus-within:shadow-[0_0_0_1px_rgba(148,163,184,0.45)] dark:border-zinc-700 dark:bg-zinc-900/70 dark:focus-within:border-slate-500",
-    disabled && "opacity-60",
-    error &&
-      "border-rose-300 focus-within:border-rose-400 focus-within:shadow-[0_0_0_1px_rgba(248,113,113,0.35)] dark:border-rose-500/60"
+  const rootClasses = clsx("rui-textarea", "rui-root", disabled && "rui-textarea--disabled");
+  const shellClasses = clsx(
+    "rui-textarea__shell",
+    disabled && "rui-textarea__shell--disabled",
+    error && "rui-textarea__shell--error"
   );
 
-  const textareaClasses = twMerge(
-    "textarea-scrollbar min-h-[120px] w-full resize-none border-none bg-transparent pb-4 pr-5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none dark:text-zinc-100 dark:placeholder:text-zinc-500",
+  const textareaClasses = clsx(
+    "rui-textarea__control",
+    `rui-textarea__control--resize-${resizeDirection}`,
     className
   );
 
@@ -231,17 +232,16 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
   const textareaStyle = {
     ...style,
     ...(height !== undefined ? { height } : null),
-    ...(width !== undefined ? { width } : null),
-    maxWidth: "100%",
   };
-  const shellStyle = width !== undefined ? { width, maxWidth: "100%" } : { maxWidth: "100%" };
+  const allowX = resizeDirection === "horizontal" || resizeDirection === "both";
+  const shellStyle = width !== undefined && allowX ? { width } : undefined;
 
   return (
-    <div className="space-y-1.5">
+    <div className={rootClasses}>
       {label ? (
         <label
           htmlFor={textareaId}
-          className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-zinc-400"
+          className="rui-textarea__label rui-text-wrap"
         >
           {label}
         </label>
@@ -265,7 +265,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
         />
         {thumb.visible ? (
           <div
-            className="pointer-events-auto absolute z-20 rounded-full bg-white/60 shadow-inner backdrop-blur-sm transition-colors dark:bg-zinc-800/70"
+            className="rui-textarea__scrollbar"
             style={{
               right: 4,
               top: TRACK_TOP + TRACK_REDUCTION_HALF,
@@ -290,9 +290,9 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
               handleThumbDrag(event as unknown as React.PointerEvent<HTMLDivElement>, target);
             }}
           >
-            <div className="relative h-full w-full rounded-full bg-slate-900/5 shadow-inner dark:bg-white/10">
+            <div className="rui-textarea__scrollbar-track">
               <div
-                className="absolute left-1/2 w-full -translate-x-1/2 rounded-full bg-slate-400/80 shadow-sm transition-colors dark:bg-zinc-500/70"
+                className="rui-textarea__scrollbar-thumb"
                 style={{ height: `${thumb.size}px`, top: `${thumb.offset}px` }}
                 onPointerDown={(event) => {
                   event.stopPropagation();
@@ -303,17 +303,17 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
           </div>
         ) : null}
         {resizeDirection !== "none" ? (
-          <div className="pointer-events-none absolute bottom-2 right-2 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400 dark:text-zinc-500">
+          <div className="rui-textarea__footer">
             {showCount && limit ? (
-              <div className="pointer-events-auto">
+              <div className="rui-textarea__footer-count">
                 {count}/{limit}
               </div>
             ) : null}
             <button
               type="button"
               aria-label="Resize textarea"
-              onMouseDown={handleResizeStart}
-              className="pointer-events-auto inline-flex h-[14px] w-[14px] items-center justify-center rounded-[3px] bg-transparent text-slate-400 outline-none transition hover:text-slate-500 focus-visible:ring-2 focus-visible:ring-slate-300 focus-visible:ring-offset-1 focus-visible:ring-offset-white active:cursor-grab dark:bg-transparent dark:text-zinc-400 dark:hover:text-zinc-200 dark:focus-visible:ring-slate-500 dark:focus-visible:ring-offset-zinc-900"
+              onPointerDown={handleResizeStart}
+              className="rui-textarea__resize-handle"
               style={{
                 border: "none",
                 boxShadow: "none",
@@ -322,15 +322,15 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
               }}
             >
               <svg
-                viewBox="0 0 12 12"
+                viewBox="0 0 16 16"
                 aria-hidden="true"
-                className="h-3 w-3 text-slate-400 dark:text-zinc-400"
+                className="rui-textarea__resize-handle-icon"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
               >
-                <path
-                  d="M2 10.5 10.5 2M4.5 10.5 10.5 4.5M7 10.5 10.5 7"
-                  stroke="currentColor"
-                  strokeWidth="1.1"
-                />
+                <path d="M7 15 L15 7 M11 15 L15 11 M3 15 L15 3" />
               </svg>
             </button>
           </div>
@@ -338,16 +338,17 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
       </div>
 
       {description ? (
-        <p id={descriptionId} className="text-xs text-slate-500 dark:text-zinc-400">
+        <p id={descriptionId} className="rui-textarea__description rui-text-wrap">
           {description}
         </p>
       ) : null}
 
       {error ? (
-        <p id={errorId} className="text-xs font-medium text-rose-500 dark:text-rose-400">
+        <p id={errorId} className="rui-textarea__error rui-text-wrap">
           {error}
         </p>
       ) : null}
     </div>
   );
 });
+

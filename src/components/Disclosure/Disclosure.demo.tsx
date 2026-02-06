@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Disclosure } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../../../demo/component-registry";
+import "./Disclosure.demo.css";
+import { DemoExample } from "../../../demo/src/components/DemoExample";
 
 const faqs = [
   {
@@ -20,58 +22,66 @@ const faqs = [
 function FAQAccordion() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   return (
-    <div className="rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
-      <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-        FAQ
-      </p>
-      <div className="mt-3 space-y-2">
+    <DemoExample
+      title="FAQ"
+      className="disclosure-demo-card"
+    >
+      <div className="disclosure-demo-list">
         {faqs.map((item, index) => (
-          <Disclosure
-            key={item.q}
-            open={openIndex === index}
-            onClick={(e) => {
-              const target = e.target as HTMLElement | null;
-              const isSummaryClick = target?.closest("summary");
-              if (!isSummaryClick) return; // ignore clicks inside content
-              e.preventDefault(); // stop native toggle; we fully control the open state
-              setOpenIndex((prev) => (prev === index ? null : index));
-            }}
-            title={item.q}
-          >
-            <p>{item.a}</p>
-          </Disclosure>
+          <div key={item.q} className="disclosure-demo__faq-item">
+            <Disclosure
+              subtle
+              open={openIndex === index}
+              onClick={(e) => {
+                const target = e.target as HTMLElement | null;
+                const isSummaryClick = target?.closest("summary");
+                if (!isSummaryClick) return; // ignore clicks inside content
+                e.preventDefault(); // stop native toggle; we fully control the open state
+                setOpenIndex((prev) => (prev === index ? null : index));
+              }}
+              title={item.q}
+            >
+              <p>{item.a}</p>
+            </Disclosure>
+          </div>
         ))}
       </div>
-    </div>
+    </DemoExample>
   );
 }
 
 function ReleaseChangelog() {
   return (
-    <div className="space-y-2 rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
-      <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-        Changelog
-      </p>
-      <Disclosure title="v1.8.0 - Workflow builder" defaultOpen subtle>
-        <ul className="list-disc space-y-1 pl-4">
-          <li>Added conditional branches to automation builder.</li>
-          <li>New templates for onboarding and customer success.</li>
-          <li>Improved logs with live tail and filters.</li>
-        </ul>
-      </Disclosure>
-      <Disclosure title="v1.7.2 - Stability" subtle>
-        <p>Fixed latency spikes in EU-West and reduced cold start times by 25%.</p>
-      </Disclosure>
-      <Disclosure title="v1.7.0 - Collaboration" subtle>
-        <p>Mentions now support groups; added inline reactions for comments.</p>
-      </Disclosure>
-    </div>
+    <DemoExample
+      title="Changelog"
+      className="disclosure-demo-card disclosure-demo-card--stack"
+    >
+      <div className="disclosure-demo__faq-item">
+        <Disclosure title="v1.8.0 - Workflow builder" defaultOpen subtle>
+          <ul className="disclosure-demo-bullet-list">
+            <li>Added conditional branches to automation builder.</li>
+            <li>New templates for onboarding and customer success.</li>
+            <li>Improved logs with live tail and filters.</li>
+          </ul>
+        </Disclosure>
+      </div>
+      <div className="disclosure-demo__faq-item">
+        <Disclosure title="v1.7.2 - Stability" subtle>
+          <p>Fixed latency spikes in EU-West and reduced cold start times by 25%.</p>
+        </Disclosure>
+      </div>
+      <div className="disclosure-demo__faq-item">
+        <Disclosure title="v1.7.0 - Collaboration" subtle>
+          <p>Mentions now support groups; added inline reactions for comments.</p>
+        </Disclosure>
+      </div>
+    </DemoExample>
   );
 }
 
 function DisclosurePreview() {
   return (
-    <div className="grid gap-4 md:grid-cols-2">
+    <div className="disclosure-demo-grid">
       <FAQAccordion />
       <ReleaseChangelog />
     </div>
@@ -89,3 +99,6 @@ const entry: ComponentRegistryEntry = {
 
 export default entry;
 export { Disclosure };
+
+
+

@@ -2,6 +2,8 @@ import { useId, useState } from "react";
 import { Toggle } from "react-ui-suite";
 import type { ToggleProps } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../../../demo/component-registry";
+import "./Toggle.demo.css";
+import { DemoExample } from "../../../demo/src/components/DemoExample";
 
 type ToggleFieldProps = {
   title: string;
@@ -16,13 +18,13 @@ function ToggleField({ title, description, checked, onChange, disabled }: Toggle
   const descriptionId = useId();
 
   return (
-    <div className="flex items-center justify-between gap-6 rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
+    <div className="rui-toggle-demo__field">
       <div>
-        <p id={labelId} className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+        <p id={labelId} className="rui-toggle-demo__field-title">
           {title}
         </p>
         {description ? (
-          <p id={descriptionId} className="text-xs text-slate-500 dark:text-slate-400">
+          <p id={descriptionId} className="rui-toggle-demo__field-description">
             {description}
           </p>
         ) : null}
@@ -44,7 +46,7 @@ function ToggleSettingsPanel() {
   const [marketing, setMarketing] = useState(false);
 
   return (
-    <div className="space-y-3">
+    <div className="rui-toggle-demo__settings">
       <ToggleField
         title="Notifications"
         description="Push me when someone mentions my handle."
@@ -64,7 +66,7 @@ function ToggleSettingsPanel() {
 function ControlledToggleExample() {
   const [enabled, setEnabled] = useState(true);
   return (
-    <div className="flex flex-col items-center gap-2 text-center text-sm text-slate-600 dark:text-slate-300">
+    <div className="rui-toggle-demo__status">
       <Toggle checked={enabled} onChange={setEnabled} aria-label="Enable integrations" />
       <span>{enabled ? "Integrations enabled" : "Integrations disabled"}</span>
     </div>
@@ -78,43 +80,42 @@ function AccentToggleExample() {
       checked={value}
       onChange={setValue}
       aria-label="Accent toggle"
-      className="border-cyan-400/70 bg-cyan-500/80 data-[state=off]:border-cyan-800 data-[state=off]:bg-cyan-950/70 data-[state=on]:shadow-[0_0_20px_rgba(34,211,238,0.5)] dark:border-cyan-300/80 dark:bg-cyan-500/60 dark:data-[state=off]:border-cyan-950/80 dark:data-[state=off]:bg-cyan-950/70 dark:data-[state=on]:shadow-[0_0_32px_rgba(34,211,238,0.8)]"
+      className="rui-toggle-demo__accent-toggle"
     />
   );
 }
 
 function DisabledToggleExample() {
-  return <Toggle defaultChecked disabled aria-label="Disabled toggle" className="opacity-70" />;
+  return (
+    <Toggle
+      defaultChecked
+      disabled
+      aria-label="Disabled toggle"
+      className="rui-toggle-demo__disabled-toggle"
+    />
+  );
 }
 
 function TogglePreview() {
   return (
-    <div className="space-y-4">
-      <div className="rounded-3xl border border-slate-200 bg-white/80 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
+    <div className="rui-toggle-demo">
+      <DemoExample title="Settings" className="rui-toggle-demo__panel">
         <ToggleSettingsPanel />
-      </div>
-      <div className="grid gap-4 md:grid-cols-3">
-        <div className="flex flex-col items-center gap-3 rounded-3xl border border-slate-200 bg-white/80 p-4 text-center shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-            Controlled state
-          </p>
+      </DemoExample>
+      <div className="rui-toggle-demo__grid rui-toggle-demo__grid--three">
+        <DemoExample title="Controlled state" className="rui-toggle-demo__card">
           <ControlledToggleExample />
-        </div>
-        <div className="flex flex-col items-center gap-3 rounded-3xl border border-slate-200 bg-white/80 p-4 text-center shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-            Accent styling
-          </p>
+        </DemoExample>
+        <DemoExample title="Accent styling" className="rui-toggle-demo__card">
           <AccentToggleExample />
-        </div>
-        <div className="flex flex-col items-center gap-3 rounded-3xl border border-slate-200 bg-white/80 p-4 text-center text-sm text-slate-600 shadow-sm dark:border-slate-800 dark:bg-slate-900/70 dark:text-slate-300">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-            Disabled toggle
-          </p>
+        </DemoExample>
+        <DemoExample
+          title="Disabled toggle"
+          className="rui-toggle-demo__card rui-toggle-demo__card--muted"
+        >
           <DisabledToggleExample />
-          <p className="text-xs text-slate-500 dark:text-slate-400">
-            Pass disabled to prevent interactions.
-          </p>
-        </div>
+          <p className="rui-toggle-demo__note">Pass disabled to prevent interactions.</p>
+        </DemoExample>
       </div>
     </div>
   );
@@ -124,7 +125,7 @@ const entry: ComponentRegistryEntry = {
   slug: "toggle",
   name: "Toggle",
   description:
-    "Minimal, accessible switch component with keyboard controls and Tailwind styling hooks.",
+    "Minimal, accessible switch component with keyboard controls and styling hooks.",
   tags: ["input", "form", "switch"],
   Preview: TogglePreview,
   sourcePath: "src/components/Toggle/Toggle.tsx",

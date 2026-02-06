@@ -2,6 +2,8 @@ import { useMemo, useState } from "react";
 import { Radio } from "react-ui-suite";
 import type { RadioProps } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../../../demo/component-registry";
+import "./Radio.demo.css";
+import { DemoExample } from "../../../demo/src/components/DemoExample";
 
 type PlanOption = {
   id: string;
@@ -41,22 +43,22 @@ function PlanSelector() {
   );
 
   return (
-    <div className="rounded-3xl border border-slate-200 bg-white/90 p-5 shadow-sm shadow-slate-200/60 dark:border-slate-800 dark:bg-slate-900/70">
-      <div className="flex items-center justify-between gap-4">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-            Billing
-          </p>
-          <p className="text-sm text-slate-600 dark:text-slate-400">Pick a workspace plan.</p>
+    <DemoExample
+      title="Billing"
+      className="radio-demo__panel radio-demo__panel--billing"
+    >
+      <div className="radio-demo__header">
+        <div className="radio-demo__header-text">
+          <p className="radio-demo__header-copy">Pick a workspace plan.</p>
         </div>
         {activePlan ? (
-          <span className="rounded-full bg-slate-900/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.25em] text-white shadow-sm dark:bg-white/90 dark:text-slate-900">
+          <span className="radio-demo__header-badge">
             {activePlan.name}
           </span>
         ) : null}
       </div>
 
-      <div className="mt-3 space-y-2">
+      <div className="radio-demo__stack">
         {planOptions.map((plan) => (
           <Radio
             key={plan.id}
@@ -66,12 +68,10 @@ function PlanSelector() {
             checked={selectedPlan === plan.id}
             onChange={() => setSelectedPlan(plan.id)}
             extra={
-              <span className="flex items-center gap-2">
-                <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">
-                  {plan.price}
-                </span>
+              <span className="radio-demo__plan-extra">
+                <span className="radio-demo__plan-price">{plan.price}</span>
                 {plan.badge ? (
-                  <span className="rounded-full bg-slate-900 px-2 py-[2px] text-[10px] font-semibold uppercase tracking-[0.25em] text-white shadow-sm dark:bg-white dark:text-slate-900">
+                  <span className="radio-demo__plan-badge">
                     {plan.badge}
                   </span>
                 ) : null}
@@ -80,7 +80,7 @@ function PlanSelector() {
           />
         ))}
       </div>
-    </div>
+    </DemoExample>
   );
 }
 
@@ -98,30 +98,38 @@ const layoutOptions: LayoutOption[] = [
 
 function LayoutPreference() {
   const [density, setDensity] = useState<LayoutOption["id"]>("cozy");
+  const densityColors: Record<LayoutOption["id"], RadioProps["color"]> = {
+    airy: "blue",
+    cozy: "green",
+    compact: "red",
+  };
 
   return (
-    <div className="rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
-      <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-        Layout density
-      </p>
-      <div className="mt-3 grid gap-2 sm:grid-cols-3">
-        {layoutOptions.map((option) => (
-          <Radio
-            key={option.id}
-            name="layout"
-            label={option.title}
-            description={option.copy}
-            checked={density === option.id}
-            onChange={() => setDensity(option.id)}
-            className="h-full w-full rounded-2xl border border-slate-200 bg-white/80 px-3 py-3 shadow-sm hover:border-slate-300 dark:border-slate-700 dark:bg-slate-900/60"
-          />
-        ))}
+    <DemoExample
+      title="Layout density"
+      className="radio-demo__panel"
+    >
+      <div className="radio-demo__layout">
+        <div className="radio-demo__density-grid">
+          {layoutOptions.map((option) => (
+            <Radio
+              key={option.id}
+              name="layout"
+              label={option.title}
+              description={option.copy}
+              color={densityColors[option.id]}
+              checked={density === option.id}
+              onChange={() => setDensity(option.id)}
+              className="radio-demo__density-card"
+            />
+          ))}
+        </div>
+        <p className="radio-demo__density-note">
+          Current mode:{" "}
+          <span className="radio-demo__density-value">{density}</span>
+        </p>
       </div>
-      <p className="mt-3 rounded-xl border border-dashed border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-600 dark:border-slate-800 dark:bg-slate-950/50 dark:text-slate-300">
-        Current mode:{" "}
-        <span className="font-semibold text-slate-900 dark:text-slate-100">{density}</span>
-      </p>
-    </div>
+    </DemoExample>
   );
 }
 
@@ -129,10 +137,10 @@ function DigestPreferences() {
   const [cadence, setCadence] = useState<"daily" | "weekly" | "monthly">("weekly");
 
   return (
-    <div className="space-y-3 rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
-      <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-        Digest
-      </p>
+    <DemoExample
+      title="Digest"
+      className="radio-demo__panel radio-demo__panel--stack-lg"
+    >
       <Radio
         name="digest"
         label="Daily pulse"
@@ -155,8 +163,8 @@ function DigestPreferences() {
         onChange={() => setCadence("monthly")}
       />
 
-      <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50/80 px-3 py-2 text-xs text-slate-600 dark:border-slate-800 dark:bg-slate-950/60 dark:text-slate-300">
-        <p className="font-semibold text-slate-900 dark:text-slate-100">
+      <div className="radio-demo__delivery">
+        <p className="radio-demo__delivery-title">
           Delivery:{" "}
           {cadence === "daily"
             ? "Every morning"
@@ -164,8 +172,8 @@ function DigestPreferences() {
               ? "Mondays"
               : "First Monday"}
         </p>
-        <p className="text-[11px] text-slate-500 dark:text-slate-400">Pause reasons (read only):</p>
-        <div className="mt-1 space-y-1">
+        <p className="radio-demo__delivery-subtitle">Pause reasons (read only):</p>
+        <div className="radio-demo__pause-stack">
           <Radio
             name="digest-paused"
             label="Policy hold"
@@ -181,15 +189,15 @@ function DigestPreferences() {
           />
         </div>
       </div>
-    </div>
+    </DemoExample>
   );
 }
 
 function RadioPreview() {
   return (
-    <div className="space-y-4">
+    <div className="radio-demo__page">
       <PlanSelector />
-      <div className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
+      <div className="radio-demo__grid">
         <LayoutPreference />
         <DigestPreferences />
       </div>
@@ -210,3 +218,7 @@ const entry: ComponentRegistryEntry = {
 export default entry;
 export { Radio };
 export type { RadioProps };
+
+
+
+

@@ -1,0 +1,89 @@
+.dialog-demo-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.dialog-demo-card {
+  border-radius: 1.5rem;
+  border-width: 1px;
+  border-color: rgb(226 232 240 / 1);
+  background-color: rgb(255 255 255 / 1);
+  padding: 1.25rem;
+  box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.dialog-demo-card > :not([hidden]) ~ :not([hidden]) {
+  margin: 0px;
+}
+
+.dialog-demo-card:is([data-theme="dark"] *) {
+  border-color: rgb(63 63 70 / 0.6);
+  background-color: rgba(24, 24, 27, 0.75);
+}
+
+.dialog-demo-card__body > :not([hidden]) ~ :not([hidden]) {
+  margin: 0px;
+}
+
+.dialog-demo-card__text {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  margin-top: 0px;
+  color: rgb(71 85 105 / 1);
+}
+
+.dialog-demo-card__text:is([data-theme="dark"] *) {
+  color: rgb(148 163 184 / 1);
+}
+
+.dialog-demo-card__launch {
+  width: 100%;
+}
+
+.dialog-demo-footer-button {
+  min-width: 120px;
+}
+
+.dialog-demo-footer-button--cancel {
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.dialog-demo-footer-button--confirm {
+  background-color: rgb(5 150 105 / 1);
+  color: rgb(255 255 255 / 1);
+}
+
+.dialog-demo-footer-button--confirm:is([data-theme="dark"] *) {
+  background-color: rgb(16 185 129 / 1);
+  color: rgb(15 23 42 / 1);
+}
+
+.dialog-demo-tip {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: rgb(100 116 139 / 1);
+}
+
+.dialog-demo-tip:is([data-theme="dark"] *) {
+  color: rgb(148 163 184 / 1);
+}
+
+.dialog-demo-inline-dismiss {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.dialog-demo-inline-description {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  margin-top: 0px;
+  color: rgb(51 65 85 / 1);
+}
+
+.dialog-demo-inline-description:is([data-theme="dark"] *) {
+  color: rgb(203 213 225 / 1);
+}

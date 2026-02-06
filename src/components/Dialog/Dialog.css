@@ -1,0 +1,136 @@
+.rui-dialog__overlay {
+  position: fixed;
+  inset: 0px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(9 9 11 / 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.rui-dialog__dock {
+  pointer-events: none;
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 50;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.rui-dialog__card {
+  width: min(640px, 92vw);
+  border-radius: 1.5rem;
+  border-width: 1px;
+  border-color: rgb(226 232 240 / 1);
+  background-color: rgb(255 255 255 / 0.95);
+  padding: 1.5rem;
+  box-shadow: 0 0 0 0px #fff, 0 0 0 calc(1px + 0px) rgb(59 130 246 / 0.5), 0 0 #0000;
+}
+
+.rui-dialog__card--floating {
+  pointer-events: auto;
+}
+
+.rui-dialog__card--draggable {
+  cursor: grab;
+}
+
+.rui-dialog__card--draggable:active {
+  cursor: grabbing;
+}
+
+.rui-dialog__card:is([data-theme="dark"] *) {
+  border-color: rgb(63 63 70 / 0.6);
+  background-color: rgb(24 24 27 / 0.95);
+}
+
+.rui-dialog__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.rui-dialog__eyebrow {
+  margin: 0px;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: rgb(100 116 139 / 1);
+}
+
+.rui-dialog__eyebrow:is([data-theme="dark"] *) {
+  color: rgb(161 161 170 / 1);
+}
+
+.rui-dialog__title {
+  margin: 0px;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  color: rgb(15 23 42 / 1);
+}
+
+.rui-dialog__title:is([data-theme="dark"] *) {
+  color: rgb(244 244 245 / 1);
+}
+
+.rui-dialog__description {
+  margin: 0px;
+  color: rgb(71 85 105 / 1);
+}
+
+.rui-dialog__description:is([data-theme="dark"] *) {
+  color: rgb(161 161 170 / 1);
+}
+
+.rui-dialog__close-button {
+  width: 25px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.rui-dialog__close-button.rui-button {
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  font-size: x-large;
+  line-height: 1.25rem;
+  font-weight: 500;
+}
+
+.rui-dialog__close-button:not(:disabled):hover {
+  border: none;
+  box-shadow: none;
+}
+
+.rui-dialog__close-button:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+.rui-dialog__content {
+  margin: 0px;
+  color: rgb(51 65 85 / 1);
+}
+
+.rui-dialog__content > :not([hidden]) ~ :not([hidden]) {
+  margin-top: 0.75rem;
+  margin-bottom: 0px;
+}
+
+.rui-dialog__content:is([data-theme="dark"] *) {
+  color: rgb(212 212 216 / 1);
+}
+
+.rui-dialog__footer {
+  margin: 0px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}

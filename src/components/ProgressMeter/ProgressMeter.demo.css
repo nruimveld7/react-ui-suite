@@ -1,0 +1,190 @@
+.progress-meter-demo__grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.progress-meter-demo__card {
+  border-radius: 1.5rem;
+  border-width: 1px;
+  border-color: rgb(226 232 240 / 1);
+  background-color: rgb(255 255 255 / 1);
+  padding: 1rem;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.progress-meter-demo__card--uploads:is([data-theme="dark"] *) {
+  border-color: rgb(30 41 59 / 1);
+  background-color: rgba(24, 24, 27, 0.75);
+}
+
+.progress-meter-demo__card--system:is([data-theme="dark"] *) {
+  border-color: rgb(30 41 59 / 1);
+  background-color: rgba(24, 24, 27, 0.75);
+}
+
+.progress-meter-demo__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.progress-meter-demo__title {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: rgb(71 85 105 / 1);
+}
+
+.progress-meter-demo__title:is([data-theme="dark"] *) {
+  color: rgb(148 163 184 / 1);
+}
+
+.progress-meter-demo__status {
+  border-radius: 9999px;
+  background-color: rgb(15 23 42 / 1);
+  padding: 0.25rem 0.75rem;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  color: rgb(255 255 255 / 1);
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.progress-meter-demo__status:is([data-theme="dark"] *) {
+  background-color: rgb(255 255 255 / 1);
+  color: rgb(15 23 42 / 1);
+}
+
+.progress-meter-demo__stack > :not([hidden]) ~ :not([hidden]) {
+  margin-top: 0.5rem;
+  margin-bottom: 0px;
+}
+
+.progress-meter-demo__stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: rgb(71 85 105 / 1);
+}
+
+.progress-meter-demo__stats:is([data-theme="dark"] *) {
+  color: rgb(148 163 184 / 1);
+}
+
+.progress-meter-demo__stat-value {
+  text-align: right;
+  font-weight: 600;
+}
+
+.progress-meter-demo__system-health {
+  display: grid;
+  gap: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .progress-meter-demo__system-health {
+    grid-template-columns: 1.1fr 0.9fr;
+  }
+
+}
+.progress-meter-demo__system-health > .rui-demo-example__title {
+  grid-column: 1 / -1;
+}
+
+.progress-meter-demo__health-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.progress-meter-demo__health-intro {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: rgb(71 85 105 / 1);
+}
+
+.progress-meter-demo__health-intro:is([data-theme="dark"] *) {
+  color: rgb(148 163 184 / 1);
+}
+
+.progress-meter-demo__health-stack > :not([hidden]) ~ :not([hidden]) {
+  margin-top: 0.75rem;
+  margin-bottom: 0px;
+}
+
+.progress-meter-demo__thresholds {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: rgb(100 116 139 / 1);
+}
+
+.progress-meter-demo__thresholds:is([data-theme="dark"] *) {
+  color: rgb(148 163 184 / 1);
+}
+
+.progress-meter-demo__threshold {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: 9999px;
+  border-width: 1px;
+  border-color: rgb(226 232 240 / 1);
+  padding: 0.25rem 0.5rem;
+}
+
+.progress-meter-demo__threshold:is([data-theme="dark"] *) {
+  border-color: rgb(51 65 85 / 1);
+}
+
+.progress-meter-demo__threshold-dot {
+  display: block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+}
+
+.progress-meter-demo__anomaly {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.75rem;
+  border-radius: 1rem;
+  border-width: 1px;
+  border-style: dashed;
+  border-color: rgb(226 232 240 / 1);
+  background-color: rgb(248 250 252 / 0.8);
+  padding: 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: rgb(71 85 105 / 1);
+}
+
+.progress-meter-demo__anomaly:is([data-theme="dark"] *) {
+  border-color: rgb(30 41 59 / 1);
+  background-color: #27272a;
+  color: rgb(203 213 225 / 1);
+}
+
+.progress-meter-demo__anomaly-title,
+.progress-meter-demo__anomaly-description {
+  margin: 0;
+}
+
+.progress-meter-demo__anomaly-title {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  color: rgb(30 41 59 / 1);
+}
+
+.progress-meter-demo__anomaly-title:is([data-theme="dark"] *) {
+  color: rgb(241 245 249 / 1);
+}

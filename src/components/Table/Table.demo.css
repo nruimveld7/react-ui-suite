@@ -1,0 +1,209 @@
+.rui-table-demo {
+  display: grid;
+  gap: 1rem;
+}
+
+.rui-table-demo__grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .rui-table-demo__grid--two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+}
+.rui-table-demo__card {
+  border-radius: 1.5rem;
+  border: 1px solid rgb(226 232 240 / 1);
+  background-color: rgb(255 255 255 / 1);
+  padding: 1rem;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  overflow: hidden;
+}
+
+.rui-table-demo__card:is([data-theme="dark"] *) {
+  border-color: rgb(30 41 59 / 1);
+  background-color: rgba(24, 24, 27, 0.75);
+  box-shadow: none;
+}
+
+.rui-table-demo__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.rui-table-demo__header--wrap {
+  flex-wrap: wrap;
+}
+
+.rui-table-demo__copy {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: rgb(71 85 105 / 1);
+}
+
+.rui-table-demo__copy:is([data-theme="dark"] *) {
+  color: rgb(148 163 184 / 1);
+}
+
+.rui-table-demo__filter-checkbox {
+  width: fit-content;
+  border-radius: 0.75rem;
+  border: 1px solid rgb(226 232 240 / 1);
+  background-color: rgb(255 255 255 / 1);
+  padding: 0.25rem 0.5rem;
+}
+
+.rui-table-demo__filter-checkbox:is([data-theme="dark"] *) {
+  border-color: rgb(63 63 70 / 1);
+  background-color: rgb(24 24 27 / 0.7);
+}
+
+.rui-table-demo__table-wrap {
+  margin-top: 0.75rem;
+}
+
+.rui-table-demo__filters {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.rui-table-demo__search {
+  width: 100%;
+  max-width: 32rem;
+}
+
+.rui-table-demo__search-input {
+  width: 100%;
+}
+
+.rui-table-demo__filter-button {
+  border-radius: 9999px;
+  border: 1px solid rgb(226 232 240 / 1);
+  padding: 0.25rem 0.75rem;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgb(100 116 139 / 1);
+  background-color: rgb(255 255 255 / 1);
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.rui-table-demo__filter-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.rui-table-demo__filter-button--active {
+  border-color: rgb(148 163 184 / 1);
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.rui-table-demo__filter-button:is([data-theme="dark"] *) {
+  border-color: rgb(51 65 85 / 1);
+  background-color: rgb(15 23 42 / 1);
+  color: rgb(203 213 225 / 1);
+}
+
+.rui-table-demo__filter-button--active:is([data-theme="dark"] *) {
+  border-color: rgb(71 85 105 / 1);
+  background-color: rgb(30 41 59 / 1);
+}
+
+.rui-table-demo__status-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  padding: 0.25rem 0.75rem;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.rui-table-demo__status-pill--active {
+  background-color: rgb(16 185 129 / 0.9);
+  color: rgb(255 255 255 / 1);
+}
+
+.rui-table-demo__status-pill--paused {
+  background-color: rgb(251 191 36 / 0.9);
+  color: rgb(15 23 42 / 1);
+}
+
+.rui-table-demo__status-pill--error {
+  background-color: rgb(244 63 94 / 0.9);
+  color: rgb(255 255 255 / 1);
+}
+
+.rui-table-demo__status-pill--invited {
+  background-color: rgb(56 189 248 / 0.9);
+  color: rgb(255 255 255 / 1);
+}
+
+.rui-table-demo__status-dot {
+  display: inline-block;
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 9999px;
+  background-color: rgb(255 255 255 / 1);
+}
+
+.rui-table-demo__metric {
+  font-weight: 600;
+  color: rgb(15 23 42 / 1);
+}
+
+.rui-table-demo__metric:is([data-theme="dark"] *) {
+  color: rgb(241 245 249 / 1);
+}
+
+.rui-table-demo__billing-align-table th {
+  text-align: center;
+}
+
+.rui-table-demo__billing-align-table td {
+  height: 80px;
+}
+
+.rui-table-demo__billing-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  height: 100%;
+}
+
+.rui-table-demo__billing-spacer {
+  flex: 1;
+}
+
+.rui-table-demo__billing-title {
+  font-weight: 600;
+  color: rgb(15 23 42 / 1);
+}
+
+.rui-table-demo__billing-title:is([data-theme="dark"] *) {
+  color: rgb(241 245 249 / 1);
+}
+
+.rui-table-demo__billing-amount {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: rgb(100 116 139 / 1);
+}
+
+.rui-table-demo__billing-amount:is([data-theme="dark"] *) {
+  color: rgb(148 163 184 / 1);
+}

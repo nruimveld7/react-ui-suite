@@ -41,7 +41,7 @@ describe("Card", () => {
 
     expect(screen.getByText("Action slot")).toBeInTheDocument();
     const card = screen.getByTestId("card");
-    expect(card).toHaveClass("bg-slate-50/70", { exact: false });
+    expect(card).toHaveClass("rui-card--muted", { exact: false });
   });
 });
 

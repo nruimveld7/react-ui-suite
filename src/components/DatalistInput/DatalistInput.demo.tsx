@@ -1,6 +1,8 @@
 import { useMemo, useState } from "react";
 import { DatalistInput } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../../../demo/component-registry";
+import "./DatalistInput.demo.css";
+import { DemoExample } from "../../../demo/src/components/DemoExample";
 
 const commands = [
   "Open dashboard",
@@ -21,16 +23,8 @@ function CommandPalette() {
   );
 
   return (
-    <div className="rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
-      <div className="flex items-center justify-between">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-          Command palette
-        </p>
-        <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-slate-500 shadow-sm dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-300">
-          Custom popover
-        </span>
-      </div>
-      <div className="mt-3 space-y-3">
+    <DemoExample title="Command palette" badge="Custom popover">
+      <div className="rui-datalist-input-demo__stack">
         <DatalistInput
           label="Search actions"
           placeholder="Type to filter commands"
@@ -39,15 +33,15 @@ function CommandPalette() {
           onChange={(e) => setQuery(e.target.value)}
           description="Custom suggestions popover that matches the gallery styling."
         />
-        <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50/80 p-3 text-sm text-slate-600 dark:border-slate-800 dark:bg-slate-950/60 dark:text-slate-300">
+        <div className="rui-datalist-input-demo__panel">
           {matched.length ? (
-            <ul className="space-y-1">
+            <ul className="rui-datalist-input-demo__list">
               {matched.map((item) => (
-                <li key={item} className="flex items-center gap-2">
-                  <span className="text-[10px] uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">
+                <li key={item} className="rui-datalist-input-demo__item">
+                  <span className="rui-datalist-input-demo__item-key">
                     cmd
                   </span>
-                  <span className="font-semibold text-slate-900 dark:text-slate-100">{item}</span>
+                  <span className="rui-datalist-input-demo__item-text">{item}</span>
                 </li>
               ))}
             </ul>
@@ -56,7 +50,7 @@ function CommandPalette() {
           )}
         </div>
       </div>
-    </div>
+    </DemoExample>
   );
 }
 

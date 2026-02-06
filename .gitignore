@@ -19,6 +19,7 @@ Thumbs.db
 *.log
 *.tsbuildinfo
 artifacts/
+test-results/
 npm-debug.log*
 yarn-error.log*
 pnpm-debug.log*

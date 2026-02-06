@@ -11,14 +11,14 @@ describe("OutputChip", () => {
     );
 
     const chip = screen.getByText("Ready").closest("output");
-    expect(chip).toHaveClass("bg-emerald-500", { exact: false });
+    expect(chip).toHaveAttribute("data-tone", "success");
     expect(screen.getByText("Status")).toBeInTheDocument();
   });
 
   it("defaults to the neutral tone", () => {
     const { container } = render(<OutputChip>Value</OutputChip>);
     const chip = container.querySelector("output");
-    expect(chip).toHaveClass("bg-slate-900", { exact: false });
+    expect(chip).toHaveAttribute("data-tone", "neutral");
   });
 });
 

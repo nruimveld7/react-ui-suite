@@ -1,7 +1,8 @@
 import * as React from "react";
 import { createPortal } from "react-dom";
-import { twMerge } from "tailwind-merge";
 import Button from "../Button/Button";
+import clsx from "clsx";
+import "./Dialog.css";
 
 export type DialogProps = {
   open: boolean;
@@ -26,6 +27,8 @@ export function Dialog({
 }: DialogProps) {
   const overlayRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
   const dialogRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
+  const titleId = React.useId();
+  const descriptionId = React.useId();
   const dragState = React.useRef<{
     startX: number;
     startY: number;
@@ -42,11 +45,40 @@ export function Dialog({
       if (event.key === "Escape") {
         event.preventDefault();
         onClose();
+        return;
+      }
+      if (event.key === "Tab" && modal) {
+        const dialog = dialogRef.current;
+        if (!dialog) return;
+        const focusable = Array.from(
+          dialog.querySelectorAll<HTMLElement>(
+            'a[href],button:not([disabled]),textarea:not([disabled]),input:not([disabled]),select:not([disabled]),[tabindex]:not([tabindex="-1"])'
+          )
+        ).filter((el) => !el.hasAttribute("disabled") && el.tabIndex >= 0);
+        if (focusable.length === 0) {
+          event.preventDefault();
+          dialog.focus();
+          return;
+        }
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        const active = document.activeElement as HTMLElement | null;
+        if (event.shiftKey) {
+          if (active === first || active === dialog) {
+            event.preventDefault();
+            last.focus();
+          }
+          return;
+        }
+        if (active === last) {
+          event.preventDefault();
+          first.focus();
+        }
       }
     };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [open, onClose]);
+  }, [open, onClose, modal]);
 
   React.useEffect(() => {
     if (!open) return;
@@ -150,38 +182,43 @@ export function Dialog({
       ref={dialogRef}
       role="dialog"
       aria-modal={modal || undefined}
+      aria-labelledby={titleId}
+      aria-describedby={description ? descriptionId : undefined}
       tabIndex={-1}
-      aria-label={title}
-      className={twMerge(
-        "w-[min(640px,92vw)] rounded-3xl border border-slate-200 bg-white/95 p-6 shadow-2xl ring-1 ring-white/80 dark:border-zinc-700/60 dark:bg-zinc-900/95 dark:ring-zinc-800/80",
-        modal ? "" : "pointer-events-auto",
-        draggable && "cursor-grab active:cursor-grabbing"
+      className={clsx(
+        "rui-dialog__card",
+        modal ? "" : "rui-dialog__card--floating",
+        draggable && "rui-dialog__card--draggable"
       )}
       style={{ transform: `translate(${dragOffset.x}px, ${dragOffset.y}px)` }}
       onPointerDown={onDragPointerDown}
     >
-      <div className="flex items-start justify-between gap-3">
+      <div className="rui-dialog__header">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-zinc-400">
+          <p className="rui-dialog__eyebrow">
             Dialog
           </p>
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-zinc-100">{title}</h2>
+          <h2 id={titleId} className="rui-dialog__title">
+            {title}
+          </h2>
           {description ? (
-            <p className="mt-1 text-sm text-slate-600 dark:text-zinc-400">{description}</p>
+            <p id={descriptionId} className="rui-dialog__description">
+              {description}
+            </p>
           ) : null}
         </div>
         <Button
           onClick={onClose}
           aria-label="Close dialog"
-          className="size-8 !px-0 !py-0 text-sm font-semibold"
+          className="rui-dialog__close-button"
         >
-          X
+          ×
         </Button>
       </div>
 
-      <div className="mt-4 space-y-3 text-sm text-slate-700 dark:text-zinc-300">{children}</div>
+      <div className="rui-dialog__content">{children}</div>
 
-      {footer ? <div className="mt-6 flex flex-wrap justify-end gap-2">{footer}</div> : null}
+      {footer ? <div className="rui-dialog__footer">{footer}</div> : null}
     </div>
   );
 
@@ -189,18 +226,19 @@ export function Dialog({
     modal ? (
       <div
         ref={overlayRef}
-        className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/60 backdrop-blur-sm"
-        onMouseDown={(e) => {
+        className="rui-overlay-root rui-dialog__overlay"
+        onPointerDown={(e) => {
           if (e.target === overlayRef.current) onClose();
         }}
       >
         {dialogCard}
       </div>
     ) : (
-      <div className="pointer-events-none fixed bottom-6 right-6 z-50 flex justify-end">
+      <div className="rui-overlay-root rui-dialog__dock">
         {dialogCard}
       </div>
     ),
     document.body
   );
 }
+

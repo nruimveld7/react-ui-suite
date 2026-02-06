@@ -1,6 +1,8 @@
 import { Badge, Button, StackedList } from "react-ui-suite";
 import type { StackedListItem, StackedListProps } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../../../demo/component-registry";
+import "./StackedList.demo.css";
+import { DemoExample } from "../../../demo/src/components/DemoExample";
 
 const standupItems: StackedListItem[] = [
   {
@@ -17,7 +19,7 @@ const standupItems: StackedListItem[] = [
     description: "Collect notes from TestFlight build 2.3.1.",
     meta: "2 hrs ago",
     icon: "📱",
-    action: <Button className="px-3 py-1 text-xs">View</Button>,
+    action: <Button className="rui-stacked-list-demo__action">View</Button>,
   },
   {
     id: "three",
@@ -54,7 +56,7 @@ function QuickActionList() {
           id: "invite",
           title: "Invite designers",
           description: "Send access to alice@example.com",
-          action: <Button className="px-3 py-1 text-xs">Send invite</Button>,
+          action: <Button className="rui-stacked-list-demo__action">Send invite</Button>,
         },
       ]}
     />
@@ -63,27 +65,26 @@ function QuickActionList() {
 
 function StackedListPreview() {
   return (
-    <div className="space-y-4">
-      <div className="rounded-3xl border border-slate-200 bg-white/80 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
+    <div className="rui-stacked-list-demo">
+      <DemoExample
+        title="Standup"
+        className="rui-stacked-list-demo__card"
+      >
         <StandupPreview />
-      </div>
-      <div className="grid gap-4 md:grid-cols-2">
-        <div className="rounded-3xl border border-slate-200 bg-white/80 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-            Dense activity
-          </p>
-          <div className="mt-3">
-            <DenseActivityExample />
-          </div>
-        </div>
-        <div className="rounded-3xl border border-slate-200 bg-white/80 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-            Quick actions
-          </p>
-          <div className="mt-3">
-            <QuickActionList />
-          </div>
-        </div>
+      </DemoExample>
+      <div className="rui-stacked-list-demo__grid">
+        <DemoExample
+          title="Dense activity"
+          className="rui-stacked-list-demo__card"
+        >
+          <DenseActivityExample />
+        </DemoExample>
+        <DemoExample
+          title="Quick actions"
+          className="rui-stacked-list-demo__card"
+        >
+          <QuickActionList />
+        </DemoExample>
       </div>
     </div>
   );

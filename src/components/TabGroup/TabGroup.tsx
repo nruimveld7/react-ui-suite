@@ -1,209 +1,350 @@
-import * as React from "react";
-import { twMerge } from "tailwind-merge";
+import React from "react";
+import "./TabGroup.css";
 
-export type TabGroupItem = {
-  id: string;
-  label: React.ReactNode;
-  description?: React.ReactNode;
-  disabled?: boolean;
-  content: React.ReactNode;
+export const TabGroupAlign = ["start", "center", "end"] as const;
+export const TabGroupPosition = ["top", "right", "bottom", "left"] as const;
+export const TabGroupFill = ["full", "partial"] as const;
+export const TabGroupRotation = ["horizontal", "vertical"] as const;
+
+export type TabGroupAlign = (typeof TabGroupAlign)[number];
+export type TabGroupPosition = (typeof TabGroupPosition)[number];
+export type TabGroupFill = (typeof TabGroupFill)[number];
+export type TabGroupRotation = (typeof TabGroupRotation)[number];
+
+export type TabGroupTab = {
+    label: React.ReactNode;
+    content: React.ReactNode;
+    disabled?: boolean;
+}
+
+export type TabGroupProps = {
+    align?: TabGroupAlign;
+    position?: TabGroupPosition;
+    fill?: TabGroupFill;
+    rotation?: TabGroupRotation;
+    size?: number;
+    tabs: TabGroupTab[];
+
+    active?: number;
+    defaultActive?: number;
+    onActiveChange?: (index: number) => void;
 };
 
-export type TabGroupOrientation = "horizontal" | "vertical";
+export default function TabGroup({
+    align = "start",
+    position = "top",
+    fill = "full",
+    rotation = "horizontal",
+    size = 50,
+    tabs,
+    active,
+    defaultActive = 0,
+    onActiveChange,
+}: TabGroupProps) {
+    const rootRef = React.useRef<HTMLDivElement | null>(null);
+    const tabStripRef = React.useRef<HTMLDivElement | null>(null);
+    const idBase = React.useId();
+    const [effectiveFill, setEffectiveFill] = React.useState<TabGroupFill>(fill);
+    const [availableMain, setAvailableMain] = React.useState(0);
+    const [minMain, setMinMain] = React.useState(32);
+    const count = tabs.length;
+    const clampIndex = React.useCallback(
+        (i: number) => {
+            if (count <= 0) {
+                return 0;
+            }
+            if (!Number.isFinite(i)) {
+                return 0;
+            }
+            return Math.max(0, Math.min(count - 1, Math.trunc(i)));
+        },
+        [count]
+    );
+    const isControlled = active !== undefined;
+    const [activeInternal, setActiveInternal] = React.useState<number>(() => clampIndex(defaultActive));
+    React.useEffect(() => {
+        if(!isControlled) {
+            setActiveInternal((i) => clampIndex(i));
+        }
+    }, [clampIndex, isControlled]);
+    const currentActive = clampIndex(isControlled ? active! : activeInternal);
+    const setActive = React.useCallback(
+        (next: number) => {
+            const i = clampIndex(next);
+            if(!isControlled) {
+                setActiveInternal(i);
+            }
+            onActiveChange?.(i);
+        },
+        [clampIndex, isControlled, onActiveChange]
+    );
 
-export type TabGroupProps = Omit<React.HTMLAttributes<HTMLDivElement>, "children"> & {
-  tabs: TabGroupItem[];
-  orientation?: TabGroupOrientation;
-  value?: string;
-  defaultValue?: string;
-  onChange?: (tabId: string) => void;
-};
+    const tabsFirst = position === "top" || position === "left";
+    const updateEffectiveFill = React.useCallback(() => {
+        const root = rootRef.current;
+        if (!root) {
+            setEffectiveFill(fill);
+            return;
+        }
 
-const TabGroup = React.forwardRef<HTMLDivElement, TabGroupProps>(function TabGroup(
-  { tabs, orientation = "horizontal", value, defaultValue, onChange, className, ...rest },
-  ref
-) {
-  const isControlled = typeof value !== "undefined";
-  const fallbackId = tabs[0]?.id ?? "";
-  const [internalValue, setInternalValue] = React.useState<string>(() => {
-    if (typeof defaultValue === "string") return defaultValue;
-    if (fallbackId) return fallbackId;
-    return "";
-  });
-  const resolvedValue = (isControlled ? value : internalValue) || "";
-  const vertical = orientation === "vertical";
+        const rect = root.getBoundingClientRect();
+        const computed = getComputedStyle(root);
+        const radius = parseFloat(computed.getPropertyValue("--rui-tab-panel-radius")) || 0;
+        const border = parseFloat(computed.getPropertyValue("--rui-tab-border")) || 0;
+        const minMainValue = parseFloat(computed.getPropertyValue("--rui-tab-min-main")) || 32;
+        const wiggle = border * 2 + 1;
+        const available = position === "top" || position === "bottom" ? rect.width : rect.height;
+        const required = (size ?? 0) * tabs.length;
+        const slots = minMainValue > 0 ? Math.floor(available / minMainValue) : tabs.length;
+        const hasOverflowControls = slots < tabs.length;
+        const shouldFill = (available - (2 * radius) - wiggle) <= required;
+        setEffectiveFill(shouldFill || hasOverflowControls ? "full" : "partial");
+    }, [fill, position, size, tabs.length]);
 
-  React.useEffect(() => {
-    if (!tabs.length) {
-      if (!isControlled && internalValue) {
-        setInternalValue("");
-      }
-      return;
-    }
+    React.useLayoutEffect(() => {
+        if (fill === "full") {
+            setEffectiveFill("full");
+            return;
+        }
 
-    const isCurrentStillVisible = tabs.some((tab) => tab.id === resolvedValue);
-    if (!isCurrentStillVisible && !isControlled) {
-      setInternalValue(tabs[0].id);
-    }
-  }, [tabs, resolvedValue, isControlled, internalValue]);
+        updateEffectiveFill();
+        const node = rootRef.current;
+        if (!node || typeof ResizeObserver === "undefined") {
+            return;
+        }
+        const observer = new ResizeObserver(() => updateEffectiveFill());
+        observer.observe(node);
+        return () => observer.disconnect();
+    }, [fill, updateEffectiveFill]);
 
-  const setActiveValue = (tabId: string) => {
-    if (!isControlled) {
-      setInternalValue(tabId);
-    }
-    onChange?.(tabId);
-  };
+    const isVertical = position === "left" || position === "right";
 
-  const baseId = React.useId();
-  const activeId = tabs.length ? resolvedValue || tabs[0].id : "";
-  const tabRefs = React.useRef(new Map<string, HTMLButtonElement | null>());
+    React.useLayoutEffect(() => {
+        const root = rootRef.current;
+        if (!root) return;
+        const computed = getComputedStyle(root);
+        const cssMin = parseFloat(computed.getPropertyValue("--rui-tab-min-main"));
+        setMinMain(Number.isFinite(cssMin) && cssMin > 0 ? cssMin : 32);
+    }, [position]);
 
-  const focusTab = (tabId: string) => {
-    const node = tabRefs.current.get(tabId);
-    node?.focus();
-  };
+    React.useLayoutEffect(() => {
+        const node = tabStripRef.current;
+        if (!node) return;
 
-  const selectTab = (tabId: string) => {
-    const tab = tabs.find((item) => item.id === tabId);
-    if (!tab || tab.disabled || tab.id === activeId) {
-      return;
-    }
-    setActiveValue(tabId);
-  };
+        const measure = () => {
+            const rect = node.getBoundingClientRect();
+            setAvailableMain(isVertical ? rect.height : rect.width);
+        };
 
-  const moveFocus = (startIndex: number, direction: 1 | -1) => {
-    if (!tabs.length) return;
+        measure();
+        if (typeof ResizeObserver === "undefined") return;
+        const observer = new ResizeObserver(() => measure());
+        observer.observe(node);
+        return () => observer.disconnect();
+    }, [isVertical]);
 
-    let nextIndex = startIndex;
-    for (let i = 0; i < tabs.length; i += 1) {
-      nextIndex = (nextIndex + direction + tabs.length) % tabs.length;
-      const candidate = tabs[nextIndex];
-      if (!candidate.disabled) {
-        selectTab(candidate.id);
-        focusTab(candidate.id);
-        return;
-      }
-    }
-  };
+    const slots = availableMain > 0 && minMain > 0 ? Math.floor(availableMain / minMain) : count;
+    const overflow = slots < count;
+    const windowSize = overflow ? Math.max(1, slots - 2) : count;
+    const maxStart = Math.max(0, count - windowSize);
+    const [startIndex, setStartIndex] = React.useState(0);
 
-  const handleKeyDown = (
-    event: React.KeyboardEvent<HTMLButtonElement>,
-    currentIndex: number
-  ) => {
-    const { key } = event;
-    if (key === "ArrowRight" || key === "ArrowLeft") {
-      event.preventDefault();
-      moveFocus(currentIndex, key === "ArrowRight" ? 1 : -1);
-    }
-    if (vertical && (key === "ArrowDown" || key === "ArrowUp")) {
-      event.preventDefault();
-      moveFocus(currentIndex, key === "ArrowDown" ? 1 : -1);
-    }
-  };
+    React.useEffect(() => {
+        if (!overflow) {
+            setStartIndex(0);
+            return;
+        }
+        setStartIndex((prev) => Math.min(Math.max(0, prev), maxStart));
+    }, [overflow, maxStart]);
 
-  const setTabRef = (tabId: string) => (node: HTMLButtonElement | null) => {
-    if (node) {
-      tabRefs.current.set(tabId, node);
-    } else {
-      tabRefs.current.delete(tabId);
-    }
-  };
+    React.useEffect(() => {
+        if (!overflow) return;
+        setStartIndex((prev) => {
+            if (currentActive < prev) return currentActive;
+            const end = prev + windowSize;
+            if (currentActive >= end) return currentActive - windowSize + 1;
+            return prev;
+        });
+    }, [currentActive, overflow, windowSize]);
 
-  const ariaLabel = rest["aria-label"];
-  const ariaLabelledBy = rest["aria-labelledby"];
+    const visibleTabs = overflow ? tabs.slice(startIndex, startIndex + windowSize) : tabs;
+    const slotSize = overflow && slots > 0 ? availableMain / slots : 0;
+    const overflowMainStyle =
+        overflow && slotSize > 0 ? (isVertical ? { height: slotSize } : { width: slotSize }) : undefined;
+    const mainStyle =
+        overflow
+            ? overflowMainStyle
+            : effectiveFill === "partial"
+                ? (isVertical ? { height: size } : { width: size })
+                : undefined;
 
-  const containerClasses = twMerge(
-    "flex flex-col gap-4 rounded-3xl border border-slate-200 bg-white/80 p-4 shadow-xl shadow-slate-200/40 dark:border-zinc-800 dark:bg-zinc-900/70 dark:shadow-none",
-    vertical && "md:flex-row",
-    className
-  );
+    const scrollLabels = isVertical
+        ? { back: "Scroll tabs up", forward: "Scroll tabs down" }
+        : { back: "Scroll tabs left", forward: "Scroll tabs right" };
+    const scrollMainStyle = overflowMainStyle;
 
-  const tabListContainerClasses = twMerge(
-    "rounded-2xl border border-slate-200 bg-white/70 p-2 dark:border-zinc-800 dark:bg-zinc-950/50",
-    vertical ? "md:w-72" : ""
-  );
+    const panelId = `${idBase}-panel`;
+    const getTabId = React.useCallback(
+        (index: number) => `${idBase}-tab-${index}`,
+        [idBase]
+    );
 
-  const tabListClasses = twMerge("flex gap-1", vertical ? "flex-col" : "flex-row");
-  const panelWrapperClasses = twMerge("flex-1", vertical ? "md:flex-1" : "w-full");
-  const panelBaseClasses =
-    "rounded-2xl border border-slate-100 bg-white/90 p-4 text-sm text-slate-600 shadow-inner shadow-slate-200/40 dark:border-zinc-800 dark:bg-zinc-950/40 dark:text-zinc-200";
+    const focusTabAt = React.useCallback((index: number) => {
+        const node = rootRef.current?.querySelector<HTMLElement>(`[data-tab-index="${index}"]`);
+        node?.focus();
+    }, []);
 
-  return (
-    <div {...rest} ref={ref} className={containerClasses} data-orientation={orientation}>
-      <div className={tabListContainerClasses}>
-        <div
-          role="tablist"
-          aria-label={ariaLabel}
-          aria-labelledby={ariaLabelledBy}
-          aria-orientation={orientation}
-          className={tabListClasses}
-        >
-          {tabs.map((tab, index) => {
-            const tabIsActive = tab.id === activeId;
-            const buttonId = `${baseId}-tab-${tab.id}`;
-            const panelId = `${baseId}-panel-${tab.id}`;
-            const buttonClasses = twMerge(
-              "flex flex-col gap-1 rounded-xl px-4 py-2 text-sm font-semibold text-slate-500 transition hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:text-zinc-400 dark:hover:text-zinc-100 dark:focus-visible:ring-offset-zinc-900",
-              vertical ? "w-full items-start text-left" : "flex-1 items-center text-center",
-              tabIsActive &&
-                "bg-white text-slate-900 shadow shadow-slate-200/50 dark:bg-zinc-900 dark:text-zinc-50",
-              tab.disabled && "cursor-not-allowed opacity-40"
-            );
+    const moveActiveBy = React.useCallback(
+        (direction: 1 | -1) => {
+            if (count === 0) return;
+            for (let i = 0; i < count; i += 1) {
+                const next = (currentActive + direction * (i + 1) + count) % count;
+                if (!tabs[next]?.disabled) {
+                    setActive(next);
+                    requestAnimationFrame(() => focusTabAt(next));
+                    return;
+                }
+            }
+        },
+        [count, currentActive, focusTabAt, setActive, tabs]
+    );
 
-            return (
-              <button
-                key={tab.id}
-                id={buttonId}
-                type="button"
-                role="tab"
-                aria-selected={tabIsActive}
-                aria-controls={panelId}
-                tabIndex={tabIsActive ? 0 : -1}
-                disabled={tab.disabled}
-                onClick={() => selectTab(tab.id)}
-                onKeyDown={(event) => handleKeyDown(event, index)}
-                ref={setTabRef(tab.id)}
-                className={buttonClasses}
-              >
-                <span>{tab.label}</span>
-                {tab.description ? (
-                  <span className="text-xs font-normal text-slate-500 dark:text-zinc-400">
-                    {tab.description}
-                  </span>
-                ) : null}
-              </button>
-            );
-          })}
+    const moveToEdge = React.useCallback(
+        (edge: "start" | "end") => {
+            if (count === 0) return;
+            const range = edge === "start" ? [0, count, 1] : [count - 1, -1, -1];
+            for (let i = range[0]; i !== range[1]; i += range[2]) {
+                if (!tabs[i]?.disabled) {
+                    setActive(i);
+                    requestAnimationFrame(() => focusTabAt(i));
+                    return;
+                }
+            }
+        },
+        [count, focusTabAt, setActive, tabs]
+    );
+
+    const handleTabListKeyDown = React.useCallback(
+        (event: React.KeyboardEvent<HTMLDivElement>) => {
+            const key = event.key;
+            const prevKey = isVertical ? "ArrowUp" : "ArrowLeft";
+            const nextKey = isVertical ? "ArrowDown" : "ArrowRight";
+            if (key === prevKey) {
+                event.preventDefault();
+                moveActiveBy(-1);
+                return;
+            }
+            if (key === nextKey) {
+                event.preventDefault();
+                moveActiveBy(1);
+                return;
+            }
+            if (key === "Home") {
+                event.preventDefault();
+                moveToEdge("start");
+            } else if (key === "End") {
+                event.preventDefault();
+                moveToEdge("end");
+            }
+        },
+        [isVertical, moveActiveBy, moveToEdge]
+    );
+
+    const tabList = (
+        <div className="rui-tab-group__tabstrip" ref={tabStripRef}>
+            {overflow && (
+                <button
+                    type="button"
+                    className="rui-tab-group__scroll is-back"
+                    aria-label={scrollLabels.back}
+                    disabled={startIndex === 0}
+                    onClick={() => setStartIndex((i) => Math.max(0, i - 1))}
+                    style={scrollMainStyle}
+                >
+                    <span aria-hidden="true" className="rui-tab-group__scrollIcon">
+                        {isVertical ? "\u25B2" : "\u25C0"}
+                    </span>
+                </button>
+            )}
+            <div
+                className="rui-tab-group__tablist"
+                role="tablist"
+                aria-orientation={isVertical ? "vertical" : "horizontal"}
+                onKeyDown={handleTabListKeyDown}
+            >
+                {visibleTabs.map((tab, localIndex) => {
+                    const index = overflow ? startIndex + localIndex : localIndex;
+                    return (
+                        <button
+                            key={index}
+                            type="button"
+                            role="tab"
+                            className={`rui-tab-group__tab ${index === currentActive ? "is-active" : ""}`}
+                            style={mainStyle}
+                            disabled={tab.disabled}
+                            aria-selected={index === currentActive}
+                            aria-controls={panelId}
+                            id={getTabId(index)}
+                            data-tab-index={index}
+                            tabIndex={index === currentActive ? 0 : -1}
+                            onClick={() => !tab.disabled && setActive(index)}
+                        >
+                            <span className="rui-tab-group__label">{tab.label}</span>
+                        </button>
+                    );
+                })}
+            </div>
+            {overflow && (
+                <button
+                    type="button"
+                    className="rui-tab-group__scroll is-forward"
+                    aria-label={scrollLabels.forward}
+                    disabled={startIndex === maxStart}
+                    onClick={() => setStartIndex((i) => Math.min(maxStart, i + 1))}
+                    style={scrollMainStyle}
+                >
+                    <span aria-hidden="true" className="rui-tab-group__scrollIcon">
+                        {isVertical ? "\u25BC" : "\u25B6"}
+                    </span>
+                </button>
+            )}
         </div>
-      </div>
+    );
 
-      <div className={panelWrapperClasses}>
-        {tabs.length ? (
-          tabs.map((tab) => {
-            const panelId = `${baseId}-panel-${tab.id}`;
-            const buttonId = `${baseId}-tab-${tab.id}`;
-            const tabIsActive = tab.id === activeId;
-            return (
-              <div
-                key={tab.id}
-                role="tabpanel"
-                id={panelId}
-                aria-labelledby={buttonId}
-                hidden={!tabIsActive}
-                className={twMerge(panelBaseClasses, !tabIsActive && "hidden")}
-              >
-                {tab.content}
-              </div>
-            );
-          })
-        ) : (
-          <div className={panelBaseClasses}>
-            <p className="text-sm text-slate-500 dark:text-zinc-400">No tabs to display.</p>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-});
+    const panel = (
+        <div
+            className="rui-tab-group__panel"
+            role="tabpanel"
+            id={panelId}
+            aria-labelledby={getTabId(currentActive)}
+            tabIndex={0}
+        >
+            {tabs[currentActive]?.content ?? null}
+        </div>
+    );
 
-export default TabGroup;
+    return (
+        <div
+            ref={rootRef}
+            className="rui-tab-group"
+            data-align={align}
+            data-position={position}
+            data-fill={effectiveFill}
+            data-requested-fill={fill}
+            data-rotation={rotation}
+            data-overflow={overflow ? "true" : "false"}
+        >
+            {tabsFirst ? (
+            <>
+                {tabList}
+                {panel}
+            </>
+            ) : (
+            <>
+                {panel}
+                {tabList}
+            </>
+            )}
+        </div>
+    );
+}
