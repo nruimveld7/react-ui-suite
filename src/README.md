@@ -24,7 +24,7 @@ This repository is a small monorepo that contains:
 
 ## Installation (for consumers)
 
-Install from npm into any React 18 project:
+Install from npm into any React 19 project:
 
 ```bash
 npm install react-ui-suite
@@ -36,8 +36,8 @@ yarn add react-ui-suite
 
 Peer dependencies (required in the consuming app):
 
-- `react` ^18
-- `react-dom` ^18
+- `react` ^19.2.4
+- `react-dom` ^19.2.4
 
 The library marks `react` and `react-dom` as externals; they must come from the host application.
 
@@ -57,7 +57,7 @@ Because the package is ESM-only, make sure your toolchain supports `import` / `e
 
 ## Development (this repo)
 
-Clone and install from the root:
+Clone and install from the root (Node 18+ required):
 
 ```bash
 git clone https://github.com/nruimveld7/react-ui-suite.git
@@ -76,6 +76,7 @@ npm run lint         # lints the library source via ESLint
 npm run format       # formats the entire repo with Prettier
 npm run format:check # checks formatting without writing changes
 npm run dev          # starts the Vite demo gallery (demo/) at http://localhost:5173
+npm run test:visual  # runs Playwright visual tests for the demo gallery
 npm run publish      # publishes the react-ui-suite workspace to npm (see “Publishing” below)
 ```
 
