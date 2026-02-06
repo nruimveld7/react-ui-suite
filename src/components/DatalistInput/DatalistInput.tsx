@@ -56,6 +56,7 @@ export const DatalistInput = React.forwardRef<HTMLInputElement, DatalistInputPro
     };
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+      if (disabled) return;
       if (!open && (e.key === "ArrowDown" || e.key === "ArrowUp")) {
         setOpen(true);
         setActiveIndex(0);
@@ -89,6 +90,7 @@ export const DatalistInput = React.forwardRef<HTMLInputElement, DatalistInputPro
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (disabled) return;
       setQuery(e.target.value);
       setOpen(true);
       setActiveIndex(0);
@@ -128,9 +130,9 @@ export const DatalistInput = React.forwardRef<HTMLInputElement, DatalistInputPro
             </span>
           }
           onKeyDownCapture={handleKeyDown}
-          onShellMouseDown={() => setOpen(true)}
-          onInputFocus={() => setOpen(true)}
-          onInputMouseDown={() => setOpen(true)}
+          onShellMouseDown={() => !disabled && setOpen(true)}
+          onInputFocus={() => !disabled && setOpen(true)}
+          onInputMouseDown={() => !disabled && setOpen(true)}
           onInputChange={handleInputChange}
           ariaControls={listboxId}
           ariaActiveDescendant={activeDescendant}

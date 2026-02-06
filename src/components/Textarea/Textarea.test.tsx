@@ -25,19 +25,21 @@ describe("Textarea", () => {
     expect(screen.getByText("5/50")).toBeInTheDocument();
   });
 
-  it("allows dragging the resize handle to adjust height and width", () => {
+  it("allows dragging the resize handle to adjust height and width", async () => {
     render(<Textarea label="Notes" resizeDirection="both" />);
     const textarea = screen.getByLabelText("Notes") as HTMLTextAreaElement;
     const shell = textarea.parentElement as HTMLDivElement;
+    const root = shell.parentElement as HTMLDivElement;
 
-    Object.defineProperty(textarea, "offsetHeight", { configurable: true, value: 120 });
-    Object.defineProperty(shell, "offsetWidth", { configurable: true, value: 300 });
-    Object.defineProperty(shell.parentElement, "clientWidth", { configurable: true, value: 400 });
+    Object.defineProperty(textarea, "offsetHeight", { configurable: true, get: () => 120 });
+    Object.defineProperty(shell, "offsetWidth", { configurable: true, get: () => 300 });
+    Object.defineProperty(root, "clientWidth", { configurable: true, get: () => 400 });
 
     const handle = screen.getByRole("button", { name: /resize textarea/i });
-    fireEvent.mouseDown(handle, { clientX: 0, clientY: 0 });
-    fireEvent.mouseMove(window, { clientX: 40, clientY: 30 });
-    fireEvent.mouseUp(window);
+    fireEvent.pointerDown(handle, { clientX: 0, clientY: 0, pointerType: "mouse", pointerId: 1, button: 0 });
+    await Promise.resolve();
+    fireEvent.pointerMove(window, { clientX: 40, clientY: 30, pointerType: "mouse", pointerId: 1, buttons: 1 });
+    fireEvent.pointerUp(window, { pointerType: "mouse", pointerId: 1, button: 0 });
 
     expect(textarea.style.height).toBe("150px");
     expect(shell.style.width).toBe("340px");

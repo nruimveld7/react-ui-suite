@@ -23,14 +23,59 @@ function Scheduling() {
         </div>
       </div>
       <div className="rui-date-picker-demo__fields">
-        <DatePicker label="Start date" value={start} onChange={setStart} type="date" />
-        <DatePicker label="Deadline" value={deadline} onChange={setDeadline} type="date" />
+        <DatePicker label="Start date" value={start} onChange={setStart} type="date" dateMode="local" />
+        <DatePicker label="Deadline" value={deadline} onChange={setDeadline} type="date" dateMode="local" />
         <DatePicker label="Daily checkpoint" value={daily} onChange={setDaily} type="time" />
       </div>
       <div className="rui-date-picker-demo__summary">
         <p className="rui-date-picker-demo__summary-title">Summary</p>
         <p>
-          Starts {start}, ends {deadline}. Standups at {daily}.
+          Starts {start}, ends {deadline}. Standups at {daily} (local time).
+        </p>
+      </div>
+    </DemoExample>
+  );
+}
+
+function UtcOperations() {
+  const [windowStart, setWindowStart] = useState("2026-02-10");
+  const [windowEnd, setWindowEnd] = useState("2026-02-12");
+  const [handoff, setHandoff] = useState("00:00");
+
+  return (
+    <DemoExample
+      title="Global Ops (UTC)"
+      badge="UTC"
+      className="rui-date-picker-demo__card"
+    >
+      <div className="rui-date-picker-demo__intro">
+        <div>
+          <p className="rui-date-picker-demo__intro-text">
+            All dates are anchored to UTC for cross-region scheduling.
+          </p>
+        </div>
+      </div>
+      <div className="rui-date-picker-demo__fields">
+        <DatePicker
+          label="Window start"
+          value={windowStart}
+          onChange={setWindowStart}
+          type="date"
+          dateMode="utc"
+        />
+        <DatePicker
+          label="Window end"
+          value={windowEnd}
+          onChange={setWindowEnd}
+          type="date"
+          dateMode="utc"
+        />
+        <DatePicker label="Handoff" value={handoff} onChange={setHandoff} type="time" />
+      </div>
+      <div className="rui-date-picker-demo__summary">
+        <p className="rui-date-picker-demo__summary-title">Summary</p>
+        <p>
+          Window {windowStart} to {windowEnd}. Handoff at {handoff} UTC.
         </p>
       </div>
     </DemoExample>
@@ -41,6 +86,7 @@ function DatePickerPreview() {
   return (
     <div className="rui-date-picker-demo__preview">
       <Scheduling />
+      <UtcOperations />
     </div>
   );
 }

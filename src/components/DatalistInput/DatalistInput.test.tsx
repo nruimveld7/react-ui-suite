@@ -81,7 +81,7 @@ describe("DatalistInput", () => {
     expect(screen.queryByRole("button", { name: /reload window/i })).toBeNull();
 
     await user.click(input);
-    fireEvent.mouseDown(document.body);
+    fireEvent.pointerDown(document.body);
     await waitFor(() =>
       expect(screen.queryByRole("button", { name: /reload window/i })).toBeNull()
     );

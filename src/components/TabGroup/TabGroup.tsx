@@ -17,7 +17,7 @@ export type TabGroupTab = {
     disabled?: boolean;
 }
 
-type TabGroupProps = {
+export type TabGroupProps = {
     align?: TabGroupAlign;
     position?: TabGroupPosition;
     fill?: TabGroupFill;
@@ -43,6 +43,7 @@ export default function TabGroup({
 }: TabGroupProps) {
     const rootRef = React.useRef<HTMLDivElement | null>(null);
     const tabStripRef = React.useRef<HTMLDivElement | null>(null);
+    const idBase = React.useId();
     const [effectiveFill, setEffectiveFill] = React.useState<TabGroupFill>(fill);
     const [availableMain, setAvailableMain] = React.useState(0);
     const [minMain, setMinMain] = React.useState(32);
@@ -67,13 +68,16 @@ export default function TabGroup({
         }
     }, [clampIndex, isControlled]);
     const currentActive = clampIndex(isControlled ? active! : activeInternal);
-    const setActive = (next: number) => {
-        const i = clampIndex(next);
-        if(!isControlled) {
-            setActiveInternal(i);
-        }
-        onActiveChange?.(i);
-    };
+    const setActive = React.useCallback(
+        (next: number) => {
+            const i = clampIndex(next);
+            if(!isControlled) {
+                setActiveInternal(i);
+            }
+            onActiveChange?.(i);
+        },
+        [clampIndex, isControlled, onActiveChange]
+    );
 
     const tabsFirst = position === "top" || position === "left";
     const updateEffectiveFill = React.useCallback(() => {
@@ -179,6 +183,73 @@ export default function TabGroup({
         : { back: "Scroll tabs left", forward: "Scroll tabs right" };
     const scrollMainStyle = overflowMainStyle;
 
+    const panelId = `${idBase}-panel`;
+    const getTabId = React.useCallback(
+        (index: number) => `${idBase}-tab-${index}`,
+        [idBase]
+    );
+
+    const focusTabAt = React.useCallback((index: number) => {
+        const node = rootRef.current?.querySelector<HTMLElement>(`[data-tab-index="${index}"]`);
+        node?.focus();
+    }, []);
+
+    const moveActiveBy = React.useCallback(
+        (direction: 1 | -1) => {
+            if (count === 0) return;
+            for (let i = 0; i < count; i += 1) {
+                const next = (currentActive + direction * (i + 1) + count) % count;
+                if (!tabs[next]?.disabled) {
+                    setActive(next);
+                    requestAnimationFrame(() => focusTabAt(next));
+                    return;
+                }
+            }
+        },
+        [count, currentActive, focusTabAt, setActive, tabs]
+    );
+
+    const moveToEdge = React.useCallback(
+        (edge: "start" | "end") => {
+            if (count === 0) return;
+            const range = edge === "start" ? [0, count, 1] : [count - 1, -1, -1];
+            for (let i = range[0]; i !== range[1]; i += range[2]) {
+                if (!tabs[i]?.disabled) {
+                    setActive(i);
+                    requestAnimationFrame(() => focusTabAt(i));
+                    return;
+                }
+            }
+        },
+        [count, focusTabAt, setActive, tabs]
+    );
+
+    const handleTabListKeyDown = React.useCallback(
+        (event: React.KeyboardEvent<HTMLDivElement>) => {
+            const key = event.key;
+            const prevKey = isVertical ? "ArrowUp" : "ArrowLeft";
+            const nextKey = isVertical ? "ArrowDown" : "ArrowRight";
+            if (key === prevKey) {
+                event.preventDefault();
+                moveActiveBy(-1);
+                return;
+            }
+            if (key === nextKey) {
+                event.preventDefault();
+                moveActiveBy(1);
+                return;
+            }
+            if (key === "Home") {
+                event.preventDefault();
+                moveToEdge("start");
+            } else if (key === "End") {
+                event.preventDefault();
+                moveToEdge("end");
+            }
+        },
+        [isVertical, moveActiveBy, moveToEdge]
+    );
+
     const tabList = (
         <div className="rui-tab-group__tabstrip" ref={tabStripRef}>
             {overflow && (
@@ -195,7 +266,12 @@ export default function TabGroup({
                     </span>
                 </button>
             )}
-            <div className="rui-tab-group__tablist" role="tablist">
+            <div
+                className="rui-tab-group__tablist"
+                role="tablist"
+                aria-orientation={isVertical ? "vertical" : "horizontal"}
+                onKeyDown={handleTabListKeyDown}
+            >
                 {visibleTabs.map((tab, localIndex) => {
                     const index = overflow ? startIndex + localIndex : localIndex;
                     return (
@@ -207,6 +283,10 @@ export default function TabGroup({
                             style={mainStyle}
                             disabled={tab.disabled}
                             aria-selected={index === currentActive}
+                            aria-controls={panelId}
+                            id={getTabId(index)}
+                            data-tab-index={index}
+                            tabIndex={index === currentActive ? 0 : -1}
                             onClick={() => !tab.disabled && setActive(index)}
                         >
                             <span className="rui-tab-group__label">{tab.label}</span>
@@ -232,7 +312,13 @@ export default function TabGroup({
     );
 
     const panel = (
-        <div className="rui-tab-group__panel" role="tabpanel">
+        <div
+            className="rui-tab-group__panel"
+            role="tabpanel"
+            id={panelId}
+            aria-labelledby={getTabId(currentActive)}
+            tabIndex={0}
+        >
             {tabs[currentActive]?.content ?? null}
         </div>
     );

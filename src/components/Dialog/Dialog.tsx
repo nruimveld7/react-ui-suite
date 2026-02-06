@@ -27,6 +27,8 @@ export function Dialog({
 }: DialogProps) {
   const overlayRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
   const dialogRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
+  const titleId = React.useId();
+  const descriptionId = React.useId();
   const dragState = React.useRef<{
     startX: number;
     startY: number;
@@ -43,11 +45,40 @@ export function Dialog({
       if (event.key === "Escape") {
         event.preventDefault();
         onClose();
+        return;
+      }
+      if (event.key === "Tab" && modal) {
+        const dialog = dialogRef.current;
+        if (!dialog) return;
+        const focusable = Array.from(
+          dialog.querySelectorAll<HTMLElement>(
+            'a[href],button:not([disabled]),textarea:not([disabled]),input:not([disabled]),select:not([disabled]),[tabindex]:not([tabindex="-1"])'
+          )
+        ).filter((el) => !el.hasAttribute("disabled") && el.tabIndex >= 0);
+        if (focusable.length === 0) {
+          event.preventDefault();
+          dialog.focus();
+          return;
+        }
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        const active = document.activeElement as HTMLElement | null;
+        if (event.shiftKey) {
+          if (active === first || active === dialog) {
+            event.preventDefault();
+            last.focus();
+          }
+          return;
+        }
+        if (active === last) {
+          event.preventDefault();
+          first.focus();
+        }
       }
     };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [open, onClose]);
+  }, [open, onClose, modal]);
 
   React.useEffect(() => {
     if (!open) return;
@@ -151,8 +182,9 @@ export function Dialog({
       ref={dialogRef}
       role="dialog"
       aria-modal={modal || undefined}
+      aria-labelledby={titleId}
+      aria-describedby={description ? descriptionId : undefined}
       tabIndex={-1}
-      aria-label={title}
       className={clsx(
         "rui-dialog__card",
         modal ? "" : "rui-dialog__card--floating",
@@ -166,9 +198,13 @@ export function Dialog({
           <p className="rui-dialog__eyebrow">
             Dialog
           </p>
-          <h2 className="rui-dialog__title">{title}</h2>
+          <h2 id={titleId} className="rui-dialog__title">
+            {title}
+          </h2>
           {description ? (
-            <p className="rui-dialog__description">{description}</p>
+            <p id={descriptionId} className="rui-dialog__description">
+              {description}
+            </p>
           ) : null}
         </div>
         <Button
@@ -191,7 +227,7 @@ export function Dialog({
       <div
         ref={overlayRef}
         className="rui-overlay-root rui-dialog__overlay"
-        onMouseDown={(e) => {
+        onPointerDown={(e) => {
           if (e.target === overlayRef.current) onClose();
         }}
       >

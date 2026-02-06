@@ -68,7 +68,6 @@ const backgroundSwatches = [
 ];
 
 function ThemeEditor() {
-  const surfaceStyle = useDemoSurfaceStyle();
   const [accent, setAccent] = useState("#0ea5e9");
   const [background, setBackground] = useState("#0f172a");
 

@@ -63,7 +63,7 @@ export function Listbox<T>({
             data-index={i}
             className="rui-combobox__option"
             onMouseEnter={() => !opt.disabled && onHoverIndex(i)}
-            onMouseDown={(e) => {
+            onPointerDown={(e) => {
               if (opt.disabled) return;
               e.preventDefault();
               e.stopPropagation();

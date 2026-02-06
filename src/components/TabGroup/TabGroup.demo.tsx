@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Radio, TabGroup, NumberInput, ResizableContainer } from "react-ui-suite";
+import { TabGroup, NumberInput, ResizableContainer } from "react-ui-suite";
 import type { TabGroupProps } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../../../demo/component-registry";
 import "./TabGroup.demo.css";

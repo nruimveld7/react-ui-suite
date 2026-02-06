@@ -56,8 +56,28 @@ describe("Dialog", () => {
 
     const dialog = screen.getByRole("dialog", { name: "Modal overlay" });
     const overlay = dialog.parentElement as HTMLElement;
-    fireEvent.mouseDown(overlay);
+    fireEvent.pointerDown(overlay);
     expect(handleClose).toHaveBeenCalled();
+  });
+
+  it("traps focus within modal dialogs", () => {
+    render(
+      <Dialog open onClose={vi.fn()} title="Trap focus">
+        <button type="button">First</button>
+        <button type="button">Second</button>
+      </Dialog>
+    );
+
+    const closeButton = screen.getByRole("button", { name: /close dialog/i });
+    const second = screen.getByRole("button", { name: "Second" });
+
+    second.focus();
+    fireEvent.keyDown(window, { key: "Tab" });
+    expect(document.activeElement).toBe(closeButton);
+
+    closeButton.focus();
+    fireEvent.keyDown(window, { key: "Tab", shiftKey: true });
+    expect(document.activeElement).toBe(second);
   });
 });
 

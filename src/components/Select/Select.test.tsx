@@ -28,7 +28,7 @@ describe("Select", () => {
     expect(screen.getByText("Required")).toBeInTheDocument();
 
     const input = screen.getByRole("combobox", { name: "Priority" });
-    fireEvent.mouseDown(input);
+    fireEvent.pointerDown(input);
     await screen.findAllByRole("option");
     await user.keyboard("{ArrowDown}{Enter}");
 
@@ -42,7 +42,7 @@ describe("Select", () => {
     render(<Select label="Priority" options={options} defaultValue="low" onChange={handleChange} />);
 
     const input = screen.getByRole("combobox", { name: "Priority" });
-    fireEvent.mouseDown(input);
+    fireEvent.pointerDown(input);
     await screen.findAllByRole("option");
     await user.keyboard("{ArrowDown}");
     await user.keyboard("{Enter}");

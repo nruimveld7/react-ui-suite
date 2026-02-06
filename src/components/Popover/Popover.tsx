@@ -218,7 +218,7 @@ export function Popover({ className, anchorRef, rootRef, children }: PopoverProp
   const popoverStyle = shouldPortal
     ? position
       ? { top: position.top, left: position.left, width: position.width }
-      : { visibility: "hidden" }
+      : { visibility: "hidden" as const }
     : undefined;
 
   const popover = (

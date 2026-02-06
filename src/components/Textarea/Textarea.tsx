@@ -41,8 +41,8 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
   const textareaRef: React.MutableRefObject<HTMLTextAreaElement | null> = React.useRef(null);
   const shellRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
   const resizeListenersRef = React.useRef<{
-    move?: (event: MouseEvent) => void;
-    up?: (event: MouseEvent) => void;
+    move?: (event: PointerEvent) => void;
+    up?: (event: PointerEvent) => void;
   }>({});
   const [thumb, setThumb] = React.useState<ThumbState>({
     visible: false,
@@ -126,15 +126,17 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
   React.useEffect(() => {
     return () => {
       if (resizeListenersRef.current.move) {
-        window.removeEventListener("mousemove", resizeListenersRef.current.move);
+        window.removeEventListener("pointermove", resizeListenersRef.current.move);
       }
       if (resizeListenersRef.current.up) {
-        window.removeEventListener("mouseup", resizeListenersRef.current.up);
+        window.removeEventListener("pointerup", resizeListenersRef.current.up);
+        window.removeEventListener("pointercancel", resizeListenersRef.current.up);
       }
     };
   }, []);
 
-  const handleResizeStart = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleResizeStart = (event: React.PointerEvent<HTMLButtonElement>) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
     event.preventDefault();
     if (!textareaRef.current) return;
 
@@ -149,7 +151,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
     const minWidth = 240;
     const parentWidth = shellRef.current?.parentElement?.clientWidth ?? startWidth;
 
-    const onMove = (moveEvent: MouseEvent) => {
+    const onMove = (moveEvent: PointerEvent) => {
       if (allowY) {
         const nextHeight = Math.max(minHeight, startHeight + (moveEvent.clientY - startY));
         setHeight(nextHeight);
@@ -162,15 +164,18 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
     };
 
     const onUp = () => {
-      window.removeEventListener("mousemove", onMove);
-      window.removeEventListener("mouseup", onUp);
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+      window.removeEventListener("pointercancel", onUp);
       resizeListenersRef.current = {};
     };
 
     resizeListenersRef.current = { move: onMove, up: onUp };
 
-    window.addEventListener("mousemove", onMove);
-    window.addEventListener("mouseup", onUp);
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerup", onUp);
+    window.addEventListener("pointercancel", onUp);
   };
 
   const handleThumbDrag = React.useCallback(
@@ -307,7 +312,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
             <button
               type="button"
               aria-label="Resize textarea"
-              onMouseDown={handleResizeStart}
+              onPointerDown={handleResizeStart}
               className="rui-textarea__resize-handle"
               style={{
                 border: "none",

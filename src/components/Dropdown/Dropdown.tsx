@@ -25,9 +25,9 @@ export type DropdownProps = {
   onShellFocusCapture?: (event: React.FocusEvent<HTMLDivElement>) => void;
   onShellBlurCapture?: (event: React.FocusEvent<HTMLDivElement>) => void;
   onKeyDownCapture?: (event: React.KeyboardEvent<HTMLDivElement>) => void;
-  onShellMouseDown?: (event: React.MouseEvent<HTMLDivElement>) => void;
+  onShellMouseDown?: (event: React.PointerEvent<HTMLDivElement>) => void;
   onInputFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
-  onInputMouseDown?: (event: React.MouseEvent<HTMLInputElement>) => void;
+  onInputMouseDown?: (event: React.PointerEvent<HTMLInputElement>) => void;
   onInputChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onChevronClick?: () => void;
   children?: React.ReactNode;
@@ -77,7 +77,7 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
       <div ref={ref} className={clsx("rui-dropdown", "rui-root", className)}>
         <div
           onKeyDownCapture={onKeyDownCapture}
-          onMouseDown={onShellMouseDown}
+          onPointerDown={onShellMouseDown}
           onFocusCapture={onShellFocusCapture}
           onBlurCapture={onShellBlurCapture}
           className={clsx(
@@ -100,7 +100,7 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
             aria-label={mergedAriaLabel}
             disabled={!!disabled || inputProps?.disabled}
             readOnly={!isOpen}
-            onMouseDown={onInputMouseDown}
+            onPointerDown={onInputMouseDown}
             value={isOpen ? query : displayValue}
             onFocus={onInputFocus}
             onChange={onInputChange}

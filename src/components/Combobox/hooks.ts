@@ -26,12 +26,12 @@ export function useOutsideClick(
   handler: () => void
 ) {
   useEffect(() => {
-    function onDoc(e: MouseEvent) {
+    function onDoc(e: PointerEvent) {
       const target = e.target as Node;
       const inside = refs.some((r) => r.current && r.current.contains(target));
       if (!inside) handler();
     }
-    document.addEventListener("mousedown", onDoc);
-    return () => document.removeEventListener("mousedown", onDoc);
+    document.addEventListener("pointerdown", onDoc);
+    return () => document.removeEventListener("pointerdown", onDoc);
   }, [refs, handler]);
 }

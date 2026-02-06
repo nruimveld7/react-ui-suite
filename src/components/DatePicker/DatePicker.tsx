@@ -21,9 +21,11 @@ export type DatePickerProps = {
   type?: "date" | "time";
   timeIntervalMinutes?: number; // only used when type === "time"
   use24HourClock?: boolean; // only used when type === "time"
+  dateMode?: "local" | "utc"; // only used when type === "date"
 };
 
 type ViewMode = "day" | "month" | "year";
+type DateMode = "local" | "utc";
 
 function formatLocalDateString(year: number, month: number, day: number) {
   const y = String(year).padStart(4, "0");
@@ -32,7 +34,11 @@ function formatLocalDateString(year: number, month: number, day: number) {
   return `${y}-${m}-${d}`;
 }
 
-function parseLocalDateString(value?: string) {
+function toDateFromParts(mode: DateMode, year: number, month: number, day: number) {
+  return mode === "utc" ? new Date(Date.UTC(year, month, day)) : new Date(year, month, day);
+}
+
+function parseDateString(value: string | undefined, mode: DateMode) {
   if (!value) return null;
   const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value.trim());
   if (!match) return null;
@@ -40,20 +46,20 @@ function parseLocalDateString(value?: string) {
   const year = Number(y);
   const month = Number(m) - 1;
   const day = Number(d);
-  const date = new Date(year, month, day);
+  const date = toDateFromParts(mode, year, month, day);
   if (Number.isNaN(date.getTime())) return null;
   return { date, year, month, day };
 }
 
-function getMonthDays(year: number, month: number) {
-  const first = new Date(year, month, 1);
-  const start = first.getDay();
-  const days = new Date(year, month + 1, 0).getDate();
+function getMonthDays(year: number, month: number, mode: DateMode) {
+  const first = toDateFromParts(mode, year, month, 1);
+  const start = mode === "utc" ? first.getUTCDay() : first.getDay();
+  const endOfMonth = toDateFromParts(mode, year, month + 1, 0);
+  const days = mode === "utc" ? endOfMonth.getUTCDate() : endOfMonth.getDate();
   const grid: Array<{ day: number | null; date?: string }> = [];
   for (let i = 0; i < start; i += 1) grid.push({ day: null });
   for (let d = 1; d <= days; d += 1) {
-    const date = new Date(year, month, d);
-    grid.push({ day: d, date: date.toISOString().slice(0, 10) });
+    grid.push({ day: d, date: formatLocalDateString(year, month, d) });
   }
   return grid;
 }
@@ -71,6 +77,7 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
     type = "date",
     timeIntervalMinutes = 30,
     use24HourClock = true,
+    dateMode = "local",
   },
   ref
 ) {
@@ -114,26 +121,35 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
         })()
       );
     }
-    const normalized = parseLocalDateString(value ?? defaultValue)?.date;
-    if (normalized)
-      return formatLocalDateString(
-        normalized.getFullYear(),
-        normalized.getMonth(),
-        normalized.getDate()
-      );
+    const normalized = parseDateString(value ?? defaultValue, dateMode);
+    if (normalized) return formatLocalDateString(normalized.year, normalized.month, normalized.day);
     const today = new Date();
-    return formatLocalDateString(today.getFullYear(), today.getMonth(), today.getDate());
+    const year = dateMode === "utc" ? today.getUTCFullYear() : today.getFullYear();
+    const month = dateMode === "utc" ? today.getUTCMonth() : today.getMonth();
+    const day = dateMode === "utc" ? today.getUTCDate() : today.getDate();
+    return formatLocalDateString(year, month, day);
   })();
   const [open, setOpen] = React.useState(false);
   const [current, setCurrent] = React.useState(initial);
   const [month, setMonth] = React.useState(() => {
-    const base = parseLocalDateString(initial)?.date ?? new Date();
-    return { year: base.getFullYear(), month: base.getMonth() };
+    const parsed = parseDateString(initial, dateMode)?.date;
+    if (parsed) {
+      return {
+        year: dateMode === "utc" ? parsed.getUTCFullYear() : parsed.getFullYear(),
+        month: dateMode === "utc" ? parsed.getUTCMonth() : parsed.getMonth(),
+      };
+    }
+    const now = new Date();
+    return {
+      year: dateMode === "utc" ? now.getUTCFullYear() : now.getFullYear(),
+      month: dateMode === "utc" ? now.getUTCMonth() : now.getMonth(),
+    };
   });
   const [viewMode, setViewMode] = React.useState<ViewMode>("day");
   const dropdownRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
   const toggleRef: React.MutableRefObject<HTMLButtonElement | null> = React.useRef(null);
   const inputInnerRef: React.MutableRefObject<HTMLInputElement | null> = React.useRef(null);
+  const popoverRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
   const suppressToggleRef = React.useRef(false);
   const canvasRef: React.MutableRefObject<HTMLCanvasElement | null> = React.useRef(null);
   const [useShortLabel, setUseShortLabel] = React.useState(false);
@@ -148,9 +164,14 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
     [ref]
   );
 
-  useOutsideClick([dropdownRef as unknown as React.RefObject<HTMLElement | null>], () =>
-    setOpen(false)
+  const outsideClickRefs = React.useMemo(
+    () => [
+      dropdownRef as unknown as React.RefObject<HTMLElement | null>,
+      popoverRef as unknown as React.RefObject<HTMLElement | null>,
+    ],
+    []
   );
+  useOutsideClick(outsideClickRefs, () => setOpen(false));
 
   const commit = (next: string) => {
     setCurrent(next);
@@ -160,9 +181,9 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
   };
 
   const parsedDate = React.useMemo(() => {
-    const parsed = parseLocalDateString(current);
+    const parsed = parseDateString(current, dateMode);
     return parsed?.date ?? null;
-  }, [current]);
+  }, [current, dateMode]);
 
   const longDisplayLabel = React.useMemo(() => {
     if (!parsedDate) return current;
@@ -171,8 +192,9 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
       month: "short",
       day: "numeric",
       year: "numeric",
+      timeZone: dateMode === "utc" ? "UTC" : undefined,
     });
-  }, [parsedDate, current]);
+  }, [parsedDate, current, dateMode]);
 
   const shortDisplayLabel = React.useMemo(() => {
     if (!parsedDate) return current;
@@ -180,8 +202,9 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
       month: "2-digit",
       day: "2-digit",
       year: "2-digit",
+      timeZone: dateMode === "utc" ? "UTC" : undefined,
     });
-  }, [parsedDate, current]);
+  }, [parsedDate, current, dateMode]);
 
   const displayLabel = useShortLabel ? shortDisplayLabel : longDisplayLabel;
 
@@ -240,15 +263,19 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
       ? `${rangeStart} - ${rangeEnd}`
       : viewMode === "month"
         ? `${month.year}`
-        : new Date(month.year, month.month).toLocaleString("default", {
+        : toDateFromParts(dateMode, month.year, month.month, 1).toLocaleString("default", {
             month: "long",
             year: "numeric",
+            timeZone: dateMode === "utc" ? "UTC" : undefined,
           });
 
   function openPicker() {
     if (disabled) return;
     const base = parsedDate ?? new Date();
-    setMonth({ year: base.getFullYear(), month: base.getMonth() });
+    setMonth({
+      year: dateMode === "utc" ? base.getUTCFullYear() : base.getFullYear(),
+      month: dateMode === "utc" ? base.getUTCMonth() : base.getMonth(),
+    });
     setViewMode("day");
     setOpen(true);
   }
@@ -387,7 +414,11 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
           }}
         >
           {open && (
-            <Popover anchorRef={dropdownRef} className={clsx("rui-date-picker__popover", highlightBorder)}>
+            <Popover
+              anchorRef={dropdownRef}
+              rootRef={popoverRef}
+              className={clsx("rui-date-picker__popover", highlightBorder)}
+            >
               {() => (
                 <div className="rui-date-picker__panel" id={popoverId}>
                   <div className="rui-date-picker__header">
@@ -428,7 +459,7 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
                         ))}
                       </div>
                       <div className="rui-date-picker__day-grid">
-                        {getMonthDays(month.year, month.month).map((cell, idx) => {
+                        {getMonthDays(month.year, month.month, dateMode).map((cell, idx) => {
                           const isSelected = cell.date === current;
                           return (
                             <button

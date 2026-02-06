@@ -91,7 +91,7 @@ describe("Combobox", () => {
     await user.type(input, "a");
     expect(await screen.findByRole("option", { name: "Alpha" })).toBeInTheDocument();
 
-    fireEvent.mouseDown(document.body);
+    fireEvent.pointerDown(document.body);
     await waitFor(() =>
       expect(screen.queryByRole("option", { name: "Alpha" })).not.toBeInTheDocument()
     );

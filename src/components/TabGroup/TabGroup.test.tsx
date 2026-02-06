@@ -64,4 +64,27 @@ describe("TabGroup", () => {
     await user.click(screen.getByRole("tab", { name: "Reports" }));
     expect(screen.getByRole("tabpanel")).toHaveTextContent("Reports content");
   });
+
+  it("supports keyboard navigation and wires aria relationships", async () => {
+    const user = userEvent.setup();
+    render(<TabGroup tabs={baseTabs} />);
+
+    const tablist = screen.getByRole("tablist");
+    const firstTab = screen.getByRole("tab", { name: "Overview" });
+    const panel = screen.getByRole("tabpanel");
+
+    expect(firstTab).toHaveAttribute("aria-controls");
+    expect(panel).toHaveAttribute("aria-labelledby", firstTab.getAttribute("id") ?? "");
+
+    firstTab.focus();
+    await user.keyboard("{ArrowRight}");
+    expect(panel).toHaveTextContent("Reports panel");
+
+    await user.keyboard("{End}");
+    expect(panel).toHaveTextContent("Billing panel");
+
+    tablist.focus();
+    await user.keyboard("{Home}");
+    expect(panel).toHaveTextContent("Overview panel");
+  });
 });
