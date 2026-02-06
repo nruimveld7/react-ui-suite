@@ -291,10 +291,16 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(function S
     [isControlled, max, min, onChange, step]
   );
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const next = Number(event.target.value);
+  const applyInputValue = (value: string) => {
+    const next = Number(value);
     if (Number.isNaN(next)) return;
     commitValue(next);
+  };
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    applyInputValue(event.currentTarget.value);
+  };
+  const handleInputEvent = (event: React.FormEvent<HTMLInputElement>) => {
+    applyInputValue(event.currentTarget.value);
   };
 
   const formattedValue = formatValue(resolvedValue);
@@ -448,7 +454,7 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(function S
           step={step}
           value={resolvedValue}
           onChange={handleInputChange}
-          onInput={handleInputChange}
+          onInput={handleInputEvent}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           disabled={disabled}

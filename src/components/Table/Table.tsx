@@ -26,7 +26,7 @@ const V_TRACK_INSET = 10; // extra inset to shorten the vertical track
 type ThumbState = { visible: boolean; size: number; offset: number };
 
 function useScrollbarMetrics(
-  ref: React.RefObject<HTMLDivElement>,
+  ref: React.RefObject<HTMLDivElement | null>,
   axis: "vertical" | "horizontal",
   extraSpace: number
 ) {
@@ -94,7 +94,7 @@ function useScrollbarMetrics(
 }
 
 function useThumbDrag(
-  ref: React.RefObject<HTMLDivElement>,
+  ref: React.RefObject<HTMLDivElement | null>,
   axis: "vertical" | "horizontal",
   thumbState: ThumbState,
   extraSpace: number

@@ -174,8 +174,8 @@ function Scrollbar({ scrollRef }: { scrollRef: React.MutableRefObject<HTMLElemen
 
 export type PopoverProps = {
   className?: string;
-  anchorRef?: React.RefObject<HTMLElement>;
-  rootRef?: React.RefObject<HTMLDivElement>;
+  anchorRef?: React.RefObject<HTMLElement | null>;
+  rootRef?: React.RefObject<HTMLDivElement | null>;
   children: (props: {
     scrollRef: React.MutableRefObject<HTMLUListElement | null>;
   }) => React.ReactNode;

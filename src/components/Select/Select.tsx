@@ -45,7 +45,7 @@ export function Select({
   const containerRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
   const inputRef: React.MutableRefObject<HTMLInputElement | null> = React.useRef(null);
   const chevronRef: React.MutableRefObject<HTMLButtonElement | null> = React.useRef(null);
-  const popoverListRef: React.MutableRefObject<React.RefObject<HTMLUListElement> | null> =
+  const popoverListRef: React.MutableRefObject<React.RefObject<HTMLUListElement | null> | null> =
     React.useRef(null);
   const suppressToggleRef = React.useRef(false);
   const id = React.useId();

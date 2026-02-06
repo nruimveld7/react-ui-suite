@@ -11,7 +11,7 @@ export type ListboxProps<T> = {
   selectedId?: string | null; // current selection id (if any)
   onHoverIndex: (i: number) => void; // set active on hover
   onSelectIndex: (i: number) => void; // commit selection on click
-  listRef: React.RefObject<HTMLUListElement>; // scroll container
+  listRef: React.RefObject<HTMLUListElement | null>; // scroll container
   emptyState?: React.ReactNode;
   renderOption?: (opt: ComboboxOption<T>, state: ComboboxRenderState) => React.ReactNode;
 };
