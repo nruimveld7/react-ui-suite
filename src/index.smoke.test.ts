@@ -14,6 +14,7 @@ const expectedRuntimeExports = [
   "Dialog",
   "Disclosure",
   "Dropdown",
+  "FilePicker",
   "InputField",
   "NumberInput",
   "OutputChip",

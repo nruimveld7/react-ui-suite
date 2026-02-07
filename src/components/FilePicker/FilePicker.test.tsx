@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { FilePicker } from ".";
@@ -28,7 +28,7 @@ describe("FilePicker", () => {
     clickSpy.mockRestore();
   });
 
-  it("filters files by accept for picker changes", () => {
+  it("filters files by accept for picker changes", async () => {
     const handleFilesChange = vi.fn();
     render(<FilePicker label="Images" accept="image/*" multiple onFilesChange={handleFilesChange} />);
 
@@ -42,7 +42,13 @@ describe("FilePicker", () => {
       },
     });
 
-    expect(handleFilesChange).toHaveBeenCalledWith([image]);
+    await waitFor(() =>
+      expect(handleFilesChange).toHaveBeenCalledWith([
+        expect.objectContaining({
+          file: image,
+        }),
+      ])
+    );
     expect(screen.getByText("cover.png")).toBeInTheDocument();
     expect(screen.queryByText("notes.txt")).not.toBeInTheDocument();
     expect(
@@ -50,7 +56,7 @@ describe("FilePicker", () => {
     ).toBeInTheDocument();
   });
 
-  it("accepts dropped files when unrestricted", () => {
+  it("accepts dropped files when unrestricted", async () => {
     const handleFilesChange = vi.fn();
     render(<FilePicker label="Files" multiple onFilesChange={handleFilesChange} />);
 
@@ -63,11 +69,17 @@ describe("FilePicker", () => {
       },
     });
 
-    expect(handleFilesChange).toHaveBeenCalledWith([pdf]);
+    await waitFor(() =>
+      expect(handleFilesChange).toHaveBeenCalledWith([
+        expect.objectContaining({
+          file: pdf,
+        }),
+      ])
+    );
     expect(screen.getByText("doc.pdf")).toBeInTheDocument();
   });
 
-  it("replaces the selected file when choosing a different file again", () => {
+  it("replaces the selected file when choosing a different file again", async () => {
     const handleFilesChange = vi.fn();
     render(<FilePicker label="Resume" onFilesChange={handleFilesChange} />);
 
@@ -76,15 +88,21 @@ describe("FilePicker", () => {
     const input = screen.getByLabelText("Resume") as HTMLInputElement;
 
     fireEvent.change(input, { target: { files: [first] } });
-    expect(screen.getByText("resume-v1.pdf")).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByText("resume-v1.pdf")).toBeInTheDocument());
 
     fireEvent.change(input, { target: { files: [second] } });
-    expect(handleFilesChange).toHaveBeenLastCalledWith([second]);
+    await waitFor(() =>
+      expect(handleFilesChange).toHaveBeenLastCalledWith([
+        expect.objectContaining({
+          file: second,
+        }),
+      ])
+    );
     expect(screen.queryByText("resume-v1.pdf")).not.toBeInTheDocument();
     expect(screen.getByText("resume-v2.pdf")).toBeInTheDocument();
   });
 
-  it("limits selected files using maxFiles", () => {
+  it("limits selected files using maxFiles", async () => {
     const handleFilesChange = vi.fn();
     render(<FilePicker label="Assets" multiple maxFiles={2} onFilesChange={handleFilesChange} />);
 
@@ -99,11 +117,65 @@ describe("FilePicker", () => {
       },
     });
 
-    expect(handleFilesChange).toHaveBeenCalledWith([first, second]);
+    await waitFor(() =>
+      expect(handleFilesChange).toHaveBeenCalledWith([
+        expect.objectContaining({ file: first }),
+        expect.objectContaining({ file: second }),
+      ])
+    );
     expect(screen.getByText("one.txt")).toBeInTheDocument();
     expect(screen.getByText("two.txt")).toBeInTheDocument();
     expect(screen.queryByText("three.txt")).not.toBeInTheDocument();
     expect(screen.getByText("Maximum files: 2")).toBeInTheDocument();
     expect(screen.getByText("1 file was ignored due to selection restrictions.")).toBeInTheDocument();
+  });
+
+  it("reads bytes and text when mode is content", async () => {
+    const handleFilesChange = vi.fn();
+    render(<FilePicker label="Content" mode="content" onFilesChange={handleFilesChange} />);
+
+    const file = new File(["hello"], "note.txt", { type: "text/plain" });
+    Object.defineProperty(file, "arrayBuffer", {
+      configurable: true,
+      value: async () => new TextEncoder().encode("hello").buffer,
+    });
+    const input = screen.getByLabelText("Content") as HTMLInputElement;
+    fireEvent.change(input, { target: { files: [file] } });
+
+    await waitFor(() => expect(handleFilesChange).toHaveBeenCalledTimes(1));
+    const [selection] = handleFilesChange.mock.calls[0][0];
+    expect(selection.file).toBe(file);
+    expect(selection.path).toBeUndefined();
+    expect(selection.bytes).toBeInstanceOf(Uint8Array);
+    expect(selection.text).toBe("hello");
+  });
+
+  it("resolves path when mode is both", async () => {
+    const handleFilesChange = vi.fn();
+    const resolvePath = vi.fn().mockResolvedValue("/tmp/a.txt");
+    render(
+      <FilePicker
+        label="Both"
+        mode="both"
+        resolvePath={resolvePath}
+        onFilesChange={handleFilesChange}
+      />
+    );
+
+    const file = new File(["abc"], "a.txt", { type: "text/plain" });
+    Object.defineProperty(file, "arrayBuffer", {
+      configurable: true,
+      value: async () => new TextEncoder().encode("abc").buffer,
+    });
+    const input = screen.getByLabelText("Both") as HTMLInputElement;
+    fireEvent.change(input, { target: { files: [file] } });
+
+    await waitFor(() => expect(handleFilesChange).toHaveBeenCalledTimes(1));
+    expect(resolvePath).toHaveBeenCalledWith(file);
+    const [selection] = handleFilesChange.mock.calls[0][0];
+    expect(selection.file).toBe(file);
+    expect(selection.path).toBe("/tmp/a.txt");
+    expect(selection.text).toBe("abc");
+    expect(selection.bytes).toBeInstanceOf(Uint8Array);
   });
 });

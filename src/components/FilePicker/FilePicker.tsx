@@ -4,13 +4,24 @@ import "./FilePicker.css";
 
 type NativeInputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, "type">;
 
+export type FilePickerMode = "path" | "content" | "both";
+
+export type FileSelection = {
+  file: File;
+  path?: string;
+  text?: string;
+  bytes?: Uint8Array;
+};
+
 export type FilePickerProps = NativeInputProps & {
   label?: string;
   description?: string;
   error?: string;
   dropzoneLabel?: string;
   maxFiles?: number;
-  onFilesChange?: (files: File[]) => void;
+  mode?: FilePickerMode;
+  resolvePath?: (file: File) => string | undefined | Promise<string | undefined>;
+  onFilesChange?: (files: FileSelection[]) => void;
 };
 
 function matchesAcceptToken(file: File, token: string) {
@@ -49,6 +60,61 @@ function formatBytes(bytes: number) {
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
+function decodeUtf8IfPossible(bytes: Uint8Array) {
+  try {
+    const decoder = new TextDecoder("utf-8", { fatal: true });
+    return decoder.decode(bytes);
+  } catch {
+    return undefined;
+  }
+}
+
+async function derivePath(
+  file: File,
+  resolvePath: FilePickerProps["resolvePath"] | undefined
+) {
+  const resolved = await resolvePath?.(file);
+  if (resolved) return resolved;
+
+  const fileWithPath = file as File & { path?: string; webkitRelativePath?: string };
+  if (typeof fileWithPath.path === "string" && fileWithPath.path.length > 0) {
+    return fileWithPath.path;
+  }
+  if (
+    typeof fileWithPath.webkitRelativePath === "string" &&
+    fileWithPath.webkitRelativePath.length > 0
+  ) {
+    return fileWithPath.webkitRelativePath;
+  }
+
+  return undefined;
+}
+
+async function readFileBytes(file: File) {
+  const fileWithArrayBuffer = file as File & { arrayBuffer?: () => Promise<ArrayBuffer> };
+  if (typeof fileWithArrayBuffer.arrayBuffer === "function") {
+    return new Uint8Array(await fileWithArrayBuffer.arrayBuffer());
+  }
+
+  if (typeof Blob !== "undefined" && typeof Blob.prototype.arrayBuffer === "function") {
+    return new Uint8Array(await Blob.prototype.arrayBuffer.call(file as Blob));
+  }
+
+  if (typeof FileReader !== "undefined") {
+    return await new Promise<Uint8Array | undefined>((resolve) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const result = reader.result;
+        resolve(result instanceof ArrayBuffer ? new Uint8Array(result) : undefined);
+      };
+      reader.onerror = () => resolve(undefined);
+      reader.readAsArrayBuffer(file);
+    });
+  }
+
+  return undefined;
+}
+
 export const FilePicker = React.forwardRef<HTMLInputElement, FilePickerProps>(function FilePicker(
   {
     label,
@@ -56,6 +122,8 @@ export const FilePicker = React.forwardRef<HTMLInputElement, FilePickerProps>(fu
     error,
     dropzoneLabel = "Drop files here or click to browse",
     maxFiles,
+    mode = "path",
+    resolvePath,
     id,
     className,
     accept,
@@ -72,9 +140,10 @@ export const FilePicker = React.forwardRef<HTMLInputElement, FilePickerProps>(fu
   const descriptionId = React.useId();
   const errorId = React.useId();
   const [isDragActive, setIsDragActive] = React.useState(false);
-  const [selectedFiles, setSelectedFiles] = React.useState<File[]>([]);
+  const [selectedFiles, setSelectedFiles] = React.useState<FileSelection[]>([]);
   const [restrictedCount, setRestrictedCount] = React.useState(0);
   const inputRef = React.useRef<HTMLInputElement | null>(null);
+  const selectionRequestIdRef = React.useRef(0);
 
   const setRefs = React.useCallback(
     (node: HTMLInputElement | null) => {
@@ -96,24 +165,50 @@ export const FilePicker = React.forwardRef<HTMLInputElement, FilePickerProps>(fu
   }, [maxFiles]);
 
   const applySelectedFiles = React.useCallback(
-    (files: File[]) => {
+    async (files: File[]) => {
       const acceptedFiles = filterFilesByAccept(files, accept);
       const selectionLimit = multiple ? (resolvedMaxFiles ?? Infinity) : 1;
       const nextFiles = acceptedFiles.slice(0, selectionLimit);
       const nextRestrictedCount = files.length - nextFiles.length;
+      const requestId = selectionRequestIdRef.current + 1;
+      selectionRequestIdRef.current = requestId;
 
-      setSelectedFiles(nextFiles);
+      const nextSelections = await Promise.all(
+        nextFiles.map(async (file) => {
+          const selection: FileSelection = { file };
+
+          if (mode === "path" || mode === "both") {
+            selection.path = await derivePath(file, resolvePath);
+          }
+
+          if (mode === "content" || mode === "both") {
+            const bytes = await readFileBytes(file);
+            if (bytes) {
+              selection.bytes = bytes;
+              selection.text = decodeUtf8IfPossible(bytes);
+            }
+          }
+
+          return selection;
+        })
+      );
+
+      if (selectionRequestIdRef.current !== requestId) {
+        return [];
+      }
+
+      setSelectedFiles(nextSelections);
       setRestrictedCount(nextRestrictedCount);
-      onFilesChange?.(nextFiles);
+      onFilesChange?.(nextSelections);
 
-      return nextFiles;
+      return nextSelections;
     },
-    [accept, multiple, onFilesChange, resolvedMaxFiles]
+    [accept, mode, multiple, onFilesChange, resolvePath, resolvedMaxFiles]
   );
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const incomingFiles = Array.from(event.target.files ?? []);
-    applySelectedFiles(incomingFiles);
+    void applySelectedFiles(incomingFiles);
     onChange?.(event);
   };
 
@@ -130,7 +225,7 @@ export const FilePicker = React.forwardRef<HTMLInputElement, FilePickerProps>(fu
     if (disabled) return;
     setIsDragActive(false);
     const files = Array.from(event.dataTransfer.files ?? []);
-    applySelectedFiles(files);
+    void applySelectedFiles(files);
   };
 
   const hasSelection = selectedFiles.length > 0;
@@ -202,10 +297,15 @@ export const FilePicker = React.forwardRef<HTMLInputElement, FilePickerProps>(fu
         ) : null}
         {hasSelection ? (
           <ul className="rui-file-picker__list" aria-label="Selected files">
-            {selectedFiles.map((file) => (
-              <li key={`${file.name}-${file.size}-${file.lastModified}`} className="rui-file-picker__item">
-                <span className="rui-file-picker__file-name rui-text-wrap">{file.name}</span>
-                <span className="rui-file-picker__file-meta">{formatBytes(file.size)}</span>
+            {selectedFiles.map((selection) => (
+              <li
+                key={`${selection.file.name}-${selection.file.size}-${selection.file.lastModified}`}
+                className="rui-file-picker__item"
+              >
+                <span className="rui-file-picker__file-name rui-text-wrap">
+                  {selection.file.name}
+                </span>
+                <span className="rui-file-picker__file-meta">{formatBytes(selection.file.size)}</span>
               </li>
             ))}
           </ul>
