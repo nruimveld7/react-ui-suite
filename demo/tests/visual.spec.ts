@@ -19,6 +19,7 @@ const APPROVED_SLUGS = new Set<string>([
   "date-picker",
   "dialog",
   "disclosure",
+  "file-picker",
   "input-field",
   "number-input",
   "output-chip",

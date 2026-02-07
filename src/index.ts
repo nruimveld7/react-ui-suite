@@ -14,6 +14,7 @@ export * from "./components/DatePicker";
 export * from "./components/Dialog";
 export * from "./components/Disclosure";
 export * from "./components/Dropdown";
+export * from "./components/FilePicker";
 export * from "./components/InputField";
 export * from "./components/NumberInput";
 export * from "./components/OutputChip";

@@ -1,0 +1,51 @@
+.file-picker-demo {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .file-picker-demo {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.file-picker-demo__card {
+  border-radius: 1.5rem;
+  border: 1px solid rgb(226 232 240 / 1);
+  background: rgb(255 255 255 / 1);
+  padding: 1rem;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+}
+
+.file-picker-demo__card:is([data-theme="dark"] *) {
+  border-color: rgb(39 39 42 / 1);
+  background: rgb(24 24 27 / 0.7);
+}
+
+.file-picker-demo__stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.file-picker-demo__limit {
+  display: flex;
+  justify-content: center;
+}
+
+.file-picker-demo__limit .rui-number-input__label {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  margin: 0px;
+}
+
+.file-picker-demo__meta {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: rgb(71 85 105 / 1);
+}
+
+.file-picker-demo__meta:is([data-theme="dark"] *) {
+  color: rgb(148 163 184 / 1);
+}
