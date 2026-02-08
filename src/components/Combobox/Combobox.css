@@ -15,6 +15,10 @@
   scrollbar-width: none;
 }
 
+.rui-popover[data-scrollbar-visible="false"] .rui-combobox__listbox {
+  padding-right: 0.25rem;
+}
+
 .rui-combobox__listbox::-webkit-scrollbar {
   width: 0;
   height: 0;

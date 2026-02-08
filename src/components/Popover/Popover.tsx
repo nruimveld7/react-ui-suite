@@ -28,7 +28,13 @@ function getAnchorPosition(anchor: HTMLElement | null): PopoverPosition | null {
   };
 }
 
-function Scrollbar({ scrollRef }: { scrollRef: React.MutableRefObject<HTMLElement | null> }) {
+function Scrollbar({
+  scrollRef,
+  onVisibilityChange,
+}: {
+  scrollRef: React.MutableRefObject<HTMLElement | null>;
+  onVisibilityChange?: (visible: boolean) => void;
+}) {
   const [{ visible, size, offset }, setThumbState] = React.useState<ThumbState>({
     visible: false,
     size: MIN_THUMB_SIZE,
@@ -86,6 +92,10 @@ function Scrollbar({ scrollRef }: { scrollRef: React.MutableRefObject<HTMLElemen
       cancelAnimationFrame(raf);
     };
   }, [scrollRef]);
+
+  React.useEffect(() => {
+    onVisibilityChange?.(visible);
+  }, [onVisibilityChange, visible]);
 
   React.useEffect(() => {
     const handlePointerMove = (event: PointerEvent) => {
@@ -183,6 +193,7 @@ export type PopoverProps = {
 
 export function Popover({ className, anchorRef, rootRef, children }: PopoverProps) {
   const scrollRef: React.MutableRefObject<HTMLUListElement | null> = React.useRef(null);
+  const [scrollbarVisible, setScrollbarVisible] = React.useState(false);
   const [position, setPosition] = React.useState<PopoverPosition | null>(() =>
     getAnchorPosition(anchorRef?.current ?? null)
   );
@@ -230,11 +241,12 @@ export function Popover({ className, anchorRef, rootRef, children }: PopoverProp
         shouldPortal && "rui-popover--portal",
         className
       )}
+      data-scrollbar-visible={scrollbarVisible ? "true" : "false"}
       style={popoverStyle}
     >
       <div className="rui-popover__inner">
         {children({ scrollRef })}
-        <Scrollbar scrollRef={scrollRef} />
+        <Scrollbar scrollRef={scrollRef} onVisibilityChange={setScrollbarVisible} />
       </div>
     </div>
   );

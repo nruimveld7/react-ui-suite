@@ -14,5 +14,9 @@ describe("Popover", () => {
 
     expect(renderProp).toHaveBeenCalled();
     expect(screen.getByTestId("list")).toBeInTheDocument();
+    expect(screen.getByTestId("list").closest(".rui-popover")).toHaveAttribute(
+      "data-scrollbar-visible",
+      "false"
+    );
   });
 });

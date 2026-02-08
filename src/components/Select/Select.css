@@ -61,6 +61,10 @@
   scrollbar-width: none;
 }
 
+.rui-popover[data-scrollbar-visible="false"] .rui-select__list {
+  padding-right: 0.25rem;
+}
+
 .rui-select__list::-webkit-scrollbar {
   width: 0;
   height: 0;
