@@ -71,4 +71,19 @@ describe("Select", () => {
     await user.keyboard("{Escape}");
     await waitFor(() => expect(screen.queryByRole("option", { name: "Low" })).toBeNull());
   });
+
+  it("commits selected option on pointer interaction in the portaled list", async () => {
+    const user = userEvent.setup();
+    const handleChange = vi.fn();
+    render(<Select label="Priority" options={options} onChange={handleChange} />);
+
+    const input = screen.getByRole("combobox", { name: "Priority" });
+    await user.click(input);
+    const highOption = await screen.findByRole("option", { name: "High" });
+
+    await user.click(highOption);
+
+    await waitFor(() => expect(handleChange).toHaveBeenCalledWith("high"));
+    expect(input).toHaveValue("High");
+  });
 });

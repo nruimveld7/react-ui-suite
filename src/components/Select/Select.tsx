@@ -45,6 +45,7 @@ export function Select({
   const containerRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
   const inputRef: React.MutableRefObject<HTMLInputElement | null> = React.useRef(null);
   const chevronRef: React.MutableRefObject<HTMLButtonElement | null> = React.useRef(null);
+  const popoverRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(null);
   const popoverListRef: React.MutableRefObject<React.RefObject<HTMLUListElement | null> | null> =
     React.useRef(null);
   const suppressToggleRef = React.useRef(false);
@@ -67,9 +68,14 @@ export function Select({
   const activeIndex = activeIndexState;
   const [selected, setSelected] = useControlledState<string | null>(value, defaultValue ?? null);
 
-  useOutsideClick([containerRef as unknown as React.RefObject<HTMLElement | null>], () =>
-    setOpen(false)
+  const outsideClickRefs = React.useMemo(
+    () => [
+      containerRef as unknown as React.RefObject<HTMLElement | null>,
+      popoverRef as unknown as React.RefObject<HTMLElement | null>,
+    ],
+    []
   );
+  useOutsideClick(outsideClickRefs, () => setOpen(false));
 
   const selectedOption = options.find((opt) => opt.value === selected) ?? null;
   const selectedIndex = React.useMemo(
@@ -247,7 +253,7 @@ export function Select({
         }}
       >
         {open && (
-          <Popover anchorRef={containerRef} className={listboxHighlight}>
+          <Popover anchorRef={containerRef} rootRef={popoverRef} className={listboxHighlight}>
             {({ scrollRef }) => {
               popoverListRef.current = scrollRef;
               return (
