@@ -19,6 +19,7 @@ export type FilePickerProps = NativeInputProps & {
   error?: string;
   dropzoneLabel?: string;
   maxFiles?: number;
+  directory?: boolean;
   mode?: FilePickerMode;
   resolvePath?: (file: File) => string | undefined | Promise<string | undefined>;
   onFilesChange?: (files: FileSelection[]) => void;
@@ -122,6 +123,7 @@ export const FilePicker = React.forwardRef<HTMLInputElement, FilePickerProps>(fu
     error,
     dropzoneLabel = "Drop files here or click to browse",
     maxFiles,
+    directory = false,
     mode = "path",
     resolvePath,
     id,
@@ -159,15 +161,19 @@ export const FilePicker = React.forwardRef<HTMLInputElement, FilePickerProps>(fu
 
   const hintIds = [description ? descriptionId : null, error ? errorId : null].filter(Boolean);
   const resolvedAriaDescribedBy = hintIds.length ? hintIds.join(" ") : undefined;
+  const resolvedMultiple = multiple || directory;
   const resolvedMaxFiles = React.useMemo(() => {
     if (typeof maxFiles !== "number" || !Number.isFinite(maxFiles)) return undefined;
     return Math.max(1, Math.floor(maxFiles));
   }, [maxFiles]);
+  const directoryAttributes = directory
+    ? ({ directory: "", webkitdirectory: "" } as Record<string, string>)
+    : undefined;
 
   const applySelectedFiles = React.useCallback(
     async (files: File[]) => {
       const acceptedFiles = filterFilesByAccept(files, accept);
-      const selectionLimit = multiple ? (resolvedMaxFiles ?? Infinity) : 1;
+      const selectionLimit = resolvedMultiple ? (resolvedMaxFiles ?? Infinity) : 1;
       const nextFiles = acceptedFiles.slice(0, selectionLimit);
       const nextRestrictedCount = files.length - nextFiles.length;
       const requestId = selectionRequestIdRef.current + 1;
@@ -203,7 +209,7 @@ export const FilePicker = React.forwardRef<HTMLInputElement, FilePickerProps>(fu
 
       return nextSelections;
     },
-    [accept, mode, multiple, onFilesChange, resolvePath, resolvedMaxFiles]
+    [accept, mode, onFilesChange, resolvePath, resolvedMaxFiles, resolvedMultiple]
   );
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -273,13 +279,14 @@ export const FilePicker = React.forwardRef<HTMLInputElement, FilePickerProps>(fu
       >
         <input
           {...rest}
+          {...directoryAttributes}
           id={inputId}
           ref={setRefs}
           type="file"
           className={clsx("rui-file-picker__input", className)}
           accept={accept}
           disabled={disabled}
-          multiple={multiple}
+          multiple={resolvedMultiple}
           onChange={handleInputChange}
           aria-invalid={error ? true : undefined}
           aria-describedby={resolvedAriaDescribedBy}

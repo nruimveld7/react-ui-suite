@@ -73,11 +73,41 @@ function AnyFileExample() {
   );
 }
 
+function FolderExample() {
+  const [paths, setPaths] = useState<string[]>([]);
+
+  return (
+    <DemoExample title="Folder upload" className="file-picker-demo__card">
+      <div className="file-picker-demo__stack">
+        <FilePicker
+          label="Upload a folder"
+          description="Select a directory and keep relative file paths."
+          directory
+          mode="path"
+          onFilesChange={(files) =>
+            setPaths(files.map((selection) => selection.path ?? selection.file.name))
+          }
+        />
+        <p className="file-picker-demo__meta rui-text-wrap">
+          {paths.length ? `${paths.length} file(s) collected from folder` : "No folder selected yet"}
+        </p>
+        {paths.length ? (
+          <p className="file-picker-demo__meta rui-text-wrap">
+            {paths.slice(0, 3).join(", ")}
+            {paths.length > 3 ? ", ..." : ""}
+          </p>
+        ) : null}
+      </div>
+    </DemoExample>
+  );
+}
+
 function FilePickerPreview() {
   return (
     <div className="file-picker-demo">
       <ImageOnlyExample />
       <AnyFileExample />
+      <FolderExample />
     </div>
   );
 }

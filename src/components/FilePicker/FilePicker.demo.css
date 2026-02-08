@@ -9,6 +9,12 @@
   }
 }
 
+@media (min-width: 1200px) {
+  .file-picker-demo {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 .file-picker-demo__card {
   border-radius: 1.5rem;
   border: 1px solid rgb(226 232 240 / 1);

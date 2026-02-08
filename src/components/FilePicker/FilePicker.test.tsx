@@ -178,4 +178,13 @@ describe("FilePicker", () => {
     expect(selection.text).toBe("abc");
     expect(selection.bytes).toBeInstanceOf(Uint8Array);
   });
+
+  it("enables directory selection attributes", () => {
+    render(<FilePicker label="Folder upload" directory />);
+
+    const input = screen.getByLabelText("Folder upload") as HTMLInputElement;
+    expect(input.multiple).toBe(true);
+    expect(input.hasAttribute("directory")).toBe(true);
+    expect(input.hasAttribute("webkitdirectory")).toBe(true);
+  });
 });
