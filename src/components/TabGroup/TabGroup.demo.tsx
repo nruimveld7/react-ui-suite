@@ -1,5 +1,5 @@
 import * as React from "react";
-import { TabGroup, NumberInput, ResizableContainer } from "react-ui-suite";
+import { TabGroup, NumberInput, ResizableContainer, Button } from "react-ui-suite";
 import type { TabGroupProps } from "react-ui-suite";
 import type { ComponentRegistryEntry } from "../../../demo/component-registry";
 import "./TabGroup.demo.css";
@@ -12,16 +12,67 @@ const MAX_TABS = 20;
 const MIN_TAB_SIZE = 25;
 const MAX_TAB_SIZE = 500;
 const DEFAULT_TAB_SIZE = 120;
+const LABEL_BANK = [
+  "Overview",
+  "Activity Feed",
+  "Billing",
+  "Team Access",
+  "Usage Analytics",
+  "Audit Trail",
+  "Project Settings",
+  "Incident Escalation",
+  "API Integrations",
+  "Security Center",
+  "Release Notes",
+  "Environment Variables",
+  "Performance Metrics",
+  "Account Preferences",
+  "Notification Rules",
+  "Feature Flags",
+  "Data Retention Policy",
+  "Single Sign-On",
+  "Service Dependencies",
+  "Deployment History",
+  "Workload Automation",
+  "Customer Health",
+  "Webhook Subscriptions",
+  "Storage Allocation",
+  "Regional Failover",
+  "Compliance Reports",
+  "Budget Forecasting",
+  "Session Management",
+  "Identity Verification",
+  "Experiment Tracking",
+] as const;
 
 function clamp(n: number, min: number, max: number) {
   return Math.max(min, Math.min(max, n));
 }
 
-function makeTabs(count: number, variant: "horizontal" | "vertical") {
+function pickUniqueLabels(count: number) {
+  const pool = [...LABEL_BANK];
+  const result: string[] = [];
+  for (let i = 0; i < count; i += 1) {
+    const pick = Math.floor(Math.random() * pool.length);
+    const [label] = pool.splice(pick, 1);
+    if (label) {
+      result.push(label);
+    } else {
+      result.push(`Tab ${i + 1}`);
+    }
+  }
+  return result;
+}
+
+function getStableLabels(count: number) {
+  return LABEL_BANK.slice(0, count);
+}
+
+function makeTabs(count: number, variant: "horizontal" | "vertical", labels: string[]) {
   return Array.from({ length: count }, (_, i) => ({
     label: (
       <span style={{ display: "inline-flex", gap: 6, alignItems: "center" }}>
-        Tab {i + 1}
+        {labels[i] ?? `Tab ${i + 1}`}
       </span>
     ),
     content: (
@@ -289,13 +340,28 @@ function HorizontalControlsDemo() {
     align: "center",
     size: DEFAULT_TAB_SIZE,
   });
+  const [labels, setLabels] = React.useState<string[]>(() => getStableLabels(DEFAULT_TABS));
+
+  React.useEffect(() => {
+    setLabels((prev) => {
+      if (prev.length === settings.tabCount) return prev;
+      if (settings.tabCount > prev.length) {
+        return getStableLabels(settings.tabCount);
+      }
+      return prev.slice(0, settings.tabCount);
+    });
+  }, [settings.tabCount]);
+
   const tabs = React.useMemo(
-    () => makeTabs(settings.tabCount, "horizontal"),
-    [settings.tabCount]
+    () => makeTabs(settings.tabCount, "horizontal", labels),
+    [labels, settings.tabCount]
   );
   return (
     <div className="rui-tab-group-demo__stack">
       <TabControls value={settings} onChange={setSettings} config={horizontalControlsConfig} />
+      <div className="rui-tab-group-demo__actions">
+        <Button onClick={() => setLabels(pickUniqueLabels(settings.tabCount))}>Randomize Labels</Button>
+      </div>
       <div className="rui-tab-group-demo__resizable-wrap">
         <ResizableContainer
           axis="x"
@@ -326,13 +392,28 @@ function VerticalControlsDemo() {
     align: "center",
     size: DEFAULT_TAB_SIZE,
   });
+  const [labels, setLabels] = React.useState<string[]>(() => getStableLabels(DEFAULT_TABS));
+
+  React.useEffect(() => {
+    setLabels((prev) => {
+      if (prev.length === settings.tabCount) return prev;
+      if (settings.tabCount > prev.length) {
+        return getStableLabels(settings.tabCount);
+      }
+      return prev.slice(0, settings.tabCount);
+    });
+  }, [settings.tabCount]);
+
   const tabs = React.useMemo(
-    () => makeTabs(settings.tabCount, "vertical"),
-    [settings.tabCount]
+    () => makeTabs(settings.tabCount, "vertical", labels),
+    [labels, settings.tabCount]
   );
   return (
     <div className="rui-tab-group-demo__stack">
       <TabControls value={settings} onChange={setSettings} config={verticalControlsConfig} />
+      <div className="rui-tab-group-demo__actions">
+        <Button onClick={() => setLabels(pickUniqueLabels(settings.tabCount))}>Randomize Labels</Button>
+      </div>
       <ResizableContainer
         axis="y"
         minHeight={200}

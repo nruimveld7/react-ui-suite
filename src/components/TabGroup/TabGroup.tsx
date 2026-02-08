@@ -43,11 +43,16 @@ export default function TabGroup({
 }: TabGroupProps) {
     const rootRef = React.useRef<HTMLDivElement | null>(null);
     const tabStripRef = React.useRef<HTMLDivElement | null>(null);
+    const measureRef = React.useRef<HTMLDivElement | null>(null);
     const idBase = React.useId();
     const [effectiveFill, setEffectiveFill] = React.useState<TabGroupFill>(fill);
     const [availableMain, setAvailableMain] = React.useState(0);
-    const [minMain, setMinMain] = React.useState(32);
+    const [cssMinMain, setCssMinMain] = React.useState(32);
+    const [contentMinMain, setContentMinMain] = React.useState(0);
     const count = tabs.length;
+    const isVertical = position === "left" || position === "right";
+    const minMain = Math.max(cssMinMain, contentMinMain);
+    const partialMainSize = Math.max(Number.isFinite(size) ? size : 0, minMain);
     const clampIndex = React.useCallback(
         (i: number) => {
             if (count <= 0) {
@@ -92,14 +97,16 @@ export default function TabGroup({
         const radius = parseFloat(computed.getPropertyValue("--rui-tab-panel-radius")) || 0;
         const border = parseFloat(computed.getPropertyValue("--rui-tab-border")) || 0;
         const minMainValue = parseFloat(computed.getPropertyValue("--rui-tab-min-main")) || 32;
+        const effectiveMinMain = Math.max(minMainValue, contentMinMain);
         const wiggle = border * 2 + 1;
         const available = position === "top" || position === "bottom" ? rect.width : rect.height;
-        const required = (size ?? 0) * tabs.length;
-        const slots = minMainValue > 0 ? Math.floor(available / minMainValue) : tabs.length;
+        const requiredPerTab = Math.max(size ?? 0, effectiveMinMain);
+        const required = requiredPerTab * tabs.length;
+        const slots = effectiveMinMain > 0 ? Math.floor(available / effectiveMinMain) : tabs.length;
         const hasOverflowControls = slots < tabs.length;
         const shouldFill = (available - (2 * radius) - wiggle) <= required;
         setEffectiveFill(shouldFill || hasOverflowControls ? "full" : "partial");
-    }, [fill, position, size, tabs.length]);
+    }, [contentMinMain, fill, position, size, tabs.length]);
 
     React.useLayoutEffect(() => {
         if (fill === "full") {
@@ -117,15 +124,53 @@ export default function TabGroup({
         return () => observer.disconnect();
     }, [fill, updateEffectiveFill]);
 
-    const isVertical = position === "left" || position === "right";
-
     React.useLayoutEffect(() => {
         const root = rootRef.current;
         if (!root) return;
         const computed = getComputedStyle(root);
         const cssMin = parseFloat(computed.getPropertyValue("--rui-tab-min-main"));
-        setMinMain(Number.isFinite(cssMin) && cssMin > 0 ? cssMin : 32);
+        setCssMinMain(Number.isFinite(cssMin) && cssMin > 0 ? cssMin : 32);
     }, [position]);
+
+    React.useLayoutEffect(() => {
+        const node = measureRef.current;
+        if (!node) return;
+
+        const measure = () => {
+            const sampleTab = node.querySelector<HTMLElement>(".rui-tab-group__tab");
+            const labels = Array.from(node.querySelectorAll<HTMLElement>(".rui-tab-group__label"));
+            if (!sampleTab || labels.length === 0) {
+                setContentMinMain(0);
+                return;
+            }
+
+            const tabStyle = getComputedStyle(sampleTab);
+            const paddingMain = isVertical
+                ? (parseFloat(tabStyle.paddingTop) || 0) + (parseFloat(tabStyle.paddingBottom) || 0)
+                : (parseFloat(tabStyle.paddingLeft) || 0) + (parseFloat(tabStyle.paddingRight) || 0);
+            const borderMain = isVertical
+                ? (parseFloat(tabStyle.borderTopWidth) || 0) + (parseFloat(tabStyle.borderBottomWidth) || 0)
+                : (parseFloat(tabStyle.borderLeftWidth) || 0) + (parseFloat(tabStyle.borderRightWidth) || 0);
+
+            let largestLabelMain = 0;
+            for (const label of labels) {
+                const rect = label.getBoundingClientRect();
+                const labelMain = isVertical ? rect.height : rect.width;
+                if (labelMain > largestLabelMain) {
+                    largestLabelMain = labelMain;
+                }
+            }
+
+            const next = Math.ceil(largestLabelMain + paddingMain + borderMain);
+            setContentMinMain((prev) => (prev === next ? prev : next));
+        };
+
+        measure();
+        if (typeof ResizeObserver === "undefined") return;
+        const observer = new ResizeObserver(() => measure());
+        observer.observe(node);
+        return () => observer.disconnect();
+    }, [isVertical, position, rotation, tabs]);
 
     React.useLayoutEffect(() => {
         const node = tabStripRef.current;
@@ -145,7 +190,8 @@ export default function TabGroup({
 
     const slots = availableMain > 0 && minMain > 0 ? Math.floor(availableMain / minMain) : count;
     const overflow = slots < count;
-    const windowSize = overflow ? Math.max(1, slots - 2) : count;
+    const layoutSlots = overflow ? Math.max(3, slots) : Math.max(1, slots);
+    const windowSize = overflow ? Math.max(1, layoutSlots - 2) : count;
     const maxStart = Math.max(0, count - windowSize);
     const [startIndex, setStartIndex] = React.useState(0);
 
@@ -168,14 +214,14 @@ export default function TabGroup({
     }, [currentActive, overflow, windowSize]);
 
     const visibleTabs = overflow ? tabs.slice(startIndex, startIndex + windowSize) : tabs;
-    const slotSize = overflow && slots > 0 ? availableMain / slots : 0;
+    const slotSize = overflow && layoutSlots > 0 ? availableMain / layoutSlots : 0;
     const overflowMainStyle =
         overflow && slotSize > 0 ? (isVertical ? { height: slotSize } : { width: slotSize }) : undefined;
     const mainStyle =
         overflow
             ? overflowMainStyle
             : effectiveFill === "partial"
-                ? (isVertical ? { height: size } : { width: size })
+                ? (isVertical ? { height: partialMainSize } : { width: partialMainSize })
                 : undefined;
 
     const scrollLabels = isVertical
@@ -334,6 +380,13 @@ export default function TabGroup({
             data-rotation={rotation}
             data-overflow={overflow ? "true" : "false"}
         >
+            <div ref={measureRef} className="rui-tab-group__measure" aria-hidden="true">
+                {tabs.map((tab, index) => (
+                    <button key={index} type="button" className="rui-tab-group__tab">
+                        <span className="rui-tab-group__label">{tab.label}</span>
+                    </button>
+                ))}
+            </div>
             {tabsFirst ? (
             <>
                 {tabList}

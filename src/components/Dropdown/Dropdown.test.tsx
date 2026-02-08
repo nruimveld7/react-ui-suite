@@ -42,6 +42,28 @@ describe("Dropdown", () => {
     expect(combobox).toHaveAttribute("aria-expanded", "true");
   });
 
+  it("fires chevron handler on pointer down and not again on pointer up", async () => {
+    const user = userEvent.setup();
+    const handleChevron = vi.fn();
+
+    render(
+      <Dropdown
+        isOpen={false}
+        displayValue="Alpha"
+        query="Alpha"
+        inputRef={vi.fn()}
+        onChevronClick={handleChevron}
+      />
+    );
+
+    const chevron = screen.getByRole("button", { name: "Open" });
+    await user.pointer([{ target: chevron, keys: "[MouseLeft>]" }]);
+    expect(handleChevron).toHaveBeenCalledTimes(1);
+
+    await user.pointer([{ target: chevron, keys: "[/MouseLeft]" }]);
+    expect(handleChevron).toHaveBeenCalledTimes(1);
+  });
+
   it("renders leading and inline content and can hide the chevron", () => {
     render(
       <Dropdown

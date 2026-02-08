@@ -2,10 +2,28 @@
     display: flex;
     width: 100%;
     height: 100%;
+    position: relative;
     --rui-tab-border: 1px;
     --rui-tab-panel-radius: 15px;
     --rui-tab-radius: 10px;
     --rui-tab-min-main: 32px;
+}
+
+.rui-tab-group__measure {
+    position: fixed;
+    left: 0;
+    top: 0;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: -1;
+    display: inline-flex;
+    gap: 0;
+}
+
+.rui-tab-group__measure .rui-tab-group__tab {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    height: auto !important;
 }
 
 .rui-tab-group[data-position="top"],
@@ -83,6 +101,7 @@
     min-width: 0;
     min-height: 0;
     flex: 0 0 auto;
+    overflow: hidden;
 }
 
 .rui-tab-group__scroll {
@@ -113,6 +132,13 @@
   align-items: center;
   justify-content: center;
   line-height: 1;
+  white-space: normal;
+  overflow: hidden;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .rui-tab-group__tab.is-active {

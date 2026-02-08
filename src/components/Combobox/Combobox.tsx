@@ -343,7 +343,7 @@ function InnerCombobox<T>(
           openList();
           return;
         }
-        requestAnimationFrame(() => inputRef.current?.focus());
+        setOpen(false);
       }}
     >
       {isEffectivelyOpen && (

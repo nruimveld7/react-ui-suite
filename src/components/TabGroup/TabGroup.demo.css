@@ -40,6 +40,11 @@
   align-items: center;
 }
 
+.rui-tab-group-demo__actions {
+  display: flex;
+  align-items: center;
+}
+
 .rui-tab-group-demo__panel {
   display: grid;
   gap: 0.75rem;

@@ -113,7 +113,17 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
               ref={chevronRef}
               type="button"
               aria-label={isOpen ? "Close" : "Open"}
-              onClick={onChevronClick}
+              onPointerDown={(event) => {
+                if (!onChevronClick) return;
+                if (event.button !== 0) return;
+                event.preventDefault();
+                onChevronClick();
+              }}
+              onClick={(event) => {
+                // Keep keyboard activation (Enter/Space), but ignore mouse/touch click.
+                if (!onChevronClick || event.detail !== 0) return;
+                onChevronClick();
+              }}
               className={buttonClasses}
               disabled={!!disabled}
             >

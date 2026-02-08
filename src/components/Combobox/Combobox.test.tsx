@@ -118,6 +118,29 @@ describe("Combobox", () => {
     await user.type(input, "zzz");
     expect(await screen.findByText("Nothing to show")).toBeInTheDocument();
   });
+
+  it("only collapses when the chevron is clicked", async () => {
+    const user = userEvent.setup();
+    render(<Combobox options={options} ariaLabel="Framework" />);
+
+    const input = screen.getByRole("combobox", { name: "Framework" });
+    const shell = input.closest(".rui-dropdown__shell");
+
+    await user.click(input);
+    expect(await screen.findByRole("option", { name: "Alpha" })).toBeInTheDocument();
+
+    if (!shell) {
+      throw new Error("Expected combobox shell element to exist.");
+    }
+    await user.click(shell);
+    expect(screen.getByRole("option", { name: "Alpha" })).toBeInTheDocument();
+
+    await user.click(input);
+    expect(screen.getByRole("option", { name: "Alpha" })).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: "Close" }));
+    expect(screen.queryByRole("option", { name: "Alpha" })).not.toBeInTheDocument();
+  });
 });
 
 
