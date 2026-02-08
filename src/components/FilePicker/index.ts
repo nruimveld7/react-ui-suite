@@ -1,2 +1,7 @@
 export { FilePicker } from "./FilePicker";
-export type { FilePickerMode, FilePickerProps, FileSelection } from "./FilePicker";
+export type {
+  FilePickerExternalRequest,
+  FilePickerMode,
+  FilePickerProps,
+  FileSelection,
+} from "./FilePicker";

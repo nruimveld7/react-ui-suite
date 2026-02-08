@@ -1,9 +1,15 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { FilePicker } from ".";
 
 describe("FilePicker", () => {
+  afterEach(() => {
+    delete (
+      window as Window & { showDirectoryPicker?: () => Promise<{ name: string; values?: () => AsyncIterable<unknown> }> }
+    ).showDirectoryPicker;
+  });
+
   it("renders label, description, and error text", () => {
     render(
       <FilePicker
@@ -186,5 +192,172 @@ describe("FilePicker", () => {
     expect(input.multiple).toBe(true);
     expect(input.hasAttribute("directory")).toBe(true);
     expect(input.hasAttribute("webkitdirectory")).toBe(true);
+  });
+
+  it("reads file content in directory mode when mode is content", async () => {
+    const handleFilesChange = vi.fn();
+    render(<FilePicker label="Folder content" directory mode="content" onFilesChange={handleFilesChange} />);
+
+    const file = new File(["folder-note"], "note.txt", { type: "text/plain" });
+    Object.defineProperty(file, "webkitRelativePath", {
+      configurable: true,
+      value: "docs/note.txt",
+    });
+    Object.defineProperty(file, "arrayBuffer", {
+      configurable: true,
+      value: async () => new TextEncoder().encode("folder-note").buffer,
+    });
+
+    const input = screen.getByLabelText("Folder content") as HTMLInputElement;
+    fireEvent.change(input, { target: { files: [file] } });
+
+    await waitFor(() => expect(handleFilesChange).toHaveBeenCalledTimes(1));
+    const [selection] = handleFilesChange.mock.calls[0][0];
+    expect(selection.file).toBe(file);
+    expect(selection.path).toBe("docs/note.txt");
+    expect(selection.text).toBe("folder-note");
+    expect(selection.bytes).toBeInstanceOf(Uint8Array);
+    expect(screen.getByTitle("docs/note.txt")).toBeInTheDocument();
+  });
+
+  it("uses native directory picker for path-only folder mode when available", async () => {
+    const handleFilesChange = vi.fn();
+    const showDirectoryPicker = vi.fn().mockResolvedValue({
+      name: "assets",
+      values: async function* () {
+        yield {
+          kind: "file",
+          getFile: async () => new File([new Uint8Array(1024)], "a.bin"),
+        };
+        yield {
+          kind: "file",
+          getFile: async () => new File([new Uint8Array(512)], "b.bin"),
+        };
+      },
+    });
+    Object.defineProperty(window, "showDirectoryPicker", {
+      configurable: true,
+      value: showDirectoryPicker,
+    });
+
+    render(<FilePicker label="Folder path" directory mode="path" onFilesChange={handleFilesChange} />);
+
+    const input = screen.getByLabelText("Folder path") as HTMLInputElement;
+    expect(input.multiple).toBe(false);
+    expect(input.hasAttribute("directory")).toBe(false);
+    expect(input.hasAttribute("webkitdirectory")).toBe(false);
+
+    fireEvent.click(screen.getByRole("button", { name: "Folder path file picker" }));
+
+    await waitFor(() => expect(showDirectoryPicker).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(handleFilesChange).toHaveBeenCalledTimes(1));
+    const [selection] = handleFilesChange.mock.calls[0][0];
+    expect(selection.path).toBe("assets");
+    expect(selection.file.name).toBe("assets");
+    expect(selection.size).toBe(1536);
+    expect(screen.getByText("1.5 KB")).toBeInTheDocument();
+    expect(screen.getByTitle("assets")).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Remove assets" })).not.toBeInTheDocument();
+  });
+
+  it("accumulates folder paths across picks when multiple is enabled", async () => {
+    const handleFilesChange = vi.fn();
+    const showDirectoryPicker = vi
+      .fn()
+      .mockResolvedValueOnce({ name: "assets" })
+      .mockResolvedValueOnce({ name: "docs" });
+    Object.defineProperty(window, "showDirectoryPicker", {
+      configurable: true,
+      value: showDirectoryPicker,
+    });
+
+    render(
+      <FilePicker
+        label="Folder paths"
+        directory
+        mode="path"
+        multiple
+        onFilesChange={handleFilesChange}
+      />
+    );
+
+    const dropzone = screen.getByRole("button", { name: "Folder paths file picker" });
+    fireEvent.click(dropzone);
+    await waitFor(() => expect(handleFilesChange).toHaveBeenCalledTimes(1));
+    fireEvent.click(dropzone);
+    await waitFor(() => expect(handleFilesChange).toHaveBeenCalledTimes(2));
+
+    const lastSelections = handleFilesChange.mock.calls[1][0];
+    expect(lastSelections).toHaveLength(2);
+    expect(lastSelections[0].path).toBe("assets");
+    expect(lastSelections[1].path).toBe("docs");
+  });
+
+  it("removes a selected folder path from the list", async () => {
+    const handleFilesChange = vi.fn();
+    const showDirectoryPicker = vi
+      .fn()
+      .mockResolvedValueOnce({ name: "assets" })
+      .mockResolvedValueOnce({ name: "docs" });
+    Object.defineProperty(window, "showDirectoryPicker", {
+      configurable: true,
+      value: showDirectoryPicker,
+    });
+
+    render(
+      <FilePicker
+        label="Folder paths removable"
+        directory
+        mode="path"
+        multiple
+        onFilesChange={handleFilesChange}
+      />
+    );
+
+    const dropzone = screen.getByRole("button", { name: "Folder paths removable file picker" });
+    fireEvent.click(dropzone);
+    await waitFor(() => expect(handleFilesChange).toHaveBeenCalledTimes(1));
+    fireEvent.click(dropzone);
+    await waitFor(() => expect(handleFilesChange).toHaveBeenCalledTimes(2));
+
+    expect(screen.getByText("assets")).toBeInTheDocument();
+    expect(screen.getByText("docs")).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: "Remove assets" }));
+
+    await waitFor(() => expect(handleFilesChange).toHaveBeenCalledTimes(3));
+    const lastSelections = handleFilesChange.mock.calls[2][0];
+    expect(lastSelections).toHaveLength(1);
+    expect(lastSelections[0].path).toBe("docs");
+    expect(screen.queryByText("assets")).not.toBeInTheDocument();
+    expect(screen.getByText("docs")).toBeInTheDocument();
+  });
+
+  it("uses external picker selections and shows full path tooltip", async () => {
+    const handleFilesChange = vi.fn();
+    const externalPicker = vi.fn().mockResolvedValue([
+      {
+        file: new File([], "Adafruit_NeoPixel"),
+        path: "C:\\Users\\Admin\\Documents\\Arduino\\libraries\\Adafruit_NeoPixel",
+      },
+    ]);
+
+    render(
+      <FilePicker
+        label="Library path"
+        directory
+        mode="path"
+        externalPicker={externalPicker}
+        onFilesChange={handleFilesChange}
+      />
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: "Library path file picker" }));
+
+    await waitFor(() => expect(externalPicker).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(handleFilesChange).toHaveBeenCalledTimes(1));
+    expect(
+      screen.getByTitle("C:\\Users\\Admin\\Documents\\Arduino\\libraries\\Adafruit_NeoPixel")
+    ).toBeInTheDocument();
   });
 });

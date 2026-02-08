@@ -11,6 +11,16 @@ export type FileSelection = {
   path?: string;
   text?: string;
   bytes?: Uint8Array;
+  size?: number;
+};
+
+export type FilePickerExternalRequest = {
+  directory: boolean;
+  multiple: boolean;
+  mode: FilePickerMode;
+  accept?: string;
+  maxFiles?: number;
+  currentSelections: FileSelection[];
 };
 
 export type FilePickerProps = NativeInputProps & {
@@ -22,7 +32,25 @@ export type FilePickerProps = NativeInputProps & {
   directory?: boolean;
   mode?: FilePickerMode;
   resolvePath?: (file: File) => string | undefined | Promise<string | undefined>;
+  externalPicker?: (
+    request: FilePickerExternalRequest
+  ) => Promise<FileSelection[] | null | undefined>;
   onFilesChange?: (files: FileSelection[]) => void;
+};
+
+type DirectoryPickerWindow = Window & {
+  showDirectoryPicker?: () => Promise<DirectoryPickerHandle>;
+};
+
+type DirectoryPickerHandle = {
+  name: string;
+  values?: () => AsyncIterable<DirectoryPickerEntryHandle>;
+};
+
+type DirectoryPickerEntryHandle = {
+  kind?: "file" | "directory";
+  getFile?: () => Promise<File>;
+  values?: () => AsyncIterable<DirectoryPickerEntryHandle>;
 };
 
 function matchesAcceptToken(file: File, token: string) {
@@ -116,6 +144,33 @@ async function readFileBytes(file: File) {
   return undefined;
 }
 
+async function readDirectorySize(handle: DirectoryPickerHandle) {
+  if (typeof handle.values !== "function") {
+    return undefined;
+  }
+
+  let total = 0;
+  for await (const entry of handle.values()) {
+    if (entry.kind === "file" && typeof entry.getFile === "function") {
+      const file = await entry.getFile();
+      total += file.size;
+      continue;
+    }
+
+    if (entry.kind === "directory" && typeof entry.values === "function") {
+      const nestedSize = await readDirectorySize({
+        name: "",
+        values: entry.values,
+      });
+      if (typeof nestedSize === "number") {
+        total += nestedSize;
+      }
+    }
+  }
+
+  return total;
+}
+
 export const FilePicker = React.forwardRef<HTMLInputElement, FilePickerProps>(function FilePicker(
   {
     label,
@@ -126,6 +181,7 @@ export const FilePicker = React.forwardRef<HTMLInputElement, FilePickerProps>(fu
     directory = false,
     mode = "path",
     resolvePath,
+    externalPicker,
     id,
     className,
     accept,
@@ -146,6 +202,11 @@ export const FilePicker = React.forwardRef<HTMLInputElement, FilePickerProps>(fu
   const [restrictedCount, setRestrictedCount] = React.useState(0);
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const selectionRequestIdRef = React.useRef(0);
+  const canUseDirectoryHandlePicker =
+    typeof window !== "undefined" &&
+    typeof (window as DirectoryPickerWindow).showDirectoryPicker === "function";
+  const isFolderPathOnlyMode = directory && mode === "path";
+  const useDirectoryInputAttributes = directory && (!isFolderPathOnlyMode || !canUseDirectoryHandlePicker);
 
   const setRefs = React.useCallback(
     (node: HTMLInputElement | null) => {
@@ -161,14 +222,77 @@ export const FilePicker = React.forwardRef<HTMLInputElement, FilePickerProps>(fu
 
   const hintIds = [description ? descriptionId : null, error ? errorId : null].filter(Boolean);
   const resolvedAriaDescribedBy = hintIds.length ? hintIds.join(" ") : undefined;
-  const resolvedMultiple = multiple || directory;
+  const resolvedMultiple = multiple || useDirectoryInputAttributes;
   const resolvedMaxFiles = React.useMemo(() => {
     if (typeof maxFiles !== "number" || !Number.isFinite(maxFiles)) return undefined;
     return Math.max(1, Math.floor(maxFiles));
   }, [maxFiles]);
-  const directoryAttributes = directory
+  const directoryAttributes = useDirectoryInputAttributes
     ? ({ directory: "", webkitdirectory: "" } as Record<string, string>)
     : undefined;
+
+  const selectDirectoryPath = React.useCallback(async () => {
+    if (!isFolderPathOnlyMode || !canUseDirectoryHandlePicker) {
+      return false;
+    }
+
+    const picker = (window as DirectoryPickerWindow).showDirectoryPicker;
+    if (!picker) {
+      return false;
+    }
+
+    try {
+      const directoryHandle = await picker();
+      const requestId = selectionRequestIdRef.current + 1;
+      selectionRequestIdRef.current = requestId;
+      const selection: FileSelection = {
+        file: new File([], directoryHandle.name, { type: "application/x-directory" }),
+        path: directoryHandle.name,
+      };
+      const directorySize = await readDirectorySize(directoryHandle);
+      if (typeof directorySize === "number") {
+        selection.size = directorySize;
+      }
+      const selectionLimit = multiple ? (resolvedMaxFiles ?? Infinity) : 1;
+      const mergedSelections = multiple ? [...selectedFiles, selection] : [selection];
+      const nextSelections = mergedSelections.slice(0, selectionLimit);
+      const nextRestrictedCount = mergedSelections.length - nextSelections.length;
+
+      setSelectedFiles(nextSelections);
+      setRestrictedCount(nextRestrictedCount);
+      onFilesChange?.(nextSelections);
+      if (inputRef.current) {
+        inputRef.current.value = "";
+      }
+
+      return true;
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError") {
+        return true;
+      }
+      return false;
+    }
+  }, [
+    canUseDirectoryHandlePicker,
+    isFolderPathOnlyMode,
+    multiple,
+    onFilesChange,
+    resolvedMaxFiles,
+    selectedFiles,
+  ]);
+
+  const applyExternalSelections = React.useCallback(
+    (incomingSelections: FileSelection[]) => {
+      const selectionLimit = resolvedMultiple ? (resolvedMaxFiles ?? Infinity) : 1;
+      const nextSelections = incomingSelections.slice(0, selectionLimit);
+      const nextRestrictedCount = incomingSelections.length - nextSelections.length;
+
+      setSelectedFiles(nextSelections);
+      setRestrictedCount(nextRestrictedCount);
+      onFilesChange?.(nextSelections);
+    },
+    [onFilesChange, resolvedMaxFiles, resolvedMultiple]
+  );
 
   const applySelectedFiles = React.useCallback(
     async (files: File[]) => {
@@ -182,10 +306,7 @@ export const FilePicker = React.forwardRef<HTMLInputElement, FilePickerProps>(fu
       const nextSelections = await Promise.all(
         nextFiles.map(async (file) => {
           const selection: FileSelection = { file };
-
-          if (mode === "path" || mode === "both") {
-            selection.path = await derivePath(file, resolvePath);
-          }
+          selection.path = await derivePath(file, resolvePath);
 
           if (mode === "content" || mode === "both") {
             const bytes = await readFileBytes(file);
@@ -218,8 +339,33 @@ export const FilePicker = React.forwardRef<HTMLInputElement, FilePickerProps>(fu
     onChange?.(event);
   };
 
-  const openFileDialog = () => {
+  const openFileDialog = async () => {
     if (disabled) return;
+
+    if (externalPicker) {
+      try {
+        const nextSelections = await externalPicker({
+          directory,
+          multiple: resolvedMultiple,
+          mode,
+          accept,
+          maxFiles: resolvedMaxFiles,
+          currentSelections: selectedFiles,
+        });
+        if (Array.isArray(nextSelections)) {
+          applyExternalSelections(nextSelections);
+        }
+      } catch {
+        // Ignore external picker failures to keep component non-throwing.
+      }
+      return;
+    }
+
+    const handledByDirectoryPicker = await selectDirectoryPath();
+    if (handledByDirectoryPicker) {
+      return;
+    }
+
     if (inputRef.current) {
       inputRef.current.value = "";
       inputRef.current.click();
@@ -229,12 +375,27 @@ export const FilePicker = React.forwardRef<HTMLInputElement, FilePickerProps>(fu
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     if (disabled) return;
+
+    if (isFolderPathOnlyMode && canUseDirectoryHandlePicker) {
+      return;
+    }
+
     setIsDragActive(false);
     const files = Array.from(event.dataTransfer.files ?? []);
     void applySelectedFiles(files);
   };
 
   const hasSelection = selectedFiles.length > 0;
+  const allowSelectionRemoval = Boolean(multiple);
+  const removeSelection = React.useCallback(
+    (indexToRemove: number) => {
+      const nextSelections = selectedFiles.filter((_, index) => index !== indexToRemove);
+      setSelectedFiles(nextSelections);
+      setRestrictedCount(0);
+      onFilesChange?.(nextSelections);
+    },
+    [onFilesChange, selectedFiles]
+  );
 
   return (
     <div className="rui-file-picker rui-root">
@@ -255,11 +416,13 @@ export const FilePicker = React.forwardRef<HTMLInputElement, FilePickerProps>(fu
         tabIndex={disabled ? -1 : 0}
         aria-label={label ? `${label} file picker` : "File picker"}
         aria-disabled={disabled ? true : undefined}
-        onClick={openFileDialog}
+        onClick={() => {
+          void openFileDialog();
+        }}
         onKeyDown={(event) => {
           if (event.key === "Enter" || event.key === " ") {
             event.preventDefault();
-            openFileDialog();
+            void openFileDialog();
           }
         }}
         onDragEnter={(event) => {
@@ -287,6 +450,13 @@ export const FilePicker = React.forwardRef<HTMLInputElement, FilePickerProps>(fu
           accept={accept}
           disabled={disabled}
           multiple={resolvedMultiple}
+          onClick={(event) => {
+            event.stopPropagation();
+            if (isFolderPathOnlyMode && canUseDirectoryHandlePicker) {
+              event.preventDefault();
+              void openFileDialog();
+            }
+          }}
           onChange={handleInputChange}
           aria-invalid={error ? true : undefined}
           aria-describedby={resolvedAriaDescribedBy}
@@ -304,15 +474,34 @@ export const FilePicker = React.forwardRef<HTMLInputElement, FilePickerProps>(fu
         ) : null}
         {hasSelection ? (
           <ul className="rui-file-picker__list" aria-label="Selected files">
-            {selectedFiles.map((selection) => (
+            {selectedFiles.map((selection, index) => (
               <li
                 key={`${selection.file.name}-${selection.file.size}-${selection.file.lastModified}`}
                 className="rui-file-picker__item"
               >
                 <span className="rui-file-picker__file-name rui-text-wrap">
-                  {selection.file.name}
+                  <span title={selection.path ?? selection.file.name}>
+                    {selection.path ?? selection.file.name}
+                  </span>
                 </span>
-                <span className="rui-file-picker__file-meta">{formatBytes(selection.file.size)}</span>
+                <div className="rui-file-picker__item-actions">
+                  <span className="rui-file-picker__file-meta">
+                    {formatBytes(selection.size ?? selection.file.size)}
+                  </span>
+                  {allowSelectionRemoval ? (
+                    <button
+                      type="button"
+                      className="rui-file-picker__remove"
+                      aria-label={`Remove ${selection.path ?? selection.file.name}`}
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        removeSelection(index);
+                      }}
+                    >
+                      x
+                    </button>
+                  ) : null}
+                </div>
               </li>
             ))}
           </ul>
