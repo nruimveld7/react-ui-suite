@@ -22,11 +22,10 @@
 .rui-dialog__card {
   width: min(640px, 92vw);
   border-radius: 1.5rem;
-  border-width: 1px;
-  border-color: rgb(226 232 240 / 1);
+  border: 1px solid var(--rui-color-border);
   background-color: rgb(255 255 255 / 0.95);
   padding: 1.5rem;
-  box-shadow: 0 0 0 0px #fff, 0 0 0 calc(1px + 0px) rgb(59 130 246 / 0.5), 0 0 #0000;
+  box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
 
 .rui-dialog__card--floating {
@@ -42,7 +41,6 @@
 }
 
 .rui-dialog__card:is([data-theme="dark"] *) {
-  border-color: rgb(63 63 70 / 0.6);
   background-color: rgb(24 24 27 / 0.95);
 }
 
@@ -51,19 +49,6 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 0.75rem;
-}
-
-.rui-dialog__eyebrow {
-  margin: 0px;
-  font-size: 0.75rem;
-  line-height: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.3em;
-  color: rgb(100 116 139 / 1);
-}
-
-.rui-dialog__eyebrow:is([data-theme="dark"] *) {
-  color: rgb(161 161 170 / 1);
 }
 
 .rui-dialog__title {

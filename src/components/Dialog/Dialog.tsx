@@ -195,9 +195,6 @@ export function Dialog({
     >
       <div className="rui-dialog__header">
         <div>
-          <p className="rui-dialog__eyebrow">
-            Dialog
-          </p>
           <h2 id={titleId} className="rui-dialog__title">
             {title}
           </h2>
