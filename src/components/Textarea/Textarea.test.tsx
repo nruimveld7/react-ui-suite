@@ -152,4 +152,17 @@ describe("Textarea", () => {
     expect(withoutCounter.style.height).toBe("");
   });
 
+  it("does not activate manual inline height on click without drag", () => {
+    render(<Textarea label="Click only" resizeDirection="vertical" />);
+    const textarea = screen.getByLabelText("Click only") as HTMLTextAreaElement;
+    const handle = screen.getByRole("button", { name: /resize textarea/i });
+
+    Object.defineProperty(textarea, "offsetHeight", { configurable: true, get: () => 220 });
+
+    fireEvent.pointerDown(handle, { clientX: 10, clientY: 10, pointerType: "mouse", pointerId: 1, button: 0 });
+    fireEvent.pointerUp(window, { pointerType: "mouse", pointerId: 1, button: 0 });
+
+    expect(textarea.style.height).toBe("");
+  });
+
 });

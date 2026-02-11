@@ -54,9 +54,9 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
   const resolvedAriaDescribedBy = hintIds.length ? hintIds.join(" ") : undefined;
 
   const [value, setValue] = React.useState(rest.defaultValue?.toString() ?? "");
-  const [height, setHeight] = React.useState<number | undefined>(undefined);
-  const [isUserResized, setIsUserResized] = React.useState(false);
-  const [width, setWidth] = React.useState<number | undefined>(undefined);
+  const [manualHeight, setManualHeight] = React.useState<number | undefined>(undefined);
+  const [isManualHeightActive, setIsManualHeightActive] = React.useState(false);
+  const [manualWidth, setManualWidth] = React.useState<number | undefined>(undefined);
 
   const setRefs = React.useCallback(
     (node: HTMLTextAreaElement | null) => {
@@ -116,7 +116,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
       el.removeEventListener("scroll", handleScroll);
       cancelAnimationFrame(raf);
     };
-  }, [height]);
+  }, [manualHeight]);
 
   React.useEffect(() => {
     return () => {
@@ -133,8 +133,8 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
   React.useEffect(() => {
     const allowY = resizeDirection === "vertical" || resizeDirection === "both";
     if (!allowY) {
-      setIsUserResized(false);
-      setHeight(undefined);
+      setIsManualHeightActive(false);
+      setManualHeight(undefined);
     }
   }, [resizeDirection]);
 
@@ -156,14 +156,17 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
 
     const onMove = (moveEvent: PointerEvent) => {
       if (allowY) {
-        const nextHeight = Math.max(minHeight, startHeight + (moveEvent.clientY - startY));
-        setHeight(nextHeight);
-        setIsUserResized(true);
+        const deltaY = moveEvent.clientY - startY;
+        const nextHeight = Math.max(minHeight, startHeight + deltaY);
+        setManualHeight(nextHeight);
+        if (Math.abs(deltaY) >= 1) {
+          setIsManualHeightActive(true);
+        }
       }
       if (allowX) {
         const proposed = startWidth + (moveEvent.clientX - startX);
         const nextWidth = Math.min(parentWidth, Math.max(minWidth, proposed));
-        setWidth(nextWidth);
+        setManualWidth(nextWidth);
       }
     };
 
@@ -234,12 +237,11 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
   const limit = maxLength ?? undefined;
   const { style, ...restProps } = rest;
   const allowY = resizeDirection === "vertical" || resizeDirection === "both";
-  const textareaStyle = {
-    ...style,
-    ...(isUserResized && allowY && height !== undefined ? { height } : null),
-  };
+  const manualHeightStyle =
+    isManualHeightActive && allowY && manualHeight !== undefined ? { height: manualHeight } : undefined;
+  const textareaStyle = manualHeightStyle ? { ...style, ...manualHeightStyle } : style;
   const allowX = resizeDirection === "horizontal" || resizeDirection === "both";
-  const shellStyle = width !== undefined && allowX ? { width } : undefined;
+  const shellStyle = manualWidth !== undefined && allowX ? { width: manualWidth } : undefined;
 
   return (
     <div className={rootClasses}>
