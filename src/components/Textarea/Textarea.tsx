@@ -55,6 +55,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
 
   const [value, setValue] = React.useState(rest.defaultValue?.toString() ?? "");
   const [height, setHeight] = React.useState<number | undefined>(undefined);
+  const [isUserResized, setIsUserResized] = React.useState(false);
   const [width, setWidth] = React.useState<number | undefined>(undefined);
 
   const setRefs = React.useCallback(
@@ -129,6 +130,14 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
     };
   }, []);
 
+  React.useEffect(() => {
+    const allowY = resizeDirection === "vertical" || resizeDirection === "both";
+    if (!allowY) {
+      setIsUserResized(false);
+      setHeight(undefined);
+    }
+  }, [resizeDirection]);
+
   const handleResizeStart = (event: React.PointerEvent<HTMLButtonElement>) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
     event.preventDefault();
@@ -149,6 +158,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
       if (allowY) {
         const nextHeight = Math.max(minHeight, startHeight + (moveEvent.clientY - startY));
         setHeight(nextHeight);
+        setIsUserResized(true);
       }
       if (allowX) {
         const proposed = startWidth + (moveEvent.clientX - startX);
@@ -223,9 +233,10 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
   const count = value.length;
   const limit = maxLength ?? undefined;
   const { style, ...restProps } = rest;
+  const allowY = resizeDirection === "vertical" || resizeDirection === "both";
   const textareaStyle = {
     ...style,
-    ...(height !== undefined ? { height } : null),
+    ...(isUserResized && allowY && height !== undefined ? { height } : null),
   };
   const allowX = resizeDirection === "horizontal" || resizeDirection === "both";
   const shellStyle = width !== undefined && allowX ? { width } : undefined;
