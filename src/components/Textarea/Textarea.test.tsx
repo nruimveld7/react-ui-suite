@@ -45,4 +45,28 @@ describe("Textarea", () => {
     expect(shell.style.width).toBe("340px");
   });
 
+  it("does not lock height inline on initial mount", async () => {
+    const originalOffsetHeight = Object.getOwnPropertyDescriptor(
+      HTMLElement.prototype,
+      "offsetHeight"
+    );
+    Object.defineProperty(HTMLElement.prototype, "offsetHeight", {
+      configurable: true,
+      get: () => 180,
+    });
+
+    try {
+      render(<Textarea label="Details" />);
+      await Promise.resolve();
+      const textarea = screen.getByLabelText("Details") as HTMLTextAreaElement;
+      expect(textarea.style.height).toBe("");
+    } finally {
+      if (originalOffsetHeight) {
+        Object.defineProperty(HTMLElement.prototype, "offsetHeight", originalOffsetHeight);
+      } else {
+        delete (HTMLElement.prototype as { offsetHeight?: number }).offsetHeight;
+      }
+    }
+  });
+
 });

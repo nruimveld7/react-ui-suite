@@ -76,12 +76,6 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
   }, [rest.value]);
 
   React.useLayoutEffect(() => {
-    if (textareaRef.current && height === undefined) {
-      setHeight(textareaRef.current.offsetHeight);
-    }
-  }, [height]);
-
-  React.useLayoutEffect(() => {
     const el = textareaRef.current;
     if (!el) return;
     let raf = 0;
